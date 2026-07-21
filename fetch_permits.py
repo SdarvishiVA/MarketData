@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VA Capital - Montreal Permit Market Intelligence</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  body { font-family: Montserrat, Arial, sans-serif; background: #f7f7f5; color: #1a1a1a; margin: 0; padding: 24px; }
+  h1 { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
+  .updated { font-size: 13px; color: #666; margin: 0 0 16px; }
+  .controls { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .controls label { font-size: 13px; color: #666; }
+  .controls select { font-size: 13px; padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #fff; }
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .kpi { background: #fff; border: 1px solid #e2e2e0; border-radius: 8px; padding: 16px; }
+  .kpi p.label { font-size: 12px; color: #666; margin: 0 0 6px; }
+  .kpi p.value { font-size: 22px; font-weight: 600; margin: 0; color: #1F7740; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .card { background: #fff; border: 1px solid #e2e2e0; border-radius: 8px; padding: 16px; }
+  .card h2 { font-size: 15px; margin: 0 0 12px; }
+  #map { height: 420px; border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eee; }
+  th { color: #666; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<h1>Montreal permit market intelligence</h1>
+<p class="updated" id="updated">Loading...</p>
+
+<div class="controls">
+  <label for="boroughFilter">Borough</label>
+  <select id="boroughFilter"><option value="__all__">All boroughs</option></select>
+  <label for="categoryFilter">Category</label>
+  <select id="categoryFilter"><option value="__all__">All categories</option></select>
+</div>
+
+<div class="kpi-row" id="kpi-row"></div>
+
+<div class="grid-2">
+  <div class="card">
+    <h2>Weekly permit trend by type</h2>
+    <canvas id="trendChart" height="240"></canvas>
+  </div>
+  <div class="card">
+    <h2>Permits by borough</h2>
+    <canvas id="boroughChart" height="240"></canvas>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="card">
+    <h2>Permits by building category</h2>
+    <canvas id="categoryChart" height="260"></canvas>
+  </div>
+  <div class="card">
+    <h2>Geographic distribution</h2>
+    <div id="map"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Flagged commercial / CRE leads</h2>
+  <table id="leadsTable">
+    <thead>
+      <tr><th>Date</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+let rawData = null;
+let map = null;
+let markersLayer = null;
+let trendChart = null, boroughChart = null, categoryChart = null;
+
+fetch('data.json')
+  .then(r => r.json())
+  .then(data => {
+    rawData = data;
+    document.getElementById('updated').textContent =
+      `Last updated ${data.last_updated} - trailing ${data.window_days} days`;
+
+    populateFilter('boroughFilter', Object.keys(data.by_borough));
+    populateFilter('categoryFilter', Object.keys(data.by_category));
+
+    initMap();
+    render(data.geo_points, data.leads);
+
+    document.getElementById('boroughFilter').addEventListener('change', applyFilters);
+    document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+  });
+
+function populateFilter(id, values) {
+  const select = document.getElementById(id);
+  values.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = v; opt.textContent = v;
+    select.appendChild(opt);
+  });
+}
+
+function applyFilters() {
+  const borough = document.getElementById('boroughFilter').value;
+  const category = document.getElementById('categoryFilter').value;
+
+  const filteredPoints = rawData.geo_points.filter(p =>
+    (borough === '__all__' || p.borough === borough) &&
+    (category === '__all__' || p.category === category)
+  );
+  const filteredLeads = rawData.leads.filter(l =>
+    (borough === '__all__' || l.arrondissement === borough) &&
+    (category === '__all__' || l.description_categorie_batiment === category)
+  );
+
+  render(filteredPoints, filteredLeads);
+}
+
+function render(points, leads) {
+  const kpiRow = document.getElementById('kpi-row');
+  kpiRow.innerHTML = '';
+  const boroughCounts = countBy(points, 'borough');
+  const categoryCounts = countBy(points, 'category');
+  const topBorough = Object.entries(boroughCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '-';
+
+  [
+    ['Permits in view', points.length],
+    ['Flagged leads', leads.length],
+    ['Top borough', topBorough],
+    ['Categories represented', Object.keys(categoryCounts).length]
+  ].forEach(([label, value]) => {
+    kpiRow.innerHTML += `<div class="kpi"><p class="label">${label}</p><p class="value">${value}</p></div>`;
+  });
+
+  drawTrendChart();
+  drawBarChart('boroughChart', 'borough', boroughCounts, '#1F7740');
+  drawBarChart('categoryChart', 'category', categoryCounts, '#378ADD');
+
+  updateMap(points);
+
+  const tbody = document.querySelector('#leadsTable tbody');
+  tbody.innerHTML = '';
+  leads.forEach(l => {
+    tbody.innerHTML += `<tr>
+      <td>${l.date_emission}</td>
+      <td>${l.emplacement}</td>
+      <td>${l.arrondissement}</td>
+      <td>${l.description_categorie_batiment}</td>
+      <td>${l.nature_travaux}</td>
+    </tr>`;
+  });
+}
+
+function countBy(points, field) {
+  const counts = {};
+  points.forEach(p => { counts[p[field]] = (counts[p[field]] || 0) + 1; });
+  return Object.fromEntries(Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 20));
+}
+
+function drawTrendChart() {
+  if (trendChart) trendChart.destroy();
+  trendChart = new Chart(document.getElementById('trendChart'), {
+    type: 'bar',
+    data: {
+      labels: rawData.trend_weeks,
+      datasets: Object.entries(rawData.trend_series).map(([label, values], i) => ({
+        label, data: values,
+        backgroundColor: ['#2a78d6', '#eb6834', '#1baf7a', '#eda100'][i % 4],
+        borderRadius: 3
+      }))
+    },
+    options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
+  });
+}
+
+function drawBarChart(canvasId, which, counts, color) {
+  if (which === 'borough' && boroughChart) boroughChart.destroy();
+  if (which === 'category' && categoryChart) categoryChart.destroy();
+
+  const chart = new Chart(document.getElementById(canvasId), {
+    type: 'bar',
+    data: {
+      labels: Object.keys(counts),
+      datasets: [{ data: Object.values(counts), backgroundColor: color, borderRadius: 3 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } }
+    }
+  });
+
+  if (which === 'borough') boroughChart = chart;
+  else categoryChart = chart;
+}
+
+function initMap() {
+  map = L.map('map').setView([45.55, -73.65], 10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+  markersLayer = L.layerGroup().addTo(map);
+}
+
+function updateMap(points) {
+  markersLayer.clearLayers();
+  points.forEach(p => {
+    L.circleMarker([p.lat, p.lng], { radius: 4, color: '#1F7740', fillOpacity: 0.6 })
+      .bindPopup(`${p.address}<br>${p.borough}<br>${p.category}`)
+      .addTo(markersLayer);
+  });
+}
+</script>
+</body>
+</html>
