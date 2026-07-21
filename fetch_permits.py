@@ -1,220 +1,217 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VA Capital - Montreal Permit Market Intelligence</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<style>
-  body { font-family: Montserrat, Arial, sans-serif; background: #f7f7f5; color: #1a1a1a; margin: 0; padding: 24px; }
-  h1 { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
-  .updated { font-size: 13px; color: #666; margin: 0 0 16px; }
-  .controls { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-  .controls label { font-size: 13px; color: #666; }
-  .controls select { font-size: 13px; padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #fff; }
-  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-  .kpi { background: #fff; border: 1px solid #e2e2e0; border-radius: 8px; padding: 16px; }
-  .kpi p.label { font-size: 12px; color: #666; margin: 0 0 6px; }
-  .kpi p.value { font-size: 22px; font-weight: 600; margin: 0; color: #1F7740; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-  .card { background: #fff; border: 1px solid #e2e2e0; border-radius: 8px; padding: 16px; }
-  .card h2 { font-size: 15px; margin: 0 0 12px; }
-  #map { height: 420px; border-radius: 8px; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eee; }
-  th { color: #666; font-weight: 500; }
-</style>
-</head>
-<body>
+"""
+Montreal Building Permit Market Intelligence + Lead Scanner
+Pulls the City of Montreal's open building permit dataset,
+aggregates market intelligence across every available dimension,
+flags NEW commercial/CRE-relevant permits, and emails a digest.
+"""
 
-<h1>Montreal permit market intelligence</h1>
-<p class="updated" id="updated">Loading...</p>
+import pandas as pd
+import json
+import os
+import smtplib
+from datetime import datetime, timedelta
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
-<div class="controls">
-  <label for="boroughFilter">Borough</label>
-  <select id="boroughFilter"><option value="__all__">All boroughs</option></select>
-  <label for="categoryFilter">Category</label>
-  <select id="categoryFilter"><option value="__all__">All categories</option></select>
-</div>
+CSV_URL = "https://donnees.montreal.ca/dataset/d90eaf1b-2de8-43f0-923a-27a620ecdf41/resource/5232a72d-235a-48eb-ae20-bb9d501300ad/download/permis-construction.csv"
+STATE_FILE = "seen_permits.json"
+LEADS_FILE = "new_leads.csv"
+DASHBOARD_DATA_FILE = "docs/data.json"
 
-<div class="kpi-row" id="kpi-row"></div>
+RELEVANT_PERMIT_TYPES = ["CO"]
 
-<div class="grid-2">
-  <div class="card">
-    <h2>Weekly permit trend by type</h2>
-    <canvas id="trendChart" height="240"></canvas>
-  </div>
-  <div class="card">
-    <h2>Permits by borough</h2>
-    <canvas id="boroughChart" height="240"></canvas>
-  </div>
-</div>
+KEYWORDS_INCLUDE = [
+    "commercial", "industriel", "institutionnel", "bureau", "office building",
+    "immeuble à bureaux", "centre commercial", "shopping centre", "retail",
+    "mixte", "mixed-use", "mixed use",
+    "multilogement", "condominium", "résidentiel multiple", "apartment building",
+    "student housing", "résidence étudiante", "résidence pour personnes âgées",
+    "seniors residence", "seniors home",
+    "entrepôt", "warehouse", "logistique", "logistics", "usine",
+    "manufacturing plant", "zone industrielle", "distribution centre",
+    "self-storage", "entreposage libre-service",
+    "hôtel", "hotel", "motel",
+    "stationnement étagé", "parking garage", "tour", "tower",
+    "clinique privée", "private clinic", "data centre", "data center",
+]
 
-<div class="grid-2">
-  <div class="card">
-    <h2>Permits by building category</h2>
-    <canvas id="categoryChart" height="260"></canvas>
-  </div>
-  <div class="card">
-    <h2>Geographic distribution</h2>
-    <div id="map"></div>
-  </div>
-</div>
+LEADS_LOOKBACK_DAYS = 14
+DASHBOARD_LOOKBACK_DAYS = 90
+TREND_WEEKS = 12
 
-<div class="card">
-  <h2>Flagged commercial / CRE leads</h2>
-  <table id="leadsTable">
-    <thead>
-      <tr><th>Date</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
+TYPE_LABELS = {"CO": "Construction", "TR": "Transformation", "DE": "Démolition", "CA": "Certificat d'autorisation"}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script>
-let rawData = null;
-let map = null;
-let markersLayer = null;
-let trendChart = null, boroughChart = null, categoryChart = null;
+SMTP_SERVER = os.environ.get("SMTP_SERVER", "smtp.gmail.com")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", 587))
+EMAIL_SENDER = os.environ.get("EMAIL_SENDER")
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+EMAIL_RECIPIENT = os.environ.get("EMAIL_RECIPIENT")
 
-fetch('data.json')
-  .then(r => r.json())
-  .then(data => {
-    rawData = data;
-    document.getElementById('updated').textContent =
-      `Last updated ${data.last_updated} - trailing ${data.window_days} days`;
 
-    populateFilter('boroughFilter', Object.keys(data.by_borough));
-    populateFilter('categoryFilter', Object.keys(data.by_category));
+def load_seen_ids():
+    if os.path.exists(STATE_FILE):
+        with open(STATE_FILE, "r") as f:
+            return set(json.load(f))
+    return set()
 
-    initMap();
-    render(data.geo_points, data.leads);
 
-    document.getElementById('boroughFilter').addEventListener('change', applyFilters);
-    document.getElementById('categoryFilter').addEventListener('change', applyFilters);
-  });
+def save_seen_ids(ids):
+    with open(STATE_FILE, "w") as f:
+        json.dump(list(ids), f)
 
-function populateFilter(id, values) {
-  const select = document.getElementById(id);
-  values.forEach(v => {
-    const opt = document.createElement('option');
-    opt.value = v; opt.textContent = v;
-    select.appendChild(opt);
-  });
-}
 
-function applyFilters() {
-  const borough = document.getElementById('boroughFilter').value;
-  const category = document.getElementById('categoryFilter').value;
+def fetch_permits():
+    print("Downloading permit dataset (this can take a minute - file is ~175 MB)...")
+    df = pd.read_csv(CSV_URL, low_memory=False)
+    df["date_emission"] = pd.to_datetime(df["date_emission"], errors="coerce")
+    return df
 
-  const filteredPoints = rawData.geo_points.filter(p =>
-    (borough === '__all__' || p.borough === borough) &&
-    (category === '__all__' || p.category === category)
-  );
-  const filteredLeads = rawData.leads.filter(l =>
-    (borough === '__all__' || l.arrondissement === borough) &&
-    (category === '__all__' || l.description_categorie_batiment === category)
-  );
 
-  render(filteredPoints, filteredLeads);
-}
+def build_leads(df):
+    cutoff = datetime.now() - timedelta(days=LEADS_LOOKBACK_DAYS)
+    recent = df[df["date_emission"] >= cutoff]
 
-function render(points, leads) {
-  const kpiRow = document.getElementById('kpi-row');
-  kpiRow.innerHTML = '';
-  const boroughCounts = countBy(points, 'borough');
-  const categoryCounts = countBy(points, 'category');
-  const topBorough = Object.entries(boroughCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '-';
+    type_match = recent["code_type_base_demande"].isin(RELEVANT_PERMIT_TYPES)
+    text_cols = (
+        recent["description_categorie_batiment"].fillna("") + " " +
+        recent["description_type_batiment"].fillna("") + " " +
+        recent["nature_travaux"].fillna("")
+    ).str.lower()
+    keyword_match = text_cols.apply(lambda t: any(k.lower() in t for k in KEYWORDS_INCLUDE))
 
-  [
-    ['Permits in view', points.length],
-    ['Flagged leads', leads.length],
-    ['Top borough', topBorough],
-    ['Categories represented', Object.keys(categoryCounts).length]
-  ].forEach(([label, value]) => {
-    kpiRow.innerHTML += `<div class="kpi"><p class="label">${label}</p><p class="value">${value}</p></div>`;
-  });
+    return recent[type_match & keyword_match]
 
-  drawTrendChart();
-  drawBarChart('boroughChart', 'borough', boroughCounts, '#1F7740');
-  drawBarChart('categoryChart', 'category', categoryCounts, '#378ADD');
 
-  updateMap(points);
+def build_dashboard_data(df, leads):
+    cutoff = datetime.now() - timedelta(days=DASHBOARD_LOOKBACK_DAYS)
+    window = df[df["date_emission"] >= cutoff].copy()
 
-  const tbody = document.querySelector('#leadsTable tbody');
-  tbody.innerHTML = '';
-  leads.forEach(l => {
-    tbody.innerHTML += `<tr>
-      <td>${l.date_emission}</td>
-      <td>${l.emplacement}</td>
-      <td>${l.arrondissement}</td>
-      <td>${l.description_categorie_batiment}</td>
-      <td>${l.nature_travaux}</td>
-    </tr>`;
-  });
-}
+    by_type = (
+        window["code_type_base_demande"].map(TYPE_LABELS).fillna("Autre")
+        .value_counts().to_dict()
+    )
 
-function countBy(points, field) {
-  const counts = {};
-  points.forEach(p => { counts[p[field]] = (counts[p[field]] || 0) + 1; });
-  return Object.fromEntries(Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 20));
-}
+    by_borough = (
+        window["arrondissement"].fillna("Non précisé")
+        .value_counts().head(20).to_dict()
+    )
 
-function drawTrendChart() {
-  if (trendChart) trendChart.destroy();
-  trendChart = new Chart(document.getElementById('trendChart'), {
-    type: 'bar',
-    data: {
-      labels: rawData.trend_weeks,
-      datasets: Object.entries(rawData.trend_series).map(([label, values], i) => ({
-        label, data: values,
-        backgroundColor: ['#2a78d6', '#eb6834', '#1baf7a', '#eda100'][i % 4],
-        borderRadius: 3
-      }))
-    },
-    options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
-  });
-}
+    by_category = (
+        window["description_categorie_batiment"].fillna("Non précisé")
+        .value_counts().head(15).to_dict()
+    )
 
-function drawBarChart(canvasId, which, counts, color) {
-  if (which === 'borough' && boroughChart) boroughChart.destroy();
-  if (which === 'category' && categoryChart) categoryChart.destroy();
+    total_housing_units = int(window["nb_logements"].fillna(0).sum())
 
-  const chart = new Chart(document.getElementById(canvasId), {
-    type: 'bar',
-    data: {
-      labels: Object.keys(counts),
-      datasets: [{ data: Object.values(counts), backgroundColor: color, borderRadius: 3 }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } }
+    window["week"] = window["date_emission"].dt.to_period("W").apply(lambda p: p.start_time.strftime("%Y-%m-%d"))
+    trend = (
+        window.groupby(["week", "code_type_base_demande"]).size()
+        .unstack(fill_value=0).tail(TREND_WEEKS)
+    )
+    trend_weeks = trend.index.tolist()
+    trend_series = {TYPE_LABELS.get(c, c): trend[c].tolist() for c in trend.columns}
+
+    geo_points = (
+        window.dropna(subset=["latitude", "longitude"])
+        [["latitude", "longitude", "arrondissement", "description_categorie_batiment", "emplacement"]]
+        .head(2000)
+        .rename(columns={
+            "latitude": "lat", "longitude": "lng",
+            "arrondissement": "borough", "description_categorie_batiment": "category",
+            "emplacement": "address"
+        })
+        .to_dict(orient="records")
+    )
+
+    leads_out = leads[[
+        "id_permis", "date_emission", "emplacement", "arrondissement",
+        "description_type_demande", "description_categorie_batiment",
+        "nature_travaux", "nb_logements"
+    ]].copy()
+    leads_out["date_emission"] = leads_out["date_emission"].dt.strftime("%Y-%m-%d")
+
+    return {
+        "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "window_days": DASHBOARD_LOOKBACK_DAYS,
+        "total_permits": int(len(window)),
+        "total_housing_units": total_housing_units,
+        "by_type": by_type,
+        "by_borough": by_borough,
+        "by_category": by_category,
+        "trend_weeks": trend_weeks,
+        "trend_series": trend_series,
+        "geo_points": geo_points,
+        "leads": leads_out.to_dict(orient="records"),
     }
-  });
 
-  if (which === 'borough') boroughChart = chart;
-  else categoryChart = chart;
-}
 
-function initMap() {
-  map = L.map('map').setView([45.55, -73.65], 10);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
-  markersLayer = L.layerGroup().addTo(map);
-}
+def send_email(new_leads_df):
+    if not (EMAIL_SENDER and EMAIL_PASSWORD and EMAIL_RECIPIENT):
+        print("Email credentials not set - skipping notification.")
+        return
 
-function updateMap(points) {
-  markersLayer.clearLayers();
-  points.forEach(p => {
-    L.circleMarker([p.lat, p.lng], { radius: 4, color: '#1F7740', fillOpacity: 0.6 })
-      .bindPopup(`${p.address}<br>${p.borough}<br>${p.category}`)
-      .addTo(markersLayer);
-  });
-}
-</script>
-</body>
-</html>
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = f"{len(new_leads_df)} new permit lead(s) - {datetime.now().strftime('%Y-%m-%d')}"
+    msg["From"] = EMAIL_SENDER
+    msg["To"] = EMAIL_RECIPIENT
+
+    rows_html = ""
+    for _, row in new_leads_df.iterrows():
+        rows_html += f"""
+        <tr>
+            <td>{row['date_emission'].strftime('%Y-%m-%d')}</td>
+            <td>{row['emplacement']}</td>
+            <td>{row['arrondissement']}</td>
+            <td>{row['description_categorie_batiment']}</td>
+            <td>{row['nature_travaux']}</td>
+        </tr>"""
+
+    html = f"""
+    <html><body>
+    <h2>New Montreal Permit Leads</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
+        <tr><th>Date Issued</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of Work</th></tr>
+        {rows_html}
+    </table>
+    </body></html>
+    """
+    msg.attach(MIMEText(html, "html"))
+
+    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+        server.starttls()
+        server.login(EMAIL_SENDER, EMAIL_PASSWORD)
+        server.send_message(msg)
+    print("Email sent.")
+
+
+def main():
+    os.makedirs("docs", exist_ok=True)
+    seen = load_seen_ids()
+    df = fetch_permits()
+
+    leads = build_leads(df)
+    new_leads = leads[~leads["id_permis"].isin(seen)]
+
+    dashboard_data = build_dashboard_data(df, leads)
+    with open(DASHBOARD_DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(dashboard_data, f, ensure_ascii=False, indent=2, default=str)
+    print(f"Dashboard data written to {DASHBOARD_DATA_FILE}")
+
+    if not new_leads.empty:
+        cols = [
+            "id_permis", "date_emission", "emplacement", "arrondissement",
+            "description_type_demande", "description_categorie_batiment",
+            "nature_travaux", "nb_logements"
+        ]
+        new_leads[cols].to_csv(LEADS_FILE, index=False)
+        print(f"{len(new_leads)} new lead(s) written to {LEADS_FILE}")
+        send_email(new_leads)
+    else:
+        print("No new leads this run.")
+
+    seen.update(leads["id_permis"].tolist())
+    save_seen_ids(seen)
+
+
+if __name__ == "__main__":
+    main()
