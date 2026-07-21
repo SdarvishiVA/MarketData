@@ -4,32 +4,124 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VA Capital - Montreal Permit Market Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Libre+Baskerville:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
-  body { font-family: Montserrat, Arial, sans-serif; background: #f7f7f5; color: #1a1a1a; margin: 0; padding: 24px; }
-  h1 { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
-  .updated { font-size: 13px; color: #666; margin: 0 0 16px; }
-  .controls { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-  .controls label { font-size: 13px; color: #666; }
-  .controls select { font-size: 13px; padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; background: #fff; }
-  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-  .kpi { background: #fff; border: 1px solid #e2e2e0; border-radius: 8px; padding: 16px; }
-  .kpi p.label { font-size: 12px; color: #666; margin: 0 0 6px; }
-  .kpi p.value { font-size: 22px; font-weight: 600; margin: 0; color: #1F7740; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-  .card { background: #fff; border: 1px solid #e2e2e0; border-radius: 8px; padding: 16px; }
-  .card h2 { font-size: 15px; margin: 0 0 12px; }
-  #map { height: 420px; border-radius: 8px; }
+  :root {
+    --bg: #0a0b0a;
+    --surface: #16181a;
+    --surface-raised: #1e2022;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.15);
+    --text-primary: #f5f6f4;
+    --text-secondary: #a0a6a1;
+    --text-muted: #6b706c;
+    --accent: #1F7740;
+    --accent-light: #2e9c57;
+    --accent-glow: rgba(46, 156, 87, 0.15);
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 32px 40px 60px;
+    line-height: 1.5;
+  }
+  .header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; flex-wrap: wrap; gap: 8px; }
+  .header-left { display: flex; align-items: baseline; gap: 14px; }
+  h1 { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 26px; font-weight: 400; margin: 0; color: var(--text-primary); letter-spacing: 0.2px; }
+  .brand-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-light); font-weight: 600; }
+  .updated { font-size: 12px; color: var(--text-muted); margin: 0 0 28px; }
+
+  .controls { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+  .controls label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+  .controls select {
+    font-family: 'Montserrat', sans-serif; font-size: 13px; padding: 8px 14px; border-radius: 20px;
+    border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-primary);
+    cursor: pointer; outline: none; transition: border-color 0.15s;
+  }
+  .controls select:hover { border-color: var(--accent-light); }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+  .kpi {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+    position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s;
+  }
+  .kpi:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .kpi::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent);
+  }
+  .kpi p.label { font-size: 11px; color: var(--text-muted); margin: 0 0 8px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .kpi p.value { font-family: 'Libre Baskerville', serif; font-size: 30px; font-weight: 400; margin: 0; color: var(--text-primary); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px;
+  }
+  .card h2 {
+    font-size: 13px; margin: 0 0 16px; color: var(--text-secondary); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.8px;
+  }
+  #map { height: 420px; border-radius: 8px; filter: grayscale(0.3) brightness(0.85); }
+
+  .section-title { display: flex; align-items: center; gap: 10px; margin: 36px 0 14px; }
+  .section-title h2 {
+    font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 19px; font-weight: 400;
+    margin: 0; color: var(--text-primary);
+  }
+  .badge {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px; background: var(--accent-glow); color: var(--accent-light);
+    border: 1px solid rgba(46, 156, 87, 0.3);
+  }
+  .badge.muted { background: rgba(255,255,255,0.05); color: var(--text-muted); border-color: var(--border); }
+
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eee; }
-  th { color: #666; font-weight: 500; }
-  .lookup-btn { font-size: 12px; padding: 5px 10px; border-radius: 6px; border: 1px solid #1F7740; background: #fff; color: #1F7740; cursor: pointer; }
-  .lookup-btn:hover { background: #1F7740; color: #fff; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+  th { color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.6px; }
+  tbody tr { transition: background 0.15s; }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .lookup-btn {
+    font-family: 'Montserrat', sans-serif; font-size: 11.5px; padding: 6px 14px; border-radius: 20px;
+    border: 1px solid var(--accent); background: transparent; color: var(--accent-light);
+    cursor: pointer; font-weight: 600; transition: all 0.15s; white-space: nowrap;
+  }
+  .lookup-btn:hover { background: var(--accent); color: #fff; }
+
+  .toggle-all-btn {
+    font-family: 'Montserrat', sans-serif; font-size: 12px; padding: 8px 18px; border-radius: 20px;
+    border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-secondary);
+    cursor: pointer; font-weight: 500; transition: all 0.15s;
+  }
+  .toggle-all-btn:hover { border-color: var(--accent-light); color: var(--accent-light); }
+
+  #allLeadsWrapper { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  #allLeadsWrapper.expanded { max-height: 3000px; }
+
+  .empty-state { color: var(--text-muted); font-size: 13px; padding: 20px 0; text-align: center; }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+
+  @media (max-width: 900px) {
+    .kpi-row, .grid-2 { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<h1>Montreal permit market intelligence</h1>
+<div class="header">
+  <div class="header-left">
+    <h1>Montreal permit market intelligence</h1>
+    <span class="brand-tag">VA Capital</span>
+  </div>
+</div>
 <p class="updated" id="updated">Loading...</p>
 
 <div class="controls">
@@ -65,18 +157,41 @@
   </div>
   <div class="card">
     <h2>Geographic distribution</h2>
-    <div id="map" style="height: 420px;"></div>
+    <div id="map"></div>
   </div>
 </div>
 
+<div class="section-title">
+  <h2>Priority leads</h2>
+  <span class="badge">CRE keyword match</span>
+</div>
 <div class="card">
-  <h2>Flagged commercial / CRE leads</h2>
-  <table id="leadsTable">
+  <table id="priorityLeadsTable">
     <thead>
       <tr><th>Date</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Owner lookup</th></tr>
     </thead>
     <tbody></tbody>
   </table>
+  <div class="empty-state" id="priorityEmptyState" style="display:none;">No priority leads matched in this window.</div>
+</div>
+
+<div class="section-title" style="justify-content: space-between;">
+  <div style="display:flex; align-items:center; gap:10px;">
+    <h2>All construction permits</h2>
+    <span class="badge muted" id="allLeadsCount">this window</span>
+  </div>
+  <button class="toggle-all-btn" id="toggleAllBtn">Show all</button>
+</div>
+<div id="allLeadsWrapper">
+  <div class="card">
+    <table id="allLeadsTable">
+      <thead>
+        <tr><th>Date</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Owner lookup</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="empty-state" id="allEmptyState" style="display:none;">No permits in this window.</div>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -87,21 +202,32 @@ let map = null;
 let markersLayer = null;
 let trendChart = null, boroughChart = null, categoryChart = null;
 
+const CHART_TEXT = '#a0a6a1';
+const CHART_GRID = 'rgba(255,255,255,0.06)';
+
 fetch('data.json')
   .then(r => r.json())
   .then(data => {
     rawData = data;
     document.getElementById('updated').textContent =
-      `Last updated ${data.last_updated} - trailing ${data.window_days} days`;
+      `Last updated ${data.last_updated} - market view: trailing ${data.window_days} days - leads: trailing ${data.leads_window_days} days`;
+    document.getElementById('allLeadsCount').textContent = `${data.all_leads.length} permits`;
 
     populateFilter('boroughFilter', Object.keys(data.by_borough));
     populateFilter('categoryFilter', Object.keys(data.by_category));
 
     initMap();
-    render(data.geo_points, data.leads);
+    render(data.geo_points, data.priority_leads, data.all_leads);
 
     document.getElementById('boroughFilter').addEventListener('change', applyFilters);
     document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+
+    const toggleBtn = document.getElementById('toggleAllBtn');
+    const wrapper = document.getElementById('allLeadsWrapper');
+    toggleBtn.addEventListener('click', () => {
+      const expanded = wrapper.classList.toggle('expanded');
+      toggleBtn.textContent = expanded ? 'Hide all' : 'Show all';
+    });
   });
 
 function populateFilter(id, values) {
@@ -117,19 +243,18 @@ function applyFilters() {
   const borough = document.getElementById('boroughFilter').value;
   const category = document.getElementById('categoryFilter').value;
 
-  const filteredPoints = rawData.geo_points.filter(p =>
-    (borough === '__all__' || p.borough === borough) &&
-    (category === '__all__' || p.category === category)
-  );
-  const filteredLeads = rawData.leads.filter(l =>
-    (borough === '__all__' || l.arrondissement === borough) &&
-    (category === '__all__' || l.description_categorie_batiment === category)
-  );
+  const matchFilter = (b, c) =>
+    (borough === '__all__' || b === borough) &&
+    (category === '__all__' || c === category);
 
-  render(filteredPoints, filteredLeads);
+  const filteredPoints = rawData.geo_points.filter(p => matchFilter(p.borough, p.category));
+  const filteredPriority = rawData.priority_leads.filter(l => matchFilter(l.arrondissement, l.description_categorie_batiment));
+  const filteredAll = rawData.all_leads.filter(l => matchFilter(l.arrondissement, l.description_categorie_batiment));
+
+  render(filteredPoints, filteredPriority, filteredAll);
 }
 
-function render(points, leads) {
+function render(points, priorityLeads, allLeads) {
   const kpiRow = document.getElementById('kpi-row');
   kpiRow.innerHTML = '';
   const boroughCounts = countBy(points, 'borough');
@@ -138,7 +263,7 @@ function render(points, leads) {
 
   [
     ['Permits in view', points.length],
-    ['Flagged leads', leads.length],
+    ['Priority leads', priorityLeads.length],
     ['Top borough', topBorough],
     ['Categories represented', Object.keys(categoryCounts).length]
   ].forEach(([label, value]) => {
@@ -146,14 +271,28 @@ function render(points, leads) {
   });
 
   drawTrendChart();
-  drawBarChart('boroughChart', 'borough', boroughCounts, '#1F7740');
-  drawBarChart('categoryChart', 'category', categoryCounts, '#378ADD');
+  drawBarChart('boroughChart', 'borough', boroughCounts, '#2e9c57');
+  drawBarChart('categoryChart', 'category', categoryCounts, '#4a90d9');
 
   updateMap(points);
 
-  const tbody = document.querySelector('#leadsTable tbody');
+  renderLeadsTable('priorityLeadsTable', 'priorityEmptyState', priorityLeads);
+  renderLeadsTable('allLeadsTable', 'allEmptyState', allLeads);
+  document.getElementById('allLeadsCount').textContent = `${allLeads.length} permits`;
+}
+
+function renderLeadsTable(tableId, emptyId, leads) {
+  const tbody = document.querySelector(`#${tableId} tbody`);
+  const emptyState = document.getElementById(emptyId);
   tbody.innerHTML = '';
-  leads.forEach((l, i) => {
+
+  if (leads.length === 0) {
+    emptyState.style.display = 'block';
+    return;
+  }
+  emptyState.style.display = 'none';
+
+  leads.forEach(l => {
     tbody.innerHTML += `<tr>
       <td>${l.date_emission}</td>
       <td>${l.emplacement}</td>
@@ -164,18 +303,18 @@ function render(points, leads) {
     </tr>`;
   });
 
-  document.querySelectorAll('.lookup-btn').forEach(btn => {
+  tbody.querySelectorAll('.lookup-btn').forEach(btn => {
     btn.addEventListener('click', () => lookupOwner(btn.dataset.address));
   });
 }
 
 function lookupOwner(address) {
   navigator.clipboard.writeText(address).then(() => {
-    alert(`Address copied: ${address}\n\nPaste it into the "Advanced search" address field on the registry page that just opened.`);
+    alert(`Address copied: ${address}\n\nPaste it into the address search field on the EvalWeb page that just opened.`);
   }).catch(() => {
     alert(`Copy this address manually: ${address}`);
   });
-  window.open('https://www.registreentreprises.gouv.qc.ca/REQNA/GR/GR03/GR03A71.RechercheRegistre.MVC/GR03A71', '_blank');
+  window.open('https://servicesenligne2.ville.montreal.qc.ca/sel/evalweb/index', '_blank');
 }
 
 function countBy(points, field) {
@@ -192,11 +331,18 @@ function drawTrendChart() {
       labels: rawData.trend_weeks,
       datasets: Object.entries(rawData.trend_series).map(([label, values], i) => ({
         label, data: values,
-        backgroundColor: ['#2a78d6', '#eb6834', '#1baf7a', '#eda100'][i % 4],
+        backgroundColor: ['#2e9c57', '#d97b3f', '#4a90d9', '#c9a63c'][i % 4],
         borderRadius: 3
       }))
     },
-    options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: CHART_TEXT, font: { family: 'Montserrat', size: 11 } } } },
+      scales: {
+        x: { stacked: true, grid: { display: false }, ticks: { color: CHART_TEXT } },
+        y: { stacked: true, grid: { color: CHART_GRID }, ticks: { color: CHART_TEXT } }
+      }
+    }
   });
 }
 
@@ -213,7 +359,11 @@ function drawBarChart(canvasId, which, counts, color) {
     options: {
       indexAxis: 'y',
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } }
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: CHART_GRID }, ticks: { color: CHART_TEXT } },
+        y: { grid: { display: false }, ticks: { color: CHART_TEXT, font: { size: 11 } } }
+      }
     }
   });
 
@@ -223,8 +373,8 @@ function drawBarChart(canvasId, which, counts, color) {
 
 function initMap() {
   map = L.map('map').setView([45.55, -73.65], 10);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
   }).addTo(map);
   markersLayer = L.layerGroup().addTo(map);
 }
@@ -232,7 +382,7 @@ function initMap() {
 function updateMap(points) {
   markersLayer.clearLayers();
   points.forEach(p => {
-    L.circleMarker([p.lat, p.lng], { radius: 4, color: '#1F7740', fillOpacity: 0.6 })
+    L.circleMarker([p.lat, p.lng], { radius: 4, color: '#2e9c57', fillOpacity: 0.7, weight: 1 })
       .bindPopup(`${p.address}<br>${p.borough}<br>${p.category}`)
       .addTo(markersLayer);
   });
