@@ -18,7 +18,7 @@ STATE_FILE = "seen_permits.json"
 LEADS_FILE = "new_leads.csv"
 DASHBOARD_DATA_FILE = "docs/data.json"
 
-RELEVANT_PERMIT_TYPES = ["CO"]
+RELEVANT_PERMIT_TYPES = ["CO"]  # CO = Construction. Add "TR" for renovations if you want.
 
 KEYWORDS_INCLUDE = [
     "commercial", "industriel", "institutionnel", "bureau", "office building",
@@ -35,9 +35,9 @@ KEYWORDS_INCLUDE = [
     "clinique privée", "private clinic", "data centre", "data center",
 ]
 
-LEADS_LOOKBACK_DAYS = 14
-DASHBOARD_LOOKBACK_DAYS = 90
-TREND_WEEKS = 12
+LEADS_LOOKBACK_DAYS = 14      # window for the actionable leads list
+DASHBOARD_LOOKBACK_DAYS = 90  # window for market-intelligence aggregates
+TREND_WEEKS = 12              # number of weeks shown in the trend chart
 
 TYPE_LABELS = {"CO": "Construction", "TR": "Transformation", "DE": "Démolition", "CA": "Certificat d'autorisation"}
 
@@ -67,7 +67,7 @@ def fetch_permits():
     return df
 
 
-def build_leads(df):
+def build_priority_leads(df):
     cutoff = datetime.now() - timedelta(days=LEADS_LOOKBACK_DAYS)
     recent = df[df["date_emission"] >= cutoff]
 
@@ -82,7 +82,16 @@ def build_leads(df):
     return recent[type_match & keyword_match]
 
 
-def build_dashboard_data(df, leads):
+def build_all_leads(df):
+    """Same time window and permit type as priority leads, but no keyword filter.
+    This is the full, unfiltered picture of construction activity in the window."""
+    cutoff = datetime.now() - timedelta(days=LEADS_LOOKBACK_DAYS)
+    recent = df[df["date_emission"] >= cutoff]
+    type_match = recent["code_type_base_demande"].isin(RELEVANT_PERMIT_TYPES)
+    return recent[type_match].sort_values("date_emission", ascending=False).head(300)
+
+
+def build_dashboard_data(df, priority_leads, all_leads):
     cutoff = datetime.now() - timedelta(days=DASHBOARD_LOOKBACK_DAYS)
     window = df[df["date_emission"] >= cutoff].copy()
 
@@ -123,16 +132,22 @@ def build_dashboard_data(df, leads):
         .to_dict(orient="records")
     )
 
-    leads_out = leads[[
+    cols = [
         "id_permis", "date_emission", "emplacement", "arrondissement",
         "description_type_demande", "description_categorie_batiment",
         "nature_travaux", "nb_logements"
-    ]].copy()
-    leads_out["date_emission"] = leads_out["date_emission"].dt.strftime("%Y-%m-%d")
+    ]
+
+    priority_out = priority_leads[cols].copy()
+    priority_out["date_emission"] = priority_out["date_emission"].dt.strftime("%Y-%m-%d")
+
+    all_out = all_leads[cols].copy()
+    all_out["date_emission"] = all_out["date_emission"].dt.strftime("%Y-%m-%d")
 
     return {
         "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "window_days": DASHBOARD_LOOKBACK_DAYS,
+        "leads_window_days": LEADS_LOOKBACK_DAYS,
         "total_permits": int(len(window)),
         "total_housing_units": total_housing_units,
         "by_type": by_type,
@@ -141,7 +156,8 @@ def build_dashboard_data(df, leads):
         "trend_weeks": trend_weeks,
         "trend_series": trend_series,
         "geo_points": geo_points,
-        "leads": leads_out.to_dict(orient="records"),
+        "priority_leads": priority_out.to_dict(orient="records"),
+        "all_leads": all_out.to_dict(orient="records"),
     }
 
 
@@ -189,10 +205,11 @@ def main():
     seen = load_seen_ids()
     df = fetch_permits()
 
-    leads = build_leads(df)
-    new_leads = leads[~leads["id_permis"].isin(seen)]
+    priority_leads = build_priority_leads(df)
+    all_leads = build_all_leads(df)
+    new_leads = priority_leads[~priority_leads["id_permis"].isin(seen)]
 
-    dashboard_data = build_dashboard_data(df, leads)
+    dashboard_data = build_dashboard_data(df, priority_leads, all_leads)
     with open(DASHBOARD_DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(dashboard_data, f, ensure_ascii=False, indent=2, default=str)
     print(f"Dashboard data written to {DASHBOARD_DATA_FILE}")
@@ -204,12 +221,12 @@ def main():
             "nature_travaux", "nb_logements"
         ]
         new_leads[cols].to_csv(LEADS_FILE, index=False)
-        print(f"{len(new_leads)} new lead(s) written to {LEADS_FILE}")
+        print(f"{len(new_leads)} new priority lead(s) written to {LEADS_FILE}")
         send_email(new_leads)
     else:
-        print("No new leads this run.")
+        print("No new priority leads this run.")
 
-    seen.update(leads["id_permis"].tolist())
+    seen.update(priority_leads["id_permis"].tolist())
     save_seen_ids(seen)
 
 
