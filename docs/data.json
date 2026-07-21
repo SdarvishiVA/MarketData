@@ -1,6 +1,7 @@
 {
-  "last_updated": "2026-07-21 18:58",
+  "last_updated": "2026-07-21 19:52",
   "window_days": 90,
+  "leads_window_days": 14,
   "total_permits": 5777,
   "total_housing_units": 4220,
   "by_type": {
@@ -14121,7 +14122,7 @@
       "address": " 1106  rue Henri-M.-Perrault"
     }
   ],
-  "leads": [
+  "priority_leads": [
     {
       "id_permis": 3001948022,
       "date_emission": "2026-07-09",
@@ -14150,6 +14151,298 @@
       "description_type_demande": "Rénovation",
       "description_categorie_batiment": "Condominium",
       "nature_travaux": "Condamner les foyers des suites #106 & 107 au 16  et #106 & 107 au 18 de même que le démantèlement des boîtiers de cheminées en Canexel au toit et leurs cheminées.",
+      "nb_logements": 0.0
+    }
+  ],
+  "all_leads": [
+    {
+      "id_permis": 3001948667,
+      "date_emission": "2026-07-13",
+      "emplacement": " 1085  6e Avenue",
+      "arrondissement": "Verdun",
+      "description_type_demande": "Rénovation",
+      "description_categorie_batiment": "Familiale",
+      "nature_travaux": "Remplacer la fenêtre de la cuisine et celle du sous-sol sur la façade arrière pour le 1091.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948702,
+      "date_emission": "2026-07-13",
+      "emplacement": "10469  rue Bellevue",
+      "arrondissement": "Pierrefonds - Roxboro",
+      "description_type_demande": "TF- Transformation",
+      "description_categorie_batiment": "unifamiliale (1 log)",
+      "nature_travaux": "TRAVAUX D'AMÉNAGEMENT DU SOUS-SOL COMPRENANT L'AJOUT DE DEUX CHAMBRES À COUCHER, D'UNE SALLE DE BAIN ET D'UNE SALLE DE LAVAGE + REMPLACEMENT DES FENÊTRES DU SOUS-SOL, CONFORMÉMENT AUX PLANS APPROUVÉS.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948588,
+      "date_emission": "2026-07-13",
+      "emplacement": " 4519  rue de Monaco",
+      "arrondissement": "Pierrefonds - Roxboro",
+      "description_type_demande": "TF- Transformation",
+      "description_categorie_batiment": "unifamiliale (1 log)",
+      "nature_travaux": "AJOUT D'UNE NOUVELLE PORTE PATIO SUR LA FAÇADE ARRIÈRE DE LA MAISON, TEL QUE LES PLANS APPROUVÉS",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948766,
+      "date_emission": "2026-07-13",
+      "emplacement": " 3010  rue Cousineau",
+      "arrondissement": "Saint-Laurent",
+      "description_type_demande": "CO CONSTRUCTION",
+      "description_categorie_batiment": "H1 Unifamiliale",
+      "nature_travaux": "CONSTRUCTION D'UN NOUVEAU BÂTIMENT PRINCIPAL DE DEUX ÉTAGE D'UNE SUPERFICIE D'IMPLANTATION DE 157.29 m2",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948305,
+      "date_emission": "2026-07-10",
+      "emplacement": "11653  rue Joly",
+      "arrondissement": "Pierrefonds - Roxboro",
+      "description_type_demande": "TF- Transformation",
+      "description_categorie_batiment": "Jumelée",
+      "nature_travaux": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948472,
+      "date_emission": "2026-07-10",
+      "emplacement": " 3020  rue Somerset",
+      "arrondissement": "Saint-Laurent",
+      "description_type_demande": "CO CONSTRUCTION",
+      "description_categorie_batiment": "H1 Unifamiliale",
+      "nature_travaux": "CONSTRUCTION BÂTIMENT ISOLÉ UNIFAMILIAL (H1) 1 ÉTAGE (283MC)",
+      "nb_logements": 1.0
+    },
+    {
+      "id_permis": 3001948325,
+      "date_emission": "2026-07-10",
+      "emplacement": "   18  rue de la Poudrière",
+      "arrondissement": "Verdun",
+      "description_type_demande": "Rénovation",
+      "description_categorie_batiment": "Condominium",
+      "nature_travaux": "Condamner les foyers des suites #106 & 107 au 16  et #106 & 107 au 18 de même que le démantèlement des boîtiers de cheminées en Canexel au toit et leurs cheminées.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948478,
+      "date_emission": "2026-07-10",
+      "emplacement": " 9895  avenue du Sacré-Coeur",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "1 Logement",
+      "nature_travaux": "Construire un bâtiment résidentiel unifamilial isolé de 2 étages avec un stationnement intérieur. Aucun arbre à battre.",
+      "nb_logements": 1.0
+    },
+    {
+      "id_permis": 3001948446,
+      "date_emission": "2026-07-10",
+      "emplacement": "10087  boulevard Saint-Laurent",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "5 à 11 Logements ",
+      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 3 cases de stationnement. Phase E.",
+      "nb_logements": 8.0
+    },
+    {
+      "id_permis": 3001948447,
+      "date_emission": "2026-07-10",
+      "emplacement": "10097  boulevard Saint-Laurent",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "5 à 11 Logements ",
+      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 4 cases de stationnement. Phase F. Dérogation à la marge latérale gauche.",
+      "nb_logements": 8.0
+    },
+    {
+      "id_permis": 3001948395,
+      "date_emission": "2026-07-10",
+      "emplacement": "10077  boulevard Saint-Laurent",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "5 à 11 Logements ",
+      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 3 cases de stationnement. Phase D.",
+      "nb_logements": 8.0
+    },
+    {
+      "id_permis": 3001948393,
+      "date_emission": "2026-07-10",
+      "emplacement": "10067  boulevard Saint-Laurent",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "5 à 11 Logements ",
+      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 4 cases de stationnement. Phase C.",
+      "nb_logements": 8.0
+    },
+    {
+      "id_permis": 3001948386,
+      "date_emission": "2026-07-10",
+      "emplacement": " 3967  rue de Verdun",
+      "arrondissement": "Verdun",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "Multiplex",
+      "nature_travaux": "Construction d'un bâtiment de 4 étages et 60 logements (Projet Anodisation)",
+      "nb_logements": 60.0
+    },
+    {
+      "id_permis": 3001948302,
+      "date_emission": "2026-07-10",
+      "emplacement": "11649  rue Joly",
+      "arrondissement": "Pierrefonds - Roxboro",
+      "description_type_demande": "TF- Transformation",
+      "description_categorie_batiment": "Jumelée",
+      "nature_travaux": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001947722,
+      "date_emission": "2026-07-09",
+      "emplacement": "   25  avenue de l' Alliance",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Piscine",
+      "description_categorie_batiment": "1 Logement",
+      "nature_travaux": "En cours latérale, installer une clôture de 48'' pour rendre conforme une piscine creusée existante.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948023,
+      "date_emission": "2026-07-09",
+      "emplacement": "12895 B rue Plaisance",
+      "arrondissement": "Pierrefonds - Roxboro",
+      "description_type_demande": "TF- Transformation",
+      "description_categorie_batiment": "unifamiliale (1 log)",
+      "nature_travaux": "RÉAMÉNAGEMENT DU SOUS-SOL ET DU REZ-DE-CHAUSÉE TEL QUE LES PLANS APPROUVÉS . (EN LIEN AVEC LES INONDATIONS DU 20 JUIN 2026)",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001947982,
+      "date_emission": "2026-07-09",
+      "emplacement": "11577  rue Charlotte-Tassé",
+      "arrondissement": "Rivière-des-Prairies - Pointe-aux-Trembles",
+      "description_type_demande": "Piscine résidentielle",
+      "description_categorie_batiment": "1 Logement",
+      "nature_travaux": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 12' X 15' ACCESSIBLE PAR LA TERRASSE RATTACHÉE AU BÂTIMENT.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001947422,
+      "date_emission": "2026-07-09",
+      "emplacement": "12167  boulevard Albert-Hudon",
+      "arrondissement": "Montréal-Nord",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "Publique",
+      "nature_travaux": "Construire une école primaire. Attribuer le numéro civique \"12167, boul. Albert-Hudon\".",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948025,
+      "date_emission": "2026-07-09",
+      "emplacement": "  507  44e Avenue",
+      "arrondissement": "Lachine",
+      "description_type_demande": "Agrandissement",
+      "description_categorie_batiment": "Cottage",
+      "nature_travaux": "PIIA : En cour arrière, agrandissement du bâtiment d'un étage, sur une profondeur de 4,27 m et une largeur de 8,53 m. Fondations coulées et revêtement léger vertical versa de MAC MÉTAL, couleur noir. Aménagement d'une galerie. Réaménagement intérieur. En façade avant, au rdc remplacement des portes, fenêtres et porte garage. Tels qu'aux documents soumis, approuvés et annotés.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948022,
+      "date_emission": "2026-07-09",
+      "emplacement": " 9350  boulevard de l' Acadie",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "Mixte",
+      "nature_travaux": "Construire un bâtiment de 15 étages comprenant 357 logements, 5 ateliers d'artistes ainsi que 2 locaux commerciaux au RDC, 1 niveau de sous-sol.",
+      "nb_logements": 357.0
+    },
+    {
+      "id_permis": 3001947842,
+      "date_emission": "2026-07-09",
+      "emplacement": " 5951  rue Notre-Dame Est",
+      "arrondissement": "Mercier - Hochelaga-Maisonneuve",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "5 à 11 Logements ",
+      "nature_travaux": "Construction d'un bâtiment résidentiel de 3 étages et 8 logements avec sous-sol et ajout de l'adresse civique suivante 5951. Le tout tel que plans d'architecture et d'ingénierie.",
+      "nb_logements": 8.0
+    },
+    {
+      "id_permis": 3001946686,
+      "date_emission": "2026-07-08",
+      "emplacement": "  775  2e Avenue",
+      "arrondissement": "Rivière-des-Prairies - Pointe-aux-Trembles",
+      "description_type_demande": "Piscine résidentielle",
+      "description_categorie_batiment": "2 Logements",
+      "nature_travaux": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE DE 21' ACCESSIBLE PAR UNE ÉCHELLE SÉCURITAIRE.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001946866,
+      "date_emission": "2026-07-08",
+      "emplacement": " 4987  rue Belleville",
+      "arrondissement": "Pierrefonds - Roxboro",
+      "description_type_demande": "TF- Transformation",
+      "description_categorie_batiment": "unifamiliale (1 log)",
+      "nature_travaux": "REMPLACEMENT DU DRAIN FRANÇAIS SUR LE CÔTÉ LATÉRAL DE DROITE.(EN LIEN AVEC LES INONDATIONS DU AU PLUIE DU 20 JUIN 2026)",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001947002,
+      "date_emission": "2026-07-08",
+      "emplacement": "  345  rue Pierre-Mercure",
+      "arrondissement": "Rivière-des-Prairies - Pointe-aux-Trembles",
+      "description_type_demande": "Piscine résidentielle",
+      "description_categorie_batiment": "1 Logement",
+      "nature_travaux": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 15' X 24' ACCESSIBLE PAR LA TERRASSE ADJACENTE AU BÂTIMENT.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001946885,
+      "date_emission": "2026-07-08",
+      "emplacement": "    8  place du Commerce",
+      "arrondissement": "Verdun",
+      "description_type_demande": "Excavation",
+      "description_categorie_batiment": "Multiplex",
+      "nature_travaux": "Excavation pour la démolition de fondations d'un bâtiment principal.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001946724,
+      "date_emission": "2026-07-08",
+      "emplacement": "   55  circuit Gilles-Villeneuve",
+      "arrondissement": "Ville-Marie",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "Dépendance",
+      "nature_travaux": "Relocalisation d'une dépendance d'une superficie de 29,7m² servant de cuisine de restaurant vers le secteur entre le chemin des Floralies et l'avenue Pierre-Dupuy. Tel qu'aux documents approuvés.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001947103,
+      "date_emission": "2026-07-08",
+      "emplacement": " 3872  rue Claude",
+      "arrondissement": "Verdun",
+      "description_type_demande": "Excavation",
+      "description_categorie_batiment": "Familiale",
+      "nature_travaux": "EXT, en façade, excavation afin de remplacer l'entrée d'eau et l'égout",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001946842,
+      "date_emission": "2026-07-08",
+      "emplacement": "12612  24e Avenue",
+      "arrondissement": "Rivière-des-Prairies - Pointe-aux-Trembles",
+      "description_type_demande": "Piscine résidentielle",
+      "description_categorie_batiment": "1 Logement",
+      "nature_travaux": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 12' X 21' ACCESSIBLE PAR UNE ÉCHELLE SÉCURITAIRE.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001946945,
+      "date_emission": "2026-07-08",
+      "emplacement": "  395  avenue Skaniatarati",
+      "arrondissement": "Lachine",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "Multi - > 8 log. / max. 4 ét.",
+      "nature_travaux": "Renouvellement du permis # 3001739173-24 du 11-07-2024. Parachèvement des travaux objet du permis # 3001739173-24 du 11-07-2024. Les travaux objet du présent permis doivent être réalisés dans les mêmes conditions que le permis initial. Pour les détails voir le permis # 3001739173-24.",
       "nb_logements": 0.0
     }
   ]
