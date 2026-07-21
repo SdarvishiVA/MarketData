@@ -23,6 +23,8 @@
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eee; }
   th { color: #666; font-weight: 500; }
+  .lookup-btn { font-size: 12px; padding: 5px 10px; border-radius: 6px; border: 1px solid #1F7740; background: #fff; color: #1F7740; cursor: pointer; }
+  .lookup-btn:hover { background: #1F7740; color: #fff; }
 </style>
 </head>
 <body>
@@ -71,7 +73,7 @@
   <h2>Flagged commercial / CRE leads</h2>
   <table id="leadsTable">
     <thead>
-      <tr><th>Date</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th></tr>
+      <tr><th>Date</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Owner lookup</th></tr>
     </thead>
     <tbody></tbody>
   </table>
@@ -151,15 +153,29 @@ function render(points, leads) {
 
   const tbody = document.querySelector('#leadsTable tbody');
   tbody.innerHTML = '';
-  leads.forEach(l => {
+  leads.forEach((l, i) => {
     tbody.innerHTML += `<tr>
       <td>${l.date_emission}</td>
       <td>${l.emplacement}</td>
       <td>${l.arrondissement}</td>
       <td>${l.description_categorie_batiment}</td>
       <td>${l.nature_travaux}</td>
+      <td><button data-address="${l.emplacement}" class="lookup-btn">Look up owner</button></td>
     </tr>`;
   });
+
+  document.querySelectorAll('.lookup-btn').forEach(btn => {
+    btn.addEventListener('click', () => lookupOwner(btn.dataset.address));
+  });
+}
+
+function lookupOwner(address) {
+  navigator.clipboard.writeText(address).then(() => {
+    alert(`Address copied: ${address}\n\nPaste it into the "Advanced search" address field on the registry page that just opened.`);
+  }).catch(() => {
+    alert(`Copy this address manually: ${address}`);
+  });
+  window.open('https://www.registreentreprises.gouv.qc.ca/REQNA/GR/GR03/GR03A71.RechercheRegistre.MVC/GR03A71', '_blank');
 }
 
 function countBy(points, field) {
