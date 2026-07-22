@@ -1,52 +1,52 @@
 {
-  "last_updated": "2026-07-21 19:52",
+  "last_updated": "2026-07-22 15:04",
   "window_days": 90,
   "leads_window_days": 14,
-  "total_permits": 5777,
+  "total_permits": 5676,
   "total_housing_units": 4220,
   "by_type": {
-    "Transformation": 3924,
-    "Certificat d'autorisation": 1427,
-    "Construction": 382,
+    "Transformation": 3841,
+    "Certificat d'autorisation": 1414,
+    "Construction": 377,
     "Démolition": 44
   },
   "by_borough": {
-    "Rosemont - La Petite-Patrie": 665,
-    "Mercier - Hochelaga-Maisonneuve": 521,
-    "Pierrefonds - Roxboro": 463,
-    "Ahuntsic - Cartierville": 427,
-    "Villeray - Saint-Michel - Parc-Extension": 370,
-    "Côte-des-Neiges - Notre-Dame-de-Grâce": 363,
-    "Verdun": 348,
-    "Ville-Marie": 335,
-    "Saint-Laurent": 330,
-    "Le Plateau-Mont-Royal": 329,
-    "Le Sud-Ouest": 265,
-    "Rivière-des-Prairies - Pointe-aux-Trembles": 249,
-    "Outremont": 198,
-    "LaSalle": 195,
-    "Lachine": 173,
+    "Rosemont - La Petite-Patrie": 651,
+    "Mercier - Hochelaga-Maisonneuve": 517,
+    "Pierrefonds - Roxboro": 460,
+    "Ahuntsic - Cartierville": 423,
+    "Côte-des-Neiges - Notre-Dame-de-Grâce": 358,
+    "Villeray - Saint-Michel - Parc-Extension": 354,
+    "Verdun": 343,
+    "Ville-Marie": 329,
+    "Saint-Laurent": 326,
+    "Le Plateau-Mont-Royal": 318,
+    "Le Sud-Ouest": 262,
+    "Rivière-des-Prairies - Pointe-aux-Trembles": 244,
+    "Outremont": 192,
+    "LaSalle": 189,
+    "Lachine": 170,
     "L'Île-Bizard - Sainte-Geneviève": 169,
-    "Montréal-Nord": 147,
-    "Saint-Léonard": 133,
+    "Montréal-Nord": 145,
+    "Saint-Léonard": 129,
     "Anjou": 97
   },
   "by_category": {
-    "1 Logement": 1083,
-    "2 Logements": 775,
-    "3 Logements": 539,
-    "unifamiliale (1 log)": 386,
-    "5 à 11 Logements ": 341,
-    "Commercial": 209,
-    "H1 Unifamiliale": 189,
-    "Mixte": 186,
-    "12 Logements +": 176,
-    "Familiale": 161,
+    "1 Logement": 1069,
+    "2 Logements": 762,
+    "3 Logements": 531,
+    "unifamiliale (1 log)": 383,
+    "5 à 11 Logements ": 334,
+    "Commercial": 206,
+    "H1 Unifamiliale": 187,
+    "Mixte": 180,
+    "12 Logements +": 174,
+    "Familiale": 159,
     "Unifamiliale": 156,
-    "Multiplex": 140,
-    "4 Logements": 134,
-    "unifamilial": 104,
-    "bi et trifamiliale (h2)": 94
+    "Multiplex": 135,
+    "4 Logements": 127,
+    "unifamilial": 100,
+    "bi et trifamiliale (h2)": 91
   },
   "trend_weeks": [
     "2026-04-27",
@@ -190,13 +190,6 @@
       "borough": "Ville-Marie",
       "category": "Commercial",
       "address": "  306  rue Sherbrooke Est"
-    },
-    {
-      "lat": 45.4910895304265,
-      "lng": -73.57880624955861,
-      "borough": "Ville-Marie",
-      "category": "Edifice gouvernemental",
-      "address": " 1923  boulevard René-Lévesque Ouest"
     },
     {
       "lat": 45.48745093503593,
@@ -780,13 +773,6 @@
       "address": "  649  avenue Querbes"
     },
     {
-      "lat": 45.54574523119808,
-      "lng": -73.61757811920893,
-      "borough": "Villeray - Saint-Michel - Parc-Extension",
-      "category": "2 Logements",
-      "address": " 7582  rue De La Roche"
-    },
-    {
       "lat": 45.569764364736336,
       "lng": -73.58241029083737,
       "borough": "Rosemont - La Petite-Patrie",
@@ -850,13 +836,6 @@
       "address": " 6422  rue Arthur-Chevrier"
     },
     {
-      "lat": 45.63980594052146,
-      "lng": -73.51035020087407,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "1 Logement",
-      "address": "11783  rue Ontario Est"
-    },
-    {
       "lat": 45.53195327653124,
       "lng": -73.61697788240231,
       "borough": "Rosemont - La Petite-Patrie",
@@ -890,13 +869,6 @@
       "borough": "Montréal-Nord",
       "category": "Trifamiliale",
       "address": "10831  avenue Lausanne"
-    },
-    {
-      "lat": 45.63715471002884,
-      "lng": -73.58739270973038,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "1 Logement",
-      "address": "12121  28e Avenue"
     },
     {
       "lat": 45.581830142315134,
@@ -1478,13 +1450,6 @@
       "borough": "L'Île-Bizard - Sainte-Geneviève",
       "category": "1 Logement",
       "address": "  394  rue Pierre-Boileau"
-    },
-    {
-      "lat": 45.66367437334704,
-      "lng": -73.49564980931893,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "2 Logements",
-      "address": " 1006  43e Avenue"
     },
     {
       "lat": 45.51403983367183,
@@ -2089,13 +2054,6 @@
       "address": " 2651  rue Hochelaga"
     },
     {
-      "lat": 45.544041410566216,
-      "lng": -73.62183939796516,
-      "borough": "Villeray - Saint-Michel - Parc-Extension",
-      "category": "2 Logements",
-      "address": " 7725  avenue De Chateaubriand"
-    },
-    {
       "lat": 45.54159659913382,
       "lng": -73.61947311733155,
       "borough": "Villeray - Saint-Michel - Parc-Extension",
@@ -2122,13 +2080,6 @@
       "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
       "category": "Mixte",
       "address": " 6282  chemin de la Côte-des-Neiges"
-    },
-    {
-      "lat": 45.53103152056587,
-      "lng": -73.63726831397892,
-      "borough": "Villeray - Saint-Michel - Parc-Extension",
-      "category": "1 Logement",
-      "address": " 8160  avenue Bloomfield"
     },
     {
       "lat": 45.57601706842767,
@@ -2180,13 +2131,6 @@
       "address": " 2645  rue Liébert"
     },
     {
-      "lat": 45.54581617036968,
-      "lng": -73.54584374573102,
-      "borough": "Mercier - Hochelaga-Maisonneuve",
-      "category": "4 Logements",
-      "address": " 2074  rue De Chambly"
-    },
-    {
       "lat": 45.53203269261107,
       "lng": -73.55907598695643,
       "borough": "Ville-Marie",
@@ -2213,27 +2157,6 @@
       "borough": "Outremont",
       "category": "unifamilial",
       "address": " 1781  avenue Van Horne"
-    },
-    {
-      "lat": 45.53577579892109,
-      "lng": -73.60717306269365,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "2 Logements",
-      "address": " 6660  rue De Saint-Vallier"
-    },
-    {
-      "lat": 45.59146361191536,
-      "lng": -73.60963091157492,
-      "borough": "Saint-Léonard",
-      "category": "Multiplex",
-      "address": " 9071  rue Jamay"
-    },
-    {
-      "lat": 45.5413891855514,
-      "lng": -73.59031991088771,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "5 à 11 Logements ",
-      "address": " 1892  boulevard Rosemont"
     },
     {
       "lat": 45.491047727444375,
@@ -2425,13 +2348,6 @@
       "address": "  818  rue Cherrier"
     },
     {
-      "lat": 45.513190321781046,
-      "lng": -73.609864005433,
-      "borough": "Outremont",
-      "category": "unifamilial",
-      "address": "   31  avenue Courcelette"
-    },
-    {
       "lat": 45.60764254196163,
       "lng": -73.55480088866612,
       "borough": "Anjou",
@@ -2479,13 +2395,6 @@
       "borough": "Saint-Laurent",
       "category": "S1 Commer léger",
       "address": " 3500  boulevard de la Côte-Vertu"
-    },
-    {
-      "lat": 45.69580788560023,
-      "lng": -73.48797439150445,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "1 Logement",
-      "address": "16045  rue Delphis-Delorme"
     },
     {
       "lat": 45.63597130360453,
@@ -2579,13 +2488,6 @@
       "address": " 4522  avenue Coolbrook"
     },
     {
-      "lat": 45.50687081654458,
-      "lng": -73.55301906474999,
-      "borough": "Ville-Marie",
-      "category": "Mixte",
-      "address": "  111  rue Saint-Paul Est"
-    },
-    {
       "lat": 45.44013620166087,
       "lng": -73.71327687513337,
       "borough": "Lachine",
@@ -2633,20 +2535,6 @@
       "borough": "Le Sud-Ouest",
       "category": "Mixte",
       "address": " 5571  boulevard De La Vérendrye"
-    },
-    {
-      "lat": 45.57338207736439,
-      "lng": -73.56246013929463,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "1 Logement",
-      "address": " 5791  avenue des Chênes"
-    },
-    {
-      "lat": 45.57338207736439,
-      "lng": -73.56246013929463,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "1 Logement",
-      "address": " 5791  avenue des Chênes"
     },
     {
       "lat": 45.45789133151316,
@@ -2955,13 +2843,6 @@
       "borough": "Outremont",
       "category": "unifamilial",
       "address": "   45  avenue Kelvin"
-    },
-    {
-      "lat": 45.5254572970446,
-      "lng": -73.5986177253294,
-      "borough": "Le Plateau-Mont-Royal",
-      "category": "12 Logements +",
-      "address": " 5470  boulevard Saint-Laurent"
     },
     {
       "lat": 45.52975970082016,
@@ -4056,13 +3937,6 @@
       "address": " 5726  rue Beaulieu"
     },
     {
-      "lat": 45.55976311021707,
-      "lng": -73.60686633166883,
-      "borough": "Villeray - Saint-Michel - Parc-Extension",
-      "category": "2 Logements",
-      "address": " 7622  8e Avenue"
-    },
-    {
       "lat": 45.560709136964284,
       "lng": -73.64076851835961,
       "borough": "Ahuntsic - Cartierville",
@@ -4124,13 +3998,6 @@
       "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
       "category": "2 Logements",
       "address": " 2078  avenue de Hampton"
-    },
-    {
-      "lat": 45.459532898847776,
-      "lng": -73.8807177469256,
-      "borough": "Pierrefonds - Roxboro",
-      "category": "unifamiliale (1 log)",
-      "address": "17586  rue Meloche"
     },
     {
       "lat": 45.487926883786,
@@ -5638,13 +5505,6 @@
       "address": " 6820  28e Avenue"
     },
     {
-      "lat": 45.461604068147786,
-      "lng": -73.56614914805589,
-      "borough": "Verdun",
-      "category": "Familiale",
-      "address": "  200  rue Galt"
-    },
-    {
       "lat": 45.50954662565904,
       "lng": -73.72001963716704,
       "borough": "Saint-Laurent",
@@ -6702,13 +6562,6 @@
       "address": "  574  rue Delinelle"
     },
     {
-      "lat": 45.50661052794749,
-      "lng": -73.78595045662318,
-      "borough": "Pierrefonds - Roxboro",
-      "category": "unifamiliale (1 log)",
-      "address": " 4820  rue Rachel"
-    },
-    {
       "lat": 45.46895113891886,
       "lng": -73.88457913891483,
       "borough": "Pierrefonds - Roxboro",
@@ -7570,13 +7423,6 @@
       "address": " 9075  rue Deschambault"
     },
     {
-      "lat": 45.571131501282366,
-      "lng": -73.54728597612755,
-      "borough": "Mercier - Hochelaga-Maisonneuve",
-      "category": "12 Logements +",
-      "address": " 5505  rue Chauveau"
-    },
-    {
       "lat": 45.51735824373869,
       "lng": -73.60764172356662,
       "borough": "Outremont",
@@ -8270,13 +8116,6 @@
       "address": " 6635  3e Avenue"
     },
     {
-      "lat": 45.54832294587021,
-      "lng": -73.58290938424543,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "5 à 11 Logements ",
-      "address": " 5836  3e Avenue"
-    },
-    {
       "lat": 45.497857335222506,
       "lng": -73.6203712610953,
       "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
@@ -8928,13 +8767,6 @@
       "address": " 4448  rue Wagner"
     },
     {
-      "lat": 45.4848404470881,
-      "lng": -73.57022172031796,
-      "borough": "Le Sud-Ouest",
-      "category": "Industriel",
-      "address": " 2050  rue Notre-Dame Ouest"
-    },
-    {
       "lat": 45.48584027978951,
       "lng": -73.57809518998525,
       "borough": "Le Sud-Ouest",
@@ -9551,20 +9383,6 @@
       "address": "    4  rue Saint-Charles"
     },
     {
-      "lat": 45.519982261295,
-      "lng": -73.58526749349564,
-      "borough": "Le Plateau-Mont-Royal",
-      "category": "Mixte",
-      "address": " 4441  boulevard Saint-Laurent"
-    },
-    {
-      "lat": 45.55247474028085,
-      "lng": -73.59435542862674,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "1 Logement",
-      "address": " 6747  1re Avenue"
-    },
-    {
       "lat": 45.586911157729325,
       "lng": -73.5363843407409,
       "borough": "Mercier - Hochelaga-Maisonneuve",
@@ -9773,13 +9591,6 @@
       "borough": "Ville-Marie",
       "category": "Mixte",
       "address": " 2170  avenue Lincoln"
-    },
-    {
-      "lat": 45.58479383407119,
-      "lng": -73.57785466747046,
-      "borough": "Saint-Léonard",
-      "category": "Multiplex",
-      "address": " 5870  rue Charmenil"
     },
     {
       "lat": 45.4566178980576,
@@ -11798,13 +11609,6 @@
       "address": " 4575  rue Bélanger"
     },
     {
-      "lat": 45.5424250414256,
-      "lng": -73.5941529531596,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "2 Logements",
-      "address": " 6274  rue Cartier"
-    },
-    {
       "lat": 45.55717329366602,
       "lng": -73.56895704653766,
       "borough": "Rosemont - La Petite-Patrie",
@@ -13072,13 +12876,6 @@
       "address": " 8920  2e Avenue"
     },
     {
-      "lat": 45.51569748577752,
-      "lng": -73.59595533635246,
-      "borough": "Outremont",
-      "category": "unifamilial",
-      "address": "   31  avenue Maplewood"
-    },
-    {
       "lat": 45.45515237542832,
       "lng": -73.5861510821225,
       "borough": "Le Sud-Ouest",
@@ -14120,6 +13917,209 @@
       "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
       "category": "1 Logement",
       "address": " 1106  rue Henri-M.-Perrault"
+    },
+    {
+      "lat": 45.53433388758498,
+      "lng": -73.60067024001093,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "3 Logements",
+      "address": " 6211  avenue De Chateaubriand"
+    },
+    {
+      "lat": 45.54753629294959,
+      "lng": -73.57808971039323,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "2 Logements",
+      "address": " 5566  4e Avenue"
+    },
+    {
+      "lat": 45.555137807927885,
+      "lng": -73.59148404741522,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "3 Logements",
+      "address": " 3155  rue Saint-Zotique Est"
+    },
+    {
+      "lat": 45.53199589389798,
+      "lng": -73.61805185842972,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "2 Logements",
+      "address": "  151  avenue Alexandra"
+    },
+    {
+      "lat": 45.42999719247854,
+      "lng": -73.59930869654325,
+      "borough": "LaSalle",
+      "category": "bi et trifamiliale (h2)",
+      "address": "  149  7e Avenue"
+    },
+    {
+      "lat": 45.443625693715816,
+      "lng": -73.72040422474984,
+      "borough": "Lachine",
+      "category": "Cottage",
+      "address": "  305  56e Avenue"
+    },
+    {
+      "lat": 45.50967819713445,
+      "lng": -73.68980441631348,
+      "borough": "Saint-Laurent",
+      "category": "H2 Bifamiliale",
+      "address": " 1075  rue Saint-Aubin"
+    },
+    {
+      "lat": 45.57577393331902,
+      "lng": -73.5550786576846,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "2 Logements",
+      "address": " 5385  rue Dickson"
+    },
+    {
+      "lat": 45.50560988404005,
+      "lng": -73.62502932096156,
+      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
+      "category": "2 Logements",
+      "address": " 2971  avenue De Soissons"
+    },
+    {
+      "lat": 45.55262618792538,
+      "lng": -73.57339942472017,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "2 Logements",
+      "address": " 5441  13e Avenue"
+    },
+    {
+      "lat": 45.55053797239925,
+      "lng": -73.58729117081896,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "3 Logements",
+      "address": " 6294  3e Avenue"
+    },
+    {
+      "lat": 45.54271922498844,
+      "lng": -73.65059991683425,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "1 Logement",
+      "address": " 9233  rue Saint-Urbain"
+    },
+    {
+      "lat": 45.50775259814054,
+      "lng": -73.81433181352493,
+      "borough": "Pierrefonds - Roxboro",
+      "category": "unifamiliale (1 log)",
+      "address": "   45  8e Avenue"
+    },
+    {
+      "lat": 45.47836100715773,
+      "lng": -73.85282082001645,
+      "borough": "Pierrefonds - Roxboro",
+      "category": "unifamiliale (1 log)",
+      "address": " 4330  rue King"
+    },
+    {
+      "lat": 45.52733013964584,
+      "lng": -73.63509333837942,
+      "borough": "Villeray - Saint-Michel - Parc-Extension",
+      "category": "2 Logements",
+      "address": " 7924  rue Birnam"
+    },
+    {
+      "lat": 45.54367130038903,
+      "lng": -73.66667711188705,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "2 Logements",
+      "address": "10236  rue Tolhurst"
+    },
+    {
+      "lat": 45.53143868119058,
+      "lng": -73.70148265326473,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "1 Logement",
+      "address": "11832  rue Guertin"
+    },
+    {
+      "lat": 45.51780512265746,
+      "lng": -73.60283264571497,
+      "borough": "Outremont",
+      "category": "unifamilial",
+      "address": "  280  avenue Bloomfield"
+    },
+    {
+      "lat": 45.57946774424412,
+      "lng": -73.53277484092649,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "5 à 11 Logements ",
+      "address": " 2540  boulevard Langelier"
+    },
+    {
+      "lat": 45.52398291763679,
+      "lng": -73.71685403050354,
+      "borough": "Saint-Laurent",
+      "category": "H1 Unifamiliale",
+      "address": " 3010  rue Cousineau"
+    },
+    {
+      "lat": 45.52733928955324,
+      "lng": -73.71625429798375,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "1 Logement",
+      "address": "12050  rue Lachapelle"
+    },
+    {
+      "lat": 45.48539918337418,
+      "lng": -73.61698853643661,
+      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
+      "category": "1 Logement",
+      "address": " 4651  avenue Victoria"
+    },
+    {
+      "lat": 45.497240905179375,
+      "lng": -73.5831714906992,
+      "borough": "Ville-Marie",
+      "category": "5 à 11 Logements ",
+      "address": " 1536  avenue Summerhill"
+    },
+    {
+      "lat": 45.515621663033535,
+      "lng": -73.6004331882614,
+      "borough": "Outremont",
+      "category": "unifamilial",
+      "address": "  266  chemin de la Côte-Sainte-Catherine"
+    },
+    {
+      "lat": 45.50646342009552,
+      "lng": -73.79897069656394,
+      "borough": "Pierrefonds - Roxboro",
+      "category": "unifamiliale (1 log)",
+      "address": "   43  9e Avenue"
+    },
+    {
+      "lat": 45.53010742613875,
+      "lng": -73.62970268432358,
+      "borough": "Villeray - Saint-Michel - Parc-Extension",
+      "category": "2 Logements",
+      "address": " 7722  avenue Querbes"
+    },
+    {
+      "lat": 45.519282365565445,
+      "lng": -73.56792015706671,
+      "borough": "Le Plateau-Mont-Royal",
+      "category": "3 Logements",
+      "address": " 3450  rue Saint-Hubert"
+    },
+    {
+      "lat": 45.52034020250562,
+      "lng": -73.57025341848214,
+      "borough": "Le Plateau-Mont-Royal",
+      "category": "3 Logements",
+      "address": " 3722  rue Saint-Hubert"
+    },
+    {
+      "lat": 45.53248318491555,
+      "lng": -73.5774031116467,
+      "borough": "Le Plateau-Mont-Royal",
+      "category": "5 à 11 Logements ",
+      "address": " 4621  rue Fabre"
     }
   ],
   "priority_leads": [
@@ -14134,16 +14134,6 @@
       "nb_logements": 357.0
     },
     {
-      "id_permis": 3001946724,
-      "date_emission": "2026-07-08",
-      "emplacement": "   55  circuit Gilles-Villeneuve",
-      "arrondissement": "Ville-Marie",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "Dépendance",
-      "nature_travaux": "Relocalisation d'une dépendance d'une superficie de 29,7m² servant de cuisine de restaurant vers le secteur entre le chemin des Floralies et l'avenue Pierre-Dupuy. Tel qu'aux documents approuvés.",
-      "nb_logements": 0.0
-    },
-    {
       "id_permis": 3001948325,
       "date_emission": "2026-07-10",
       "emplacement": "   18  rue de la Poudrière",
@@ -14155,6 +14145,16 @@
     }
   ],
   "all_leads": [
+    {
+      "id_permis": 3001948766,
+      "date_emission": "2026-07-13",
+      "emplacement": " 3010  rue Cousineau",
+      "arrondissement": "Saint-Laurent",
+      "description_type_demande": "CO CONSTRUCTION",
+      "description_categorie_batiment": "H1 Unifamiliale",
+      "nature_travaux": "CONSTRUCTION D'UN NOUVEAU BÂTIMENT PRINCIPAL DE DEUX ÉTAGE D'UNE SUPERFICIE D'IMPLANTATION DE 157.29 m2",
+      "nb_logements": 0.0
+    },
     {
       "id_permis": 3001948667,
       "date_emission": "2026-07-13",
@@ -14186,16 +14186,6 @@
       "nb_logements": 0.0
     },
     {
-      "id_permis": 3001948766,
-      "date_emission": "2026-07-13",
-      "emplacement": " 3010  rue Cousineau",
-      "arrondissement": "Saint-Laurent",
-      "description_type_demande": "CO CONSTRUCTION",
-      "description_categorie_batiment": "H1 Unifamiliale",
-      "nature_travaux": "CONSTRUCTION D'UN NOUVEAU BÂTIMENT PRINCIPAL DE DEUX ÉTAGE D'UNE SUPERFICIE D'IMPLANTATION DE 157.29 m2",
-      "nb_logements": 0.0
-    },
-    {
       "id_permis": 3001948305,
       "date_emission": "2026-07-10",
       "emplacement": "11653  rue Joly",
@@ -14204,16 +14194,6 @@
       "description_categorie_batiment": "Jumelée",
       "nature_travaux": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
       "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001948472,
-      "date_emission": "2026-07-10",
-      "emplacement": " 3020  rue Somerset",
-      "arrondissement": "Saint-Laurent",
-      "description_type_demande": "CO CONSTRUCTION",
-      "description_categorie_batiment": "H1 Unifamiliale",
-      "nature_travaux": "CONSTRUCTION BÂTIMENT ISOLÉ UNIFAMILIAL (H1) 1 ÉTAGE (283MC)",
-      "nb_logements": 1.0
     },
     {
       "id_permis": 3001948325,
@@ -14276,14 +14256,14 @@
       "nb_logements": 8.0
     },
     {
-      "id_permis": 3001948386,
+      "id_permis": 3001948472,
       "date_emission": "2026-07-10",
-      "emplacement": " 3967  rue de Verdun",
-      "arrondissement": "Verdun",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "Multiplex",
-      "nature_travaux": "Construction d'un bâtiment de 4 étages et 60 logements (Projet Anodisation)",
-      "nb_logements": 60.0
+      "emplacement": " 3020  rue Somerset",
+      "arrondissement": "Saint-Laurent",
+      "description_type_demande": "CO CONSTRUCTION",
+      "description_categorie_batiment": "H1 Unifamiliale",
+      "nature_travaux": "CONSTRUCTION BÂTIMENT ISOLÉ UNIFAMILIAL (H1) 1 ÉTAGE (283MC)",
+      "nb_logements": 1.0
     },
     {
       "id_permis": 3001948302,
@@ -14296,13 +14276,33 @@
       "nb_logements": 0.0
     },
     {
-      "id_permis": 3001947722,
+      "id_permis": 3001948386,
+      "date_emission": "2026-07-10",
+      "emplacement": " 3967  rue de Verdun",
+      "arrondissement": "Verdun",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "Multiplex",
+      "nature_travaux": "Construction d'un bâtiment de 4 étages et 60 logements (Projet Anodisation)",
+      "nb_logements": 60.0
+    },
+    {
+      "id_permis": 3001948022,
       "date_emission": "2026-07-09",
-      "emplacement": "   25  avenue de l' Alliance",
+      "emplacement": " 9350  boulevard de l' Acadie",
       "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Piscine",
-      "description_categorie_batiment": "1 Logement",
-      "nature_travaux": "En cours latérale, installer une clôture de 48'' pour rendre conforme une piscine creusée existante.",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "Mixte",
+      "nature_travaux": "Construire un bâtiment de 15 étages comprenant 357 logements, 5 ateliers d'artistes ainsi que 2 locaux commerciaux au RDC, 1 niveau de sous-sol.",
+      "nb_logements": 357.0
+    },
+    {
+      "id_permis": 3001948025,
+      "date_emission": "2026-07-09",
+      "emplacement": "  507  44e Avenue",
+      "arrondissement": "Lachine",
+      "description_type_demande": "Agrandissement",
+      "description_categorie_batiment": "Cottage",
+      "nature_travaux": "PIIA : En cour arrière, agrandissement du bâtiment d'un étage, sur une profondeur de 4,27 m et une largeur de 8,53 m. Fondations coulées et revêtement léger vertical versa de MAC MÉTAL, couleur noir. Aménagement d'une galerie. Réaménagement intérieur. En façade avant, au rdc remplacement des portes, fenêtres et porte garage. Tels qu'aux documents soumis, approuvés et annotés.",
       "nb_logements": 0.0
     },
     {
@@ -14316,13 +14316,13 @@
       "nb_logements": 0.0
     },
     {
-      "id_permis": 3001947982,
+      "id_permis": 3001947722,
       "date_emission": "2026-07-09",
-      "emplacement": "11577  rue Charlotte-Tassé",
-      "arrondissement": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "description_type_demande": "Piscine résidentielle",
+      "emplacement": "   25  avenue de l' Alliance",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Piscine",
       "description_categorie_batiment": "1 Logement",
-      "nature_travaux": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 12' X 15' ACCESSIBLE PAR LA TERRASSE RATTACHÉE AU BÂTIMENT.",
+      "nature_travaux": "En cours latérale, installer une clôture de 48'' pour rendre conforme une piscine creusée existante.",
       "nb_logements": 0.0
     },
     {
@@ -14336,24 +14336,14 @@
       "nb_logements": 0.0
     },
     {
-      "id_permis": 3001948025,
+      "id_permis": 3001947982,
       "date_emission": "2026-07-09",
-      "emplacement": "  507  44e Avenue",
-      "arrondissement": "Lachine",
-      "description_type_demande": "Agrandissement",
-      "description_categorie_batiment": "Cottage",
-      "nature_travaux": "PIIA : En cour arrière, agrandissement du bâtiment d'un étage, sur une profondeur de 4,27 m et une largeur de 8,53 m. Fondations coulées et revêtement léger vertical versa de MAC MÉTAL, couleur noir. Aménagement d'une galerie. Réaménagement intérieur. En façade avant, au rdc remplacement des portes, fenêtres et porte garage. Tels qu'aux documents soumis, approuvés et annotés.",
+      "emplacement": "11577  rue Charlotte-Tassé",
+      "arrondissement": "Rivière-des-Prairies - Pointe-aux-Trembles",
+      "description_type_demande": "Piscine résidentielle",
+      "description_categorie_batiment": "1 Logement",
+      "nature_travaux": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 12' X 15' ACCESSIBLE PAR LA TERRASSE RATTACHÉE AU BÂTIMENT.",
       "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001948022,
-      "date_emission": "2026-07-09",
-      "emplacement": " 9350  boulevard de l' Acadie",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "Mixte",
-      "nature_travaux": "Construire un bâtiment de 15 étages comprenant 357 logements, 5 ateliers d'artistes ainsi que 2 locaux commerciaux au RDC, 1 niveau de sous-sol.",
-      "nb_logements": 357.0
     },
     {
       "id_permis": 3001947842,
@@ -14364,86 +14354,6 @@
       "description_categorie_batiment": "5 à 11 Logements ",
       "nature_travaux": "Construction d'un bâtiment résidentiel de 3 étages et 8 logements avec sous-sol et ajout de l'adresse civique suivante 5951. Le tout tel que plans d'architecture et d'ingénierie.",
       "nb_logements": 8.0
-    },
-    {
-      "id_permis": 3001946686,
-      "date_emission": "2026-07-08",
-      "emplacement": "  775  2e Avenue",
-      "arrondissement": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "description_type_demande": "Piscine résidentielle",
-      "description_categorie_batiment": "2 Logements",
-      "nature_travaux": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE DE 21' ACCESSIBLE PAR UNE ÉCHELLE SÉCURITAIRE.",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001946866,
-      "date_emission": "2026-07-08",
-      "emplacement": " 4987  rue Belleville",
-      "arrondissement": "Pierrefonds - Roxboro",
-      "description_type_demande": "TF- Transformation",
-      "description_categorie_batiment": "unifamiliale (1 log)",
-      "nature_travaux": "REMPLACEMENT DU DRAIN FRANÇAIS SUR LE CÔTÉ LATÉRAL DE DROITE.(EN LIEN AVEC LES INONDATIONS DU AU PLUIE DU 20 JUIN 2026)",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001947002,
-      "date_emission": "2026-07-08",
-      "emplacement": "  345  rue Pierre-Mercure",
-      "arrondissement": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "description_type_demande": "Piscine résidentielle",
-      "description_categorie_batiment": "1 Logement",
-      "nature_travaux": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 15' X 24' ACCESSIBLE PAR LA TERRASSE ADJACENTE AU BÂTIMENT.",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001946885,
-      "date_emission": "2026-07-08",
-      "emplacement": "    8  place du Commerce",
-      "arrondissement": "Verdun",
-      "description_type_demande": "Excavation",
-      "description_categorie_batiment": "Multiplex",
-      "nature_travaux": "Excavation pour la démolition de fondations d'un bâtiment principal.",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001946724,
-      "date_emission": "2026-07-08",
-      "emplacement": "   55  circuit Gilles-Villeneuve",
-      "arrondissement": "Ville-Marie",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "Dépendance",
-      "nature_travaux": "Relocalisation d'une dépendance d'une superficie de 29,7m² servant de cuisine de restaurant vers le secteur entre le chemin des Floralies et l'avenue Pierre-Dupuy. Tel qu'aux documents approuvés.",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001947103,
-      "date_emission": "2026-07-08",
-      "emplacement": " 3872  rue Claude",
-      "arrondissement": "Verdun",
-      "description_type_demande": "Excavation",
-      "description_categorie_batiment": "Familiale",
-      "nature_travaux": "EXT, en façade, excavation afin de remplacer l'entrée d'eau et l'égout",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001946842,
-      "date_emission": "2026-07-08",
-      "emplacement": "12612  24e Avenue",
-      "arrondissement": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "description_type_demande": "Piscine résidentielle",
-      "description_categorie_batiment": "1 Logement",
-      "nature_travaux": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 12' X 21' ACCESSIBLE PAR UNE ÉCHELLE SÉCURITAIRE.",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001946945,
-      "date_emission": "2026-07-08",
-      "emplacement": "  395  avenue Skaniatarati",
-      "arrondissement": "Lachine",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "Multi - > 8 log. / max. 4 ét.",
-      "nature_travaux": "Renouvellement du permis # 3001739173-24 du 11-07-2024. Parachèvement des travaux objet du permis # 3001739173-24 du 11-07-2024. Les travaux objet du présent permis doivent être réalisés dans les mêmes conditions que le permis initial. Pour les détails voir le permis # 3001739173-24.",
-      "nb_logements": 0.0
     }
   ]
 }
