@@ -1,51 +1,51 @@
 {
-  "last_updated": "2026-07-22 15:04",
+  "last_updated": "2026-07-23 15:09",
   "window_days": 90,
   "leads_window_days": 14,
-  "total_permits": 5676,
-  "total_housing_units": 4220,
+  "total_permits": 5608,
+  "total_housing_units": 4217,
   "by_type": {
-    "Transformation": 3841,
-    "Certificat d'autorisation": 1414,
-    "Construction": 377,
+    "Transformation": 3791,
+    "Certificat d'autorisation": 1400,
+    "Construction": 373,
     "Démolition": 44
   },
   "by_borough": {
-    "Rosemont - La Petite-Patrie": 651,
-    "Mercier - Hochelaga-Maisonneuve": 517,
-    "Pierrefonds - Roxboro": 460,
-    "Ahuntsic - Cartierville": 423,
-    "Côte-des-Neiges - Notre-Dame-de-Grâce": 358,
-    "Villeray - Saint-Michel - Parc-Extension": 354,
-    "Verdun": 343,
-    "Ville-Marie": 329,
-    "Saint-Laurent": 326,
-    "Le Plateau-Mont-Royal": 318,
-    "Le Sud-Ouest": 262,
-    "Rivière-des-Prairies - Pointe-aux-Trembles": 244,
-    "Outremont": 192,
-    "LaSalle": 189,
-    "Lachine": 170,
+    "Rosemont - La Petite-Patrie": 641,
+    "Mercier - Hochelaga-Maisonneuve": 505,
+    "Pierrefonds - Roxboro": 456,
+    "Ahuntsic - Cartierville": 416,
+    "Côte-des-Neiges - Notre-Dame-de-Grâce": 356,
+    "Villeray - Saint-Michel - Parc-Extension": 352,
+    "Verdun": 340,
+    "Ville-Marie": 327,
+    "Saint-Laurent": 322,
+    "Le Plateau-Mont-Royal": 315,
+    "Le Sud-Ouest": 261,
+    "Rivière-des-Prairies - Pointe-aux-Trembles": 240,
+    "Outremont": 188,
+    "LaSalle": 188,
     "L'Île-Bizard - Sainte-Geneviève": 169,
-    "Montréal-Nord": 145,
-    "Saint-Léonard": 129,
-    "Anjou": 97
+    "Lachine": 165,
+    "Montréal-Nord": 144,
+    "Saint-Léonard": 127,
+    "Anjou": 96
   },
   "by_category": {
-    "1 Logement": 1069,
-    "2 Logements": 762,
-    "3 Logements": 531,
-    "unifamiliale (1 log)": 383,
-    "5 à 11 Logements ": 334,
-    "Commercial": 206,
-    "H1 Unifamiliale": 187,
-    "Mixte": 180,
-    "12 Logements +": 174,
-    "Familiale": 159,
+    "1 Logement": 1056,
+    "2 Logements": 754,
+    "3 Logements": 529,
+    "unifamiliale (1 log)": 379,
+    "5 à 11 Logements ": 324,
+    "Commercial": 204,
+    "H1 Unifamiliale": 184,
+    "Mixte": 176,
+    "12 Logements +": 172,
+    "Familiale": 158,
     "Unifamiliale": 156,
-    "Multiplex": 135,
-    "4 Logements": 127,
-    "unifamilial": 100,
+    "Multiplex": 132,
+    "4 Logements": 126,
+    "unifamilial": 97,
     "bi et trifamiliale (h2)": 91
   },
   "trend_weeks": [
@@ -1466,13 +1466,6 @@
       "address": "  333  boulevard Gouin Ouest"
     },
     {
-      "lat": 45.49779127594939,
-      "lng": -73.8387014774708,
-      "borough": "Pierrefonds - Roxboro",
-      "category": "unifamiliale (1 log)",
-      "address": " 4471  rue Maplewood"
-    },
-    {
       "lat": 45.57161880750998,
       "lng": -73.65114365833848,
       "borough": "Ahuntsic - Cartierville",
@@ -1515,13 +1508,6 @@
       "address": " 2619  rue Grand Trunk"
     },
     {
-      "lat": 45.537673220671145,
-      "lng": -73.60198766025302,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "Mixte",
-      "address": " 1039  rue Beaubien Est"
-    },
-    {
       "lat": 45.47695436868124,
       "lng": -73.56379945666642,
       "borough": "Le Sud-Ouest",
@@ -1555,13 +1541,6 @@
       "borough": "Outremont",
       "category": "Triplex",
       "address": "  729  avenue Champagneur"
-    },
-    {
-      "lat": 45.526733256615216,
-      "lng": -73.68586828367336,
-      "borough": "Saint-Laurent",
-      "category": "H1 Unifamiliale",
-      "address": "  820  rue Poirier"
     },
     {
       "lat": 45.60342034265332,
@@ -1625,13 +1604,6 @@
       "borough": "Rosemont - La Petite-Patrie",
       "category": "1 Logement",
       "address": " 6572  12e Avenue"
-    },
-    {
-      "lat": 45.52379544133756,
-      "lng": -73.60955082921905,
-      "borough": "Outremont",
-      "category": "Triplex",
-      "address": " 6087  avenue Durocher"
     },
     {
       "lat": 45.50021282767865,
@@ -2145,20 +2117,6 @@
       "address": "10460  rue Francis"
     },
     {
-      "lat": 45.58852572785192,
-      "lng": -73.63060472733746,
-      "borough": "Montréal-Nord",
-      "category": "Bifamiliale",
-      "address": "10401  avenue Garon"
-    },
-    {
-      "lat": 45.515386043714905,
-      "lng": -73.61971873355871,
-      "borough": "Outremont",
-      "category": "unifamilial",
-      "address": " 1781  avenue Van Horne"
-    },
-    {
       "lat": 45.491047727444375,
       "lng": -73.87422093876994,
       "borough": "L'Île-Bizard - Sainte-Geneviève",
@@ -2199,13 +2157,6 @@
       "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
       "category": "1 Logement",
       "address": "  757  15e Avenue"
-    },
-    {
-      "lat": 45.64539109398545,
-      "lng": -73.49930489352073,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "1 Logement",
-      "address": "12335  rue René-Lévesque"
     },
     {
       "lat": 45.65384606250223,
@@ -2845,13 +2796,6 @@
       "address": "   45  avenue Kelvin"
     },
     {
-      "lat": 45.52975970082016,
-      "lng": -73.58674686028142,
-      "borough": "Le Plateau-Mont-Royal",
-      "category": "3 Logements",
-      "address": "  936  avenue Laurier Est"
-    },
-    {
       "lat": 45.54946732283194,
       "lng": -73.56662085146748,
       "borough": "Rosemont - La Petite-Patrie",
@@ -2878,13 +2822,6 @@
       "borough": "Outremont",
       "category": "unifamilial",
       "address": "  840  avenue Hartland"
-    },
-    {
-      "lat": 45.509377977407766,
-      "lng": -73.75142475939393,
-      "borough": "Ahuntsic - Cartierville",
-      "category": "1 Logement",
-      "address": "12215  rue Camille"
     },
     {
       "lat": 45.54771488173155,
@@ -3354,13 +3291,6 @@
       "borough": "Pierrefonds - Roxboro",
       "category": "unifamiliale (1 log)",
       "address": " 5111  rue Geneviève"
-    },
-    {
-      "lat": 45.45708579295666,
-      "lng": -73.57277078429009,
-      "borough": "Verdun",
-      "category": "Multiplex",
-      "address": "  637  4e Avenue"
     },
     {
       "lat": 45.56151868372572,
@@ -5498,13 +5428,6 @@
       "address": "12565  rue Albertine-Morin"
     },
     {
-      "lat": 45.56767972110932,
-      "lng": -73.58263500540797,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "5 à 11 Logements ",
-      "address": " 6820  28e Avenue"
-    },
-    {
       "lat": 45.50954662565904,
       "lng": -73.72001963716704,
       "borough": "Saint-Laurent",
@@ -5853,13 +5776,6 @@
       "borough": "Verdun",
       "category": "Familiale",
       "address": "  692  2e Avenue"
-    },
-    {
-      "lat": 45.54050454774116,
-      "lng": -73.54065426571508,
-      "borough": "Mercier - Hochelaga-Maisonneuve",
-      "category": "Commercial",
-      "address": " 3301  rue Sainte-Catherine Est"
     },
     {
       "lat": 45.45996278456448,
@@ -6826,20 +6742,6 @@
       "borough": "Ville-Marie",
       "category": "Commercial",
       "address": " 2033  boulevard Saint-Laurent"
-    },
-    {
-      "lat": 45.669496862792094,
-      "lng": -73.53703588804864,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "1 Logement",
-      "address": "12335  89e Avenue"
-    },
-    {
-      "lat": 45.58781357743552,
-      "lng": -73.51085157189837,
-      "borough": "Mercier - Hochelaga-Maisonneuve",
-      "category": "1 Logement",
-      "address": " 1505  rue De Saint-Just"
     },
     {
       "lat": 45.54845369897133,
@@ -8949,13 +8851,6 @@
       "address": " 1805  rue de l' Église"
     },
     {
-      "lat": 45.54401222377985,
-      "lng": -73.60335635896931,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "5 à 11 Logements ",
-      "address": " 6823  rue Garnier"
-    },
-    {
       "lat": 45.548690640437776,
       "lng": -73.67473273069517,
       "borough": "Ahuntsic - Cartierville",
@@ -9381,13 +9276,6 @@
       "borough": "L'Île-Bizard - Sainte-Geneviève",
       "category": "Garage réparation-station serv",
       "address": "    4  rue Saint-Charles"
-    },
-    {
-      "lat": 45.586911157729325,
-      "lng": -73.5363843407409,
-      "borough": "Mercier - Hochelaga-Maisonneuve",
-      "category": "1 Logement",
-      "address": " 3045  rue Beauclerk"
     },
     {
       "lat": 45.44784890144034,
@@ -10377,13 +10265,6 @@
       "address": " 2241  rue des Montérégiennes"
     },
     {
-      "lat": 45.58230239744671,
-      "lng": -73.5510263909144,
-      "borough": "Mercier - Hochelaga-Maisonneuve",
-      "category": "2 Logements",
-      "address": " 5385  avenue de Carignan"
-    },
-    {
       "lat": 45.61386732920377,
       "lng": -73.5427855143224,
       "borough": "Mercier - Hochelaga-Maisonneuve",
@@ -10776,13 +10657,6 @@
       "address": "12235  rue Bertrand"
     },
     {
-      "lat": 45.46470105165523,
-      "lng": -73.53784280618089,
-      "borough": "Verdun",
-      "category": "Condominium",
-      "address": "   50  rue Berlioz"
-    },
-    {
       "lat": 45.44514974725698,
       "lng": -73.72088397738183,
       "borough": "Lachine",
@@ -10998,13 +10872,6 @@
       "borough": "Villeray - Saint-Michel - Parc-Extension",
       "category": "Commercial",
       "address": " 4185  rue Jarry Est"
-    },
-    {
-      "lat": 45.4741834794567,
-      "lng": -73.62750870404848,
-      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
-      "category": "2 Logements",
-      "address": " 4452  avenue de Melrose"
     },
     {
       "lat": 45.548267844917056,
@@ -14080,13 +13947,6 @@
       "address": " 1536  avenue Summerhill"
     },
     {
-      "lat": 45.515621663033535,
-      "lng": -73.6004331882614,
-      "borough": "Outremont",
-      "category": "unifamilial",
-      "address": "  266  chemin de la Côte-Sainte-Catherine"
-    },
-    {
       "lat": 45.50646342009552,
       "lng": -73.79897069656394,
       "borough": "Pierrefonds - Roxboro",
@@ -14120,19 +13980,149 @@
       "borough": "Le Plateau-Mont-Royal",
       "category": "5 à 11 Logements ",
       "address": " 4621  rue Fabre"
+    },
+    {
+      "lat": 45.551042527414864,
+      "lng": -73.64653109203915,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "2 Logements",
+      "address": " 9255  avenue Millen"
+    },
+    {
+      "lat": 45.54973444383443,
+      "lng": -73.66368166059604,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "1 Logement",
+      "address": "  164  rue Fleury Est"
+    },
+    {
+      "lat": 45.534291543060746,
+      "lng": -73.72293864870815,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "1 Logement",
+      "address": "12462  rue Grenet"
+    },
+    {
+      "lat": 45.43828615114929,
+      "lng": -73.69741042016277,
+      "borough": "Lachine",
+      "category": "Bungalow",
+      "address": "  385  36e Avenue"
+    },
+    {
+      "lat": 45.64360525376199,
+      "lng": -73.50310643016532,
+      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
+      "category": "1 Logement",
+      "address": " 1405  13e Avenue"
+    },
+    {
+      "lat": 45.544002594235465,
+      "lng": -73.5462597506807,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "5 à 11 Logements ",
+      "address": " 2025  rue Cuvillier"
+    },
+    {
+      "lat": 45.530962303854615,
+      "lng": -73.63263151051711,
+      "borough": "Villeray - Saint-Michel - Parc-Extension",
+      "category": "2 Logements",
+      "address": " 7912  avenue Querbes"
+    },
+    {
+      "lat": 45.483765801581775,
+      "lng": -73.75904760973367,
+      "borough": "Saint-Laurent",
+      "category": "I1 Recherche et développement",
+      "address": " 2351  boulevard Alfred-Nobel"
+    },
+    {
+      "lat": 45.52071402247135,
+      "lng": -73.68018073061756,
+      "borough": "Saint-Laurent",
+      "category": "H1 Unifamiliale",
+      "address": "  985  rue Vanier"
+    },
+    {
+      "lat": 45.55519126746248,
+      "lng": -73.55870233645626,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "4 Logements",
+      "address": " 4481  avenue Jeanne-d'Arc"
+    },
+    {
+      "lat": 45.50983693083607,
+      "lng": -73.73738649376998,
+      "borough": "Saint-Laurent",
+      "category": "TERRAIN VACANT",
+      "address": " 3550  rue Sartelon"
+    },
+    {
+      "lat": 45.50312458218393,
+      "lng": -73.86648686478823,
+      "borough": "L'Île-Bizard - Sainte-Geneviève",
+      "category": "1 Logement",
+      "address": " 3193  boulevard Chevremont"
+    },
+    {
+      "lat": 45.45510661349022,
+      "lng": -73.5657853232082,
+      "borough": "Verdun",
+      "category": "Multiplex",
+      "address": "   62  6e Avenue"
+    },
+    {
+      "lat": 45.53264006681317,
+      "lng": -73.56099225184319,
+      "borough": "Ville-Marie",
+      "category": "2 Logements",
+      "address": " 2445  rue Messier"
+    },
+    {
+      "lat": 45.538843463398415,
+      "lng": -73.59781856480707,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "2 Logements",
+      "address": " 6276  rue Chambord"
+    },
+    {
+      "lat": 45.48962633282697,
+      "lng": -73.62946153259479,
+      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
+      "category": "2 Logements",
+      "address": " 4842  avenue Lacombe"
+    },
+    {
+      "lat": 45.53807627824317,
+      "lng": -73.70931916124034,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "1 Logement",
+      "address": "12261  rue Filion"
+    },
+    {
+      "lat": 45.487022555919225,
+      "lng": -73.62059947640387,
+      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
+      "category": "2 Logements",
+      "address": " 4869  avenue Victoria"
+    },
+    {
+      "lat": 45.54724695322802,
+      "lng": -73.66848761308363,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "1 Logement",
+      "address": "10475  rue Waverly"
+    },
+    {
+      "lat": 45.576376925835575,
+      "lng": -73.64893053026383,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "3 Logements",
+      "address": "10405  rue D'Iberville"
     }
   ],
   "priority_leads": [
-    {
-      "id_permis": 3001948022,
-      "date_emission": "2026-07-09",
-      "emplacement": " 9350  boulevard de l' Acadie",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "Mixte",
-      "nature_travaux": "Construire un bâtiment de 15 étages comprenant 357 logements, 5 ateliers d'artistes ainsi que 2 locaux commerciaux au RDC, 1 niveau de sous-sol.",
-      "nb_logements": 357.0
-    },
     {
       "id_permis": 3001948325,
       "date_emission": "2026-07-10",
@@ -14145,26 +14135,6 @@
     }
   ],
   "all_leads": [
-    {
-      "id_permis": 3001948766,
-      "date_emission": "2026-07-13",
-      "emplacement": " 3010  rue Cousineau",
-      "arrondissement": "Saint-Laurent",
-      "description_type_demande": "CO CONSTRUCTION",
-      "description_categorie_batiment": "H1 Unifamiliale",
-      "nature_travaux": "CONSTRUCTION D'UN NOUVEAU BÂTIMENT PRINCIPAL DE DEUX ÉTAGE D'UNE SUPERFICIE D'IMPLANTATION DE 157.29 m2",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001948667,
-      "date_emission": "2026-07-13",
-      "emplacement": " 1085  6e Avenue",
-      "arrondissement": "Verdun",
-      "description_type_demande": "Rénovation",
-      "description_categorie_batiment": "Familiale",
-      "nature_travaux": "Remplacer la fenêtre de la cuisine et celle du sous-sol sur la façade arrière pour le 1091.",
-      "nb_logements": 0.0
-    },
     {
       "id_permis": 3001948702,
       "date_emission": "2026-07-13",
@@ -14186,93 +14156,23 @@
       "nb_logements": 0.0
     },
     {
-      "id_permis": 3001948305,
-      "date_emission": "2026-07-10",
-      "emplacement": "11653  rue Joly",
-      "arrondissement": "Pierrefonds - Roxboro",
-      "description_type_demande": "TF- Transformation",
-      "description_categorie_batiment": "Jumelée",
-      "nature_travaux": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001948325,
-      "date_emission": "2026-07-10",
-      "emplacement": "   18  rue de la Poudrière",
-      "arrondissement": "Verdun",
-      "description_type_demande": "Rénovation",
-      "description_categorie_batiment": "Condominium",
-      "nature_travaux": "Condamner les foyers des suites #106 & 107 au 16  et #106 & 107 au 18 de même que le démantèlement des boîtiers de cheminées en Canexel au toit et leurs cheminées.",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001948478,
-      "date_emission": "2026-07-10",
-      "emplacement": " 9895  avenue du Sacré-Coeur",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "1 Logement",
-      "nature_travaux": "Construire un bâtiment résidentiel unifamilial isolé de 2 étages avec un stationnement intérieur. Aucun arbre à battre.",
-      "nb_logements": 1.0
-    },
-    {
-      "id_permis": 3001948446,
-      "date_emission": "2026-07-10",
-      "emplacement": "10087  boulevard Saint-Laurent",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "5 à 11 Logements ",
-      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 3 cases de stationnement. Phase E.",
-      "nb_logements": 8.0
-    },
-    {
-      "id_permis": 3001948447,
-      "date_emission": "2026-07-10",
-      "emplacement": "10097  boulevard Saint-Laurent",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "5 à 11 Logements ",
-      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 4 cases de stationnement. Phase F. Dérogation à la marge latérale gauche.",
-      "nb_logements": 8.0
-    },
-    {
-      "id_permis": 3001948395,
-      "date_emission": "2026-07-10",
-      "emplacement": "10077  boulevard Saint-Laurent",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "5 à 11 Logements ",
-      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 3 cases de stationnement. Phase D.",
-      "nb_logements": 8.0
-    },
-    {
-      "id_permis": 3001948393,
-      "date_emission": "2026-07-10",
-      "emplacement": "10067  boulevard Saint-Laurent",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "5 à 11 Logements ",
-      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 4 cases de stationnement. Phase C.",
-      "nb_logements": 8.0
-    },
-    {
-      "id_permis": 3001948472,
-      "date_emission": "2026-07-10",
-      "emplacement": " 3020  rue Somerset",
+      "id_permis": 3001948766,
+      "date_emission": "2026-07-13",
+      "emplacement": " 3010  rue Cousineau",
       "arrondissement": "Saint-Laurent",
       "description_type_demande": "CO CONSTRUCTION",
       "description_categorie_batiment": "H1 Unifamiliale",
-      "nature_travaux": "CONSTRUCTION BÂTIMENT ISOLÉ UNIFAMILIAL (H1) 1 ÉTAGE (283MC)",
-      "nb_logements": 1.0
+      "nature_travaux": "CONSTRUCTION D'UN NOUVEAU BÂTIMENT PRINCIPAL DE DEUX ÉTAGE D'UNE SUPERFICIE D'IMPLANTATION DE 157.29 m2",
+      "nb_logements": 0.0
     },
     {
-      "id_permis": 3001948302,
-      "date_emission": "2026-07-10",
-      "emplacement": "11649  rue Joly",
-      "arrondissement": "Pierrefonds - Roxboro",
-      "description_type_demande": "TF- Transformation",
-      "description_categorie_batiment": "Jumelée",
-      "nature_travaux": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
+      "id_permis": 3001948667,
+      "date_emission": "2026-07-13",
+      "emplacement": " 1085  6e Avenue",
+      "arrondissement": "Verdun",
+      "description_type_demande": "Rénovation",
+      "description_categorie_batiment": "Familiale",
+      "nature_travaux": "Remplacer la fenêtre de la cuisine et celle du sous-sol sur la façade arrière pour le 1091.",
       "nb_logements": 0.0
     },
     {
@@ -14286,73 +14186,93 @@
       "nb_logements": 60.0
     },
     {
-      "id_permis": 3001948022,
-      "date_emission": "2026-07-09",
-      "emplacement": " 9350  boulevard de l' Acadie",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "Mixte",
-      "nature_travaux": "Construire un bâtiment de 15 étages comprenant 357 logements, 5 ateliers d'artistes ainsi que 2 locaux commerciaux au RDC, 1 niveau de sous-sol.",
-      "nb_logements": 357.0
-    },
-    {
-      "id_permis": 3001948025,
-      "date_emission": "2026-07-09",
-      "emplacement": "  507  44e Avenue",
-      "arrondissement": "Lachine",
-      "description_type_demande": "Agrandissement",
-      "description_categorie_batiment": "Cottage",
-      "nature_travaux": "PIIA : En cour arrière, agrandissement du bâtiment d'un étage, sur une profondeur de 4,27 m et une largeur de 8,53 m. Fondations coulées et revêtement léger vertical versa de MAC MÉTAL, couleur noir. Aménagement d'une galerie. Réaménagement intérieur. En façade avant, au rdc remplacement des portes, fenêtres et porte garage. Tels qu'aux documents soumis, approuvés et annotés.",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001948023,
-      "date_emission": "2026-07-09",
-      "emplacement": "12895 B rue Plaisance",
+      "id_permis": 3001948302,
+      "date_emission": "2026-07-10",
+      "emplacement": "11649  rue Joly",
       "arrondissement": "Pierrefonds - Roxboro",
       "description_type_demande": "TF- Transformation",
-      "description_categorie_batiment": "unifamiliale (1 log)",
-      "nature_travaux": "RÉAMÉNAGEMENT DU SOUS-SOL ET DU REZ-DE-CHAUSÉE TEL QUE LES PLANS APPROUVÉS . (EN LIEN AVEC LES INONDATIONS DU 20 JUIN 2026)",
+      "description_categorie_batiment": "Jumelée",
+      "nature_travaux": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
       "nb_logements": 0.0
     },
     {
-      "id_permis": 3001947722,
-      "date_emission": "2026-07-09",
-      "emplacement": "   25  avenue de l' Alliance",
+      "id_permis": 3001948472,
+      "date_emission": "2026-07-10",
+      "emplacement": " 3020  rue Somerset",
+      "arrondissement": "Saint-Laurent",
+      "description_type_demande": "CO CONSTRUCTION",
+      "description_categorie_batiment": "H1 Unifamiliale",
+      "nature_travaux": "CONSTRUCTION BÂTIMENT ISOLÉ UNIFAMILIAL (H1) 1 ÉTAGE (283MC)",
+      "nb_logements": 1.0
+    },
+    {
+      "id_permis": 3001948305,
+      "date_emission": "2026-07-10",
+      "emplacement": "11653  rue Joly",
+      "arrondissement": "Pierrefonds - Roxboro",
+      "description_type_demande": "TF- Transformation",
+      "description_categorie_batiment": "Jumelée",
+      "nature_travaux": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948395,
+      "date_emission": "2026-07-10",
+      "emplacement": "10077  boulevard Saint-Laurent",
       "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Piscine",
-      "description_categorie_batiment": "1 Logement",
-      "nature_travaux": "En cours latérale, installer une clôture de 48'' pour rendre conforme une piscine creusée existante.",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001947422,
-      "date_emission": "2026-07-09",
-      "emplacement": "12167  boulevard Albert-Hudon",
-      "arrondissement": "Montréal-Nord",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "Publique",
-      "nature_travaux": "Construire une école primaire. Attribuer le numéro civique \"12167, boul. Albert-Hudon\".",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001947982,
-      "date_emission": "2026-07-09",
-      "emplacement": "11577  rue Charlotte-Tassé",
-      "arrondissement": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "description_type_demande": "Piscine résidentielle",
-      "description_categorie_batiment": "1 Logement",
-      "nature_travaux": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 12' X 15' ACCESSIBLE PAR LA TERRASSE RATTACHÉE AU BÂTIMENT.",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001947842,
-      "date_emission": "2026-07-09",
-      "emplacement": " 5951  rue Notre-Dame Est",
-      "arrondissement": "Mercier - Hochelaga-Maisonneuve",
       "description_type_demande": "Construction",
       "description_categorie_batiment": "5 à 11 Logements ",
-      "nature_travaux": "Construction d'un bâtiment résidentiel de 3 étages et 8 logements avec sous-sol et ajout de l'adresse civique suivante 5951. Le tout tel que plans d'architecture et d'ingénierie.",
+      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 3 cases de stationnement. Phase D.",
+      "nb_logements": 8.0
+    },
+    {
+      "id_permis": 3001948447,
+      "date_emission": "2026-07-10",
+      "emplacement": "10097  boulevard Saint-Laurent",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "5 à 11 Logements ",
+      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 4 cases de stationnement. Phase F. Dérogation à la marge latérale gauche.",
+      "nb_logements": 8.0
+    },
+    {
+      "id_permis": 3001948446,
+      "date_emission": "2026-07-10",
+      "emplacement": "10087  boulevard Saint-Laurent",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "5 à 11 Logements ",
+      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 3 cases de stationnement. Phase E.",
+      "nb_logements": 8.0
+    },
+    {
+      "id_permis": 3001948478,
+      "date_emission": "2026-07-10",
+      "emplacement": " 9895  avenue du Sacré-Coeur",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "1 Logement",
+      "nature_travaux": "Construire un bâtiment résidentiel unifamilial isolé de 2 étages avec un stationnement intérieur. Aucun arbre à battre.",
+      "nb_logements": 1.0
+    },
+    {
+      "id_permis": 3001948325,
+      "date_emission": "2026-07-10",
+      "emplacement": "   18  rue de la Poudrière",
+      "arrondissement": "Verdun",
+      "description_type_demande": "Rénovation",
+      "description_categorie_batiment": "Condominium",
+      "nature_travaux": "Condamner les foyers des suites #106 & 107 au 16  et #106 & 107 au 18 de même que le démantèlement des boîtiers de cheminées en Canexel au toit et leurs cheminées.",
+      "nb_logements": 0.0
+    },
+    {
+      "id_permis": 3001948393,
+      "date_emission": "2026-07-10",
+      "emplacement": "10067  boulevard Saint-Laurent",
+      "arrondissement": "Ahuntsic - Cartierville",
+      "description_type_demande": "Construction",
+      "description_categorie_batiment": "5 à 11 Logements ",
+      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 4 cases de stationnement. Phase C.",
       "nb_logements": 8.0
     }
   ]
