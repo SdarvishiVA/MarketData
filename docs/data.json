@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-23 15:09",
+  "last_updated": "2026-07-24 14:54",
   "window_days": 90,
   "leads_window_days": 14,
   "total_permits": 5608,
@@ -14122,18 +14122,7 @@
       "address": "10405  rue D'Iberville"
     }
   ],
-  "priority_leads": [
-    {
-      "id_permis": 3001948325,
-      "date_emission": "2026-07-10",
-      "emplacement": "   18  rue de la Poudrière",
-      "arrondissement": "Verdun",
-      "description_type_demande": "Rénovation",
-      "description_categorie_batiment": "Condominium",
-      "nature_travaux": "Condamner les foyers des suites #106 & 107 au 16  et #106 & 107 au 18 de même que le démantèlement des boîtiers de cheminées en Canexel au toit et leurs cheminées.",
-      "nb_logements": 0.0
-    }
-  ],
+  "priority_leads": [],
   "all_leads": [
     {
       "id_permis": 3001948702,
@@ -14174,106 +14163,6 @@
       "description_categorie_batiment": "Familiale",
       "nature_travaux": "Remplacer la fenêtre de la cuisine et celle du sous-sol sur la façade arrière pour le 1091.",
       "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001948386,
-      "date_emission": "2026-07-10",
-      "emplacement": " 3967  rue de Verdun",
-      "arrondissement": "Verdun",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "Multiplex",
-      "nature_travaux": "Construction d'un bâtiment de 4 étages et 60 logements (Projet Anodisation)",
-      "nb_logements": 60.0
-    },
-    {
-      "id_permis": 3001948302,
-      "date_emission": "2026-07-10",
-      "emplacement": "11649  rue Joly",
-      "arrondissement": "Pierrefonds - Roxboro",
-      "description_type_demande": "TF- Transformation",
-      "description_categorie_batiment": "Jumelée",
-      "nature_travaux": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001948472,
-      "date_emission": "2026-07-10",
-      "emplacement": " 3020  rue Somerset",
-      "arrondissement": "Saint-Laurent",
-      "description_type_demande": "CO CONSTRUCTION",
-      "description_categorie_batiment": "H1 Unifamiliale",
-      "nature_travaux": "CONSTRUCTION BÂTIMENT ISOLÉ UNIFAMILIAL (H1) 1 ÉTAGE (283MC)",
-      "nb_logements": 1.0
-    },
-    {
-      "id_permis": 3001948305,
-      "date_emission": "2026-07-10",
-      "emplacement": "11653  rue Joly",
-      "arrondissement": "Pierrefonds - Roxboro",
-      "description_type_demande": "TF- Transformation",
-      "description_categorie_batiment": "Jumelée",
-      "nature_travaux": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001948395,
-      "date_emission": "2026-07-10",
-      "emplacement": "10077  boulevard Saint-Laurent",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "5 à 11 Logements ",
-      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 3 cases de stationnement. Phase D.",
-      "nb_logements": 8.0
-    },
-    {
-      "id_permis": 3001948447,
-      "date_emission": "2026-07-10",
-      "emplacement": "10097  boulevard Saint-Laurent",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "5 à 11 Logements ",
-      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 4 cases de stationnement. Phase F. Dérogation à la marge latérale gauche.",
-      "nb_logements": 8.0
-    },
-    {
-      "id_permis": 3001948446,
-      "date_emission": "2026-07-10",
-      "emplacement": "10087  boulevard Saint-Laurent",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "5 à 11 Logements ",
-      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 3 cases de stationnement. Phase E.",
-      "nb_logements": 8.0
-    },
-    {
-      "id_permis": 3001948478,
-      "date_emission": "2026-07-10",
-      "emplacement": " 9895  avenue du Sacré-Coeur",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "1 Logement",
-      "nature_travaux": "Construire un bâtiment résidentiel unifamilial isolé de 2 étages avec un stationnement intérieur. Aucun arbre à battre.",
-      "nb_logements": 1.0
-    },
-    {
-      "id_permis": 3001948325,
-      "date_emission": "2026-07-10",
-      "emplacement": "   18  rue de la Poudrière",
-      "arrondissement": "Verdun",
-      "description_type_demande": "Rénovation",
-      "description_categorie_batiment": "Condominium",
-      "nature_travaux": "Condamner les foyers des suites #106 & 107 au 16  et #106 & 107 au 18 de même que le démantèlement des boîtiers de cheminées en Canexel au toit et leurs cheminées.",
-      "nb_logements": 0.0
-    },
-    {
-      "id_permis": 3001948393,
-      "date_emission": "2026-07-10",
-      "emplacement": "10067  boulevard Saint-Laurent",
-      "arrondissement": "Ahuntsic - Cartierville",
-      "description_type_demande": "Construction",
-      "description_categorie_batiment": "5 à 11 Logements ",
-      "nature_travaux": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 4 cases de stationnement. Phase C.",
-      "nb_logements": 8.0
     }
   ]
 }
