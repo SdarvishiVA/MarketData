@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-07-24 14:54",
+  "last_updated": "2026-07-25 14:37",
   "window_days": 90,
   "leads_window_days": 14,
-  "total_permits": 5608,
+  "total_permits": 5606,
   "total_housing_units": 4217,
   "by_type": {
-    "Transformation": 3791,
+    "Transformation": 3789,
     "Certificat d'autorisation": 1400,
     "Construction": 373,
     "Démolition": 44
@@ -27,7 +27,7 @@
     "LaSalle": 188,
     "L'Île-Bizard - Sainte-Geneviève": 169,
     "Lachine": 165,
-    "Montréal-Nord": 144,
+    "Montréal-Nord": 142,
     "Saint-Léonard": 127,
     "Anjou": 96
   },
