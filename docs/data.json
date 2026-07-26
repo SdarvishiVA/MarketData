@@ -1,52 +1,52 @@
 {
-  "last_updated": "2026-07-25 14:37",
+  "last_updated": "2026-07-26 14:28",
   "window_days": 90,
   "leads_window_days": 14,
-  "total_permits": 5606,
-  "total_housing_units": 4217,
+  "total_permits": 5516,
+  "total_housing_units": 4215,
   "by_type": {
-    "Transformation": 3789,
-    "Certificat d'autorisation": 1400,
-    "Construction": 373,
+    "Transformation": 3725,
+    "Certificat d'autorisation": 1377,
+    "Construction": 370,
     "Démolition": 44
   },
   "by_borough": {
-    "Rosemont - La Petite-Patrie": 641,
-    "Mercier - Hochelaga-Maisonneuve": 505,
-    "Pierrefonds - Roxboro": 456,
-    "Ahuntsic - Cartierville": 416,
-    "Côte-des-Neiges - Notre-Dame-de-Grâce": 356,
+    "Rosemont - La Petite-Patrie": 629,
+    "Mercier - Hochelaga-Maisonneuve": 492,
+    "Pierrefonds - Roxboro": 448,
+    "Ahuntsic - Cartierville": 411,
     "Villeray - Saint-Michel - Parc-Extension": 352,
-    "Verdun": 340,
-    "Ville-Marie": 327,
-    "Saint-Laurent": 322,
-    "Le Plateau-Mont-Royal": 315,
-    "Le Sud-Ouest": 261,
-    "Rivière-des-Prairies - Pointe-aux-Trembles": 240,
-    "Outremont": 188,
-    "LaSalle": 188,
-    "L'Île-Bizard - Sainte-Geneviève": 169,
-    "Lachine": 165,
-    "Montréal-Nord": 142,
-    "Saint-Léonard": 127,
-    "Anjou": 96
+    "Côte-des-Neiges - Notre-Dame-de-Grâce": 351,
+    "Verdun": 338,
+    "Ville-Marie": 320,
+    "Saint-Laurent": 315,
+    "Le Plateau-Mont-Royal": 309,
+    "Le Sud-Ouest": 260,
+    "Rivière-des-Prairies - Pointe-aux-Trembles": 234,
+    "LaSalle": 184,
+    "Outremont": 183,
+    "L'Île-Bizard - Sainte-Geneviève": 167,
+    "Lachine": 164,
+    "Montréal-Nord": 139,
+    "Saint-Léonard": 126,
+    "Anjou": 94
   },
   "by_category": {
-    "1 Logement": 1056,
-    "2 Logements": 754,
-    "3 Logements": 529,
-    "unifamiliale (1 log)": 379,
-    "5 à 11 Logements ": 324,
-    "Commercial": 204,
-    "H1 Unifamiliale": 184,
-    "Mixte": 176,
-    "12 Logements +": 172,
+    "1 Logement": 1042,
+    "2 Logements": 748,
+    "3 Logements": 520,
+    "unifamiliale (1 log)": 372,
+    "5 à 11 Logements ": 316,
+    "Commercial": 196,
+    "H1 Unifamiliale": 178,
+    "Mixte": 173,
+    "12 Logements +": 168,
     "Familiale": 158,
-    "Unifamiliale": 156,
+    "Unifamiliale": 155,
     "Multiplex": 132,
-    "4 Logements": 126,
-    "unifamilial": 97,
-    "bi et trifamiliale (h2)": 91
+    "4 Logements": 123,
+    "unifamilial": 95,
+    "bi et trifamiliale (h2)": 88
   },
   "trend_weeks": [
     "2026-04-27",
@@ -64,7 +64,7 @@
   ],
   "trend_series": {
     "Certificat d'autorisation": [
-      124,
+      101,
       141,
       96,
       99,
@@ -78,7 +78,7 @@
       21
     ],
     "Construction": [
-      27,
+      24,
       41,
       29,
       31,
@@ -106,7 +106,7 @@
       1
     ],
     "Transformation": [
-      322,
+      258,
       357,
       376,
       279,
@@ -505,13 +505,6 @@
       "borough": "Ville-Marie",
       "category": "Edifice du culte",
       "address": "  110  rue Notre-Dame Ouest"
-    },
-    {
-      "lat": 45.51968557248407,
-      "lng": -73.55377270857156,
-      "borough": "Ville-Marie",
-      "category": "5 à 11 Logements ",
-      "address": " 1265  rue Panet"
     },
     {
       "lat": 45.53832006873226,
@@ -1914,13 +1907,6 @@
       "address": " 9191  boulevard Cavendish"
     },
     {
-      "lat": 45.5187672224463,
-      "lng": -73.5962072442877,
-      "borough": "Le Plateau-Mont-Royal",
-      "category": "Commercial",
-      "address": "  390  avenue Laurier Ouest"
-    },
-    {
       "lat": 45.47920419375148,
       "lng": -73.58643095715287,
       "borough": "Le Sud-Ouest",
@@ -2115,13 +2101,6 @@
       "borough": "Ahuntsic - Cartierville",
       "category": "2 Logements",
       "address": "10460  rue Francis"
-    },
-    {
-      "lat": 45.491047727444375,
-      "lng": -73.87422093876994,
-      "borough": "L'Île-Bizard - Sainte-Geneviève",
-      "category": "1 Logement",
-      "address": "  300  rue Aimé-Lecavalier"
     },
     {
       "lat": 45.50545641757851,
@@ -2341,13 +2320,6 @@
       "address": "  400  boulevard Marcel-Laurin"
     },
     {
-      "lat": 45.494227278542624,
-      "lng": -73.70445655427096,
-      "borough": "Saint-Laurent",
-      "category": "S1 Commer léger",
-      "address": " 3500  boulevard de la Côte-Vertu"
-    },
-    {
       "lat": 45.63597130360453,
       "lng": -73.49563331647634,
       "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
@@ -2411,13 +2383,6 @@
       "address": " 6733  rue Louis-Hémon"
     },
     {
-      "lat": 45.46997561831724,
-      "lng": -73.8814364247247,
-      "borough": "Pierrefonds - Roxboro",
-      "category": "unifamiliale en rangée",
-      "address": "17191  boulevard Gouin Ouest"
-    },
-    {
       "lat": 45.59455781329814,
       "lng": -73.583855110769,
       "borough": "Saint-Léonard",
@@ -2430,13 +2395,6 @@
       "borough": "Ahuntsic - Cartierville",
       "category": "2 Logements",
       "address": "  665  rue Fleury Est"
-    },
-    {
-      "lat": 45.479884436964944,
-      "lng": -73.62436162709204,
-      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
-      "category": "2 Logements",
-      "address": " 4522  avenue Coolbrook"
     },
     {
       "lat": 45.44013620166087,
@@ -5162,13 +5120,6 @@
       "address": " 8080  rue Chabot"
     },
     {
-      "lat": 45.59979331811503,
-      "lng": -73.61188320572445,
-      "borough": "Saint-Léonard",
-      "category": "Commerce extensif",
-      "address": " 9405  boulevard Lacordaire"
-    },
-    {
       "lat": 45.55411047577444,
       "lng": -73.6547324795192,
       "borough": "Ahuntsic - Cartierville",
@@ -5225,13 +5176,6 @@
       "address": "11855  rue Lavigne"
     },
     {
-      "lat": 45.47224804378508,
-      "lng": -73.6254218594418,
-      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
-      "category": "Commercial",
-      "address": " 5890  avenue de Monkland"
-    },
-    {
       "lat": 45.55036890386997,
       "lng": -73.59601836555119,
       "borough": "Rosemont - La Petite-Patrie",
@@ -5244,13 +5188,6 @@
       "borough": "Pierrefonds - Roxboro",
       "category": "unifamiliale (1 log)",
       "address": " 5008  rue Léger"
-    },
-    {
-      "lat": 45.557323001493465,
-      "lng": -73.57319052831134,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "3 Logements",
-      "address": " 3827  rue Dandurand"
     },
     {
       "lat": 45.54045530566974,
@@ -5349,13 +5286,6 @@
       "borough": "Saint-Laurent",
       "category": "H1 Unifamiliale",
       "address": " 3395  rue Jean-Gascon"
-    },
-    {
-      "lat": 45.51048014665572,
-      "lng": -73.6156386237082,
-      "borough": "Outremont",
-      "category": "unifamilial",
-      "address": "   19  avenue Glencoe"
     },
     {
       "lat": 45.52266680099384,
@@ -6072,13 +6002,6 @@
       "address": "17621  rue Antoine-Faucon"
     },
     {
-      "lat": 45.50325010792545,
-      "lng": -73.68331466248598,
-      "borough": "Saint-Laurent",
-      "category": "H1 Unifamiliale",
-      "address": " 2055  rue du Collège"
-    },
-    {
       "lat": 45.54114256324748,
       "lng": -73.62329074755118,
       "borough": "Villeray - Saint-Michel - Parc-Extension",
@@ -6742,13 +6665,6 @@
       "borough": "Ville-Marie",
       "category": "Commercial",
       "address": " 2033  boulevard Saint-Laurent"
-    },
-    {
-      "lat": 45.54845369897133,
-      "lng": -73.55477848639187,
-      "borough": "Mercier - Hochelaga-Maisonneuve",
-      "category": "12 Logements +",
-      "address": " 3630  rue Sherbrooke Est"
     },
     {
       "lat": 45.53943792907863,
@@ -7983,13 +7899,6 @@
       "address": "99999  rue Ile Sainte-Hélène"
     },
     {
-      "lat": 45.52641229214648,
-      "lng": -73.57387464680887,
-      "borough": "Le Plateau-Mont-Royal",
-      "category": "5 à 11 Logements ",
-      "address": " 1151  rue Rachel Est"
-    },
-    {
       "lat": 45.45543935196395,
       "lng": -73.5916479359146,
       "borough": "Le Sud-Ouest",
@@ -8585,13 +8494,6 @@
       "address": " 8167  rue Saint-André"
     },
     {
-      "lat": 45.47915852124481,
-      "lng": -73.85681904390408,
-      "borough": "Pierrefonds - Roxboro",
-      "category": "unifamiliale (1 log)",
-      "address": " 4388  rue Cedar"
-    },
-    {
       "lat": 45.46999860737533,
       "lng": -73.86209789134479,
       "borough": "Pierrefonds - Roxboro",
@@ -8786,13 +8688,6 @@
       "borough": "Outremont",
       "category": "Duplex",
       "address": "  922  avenue Pratt"
-    },
-    {
-      "lat": 45.546747580662725,
-      "lng": -73.54296088294561,
-      "borough": "Mercier - Hochelaga-Maisonneuve",
-      "category": "5 à 11 Logements ",
-      "address": " 1894  avenue Valois"
     },
     {
       "lat": 45.48052867417312,
@@ -9381,13 +9276,6 @@
       "borough": "Rosemont - La Petite-Patrie",
       "category": "2 Logements",
       "address": " 5694  12e Avenue"
-    },
-    {
-      "lat": 45.57325138822745,
-      "lng": -73.57976685793054,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "1 Logement",
-      "address": " 4960  rue Bélanger"
     },
     {
       "lat": 45.55242345025834,
@@ -10265,13 +10153,6 @@
       "address": " 2241  rue des Montérégiennes"
     },
     {
-      "lat": 45.61386732920377,
-      "lng": -73.5427855143224,
-      "borough": "Mercier - Hochelaga-Maisonneuve",
-      "category": "1 Logement",
-      "address": " 6555  rue Amulette-Garneau"
-    },
-    {
       "lat": 45.58826182369039,
       "lng": -73.51538665655916,
       "borough": "Mercier - Hochelaga-Maisonneuve",
@@ -10830,13 +10711,6 @@
       "borough": "Anjou",
       "category": "Bifamilial / trifamilial",
       "address": " 9024  place de Louresse Nord"
-    },
-    {
-      "lat": 45.55773744207057,
-      "lng": -73.57200011872602,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "1 Logement",
-      "address": " 5538  avenue d' Orléans"
     },
     {
       "lat": 45.51625810225418,
@@ -11467,20 +11341,6 @@
       "borough": "Villeray - Saint-Michel - Parc-Extension",
       "category": "1 Logement",
       "address": " 7081  9e Avenue"
-    },
-    {
-      "lat": 45.56991137197896,
-      "lng": -73.5833584538043,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "Mixte",
-      "address": " 4575  rue Bélanger"
-    },
-    {
-      "lat": 45.55717329366602,
-      "lng": -73.56895704653766,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "3 Logements",
-      "address": " 5375  avenue d' Orléans"
     },
     {
       "lat": 45.55059055484606,
@@ -12118,13 +11978,6 @@
       "borough": "Le Plateau-Mont-Royal",
       "category": "3 Logements",
       "address": " 3709  avenue Henri-Julien"
-    },
-    {
-      "lat": 45.55039959967991,
-      "lng": -73.58108107128281,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "2 Logements",
-      "address": " 5802  7e Avenue"
     },
     {
       "lat": 45.54637755773777,
@@ -12925,13 +12778,6 @@
       "address": "  105  rue Saint-Jacques"
     },
     {
-      "lat": 45.44795788977298,
-      "lng": -73.7142624826147,
-      "borough": "Lachine",
-      "category": "Cottage",
-      "address": " 5040  rue Sir-George-Simpson"
-    },
-    {
       "lat": 45.5206568361159,
       "lng": -73.69209661265123,
       "borough": "Saint-Laurent",
@@ -13408,13 +13254,6 @@
       "address": " 8024  rue Cartier"
     },
     {
-      "lat": 45.67854576056116,
-      "lng": -73.5002754781633,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "1 Logement",
-      "address": "14680  rue Serge-Deyglun"
-    },
-    {
       "lat": 45.58802135512609,
       "lng": -73.59528904886113,
       "borough": "Saint-Léonard",
@@ -13434,13 +13273,6 @@
       "borough": "Verdun",
       "category": "Familiale",
       "address": "  618  rue Woodland"
-    },
-    {
-      "lat": 45.50854980689667,
-      "lng": -73.83967196116635,
-      "borough": "Pierrefonds - Roxboro",
-      "category": "unifamiliale (1 log)",
-      "address": "12750  rue Éthier"
     },
     {
       "lat": 45.451834297430906,
@@ -14038,13 +13870,6 @@
       "address": " 2351  boulevard Alfred-Nobel"
     },
     {
-      "lat": 45.52071402247135,
-      "lng": -73.68018073061756,
-      "borough": "Saint-Laurent",
-      "category": "H1 Unifamiliale",
-      "address": "  985  rue Vanier"
-    },
-    {
       "lat": 45.55519126746248,
       "lng": -73.55870233645626,
       "borough": "Rosemont - La Petite-Patrie",
@@ -14120,6 +13945,181 @@
       "borough": "Ahuntsic - Cartierville",
       "category": "3 Logements",
       "address": "10405  rue D'Iberville"
+    },
+    {
+      "lat": 45.5155316252843,
+      "lng": -73.72246541304271,
+      "borough": "Saint-Laurent",
+      "category": "H2 Bifamiliale",
+      "address": " 2805  boulevard Toupin"
+    },
+    {
+      "lat": 45.51545627556328,
+      "lng": -73.72234577090012,
+      "borough": "Saint-Laurent",
+      "category": "H2 Bifamiliale",
+      "address": " 2785  boulevard Toupin"
+    },
+    {
+      "lat": 45.54687523536399,
+      "lng": -73.64025160625467,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "3 Logements",
+      "address": " 8814  rue Lajeunesse"
+    },
+    {
+      "lat": 45.47898234847079,
+      "lng": -73.85565757543095,
+      "borough": "Pierrefonds - Roxboro",
+      "category": "unifamiliale (1 log)",
+      "address": " 4368  rue Hillsdale"
+    },
+    {
+      "lat": 45.54699675670799,
+      "lng": -73.592052142453,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "3 Logements",
+      "address": " 6370  rue des Écores"
+    },
+    {
+      "lat": 45.557838398495946,
+      "lng": -73.56788593085636,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "3 Logements",
+      "address": " 5330  avenue Jeanne-d'Arc"
+    },
+    {
+      "lat": 45.55569889084861,
+      "lng": -73.57286762846495,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "2 Logements",
+      "address": " 5510  17e Avenue"
+    },
+    {
+      "lat": 45.51291346979148,
+      "lng": -73.80157383947464,
+      "borough": "Pierrefonds - Roxboro",
+      "category": "Jumelée",
+      "address": "  301  rue Gagnier"
+    },
+    {
+      "lat": 45.51923883256795,
+      "lng": -73.68700646889344,
+      "borough": "Saint-Laurent",
+      "category": "H1 Unifamiliale",
+      "address": " 1445  rue Saint-Germain"
+    },
+    {
+      "lat": 45.60936539763152,
+      "lng": -73.53547019887156,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "2 Logements",
+      "address": " 5390  rue Desmarteau"
+    },
+    {
+      "lat": 45.54878278091901,
+      "lng": -73.5387306781109,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "3 Logements",
+      "address": " 1655  avenue Jeanne-d'Arc"
+    },
+    {
+      "lat": 45.53703105106207,
+      "lng": -73.55126256066433,
+      "borough": "Ville-Marie",
+      "category": "3 Logements",
+      "address": " 2069  rue Wurtele"
+    },
+    {
+      "lat": 45.58247620486123,
+      "lng": -73.5867291273949,
+      "borough": "Saint-Léonard",
+      "category": "Commerce et service",
+      "address": " 7665  boulevard Lacordaire"
+    },
+    {
+      "lat": 45.49578352904612,
+      "lng": -73.58100382687817,
+      "borough": "Ville-Marie",
+      "category": "Mixte",
+      "address": " 1625  avenue Lincoln"
+    },
+    {
+      "lat": 45.58967447972984,
+      "lng": -73.6152298676432,
+      "borough": "Saint-Léonard",
+      "category": "Multiplex",
+      "address": " 5020  rue François-Ier"
+    },
+    {
+      "lat": 45.57744193645559,
+      "lng": -73.56521174745203,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "2 Logements",
+      "address": " 5571  rue Marie-Rose-Durocher"
+    },
+    {
+      "lat": 45.51895821855265,
+      "lng": -73.61071525627305,
+      "borough": "Outremont",
+      "category": "Triplex",
+      "address": "   44  avenue Joyce"
+    },
+    {
+      "lat": 45.491996387176414,
+      "lng": -73.55870799228568,
+      "borough": "Le Sud-Ouest",
+      "category": "Mixte",
+      "address": " 1195  rue Wellington"
+    },
+    {
+      "lat": 45.45331051600787,
+      "lng": -73.58963541722463,
+      "borough": "Le Sud-Ouest",
+      "category": "8 à 12 Logements",
+      "address": " 1806  avenue Woodland"
+    },
+    {
+      "lat": 45.52732319847682,
+      "lng": -73.62326930117342,
+      "borough": "Villeray - Saint-Michel - Parc-Extension",
+      "category": "2 Logements",
+      "address": " 7057  avenue Bloomfield"
+    },
+    {
+      "lat": 45.45642517512142,
+      "lng": -73.88230744540206,
+      "borough": "Pierrefonds - Roxboro",
+      "category": "unifamiliale (1 log)",
+      "address": "17819  rue Charles-Munro"
+    },
+    {
+      "lat": 45.60635213844041,
+      "lng": -73.59041418755386,
+      "borough": "Anjou",
+      "category": "Unifamilial",
+      "address": "10113  promenade des Riverains"
+    },
+    {
+      "lat": 45.5009931545963,
+      "lng": -73.8547973856947,
+      "borough": "Pierrefonds - Roxboro",
+      "category": "unifamiliale (1 log)",
+      "address": "  619  chemin de la Rive-Boisée"
+    },
+    {
+      "lat": 45.46493977719224,
+      "lng": -73.88841855162723,
+      "borough": "Pierrefonds - Roxboro",
+      "category": "unifamiliale (1 log)",
+      "address": "17731  rue Binette"
+    },
+    {
+      "lat": 45.49170810054349,
+      "lng": -73.70703799307508,
+      "borough": "Saint-Laurent",
+      "category": "S1 Commer léger",
+      "address": " 7255  autoroute Transcanadienne"
     }
   ],
   "priority_leads": [],
