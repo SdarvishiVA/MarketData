@@ -64,11 +64,21 @@ def fetch_permits():
     print("Downloading permit dataset (this can take a minute - file is ~175 MB)...")
     df = pd.read_csv(CSV_URL, low_memory=False)
     df["date_emission"] = pd.to_datetime(df["date_emission"], errors="coerce")
+    print(f"Rows loaded: {len(df):,}")
+    print(f"Newest permit date in dataset: {df['date_emission'].max()}")
+    print(f"Permit type counts: {df['code_type_base_demande'].value_counts().head(10).to_dict()}")
     return df
 
 
+def latest_date(df):
+    """Anchor lookbacks to the newest permit in the dataset, not today's date.
+    The city's file lags behind real time, so anchoring to today can yield an
+    almost-empty window."""
+    return df["date_emission"].max()
+
+
 def build_priority_leads(df):
-    cutoff = datetime.now() - timedelta(days=LEADS_LOOKBACK_DAYS)
+    cutoff = latest_date(df) - timedelta(days=LEADS_LOOKBACK_DAYS)
     recent = df[df["date_emission"] >= cutoff]
 
     type_match = recent["code_type_base_demande"].isin(RELEVANT_PERMIT_TYPES)
@@ -79,21 +89,26 @@ def build_priority_leads(df):
     ).str.lower()
     keyword_match = text_cols.apply(lambda t: any(k.lower() in t for k in KEYWORDS_INCLUDE))
 
-    return recent[type_match & keyword_match]
+    result = recent[type_match & keyword_match]
+    print(f"Priority leads: {len(result)} (window from {cutoff.date()})")
+    return result
 
 
 def build_all_leads(df):
     """Same time window and permit type as priority leads, but no keyword filter.
     This is the full, unfiltered picture of construction activity in the window."""
-    cutoff = datetime.now() - timedelta(days=LEADS_LOOKBACK_DAYS)
+    cutoff = latest_date(df) - timedelta(days=LEADS_LOOKBACK_DAYS)
     recent = df[df["date_emission"] >= cutoff]
     type_match = recent["code_type_base_demande"].isin(RELEVANT_PERMIT_TYPES)
-    return recent[type_match].sort_values("date_emission", ascending=False).head(300)
+    result = recent[type_match].sort_values("date_emission", ascending=False).head(300)
+    print(f"All construction permits in window: {len(result)}")
+    return result
 
 
 def build_dashboard_data(df, priority_leads, all_leads):
-    cutoff = datetime.now() - timedelta(days=DASHBOARD_LOOKBACK_DAYS)
+    cutoff = latest_date(df) - timedelta(days=DASHBOARD_LOOKBACK_DAYS)
     window = df[df["date_emission"] >= cutoff].copy()
+    print(f"Market window: {len(window):,} permits from {cutoff.date()}")
 
     by_type = (
         window["code_type_base_demande"].map(TYPE_LABELS).fillna("Autre")
@@ -112,6 +127,7 @@ def build_dashboard_data(df, priority_leads, all_leads):
 
     total_housing_units = int(window["nb_logements"].fillna(0).sum())
 
+    # weekly trend, stacked by permit type
     window["week"] = window["date_emission"].dt.to_period("W").apply(lambda p: p.start_time.strftime("%Y-%m-%d"))
     trend = (
         window.groupby(["week", "code_type_base_demande"]).size()
@@ -120,9 +136,10 @@ def build_dashboard_data(df, priority_leads, all_leads):
     trend_weeks = trend.index.tolist()
     trend_series = {TYPE_LABELS.get(c, c): trend[c].tolist() for c in trend.columns}
 
+    # geographic points for the map (capped to keep the JSON light)
     geo_points = (
         window.dropna(subset=["latitude", "longitude"])
-        [["latitude", "longitude", "arrondissement", "description_categorie_batiment", "emplacement"]]
+        [["latitude", "longitude", "arrondissement", "description_categorie_batiment", "emplacement", "nb_logements"]]
         .head(2000)
         .rename(columns={
             "latitude": "lat", "longitude": "lng",
@@ -146,6 +163,7 @@ def build_dashboard_data(df, priority_leads, all_leads):
 
     return {
         "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "data_through": latest_date(df).strftime("%Y-%m-%d"),
         "window_days": DASHBOARD_LOOKBACK_DAYS,
         "leads_window_days": LEADS_LOOKBACK_DAYS,
         "total_permits": int(len(window)),
