@@ -278,8 +278,8 @@
     <p class="panel-title">Geographic distribution</p>
     <div class="map-tools">
       <div class="seg" role="group" aria-label="Map scope">
-        <button class="seg-btn active" data-scope="all">All permits</button>
-        <button class="seg-btn" data-scope="priority">Priority only</button>
+        <button class="seg-btn active" data-scope="priority">Priority only</button>
+        <button class="seg-btn" data-scope="all">All permits</button>
       </div>
       <button class="btn" id="legendToggle" aria-expanded="false">Categories</button>
     </div>
@@ -342,7 +342,7 @@ let rawData = null;
 let map = null, markersLayer = null;
 let trendChart = null, boroughChart = null, categoryChart = null;
 let currentPoints = [], priorityAddresses = new Set();
-let hiddenCategories = new Set(), mapScope = 'all';
+let hiddenCategories = new Set(), mapScope = 'priority';
 let categoryColorMap = {};
 
 const AXIS = '#7A7469';
