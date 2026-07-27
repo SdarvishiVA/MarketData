@@ -3,190 +3,295 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VA Capital - Montreal Permit Market Intelligence</title>
+<title>VA Capital — Permit Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Libre+Baskerville:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Libre+Baskerville:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
   :root {
-    --bg: #0a0b0a;
-    --surface: #16181a;
-    --surface-raised: #1e2022;
-    --border: rgba(255,255,255,0.08);
-    --border-strong: rgba(255,255,255,0.15);
-    --text-primary: #f5f6f4;
-    --text-secondary: #a0a6a1;
-    --text-muted: #6b706c;
-    --accent: #1F7740;
-    --accent-light: #2e9c57;
-    --accent-glow: rgba(46, 156, 87, 0.15);
+    --ink: #0B0D0C;
+    --panel: #131614;
+    --panel-raised: #181C19;
+    --hairline: #232825;
+    --hairline-strong: #2F3632;
+    --text: #EDF1EC;
+    --text-dim: #9AA69C;
+    --text-faint: #5E685F;
+    --green: #1F7740;
+    --green-bright: #34B364;
+    --green-tint: rgba(52, 179, 100, 0.08);
+    --gold: #C9A227;
+    --gold-tint: rgba(201, 162, 39, 0.10);
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Montserrat', sans-serif;
+    --serif: 'Libre Baskerville', serif;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+
   body {
-    font-family: 'Montserrat', Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text-primary);
+    font-family: var(--sans);
+    background: var(--ink);
+    color: var(--text);
     margin: 0;
-    padding: 32px 40px 60px;
+    padding: 0 clamp(20px, 4vw, 56px) 80px;
     line-height: 1.5;
+    font-size: 14px;
   }
-  .header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; flex-wrap: wrap; gap: 8px; }
-  .header-left { display: flex; align-items: baseline; gap: 14px; }
-  h1 { font-family: 'Libre Baskerville', serif; font-size: 26px; font-weight: 400; margin: 0; color: var(--text-primary); letter-spacing: 0.2px; }
-  .brand-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-light); font-weight: 600; }
-  .updated { font-size: 12px; color: var(--text-muted); margin: 0 0 28px; }
 
-  .controls { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
-  .controls label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
-  .controls select {
-    font-family: 'Montserrat', sans-serif; font-size: 13px; padding: 8px 14px; border-radius: 20px;
-    border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-primary);
-    cursor: pointer; outline: none; transition: border-color 0.15s;
+  /* ---------- Masthead ---------- */
+  .masthead {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 26px 0 20px; border-bottom: 1px solid var(--hairline-strong);
+    flex-wrap: wrap; gap: 12px;
   }
-  .controls select:hover { border-color: var(--accent-light); }
+  .masthead-left { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+  .wordmark {
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    letter-spacing: 3px; color: var(--green-bright); text-transform: uppercase;
+  }
+  .masthead h1 {
+    font-family: var(--serif); font-size: clamp(19px, 2.4vw, 24px);
+    font-weight: 400; margin: 0; color: var(--text); letter-spacing: 0.2px;
+  }
+  .timestamp { font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
 
-  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
-  .kpi {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
-    position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s;
+  /* ---------- Stat tape (signature) ---------- */
+  .tape {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--hairline-strong);
   }
-  .kpi:hover { border-color: var(--border-strong); transform: translateY(-2px); }
-  .kpi::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent);
+  .tape-cell {
+    padding: 20px 22px 18px; border-left: 1px solid var(--hairline);
+    position: relative;
   }
-  .kpi p.label { font-size: 11px; color: var(--text-muted); margin: 0 0 8px; text-transform: uppercase; letter-spacing: 0.8px; }
-  .kpi p.value { font-family: 'Libre Baskerville', serif; font-size: 30px; font-weight: 400; margin: 0; color: var(--text-primary); }
+  .tape-cell:first-child { border-left: none; padding-left: 2px; }
+  .tape-cell .t-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--text-faint); margin: 0 0 6px;
+  }
+  .tape-cell .t-value {
+    font-family: var(--mono); font-size: 30px; font-weight: 500;
+    color: var(--text); margin: 0; font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+  }
+  .tape-cell .t-value.gold { color: var(--gold); }
+  .tape-cell .t-value.small { font-size: 17px; padding-top: 8px; }
 
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-  .card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px;
+  /* ---------- Toolbar ---------- */
+  .toolbar {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    padding: 16px 0; border-bottom: 1px solid var(--hairline);
+    margin-bottom: 32px;
   }
-  .card h2 {
-    font-size: 13px; margin: 0 0 16px; color: var(--text-secondary); font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.8px;
+  .field { display: flex; align-items: center; gap: 8px; }
+  .field label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--text-faint);
   }
-  #map { height: 420px; border-radius: 8px; filter: grayscale(0.3) brightness(0.85); }
+  .field select {
+    font-family: var(--mono); font-size: 12px; padding: 7px 12px;
+    border-radius: 3px; border: 1px solid var(--hairline-strong);
+    background: var(--panel); color: var(--text); cursor: pointer;
+    outline: none; transition: border-color 0.15s;
+  }
+  .field select:hover, .field select:focus-visible { border-color: var(--green-bright); }
 
-  .section-title { display: flex; align-items: center; gap: 10px; margin: 36px 0 14px; }
-  .section-title h2 {
-    font-family: 'Libre Baskerville', serif; font-size: 19px; font-weight: 400;
-    margin: 0; color: var(--text-primary);
+  /* ---------- Panels grid ---------- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); margin-bottom: 40px; }
+  .panel { background: var(--panel); padding: 22px 24px 24px; }
+  .panel-eyebrow {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1.4px;
+    text-transform: uppercase; color: var(--text-dim); margin: 0 0 18px;
+    display: flex; align-items: center; gap: 8px;
   }
-  .badge {
-    font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700;
-    padding: 3px 10px; border-radius: 20px; background: var(--accent-glow); color: var(--accent-light);
-    border: 1px solid rgba(46, 156, 87, 0.3);
-  }
-  .badge.muted { background: rgba(255,255,255,0.05); color: var(--text-muted); border-color: var(--border); }
+  .panel-eyebrow::before { content: ''; width: 8px; height: 1px; background: var(--green-bright); }
 
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); }
-  th { color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.6px; }
-  tbody tr { transition: background 0.15s; }
-  tbody tr:hover { background: rgba(255,255,255,0.02); }
+  #map { height: 430px; filter: grayscale(0.35) brightness(0.82); }
+  .map-panel { position: relative; }
+  .map-legend {
+    position: absolute; top: 62px; right: 36px; z-index: 1000;
+    background: rgba(11, 13, 12, 0.93); border: 1px solid var(--hairline-strong);
+    border-radius: 3px; padding: 10px 12px; max-height: 320px; overflow-y: auto;
+    backdrop-filter: blur(4px); max-width: 250px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px; padding: 4px 2px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--text-dim);
+    cursor: pointer; user-select: none; transition: opacity 0.15s, color 0.15s;
+  }
+  .legend-item.off { opacity: 0.3; }
+  .legend-item:hover { color: var(--text); }
+  .legend-item .swatch { width: 8px; height: 8px; flex-shrink: 0; }
+
+  /* ---------- Sections ---------- */
+  .section-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin: 0 0 0; padding: 18px 0 14px; flex-wrap: wrap; gap: 10px;
+  }
+  .section-head-left { display: flex; align-items: center; gap: 14px; }
+  .section-head h2 {
+    font-family: var(--serif); font-size: 18px; font-weight: 400;
+    margin: 0; color: var(--text);
+  }
+  .tag {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 1px;
+    text-transform: uppercase; font-weight: 600; padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .tag.gold { background: var(--gold-tint); color: var(--gold); border: 1px solid rgba(201,162,39,0.35); }
+  .tag.dim { background: rgba(255,255,255,0.04); color: var(--text-faint); border: 1px solid var(--hairline); }
+
+  /* ---------- Tables ---------- */
+  .table-panel { border: 1px solid var(--hairline); background: var(--panel); margin-bottom: 40px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 900px; }
+  th {
+    font-family: var(--mono); color: var(--text-faint); font-weight: 500;
+    text-transform: uppercase; font-size: 9.5px; letter-spacing: 1px;
+    text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--hairline-strong);
+    background: var(--panel-raised);
+  }
+  td {
+    text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--hairline);
+    vertical-align: top;
+  }
+  td.mono { font-family: var(--mono); font-size: 11.5px; color: var(--text-dim); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  tbody tr { transition: background 0.12s; }
+  tbody tr:hover { background: var(--green-tint); }
   tbody tr:last-child td { border-bottom: none; }
+  #priorityLeadsTable tbody tr td:first-child { border-left: 2px solid var(--gold); }
+  .intel-found { color: var(--green-bright); font-weight: 500; }
+  .intel-none { color: var(--text-faint); font-family: var(--mono); font-size: 11px; }
+  .intel-src { color: var(--text-faint); font-family: var(--mono); font-size: 10.5px; text-decoration: none; border-bottom: 1px dotted var(--text-faint); }
+  .intel-src:hover { color: var(--green-bright); border-color: var(--green-bright); }
 
   .lookup-btn {
-    font-family: 'Montserrat', sans-serif; font-size: 11.5px; padding: 6px 14px; border-radius: 20px;
-    border: 1px solid var(--accent); background: transparent; color: var(--accent-light);
-    cursor: pointer; font-weight: 600; transition: all 0.15s; white-space: nowrap;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.5px;
+    padding: 6px 12px; border-radius: 2px;
+    border: 1px solid var(--hairline-strong); background: transparent; color: var(--text-dim);
+    cursor: pointer; transition: all 0.15s; white-space: nowrap; text-transform: uppercase;
   }
-  .lookup-btn:hover { background: var(--accent); color: #fff; }
+  .lookup-btn:hover, .lookup-btn:focus-visible { border-color: var(--green-bright); color: var(--green-bright); }
 
   .toggle-all-btn {
-    font-family: 'Montserrat', sans-serif; font-size: 12px; padding: 8px 18px; border-radius: 20px;
-    border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-secondary);
-    cursor: pointer; font-weight: 500; transition: all 0.15s;
+    font-family: var(--mono); font-size: 11px; padding: 8px 16px; border-radius: 2px;
+    border: 1px solid var(--hairline-strong); background: transparent; color: var(--text-dim);
+    cursor: pointer; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.5px;
   }
-  .toggle-all-btn:hover { border-color: var(--accent-light); color: var(--accent-light); }
+  .toggle-all-btn:hover, .toggle-all-btn:focus-visible { border-color: var(--green-bright); color: var(--green-bright); }
 
-  #allLeadsWrapper { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-  #allLeadsWrapper.expanded { max-height: 3000px; }
+  #allLeadsWrapper { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  #allLeadsWrapper.expanded { max-height: 8000px; }
 
-  .empty-state { color: var(--text-muted); font-size: 13px; padding: 20px 0; text-align: center; }
+  .empty-state {
+    font-family: var(--mono); color: var(--text-faint); font-size: 12px;
+    padding: 28px 16px; text-align: center;
+  }
 
   ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: var(--surface); }
-  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+  ::-webkit-scrollbar-track { background: var(--panel); }
+  ::-webkit-scrollbar-thumb { background: var(--hairline-strong); }
 
-  @media (max-width: 900px) {
-    .kpi-row, .grid-2 { grid-template-columns: 1fr; }
+  @media (max-width: 960px) {
+    .tape { grid-template-columns: repeat(2, 1fr); }
+    .tape-cell:nth-child(3) { border-left: none; padding-left: 2px; border-top: 1px solid var(--hairline); }
+    .tape-cell:nth-child(4) { border-top: 1px solid var(--hairline); }
+    .grid-2 { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-left">
-    <h1>Montreal permit market intelligence</h1>
-    <span class="brand-tag">VA Capital</span>
+<header class="masthead">
+  <div class="masthead-left">
+    <span class="wordmark">VA Capital</span>
+    <h1>Permit intelligence — Montréal</h1>
+  </div>
+  <span class="timestamp" id="updated">LOADING…</span>
+</header>
+
+<div class="tape" id="tape"></div>
+
+<div class="toolbar">
+  <div class="field">
+    <label for="boroughFilter">Borough</label>
+    <select id="boroughFilter"><option value="__all__">All</option></select>
+  </div>
+  <div class="field">
+    <label for="categoryFilter">Category</label>
+    <select id="categoryFilter"><option value="__all__">All</option></select>
+  </div>
+  <div class="field">
+    <label for="logementsFilter">Min. logements</label>
+    <select id="logementsFilter">
+      <option value="0">Any</option>
+      <option value="1">1+</option>
+      <option value="2">2+</option>
+      <option value="5">5+</option>
+      <option value="10">10+</option>
+      <option value="20">20+</option>
+      <option value="50">50+</option>
+      <option value="100">100+</option>
+    </select>
   </div>
 </div>
-<p class="updated" id="updated">Loading...</p>
-
-<div class="controls">
-  <label for="boroughFilter">Borough</label>
-  <select id="boroughFilter"><option value="__all__">All boroughs</option></select>
-  <label for="categoryFilter">Category</label>
-  <select id="categoryFilter"><option value="__all__">All categories</option></select>
-</div>
-
-<div class="kpi-row" id="kpi-row"></div>
 
 <div class="grid-2">
-  <div class="card">
-    <h2>Weekly permit trend by type</h2>
-    <div style="position: relative; height: 240px;">
+  <div class="panel">
+    <p class="panel-eyebrow">Weekly issuance by permit type</p>
+    <div style="position: relative; height: 250px;">
       <canvas id="trendChart"></canvas>
     </div>
   </div>
-  <div class="card">
-    <h2>Permits by borough</h2>
-    <div style="position: relative; height: 240px;">
+  <div class="panel">
+    <p class="panel-eyebrow">Volume by borough</p>
+    <div style="position: relative; height: 250px;">
       <canvas id="boroughChart"></canvas>
     </div>
   </div>
-</div>
-
-<div class="grid-2">
-  <div class="card">
-    <h2>Permits by building category</h2>
-    <div style="position: relative; height: 260px;">
+  <div class="panel">
+    <p class="panel-eyebrow">Volume by building category</p>
+    <div style="position: relative; height: 430px;">
       <canvas id="categoryChart"></canvas>
     </div>
   </div>
-  <div class="card">
-    <h2>Geographic distribution</h2>
+  <div class="panel map-panel">
+    <p class="panel-eyebrow">Geographic distribution</p>
     <div id="map"></div>
+    <div class="map-legend" id="mapLegend"></div>
   </div>
 </div>
 
-<div class="section-title">
-  <h2>Priority leads</h2>
-  <span class="badge">CRE keyword match</span>
+<div class="section-head">
+  <div class="section-head-left">
+    <h2>Priority leads</h2>
+    <span class="tag gold">CRE signal</span>
+  </div>
 </div>
-<div class="card">
+<div class="table-panel">
   <table id="priorityLeadsTable">
     <thead>
-      <tr><th>Date</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Owner lookup</th></tr>
+      <tr><th>Issued</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Units</th><th>Intel</th><th></th></tr>
     </thead>
     <tbody></tbody>
   </table>
-  <div class="empty-state" id="priorityEmptyState" style="display:none;">No priority leads matched in this window.</div>
+  <div class="empty-state" id="priorityEmptyState" style="display:none;">No priority leads in this window.</div>
 </div>
 
-<div class="section-title" style="justify-content: space-between;">
-  <div style="display:flex; align-items:center; gap:10px;">
+<div class="section-head">
+  <div class="section-head-left">
     <h2>All construction permits</h2>
-    <span class="badge muted" id="allLeadsCount">this window</span>
+    <span class="tag dim" id="allLeadsCount">—</span>
   </div>
   <button class="toggle-all-btn" id="toggleAllBtn">Show all</button>
 </div>
 <div id="allLeadsWrapper">
-  <div class="card">
+  <div class="table-panel">
     <table id="allLeadsTable">
       <thead>
-        <tr><th>Date</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Owner lookup</th></tr>
+        <tr><th>Issued</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Units</th><th></th></tr>
       </thead>
       <tbody></tbody>
     </table>
@@ -198,29 +303,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 let rawData = null;
-let map = null;
-let markersLayer = null;
+let map = null, markersLayer = null;
 let trendChart = null, boroughChart = null, categoryChart = null;
 
-const CHART_TEXT = '#a0a6a1';
-const CHART_GRID = 'rgba(255,255,255,0.06)';
+const CHART_TEXT = '#9AA69C';
+const CHART_GRID = 'rgba(255,255,255,0.05)';
+const MONO = "'IBM Plex Mono', monospace";
+
+const CATEGORY_COLORS = [
+  '#34B364', '#5B8DD9', '#D98A4A', '#C9A227', '#A56CC9',
+  '#D95F6E', '#4FC3C9', '#8FB84F', '#C97A9E', '#7A8CE0'
+];
+let categoryColorMap = {};
+let hiddenCategories = new Set();
+let currentPoints = [];
+
+Chart.defaults.font.family = MONO;
+Chart.defaults.font.size = 10;
 
 fetch('data.json')
   .then(r => r.json())
   .then(data => {
     rawData = data;
     document.getElementById('updated').textContent =
-      `Last updated ${data.last_updated} - market view: trailing ${data.window_days} days - leads: trailing ${data.leads_window_days} days`;
-    document.getElementById('allLeadsCount').textContent = `${data.all_leads.length} permits`;
+      `UPDATED ${data.last_updated} · MARKET ${data.window_days}D · LEADS ${data.leads_window_days}D`;
 
     populateFilter('boroughFilter', Object.keys(data.by_borough));
     populateFilter('categoryFilter', Object.keys(data.by_category));
 
     initMap();
-    render(data.geo_points, data.priority_leads, data.all_leads);
+    applyFilters();
 
-    document.getElementById('boroughFilter').addEventListener('change', applyFilters);
-    document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+    ['boroughFilter', 'categoryFilter', 'logementsFilter'].forEach(id =>
+      document.getElementById(id).addEventListener('change', applyFilters));
 
     const toggleBtn = document.getElementById('toggleAllBtn');
     const wrapper = document.getElementById('allLeadsWrapper');
@@ -239,82 +354,127 @@ function populateFilter(id, values) {
   });
 }
 
+function getLogements(obj) {
+  const n = parseFloat(obj.nb_logements);
+  return isNaN(n) ? 0 : n;
+}
+
 function applyFilters() {
   const borough = document.getElementById('boroughFilter').value;
   const category = document.getElementById('categoryFilter').value;
+  const minLog = parseInt(document.getElementById('logementsFilter').value, 10);
 
-  const matchFilter = (b, c) =>
+  const match = (b, c, u) =>
     (borough === '__all__' || b === borough) &&
-    (category === '__all__' || c === category);
+    (category === '__all__' || c === category) &&
+    (u >= minLog);
 
-  const filteredPoints = rawData.geo_points.filter(p => matchFilter(p.borough, p.category));
-  const filteredPriority = rawData.priority_leads.filter(l => matchFilter(l.arrondissement, l.description_categorie_batiment));
-  const filteredAll = rawData.all_leads.filter(l => matchFilter(l.arrondissement, l.description_categorie_batiment));
+  const pts = rawData.geo_points.filter(p => match(p.borough, p.category, getLogements(p)));
+  const pri = rawData.priority_leads.filter(l => match(l.arrondissement, l.description_categorie_batiment, getLogements(l)));
+  const all = rawData.all_leads.filter(l => match(l.arrondissement, l.description_categorie_batiment, getLogements(l)));
 
-  render(filteredPoints, filteredPriority, filteredAll);
+  render(pts, pri, all);
 }
 
 function render(points, priorityLeads, allLeads) {
-  const kpiRow = document.getElementById('kpi-row');
-  kpiRow.innerHTML = '';
   const boroughCounts = countBy(points, 'borough');
   const categoryCounts = countBy(points, 'category');
-  const topBorough = Object.entries(boroughCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '-';
+  const topBorough = Object.entries(boroughCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '—';
 
-  [
-    ['Permits in view', points.length],
-    ['Priority leads', priorityLeads.length],
-    ['Top borough', topBorough],
-    ['Categories represented', Object.keys(categoryCounts).length]
-  ].forEach(([label, value]) => {
-    kpiRow.innerHTML += `<div class="kpi"><p class="label">${label}</p><p class="value">${value}</p></div>`;
-  });
+  const tape = document.getElementById('tape');
+  tape.innerHTML = `
+    <div class="tape-cell"><p class="t-label">Permits in view</p><p class="t-value">${points.length.toLocaleString()}</p></div>
+    <div class="tape-cell"><p class="t-label">Priority leads</p><p class="t-value gold">${priorityLeads.length}</p></div>
+    <div class="tape-cell"><p class="t-label">Top borough</p><p class="t-value small">${topBorough}</p></div>
+    <div class="tape-cell"><p class="t-label">Categories in view</p><p class="t-value">${Object.keys(categoryCounts).length}</p></div>
+  `;
 
   drawTrendChart();
-  drawBarChart('boroughChart', 'borough', boroughCounts, '#2e9c57');
-  drawBarChart('categoryChart', 'category', categoryCounts, '#4a90d9');
-
+  drawBarChart('boroughChart', 'borough', boroughCounts, '#34B364');
+  drawBarChart('categoryChart', 'category', categoryCounts, '#5B8DD9');
   updateMap(points);
 
-  renderLeadsTable('priorityLeadsTable', 'priorityEmptyState', priorityLeads);
-  renderLeadsTable('allLeadsTable', 'allEmptyState', allLeads);
+  renderPriorityTable(priorityLeads);
+  renderAllTable(allLeads);
   document.getElementById('allLeadsCount').textContent = `${allLeads.length} permits`;
 }
 
-function renderLeadsTable(tableId, emptyId, leads) {
-  const tbody = document.querySelector(`#${tableId} tbody`);
-  const emptyState = document.getElementById(emptyId);
+function renderPriorityTable(leads) {
+  const tbody = document.querySelector('#priorityLeadsTable tbody');
+  const empty = document.getElementById('priorityEmptyState');
   tbody.innerHTML = '';
-
-  if (leads.length === 0) {
-    emptyState.style.display = 'block';
-    return;
-  }
-  emptyState.style.display = 'none';
+  if (!leads.length) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
 
   leads.forEach(l => {
+    const units = getLogements(l) || '—';
+    let intel;
+    const it = l.intelligence;
+    if (it && (it.found || it.owner_developer || it.general_contractor || it.architect)) {
+      const parts = [];
+      if (it.owner_developer) parts.push(`<span class="intel-found">${it.owner_developer}</span>`);
+      if (it.general_contractor) parts.push(`GC: ${it.general_contractor}`);
+      if (it.architect) parts.push(`Arch: ${it.architect}`);
+      const src = (it.sources && it.sources.length)
+        ? ` <a class="intel-src" href="${it.sources[0]}" target="_blank" rel="noopener">src</a>` : '';
+      const tip = ((it.summary || '') + (it.next_step ? '\nNEXT: ' + it.next_step : '')).replace(/"/g, '&quot;');
+      intel = `<span title="${tip}">${parts.join(' · ')}</span>${src}`;
+    } else if (it) {
+      const tip = (it.next_step || '').replace(/"/g, '&quot;');
+      intel = `<span class="intel-none" title="${tip}">no direct hit</span>`;
+    } else {
+      intel = `<span class="intel-none">—</span>`;
+    }
+    const threadUrl = (it && it.agora_threads && it.agora_threads.length) ? it.agora_threads[0].url : '';
     tbody.innerHTML += `<tr>
-      <td>${l.date_emission}</td>
+      <td class="mono">${l.date_emission}</td>
       <td>${l.emplacement}</td>
       <td>${l.arrondissement}</td>
       <td>${l.description_categorie_batiment}</td>
       <td>${l.nature_travaux}</td>
-      <td><button data-address="${l.emplacement}" class="lookup-btn">Look up owner</button></td>
+      <td class="num">${units}</td>
+      <td>${intel}</td>
+      <td><button data-address="${l.emplacement}" data-thread="${threadUrl}" class="lookup-btn">Agora</button></td>
     </tr>`;
   });
+  bindLookups(tbody);
+}
 
+function renderAllTable(leads) {
+  const tbody = document.querySelector('#allLeadsTable tbody');
+  const empty = document.getElementById('allEmptyState');
+  tbody.innerHTML = '';
+  if (!leads.length) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  leads.forEach(l => {
+    const units = getLogements(l) || '—';
+    tbody.innerHTML += `<tr>
+      <td class="mono">${l.date_emission}</td>
+      <td>${l.emplacement}</td>
+      <td>${l.arrondissement}</td>
+      <td>${l.description_categorie_batiment}</td>
+      <td>${l.nature_travaux}</td>
+      <td class="num">${units}</td>
+      <td><button data-address="${l.emplacement}" data-thread="" class="lookup-btn">Agora</button></td>
+    </tr>`;
+  });
+  bindLookups(tbody);
+}
+
+function bindLookups(tbody) {
   tbody.querySelectorAll('.lookup-btn').forEach(btn => {
-    btn.addEventListener('click', () => lookupOwner(btn.dataset.address));
+    btn.addEventListener('click', () => openAgora(btn.dataset.address, btn.dataset.thread));
   });
 }
 
-function lookupOwner(address) {
-  navigator.clipboard.writeText(address).then(() => {
-    alert(`Address copied: ${address}\n\nPaste it into the address search field on the EvalWeb page that just opened.`);
-  }).catch(() => {
-    alert(`Copy this address manually: ${address}`);
-  });
-  window.open('https://servicesenligne2.ville.montreal.qc.ca/sel/evalweb/index', '_blank');
+function openAgora(address, threadUrl) {
+  if (threadUrl) {
+    window.open(threadUrl, '_blank');
+  } else {
+    const query = encodeURIComponent(address.split(' ').slice(0, 4).join(' '));
+    window.open(`https://agoramtl.com/search?q=${query}`, '_blank');
+  }
 }
 
 function countBy(points, field) {
@@ -331,16 +491,16 @@ function drawTrendChart() {
       labels: rawData.trend_weeks,
       datasets: Object.entries(rawData.trend_series).map(([label, values], i) => ({
         label, data: values,
-        backgroundColor: ['#2e9c57', '#d97b3f', '#4a90d9', '#c9a63c'][i % 4],
-        borderRadius: 3
+        backgroundColor: ['#34B364', '#D98A4A', '#5B8DD9', '#C9A227'][i % 4],
+        borderRadius: 0, barPercentage: 0.7
       }))
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: CHART_TEXT, font: { family: 'Montserrat', size: 11 } } } },
+      plugins: { legend: { labels: { color: CHART_TEXT, boxWidth: 8, boxHeight: 8 } } },
       scales: {
-        x: { stacked: true, grid: { display: false }, ticks: { color: CHART_TEXT } },
-        y: { stacked: true, grid: { color: CHART_GRID }, ticks: { color: CHART_TEXT } }
+        x: { stacked: true, grid: { display: false }, ticks: { color: CHART_TEXT, maxRotation: 0 } },
+        y: { stacked: true, grid: { color: CHART_GRID }, ticks: { color: CHART_TEXT }, border: { display: false } }
       }
     }
   });
@@ -354,15 +514,15 @@ function drawBarChart(canvasId, which, counts, color) {
     type: 'bar',
     data: {
       labels: Object.keys(counts),
-      datasets: [{ data: Object.values(counts), backgroundColor: color, borderRadius: 3 }]
+      datasets: [{ data: Object.values(counts), backgroundColor: color, borderRadius: 0, barPercentage: 0.65 }]
     },
     options: {
       indexAxis: 'y',
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { grid: { color: CHART_GRID }, ticks: { color: CHART_TEXT } },
-        y: { grid: { display: false }, ticks: { color: CHART_TEXT, font: { size: 11 } } }
+        x: { grid: { color: CHART_GRID }, ticks: { color: CHART_TEXT }, border: { display: false } },
+        y: { grid: { display: false }, ticks: { color: CHART_TEXT }, border: { display: false } }
       }
     }
   });
@@ -379,12 +539,50 @@ function initMap() {
   markersLayer = L.layerGroup().addTo(map);
 }
 
+function getColorFor(category) {
+  if (!(category in categoryColorMap)) {
+    const idx = Object.keys(categoryColorMap).length % CATEGORY_COLORS.length;
+    categoryColorMap[category] = CATEGORY_COLORS[idx];
+  }
+  return categoryColorMap[category];
+}
+
 function updateMap(points) {
+  currentPoints = points;
+  drawMarkers();
+  drawLegend();
+}
+
+function drawMarkers() {
   markersLayer.clearLayers();
-  points.forEach(p => {
-    L.circleMarker([p.lat, p.lng], { radius: 4, color: '#2e9c57', fillOpacity: 0.7, weight: 1 })
-      .bindPopup(`${p.address}<br>${p.borough}<br>${p.category}`)
+  currentPoints.forEach(p => {
+    if (hiddenCategories.has(p.category)) return;
+    L.circleMarker([p.lat, p.lng], {
+      radius: 4, color: getColorFor(p.category), fillOpacity: 0.7, weight: 1
+    })
+      .bindPopup(`${p.address}<br>${p.borough}<br>${p.category}${p.nb_logements ? '<br>' + p.nb_logements + ' logements' : ''}`)
       .addTo(markersLayer);
+  });
+}
+
+function drawLegend() {
+  const legend = document.getElementById('mapLegend');
+  const counts = {};
+  currentPoints.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+  legend.innerHTML = '';
+  sorted.forEach(([category, count]) => {
+    const item = document.createElement('div');
+    item.className = 'legend-item' + (hiddenCategories.has(category) ? ' off' : '');
+    item.innerHTML = `<span class="swatch" style="background:${getColorFor(category)}"></span>${category} (${count})`;
+    item.addEventListener('click', () => {
+      if (hiddenCategories.has(category)) hiddenCategories.delete(category);
+      else hiddenCategories.add(category);
+      drawMarkers();
+      drawLegend();
+    });
+    legend.appendChild(item);
   });
 }
 </script>
