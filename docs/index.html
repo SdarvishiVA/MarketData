@@ -326,7 +326,7 @@ fetch('data.json')
   .then(data => {
     rawData = data;
     document.getElementById('updated').textContent =
-      `UPDATED ${data.last_updated} · MARKET ${data.window_days}D · LEADS ${data.leads_window_days}D`;
+      `RUN ${data.last_updated} · DATA THROUGH ${data.data_through || '—'} · MARKET ${data.window_days}D · LEADS ${data.leads_window_days}D`;
 
     populateFilter('boroughFilter', Object.keys(data.by_borough));
     populateFilter('categoryFilter', Object.keys(data.by_category));
