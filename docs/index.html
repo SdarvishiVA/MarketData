@@ -5,233 +5,215 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VA Capital — Permit Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Libre+Baskerville:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
 <style>
   :root {
-    --ink: #0B0D0C;
-    --panel: #131614;
-    --panel-raised: #181C19;
-    --hairline: #232825;
-    --hairline-strong: #2F3632;
-    --text: #EDF1EC;
-    --text-dim: #9AA69C;
-    --text-faint: #5E685F;
+    --paper: #FBF9F4;
+    --panel: #FFFFFF;
+    --panel-tint: #F5F2EB;
+    --rule: #E4DED2;
+    --rule-strong: #CFC7B6;
+    --ink: #1A1A17;
+    --ink-soft: #4A473F;
+    --ink-mute: #7A7469;
+    --ink-faint: #9E9789;
     --green: #1F7740;
-    --green-bright: #34B364;
-    --green-tint: rgba(52, 179, 100, 0.08);
-    --gold: #C9A227;
-    --gold-tint: rgba(201, 162, 39, 0.10);
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'Montserrat', sans-serif;
-    --serif: 'Libre Baskerville', serif;
+    --green-deep: #175C31;
+    --green-tint: #EDF4EF;
+    --clay: #A8622C;
+    --sans: 'Montserrat', system-ui, sans-serif;
+    --serif: 'Libre Baskerville', Georgia, serif;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 
   body {
     font-family: var(--sans);
-    background: var(--ink);
-    color: var(--text);
+    background: var(--paper);
+    color: var(--ink);
     margin: 0;
-    padding: 0 clamp(20px, 4vw, 56px) 80px;
-    line-height: 1.5;
+    padding: 0 clamp(20px, 4vw, 60px) 90px;
     font-size: 14px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
   }
+  .num { font-variant-numeric: tabular-nums; }
 
   /* ---------- Masthead ---------- */
   .masthead {
-    display: flex; align-items: baseline; justify-content: space-between;
-    padding: 26px 0 20px; border-bottom: 1px solid var(--hairline-strong);
-    flex-wrap: wrap; gap: 12px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+    padding: 30px 0 18px; border-bottom: 2px solid var(--ink);
   }
-  .masthead-left { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+  .masthead-left { display: flex; align-items: center; gap: 16px; }
+  #logo { height: 32px; width: auto; display: block; }
   .wordmark {
-    font-family: var(--sans); font-size: 11px; font-weight: 700;
-    letter-spacing: 3px; color: var(--green-bright); text-transform: uppercase;
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 2.5px; color: var(--green); text-transform: uppercase;
+    padding-right: 16px; border-right: 1px solid var(--rule-strong);
   }
   .masthead h1 {
-    font-family: var(--serif); font-size: clamp(19px, 2.4vw, 24px);
-    font-weight: 400; margin: 0; color: var(--text); letter-spacing: 0.2px;
+    font-family: var(--serif); font-size: clamp(20px, 2.6vw, 27px);
+    font-weight: 400; margin: 0; color: var(--ink); letter-spacing: -0.1px;
   }
-  .timestamp { font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+  .dateline { font-size: 12.5px; color: var(--ink-mute); text-align: right; }
+  .dateline strong { color: var(--ink-soft); font-weight: 500; }
 
-  /* ---------- Stat tape (signature) ---------- */
-  .tape {
+  /* ---------- Stat ledger ---------- */
+  .ledger {
     display: grid; grid-template-columns: repeat(4, 1fr);
-    border-bottom: 1px solid var(--hairline-strong);
+    border-bottom: 1px solid var(--rule); margin-bottom: 26px;
   }
-  .tape-cell {
-    padding: 20px 22px 18px; border-left: 1px solid var(--hairline);
-    position: relative;
+  .ledger-cell { padding: 20px 24px 20px 0; }
+  .ledger-cell + .ledger-cell { padding-left: 24px; border-left: 1px solid var(--rule); }
+  .l-label {
+    font-size: 12px; color: var(--ink-mute); margin: 0 0 6px;
+    letter-spacing: 0.2px;
   }
-  .tape-cell:first-child { border-left: none; padding-left: 2px; }
-  .tape-cell .t-label {
-    font-family: var(--mono); font-size: 10px; letter-spacing: 1.2px;
-    text-transform: uppercase; color: var(--text-faint); margin: 0 0 6px;
+  .l-value {
+    font-family: var(--serif); font-size: 27px; font-weight: 400;
+    color: var(--ink); margin: 0; line-height: 1.15;
   }
-  .tape-cell .t-value {
-    font-family: var(--mono); font-size: 30px; font-weight: 500;
-    color: var(--text); margin: 0; font-variant-numeric: tabular-nums;
-    line-height: 1.1;
-  }
-  .tape-cell .t-value.gold { color: var(--gold); }
-  .tape-cell .t-value.small { font-size: 17px; padding-top: 8px; }
+  .l-value.accent { color: var(--green); }
+  .l-value.place { font-size: 17px; padding-top: 8px; font-family: var(--sans); font-weight: 500; }
 
   /* ---------- Toolbar ---------- */
   .toolbar {
-    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-    padding: 16px 0; border-bottom: 1px solid var(--hairline);
-    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+    padding-bottom: 22px; margin-bottom: 28px; border-bottom: 1px solid var(--rule);
   }
-  .field { display: flex; align-items: center; gap: 8px; }
-  .field label {
-    font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
-    text-transform: uppercase; color: var(--text-faint);
-  }
+  .field { display: flex; align-items: center; gap: 9px; }
+  .field label { font-size: 12.5px; color: var(--ink-mute); }
   .field select {
-    font-family: var(--mono); font-size: 12px; padding: 7px 12px;
-    border-radius: 3px; border: 1px solid var(--hairline-strong);
-    background: var(--panel); color: var(--text); cursor: pointer;
+    font-family: var(--sans); font-size: 13px; padding: 8px 12px;
+    border-radius: 4px; border: 1px solid var(--rule-strong);
+    background: var(--panel); color: var(--ink); cursor: pointer;
     outline: none; transition: border-color 0.15s;
   }
-  .field select:hover, .field select:focus-visible { border-color: var(--green-bright); }
+  .field select:hover { border-color: var(--ink-mute); }
+  .field select:focus-visible { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-tint); }
 
-  /* ---------- Panels grid ---------- */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); margin-bottom: 40px; }
-  .panel { background: var(--panel); padding: 22px 24px 24px; }
-  .panel-eyebrow {
-    font-family: var(--mono); font-size: 10px; letter-spacing: 1.4px;
-    text-transform: uppercase; color: var(--text-dim); margin: 0 0 18px;
-    display: flex; align-items: center; gap: 8px;
+  /* ---------- Panels ---------- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .panel {
+    background: var(--panel); border: 1px solid var(--rule);
+    border-radius: 6px; padding: 20px 22px 22px;
   }
-  .panel-eyebrow::before { content: ''; width: 8px; height: 1px; background: var(--green-bright); }
+  .panel-title {
+    font-size: 13px; font-weight: 600; color: var(--ink); margin: 0 0 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--rule);
+  }
 
-  #map { height: 520px; filter: grayscale(0.35) brightness(0.82); }
-  .map-block { border: 1px solid var(--hairline); background: var(--panel); margin-bottom: 40px; }
+  /* ---------- Map ---------- */
+  .map-block {
+    background: var(--panel); border: 1px solid var(--rule);
+    border-radius: 6px; margin-bottom: 44px; overflow: hidden;
+  }
   .map-head {
     display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; padding: 18px 24px 14px; flex-wrap: wrap;
+    gap: 14px; padding: 20px 22px 16px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule);
   }
+  .map-head .panel-title { margin: 0; padding: 0; border: none; }
   .map-tools { display: flex; align-items: center; gap: 10px; }
-  .seg { display: flex; border: 1px solid var(--hairline-strong); border-radius: 2px; overflow: hidden; }
+  .seg { display: flex; border: 1px solid var(--rule-strong); border-radius: 4px; overflow: hidden; }
   .seg-btn {
-    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.5px; text-transform: uppercase;
-    padding: 7px 14px; border: none; background: transparent; color: var(--text-faint);
+    font-family: var(--sans); font-size: 12.5px; padding: 7px 15px;
+    border: none; background: var(--panel); color: var(--ink-mute);
     cursor: pointer; transition: all 0.15s;
   }
-  .seg-btn + .seg-btn { border-left: 1px solid var(--hairline-strong); }
-  .seg-btn:hover { color: var(--text-dim); }
-  .seg-btn.active { background: var(--green-tint); color: var(--green-bright); }
+  .seg-btn + .seg-btn { border-left: 1px solid var(--rule-strong); }
+  .seg-btn:hover { background: var(--panel-tint); color: var(--ink); }
+  .seg-btn.active { background: var(--green); color: #fff; }
   .map-panel { position: relative; }
-  .marker-cluster {
-    background: rgba(52, 179, 100, 0.18); border: 1px solid rgba(52, 179, 100, 0.55);
-    border-radius: 50%;
+  #map { height: 540px; }
+  .map-legend {
+    position: absolute; top: 14px; right: 14px; z-index: 1000;
+    background: rgba(255,255,255,0.96); border: 1px solid var(--rule-strong);
+    border-radius: 5px; padding: 12px 14px; max-height: 330px; overflow-y: auto;
+    max-width: 260px; box-shadow: 0 2px 10px rgba(26,26,23,0.08);
   }
+  .legend-item {
+    display: flex; align-items: center; gap: 9px; padding: 5px 2px;
+    font-size: 12.5px; color: var(--ink-soft); cursor: pointer;
+    user-select: none; transition: opacity 0.15s;
+  }
+  .legend-item.off { opacity: 0.35; }
+  .legend-item:hover { color: var(--ink); }
+  .legend-item .swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .marker-cluster { background: rgba(31,119,64,0.20); border-radius: 50%; }
   .marker-cluster div {
-    background: rgba(11, 13, 12, 0.85); border-radius: 50%;
+    background: var(--green); border-radius: 50%; color: #fff;
     width: 30px; height: 30px; margin: 3px; display: flex;
     align-items: center; justify-content: center;
   }
-  .marker-cluster span {
-    font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--green-bright);
+  .marker-cluster span { font-family: var(--sans); font-size: 12px; font-weight: 600; }
+  .leaflet-popup-content-wrapper {
+    background: var(--panel); color: var(--ink); border-radius: 5px;
+    border: 1px solid var(--rule-strong); box-shadow: 0 3px 14px rgba(26,26,23,0.12);
   }
-  .leaflet-popup-content-wrapper, .leaflet-popup-tip {
-    background: var(--panel-raised); color: var(--text);
-    border: 1px solid var(--hairline-strong); border-radius: 2px; box-shadow: none;
-  }
-  .leaflet-popup-content { font-family: var(--mono); font-size: 11px; line-height: 1.6; }
-  .leaflet-container a.leaflet-popup-close-button { color: var(--text-faint); }
-  .map-legend {
-    position: absolute; top: 12px; right: 12px; z-index: 1000;
-    background: rgba(11, 13, 12, 0.93); border: 1px solid var(--hairline-strong);
-    border-radius: 3px; padding: 10px 12px; max-height: 320px; overflow-y: auto;
-    backdrop-filter: blur(4px); max-width: 250px;
-  }
-  .legend-item {
-    display: flex; align-items: center; gap: 8px; padding: 4px 2px;
-    font-family: var(--mono); font-size: 10.5px; color: var(--text-dim);
-    cursor: pointer; user-select: none; transition: opacity 0.15s, color 0.15s;
-  }
-  .legend-item.off { opacity: 0.3; }
-  .legend-item:hover { color: var(--text); }
-  .legend-item .swatch { width: 8px; height: 8px; flex-shrink: 0; }
+  .leaflet-popup-content { font-family: var(--sans); font-size: 12.5px; line-height: 1.6; }
 
   /* ---------- Sections ---------- */
   .section-head {
-    display: flex; align-items: center; justify-content: space-between;
-    margin: 0 0 0; padding: 18px 0 14px; flex-wrap: wrap; gap: 10px;
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap; padding-bottom: 12px; margin-bottom: 0;
+    border-bottom: 2px solid var(--ink);
   }
-  .section-head-left { display: flex; align-items: center; gap: 14px; }
+  .section-head-left { display: flex; align-items: baseline; gap: 14px; }
   .section-head h2 {
-    font-family: var(--serif); font-size: 18px; font-weight: 400;
-    margin: 0; color: var(--text);
+    font-family: var(--serif); font-size: 20px; font-weight: 400;
+    margin: 0; color: var(--ink);
   }
-  .tag {
-    font-family: var(--mono); font-size: 9.5px; letter-spacing: 1px;
-    text-transform: uppercase; font-weight: 600; padding: 4px 10px;
-    border-radius: 2px;
+  .section-note { font-size: 12.5px; color: var(--ink-mute); }
+  .count-tag {
+    font-size: 12.5px; color: var(--ink-mute); padding: 3px 10px;
+    background: var(--panel-tint); border-radius: 3px;
   }
-  .tag.gold { background: var(--gold-tint); color: var(--gold); border: 1px solid rgba(201,162,39,0.35); }
-  .tag.dim { background: rgba(255,255,255,0.04); color: var(--text-faint); border: 1px solid var(--hairline); }
 
   /* ---------- Tables ---------- */
-  .table-panel { border: 1px solid var(--hairline); background: var(--panel); margin-bottom: 40px; overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 900px; }
+  .table-wrap { background: var(--panel); border: 1px solid var(--rule); border-top: none; border-radius: 0 0 6px 6px; overflow-x: auto; margin-bottom: 44px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 880px; }
   th {
-    font-family: var(--mono); color: var(--text-faint); font-weight: 500;
-    text-transform: uppercase; font-size: 9.5px; letter-spacing: 1px;
-    text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--hairline-strong);
-    background: var(--panel-raised);
+    text-align: left; padding: 12px 16px; font-weight: 600; font-size: 12px;
+    color: var(--ink-mute); background: var(--panel-tint);
+    border-bottom: 1px solid var(--rule); white-space: nowrap;
   }
-  td {
-    text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--hairline);
-    vertical-align: top;
-  }
-  td.mono { font-family: var(--mono); font-size: 11.5px; color: var(--text-dim); white-space: nowrap; font-variant-numeric: tabular-nums; }
-  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-  tbody tr { transition: background 0.12s; }
+  td { padding: 13px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; color: var(--ink); }
+  td.dim { color: var(--ink-mute); white-space: nowrap; }
   tbody tr:hover { background: var(--green-tint); }
   tbody tr:last-child td { border-bottom: none; }
-  #priorityLeadsTable tbody tr td:first-child { border-left: 2px solid var(--gold); }
-  .intel-found { color: var(--green-bright); font-weight: 500; }
-  .intel-none { color: var(--text-faint); font-family: var(--mono); font-size: 11px; }
-  .intel-src { color: var(--text-faint); font-family: var(--mono); font-size: 10.5px; text-decoration: none; border-bottom: 1px dotted var(--text-faint); }
-  .intel-src:hover { color: var(--green-bright); border-color: var(--green-bright); }
-
-  .lookup-btn {
-    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.5px;
-    padding: 6px 12px; border-radius: 2px;
-    border: 1px solid var(--hairline-strong); background: transparent; color: var(--text-dim);
-    cursor: pointer; transition: all 0.15s; white-space: nowrap; text-transform: uppercase;
+  #priorityLeadsTable tbody td:first-child { border-left: 3px solid var(--green); }
+  .who { color: var(--green-deep); font-weight: 600; }
+  .who-role { color: var(--ink-soft); }
+  .no-hit { color: var(--ink-faint); }
+  .src-link {
+    color: var(--ink-mute); font-size: 12px; text-decoration: none;
+    border-bottom: 1px dotted var(--ink-faint);
   }
-  .lookup-btn:hover, .lookup-btn:focus-visible { border-color: var(--green-bright); color: var(--green-bright); }
+  .src-link:hover { color: var(--green); border-color: var(--green); }
 
-  .toggle-all-btn {
-    font-family: var(--mono); font-size: 11px; padding: 8px 16px; border-radius: 2px;
-    border: 1px solid var(--hairline-strong); background: transparent; color: var(--text-dim);
-    cursor: pointer; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.5px;
+  .btn {
+    font-family: var(--sans); font-size: 12.5px; padding: 7px 14px;
+    border-radius: 4px; border: 1px solid var(--rule-strong);
+    background: var(--panel); color: var(--ink-soft);
+    cursor: pointer; transition: all 0.15s; white-space: nowrap;
   }
-  .toggle-all-btn:hover, .toggle-all-btn:focus-visible { border-color: var(--green-bright); color: var(--green-bright); }
+  .btn:hover, .btn:focus-visible { border-color: var(--green); color: var(--green); background: var(--green-tint); }
 
   #allLeadsWrapper { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
-  #allLeadsWrapper.expanded { max-height: 8000px; }
+  #allLeadsWrapper.expanded { max-height: 9000px; }
 
-  .empty-state {
-    font-family: var(--mono); color: var(--text-faint); font-size: 12px;
-    padding: 28px 16px; text-align: center;
-  }
-
-  ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: var(--panel); }
-  ::-webkit-scrollbar-thumb { background: var(--hairline-strong); }
+  .empty { font-size: 13px; color: var(--ink-mute); padding: 30px 16px; text-align: center; }
+  .footnote { font-size: 12px; color: var(--ink-faint); margin-top: 28px; line-height: 1.7; }
 
   @media (max-width: 960px) {
-    .tape { grid-template-columns: repeat(2, 1fr); }
-    .tape-cell:nth-child(3) { border-left: none; padding-left: 2px; border-top: 1px solid var(--hairline); }
-    .tape-cell:nth-child(4) { border-top: 1px solid var(--hairline); }
+    .ledger { grid-template-columns: repeat(2, 1fr); }
+    .ledger-cell:nth-child(3) { padding-left: 0; border-left: none; border-top: 1px solid var(--rule); }
+    .ledger-cell:nth-child(4) { border-top: 1px solid var(--rule); }
     .grid-2 { grid-template-columns: 1fr; }
   }
 </style>
@@ -240,25 +222,26 @@
 
 <header class="masthead">
   <div class="masthead-left">
-    <span class="wordmark">VA Capital</span>
+    <img id="logo" src="logo.png" alt="VA Capital" onerror="this.remove(); document.getElementById('wordmark').hidden = false;">
+    <span class="wordmark" id="wordmark" hidden>VA Capital</span>
     <h1>Permit intelligence — Montréal</h1>
   </div>
-  <span class="timestamp" id="updated">LOADING…</span>
+  <div class="dateline" id="dateline">Loading…</div>
 </header>
 
-<div class="tape" id="tape"></div>
+<div class="ledger" id="ledger"></div>
 
 <div class="toolbar">
   <div class="field">
     <label for="boroughFilter">Borough</label>
-    <select id="boroughFilter"><option value="__all__">All</option></select>
+    <select id="boroughFilter"><option value="__all__">All boroughs</option></select>
   </div>
   <div class="field">
     <label for="categoryFilter">Category</label>
-    <select id="categoryFilter"><option value="__all__">All</option></select>
+    <select id="categoryFilter"><option value="__all__">All categories</option></select>
   </div>
   <div class="field">
-    <label for="logementsFilter">Min. logements</label>
+    <label for="logementsFilter">Minimum units</label>
     <select id="logementsFilter">
       <option value="0">Any</option>
       <option value="1">1+</option>
@@ -274,34 +257,31 @@
 
 <div class="grid-2">
   <div class="panel">
-    <p class="panel-eyebrow">Weekly issuance by permit type</p>
-    <div style="position: relative; height: 250px;">
-      <canvas id="trendChart"></canvas>
-    </div>
+    <p class="panel-title">Weekly issuance by permit type</p>
+    <div style="position: relative; height: 250px;"><canvas id="trendChart"></canvas></div>
   </div>
   <div class="panel">
-    <p class="panel-eyebrow">Volume by borough</p>
-    <div style="position: relative; height: 250px;">
-      <canvas id="boroughChart"></canvas>
-    </div>
+    <p class="panel-title">Volume by borough</p>
+    <div style="position: relative; height: 250px;"><canvas id="boroughChart"></canvas></div>
   </div>
-  <div class="panel" style="grid-column: 1 / -1;">
-    <p class="panel-eyebrow">Volume by building category</p>
-    <div style="position: relative; height: 300px;">
-      <canvas id="categoryChart"></canvas>
-    </div>
+</div>
+
+<div class="grid-2" style="grid-template-columns: 1fr;">
+  <div class="panel">
+    <p class="panel-title">Volume by building category</p>
+    <div style="position: relative; height: 300px;"><canvas id="categoryChart"></canvas></div>
   </div>
 </div>
 
 <div class="map-block">
   <div class="map-head">
-    <p class="panel-eyebrow" style="margin:0;">Geographic distribution</p>
+    <p class="panel-title">Geographic distribution</p>
     <div class="map-tools">
       <div class="seg" role="group" aria-label="Map scope">
         <button class="seg-btn active" data-scope="all">All permits</button>
         <button class="seg-btn" data-scope="priority">Priority only</button>
       </div>
-      <button class="toggle-all-btn" id="legendToggle" aria-expanded="false">Categories</button>
+      <button class="btn" id="legendToggle" aria-expanded="false">Categories</button>
     </div>
   </div>
   <div class="map-panel">
@@ -313,37 +293,46 @@
 <div class="section-head">
   <div class="section-head-left">
     <h2>Priority leads</h2>
-    <span class="tag gold">CRE signal</span>
+    <span class="section-note">New construction matching commercial criteria</span>
   </div>
+  <span class="count-tag" id="priorityCount">—</span>
 </div>
-<div class="table-panel">
+<div class="table-wrap">
   <table id="priorityLeadsTable">
     <thead>
-      <tr><th>Issued</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Units</th><th>Intel</th><th></th></tr>
+      <tr><th>Issued</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Units</th><th>Who's behind it</th><th></th></tr>
     </thead>
     <tbody></tbody>
   </table>
-  <div class="empty-state" id="priorityEmptyState" style="display:none;">No priority leads in this window.</div>
+  <div class="empty" id="priorityEmpty" hidden>No priority leads in this window.</div>
 </div>
 
 <div class="section-head">
   <div class="section-head-left">
     <h2>All construction permits</h2>
-    <span class="tag dim" id="allLeadsCount">—</span>
+    <span class="section-note">Unfiltered, same window</span>
   </div>
-  <button class="toggle-all-btn" id="toggleAllBtn">Show all</button>
+  <div style="display:flex; align-items:center; gap:10px;">
+    <span class="count-tag" id="allCount">—</span>
+    <button class="btn" id="toggleAllBtn">Show all</button>
+  </div>
 </div>
 <div id="allLeadsWrapper">
-  <div class="table-panel">
+  <div class="table-wrap">
     <table id="allLeadsTable">
       <thead>
         <tr><th>Issued</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Units</th><th></th></tr>
       </thead>
       <tbody></tbody>
     </table>
-    <div class="empty-state" id="allEmptyState" style="display:none;">No permits in this window.</div>
+    <div class="empty" id="allEmpty" hidden>No permits in this window.</div>
   </div>
 </div>
+
+<p class="footnote">
+  Source: Ville de Montréal open permit data, refreshed weekly. Lachine and Saint-Léonard are not yet included in the city's dataset.
+  Developer attribution is assembled from public sources and should be verified before outreach.
+</p>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -352,245 +341,226 @@
 let rawData = null;
 let map = null, markersLayer = null;
 let trendChart = null, boroughChart = null, categoryChart = null;
-
-const CHART_TEXT = '#9AA69C';
-const CHART_GRID = 'rgba(255,255,255,0.05)';
-const MONO = "'IBM Plex Mono', monospace";
-
-const CATEGORY_COLORS = [
-  '#34B364', '#5B8DD9', '#D98A4A', '#C9A227', '#A56CC9',
-  '#D95F6E', '#4FC3C9', '#8FB84F', '#C97A9E', '#7A8CE0'
-];
+let currentPoints = [], priorityAddresses = new Set();
+let hiddenCategories = new Set(), mapScope = 'all';
 let categoryColorMap = {};
-let hiddenCategories = new Set();
-let currentPoints = [];
-let priorityAddresses = new Set();
-let mapScope = 'all';
 
-Chart.defaults.font.family = MONO;
-Chart.defaults.font.size = 10;
+const AXIS = '#7A7469';
+const GRID = 'rgba(26,26,23,0.07)';
+const SERIES = ['#1F7740', '#A8622C', '#2E6DA4', '#8A7420'];
+const CATEGORY_COLORS = ['#1F7740', '#2E6DA4', '#A8622C', '#8A7420', '#6B4E8F', '#A63D52', '#2C7A7B', '#5C7A2E', '#8F5A7A', '#3F5A8F'];
+
+Chart.defaults.font.family = "'Montserrat', sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = AXIS;
 
 fetch('data.json')
   .then(r => r.json())
   .then(data => {
     rawData = data;
-    document.getElementById('updated').textContent =
-      `RUN ${data.last_updated} · DATA THROUGH ${data.data_through || '—'} · MARKET ${data.window_days}D · LEADS ${data.leads_window_days}D`;
+    document.getElementById('dateline').innerHTML =
+      `Data through <strong>${data.data_through || '—'}</strong> · Market view ${data.window_days} days · Leads ${data.leads_window_days} days<br>Last run ${data.last_updated}`;
 
-    populateFilter('boroughFilter', Object.keys(data.by_borough));
-    populateFilter('categoryFilter', Object.keys(data.by_category));
+    fill('boroughFilter', Object.keys(data.by_borough));
+    fill('categoryFilter', Object.keys(data.by_category));
 
     initMap();
     applyFilters();
 
-    ['boroughFilter', 'categoryFilter', 'logementsFilter'].forEach(id =>
+    ['boroughFilter','categoryFilter','logementsFilter'].forEach(id =>
       document.getElementById(id).addEventListener('change', applyFilters));
 
-    const toggleBtn = document.getElementById('toggleAllBtn');
-    const wrapper = document.getElementById('allLeadsWrapper');
-    toggleBtn.addEventListener('click', () => {
-      const expanded = wrapper.classList.toggle('expanded');
-      toggleBtn.textContent = expanded ? 'Hide all' : 'Show all';
+    const tb = document.getElementById('toggleAllBtn');
+    const wrap = document.getElementById('allLeadsWrapper');
+    tb.addEventListener('click', () => {
+      const open = wrap.classList.toggle('expanded');
+      tb.textContent = open ? 'Hide all' : 'Show all';
     });
+  })
+  .catch(() => {
+    document.getElementById('dateline').textContent = 'Could not load data.json — run the scan workflow.';
   });
 
-function populateFilter(id, values) {
-  const select = document.getElementById(id);
+function fill(id, values) {
+  const s = document.getElementById(id);
   values.forEach(v => {
-    const opt = document.createElement('option');
-    opt.value = v; opt.textContent = v;
-    select.appendChild(opt);
+    const o = document.createElement('option');
+    o.value = v; o.textContent = v;
+    s.appendChild(o);
   });
 }
 
-function getLogements(obj) {
-  const n = parseFloat(obj.nb_logements);
+function units(o) {
+  const n = parseFloat(o.nb_logements);
   return isNaN(n) ? 0 : n;
 }
 
 function applyFilters() {
-  const borough = document.getElementById('boroughFilter').value;
-  const category = document.getElementById('categoryFilter').value;
-  const minLog = parseInt(document.getElementById('logementsFilter').value, 10);
+  const b = document.getElementById('boroughFilter').value;
+  const c = document.getElementById('categoryFilter').value;
+  const min = parseInt(document.getElementById('logementsFilter').value, 10);
+  const ok = (bo, ca, u) =>
+    (b === '__all__' || bo === b) && (c === '__all__' || ca === c) && u >= min;
 
-  const match = (b, c, u) =>
-    (borough === '__all__' || b === borough) &&
-    (category === '__all__' || c === category) &&
-    (u >= minLog);
-
-  const pts = rawData.geo_points.filter(p => match(p.borough, p.category, getLogements(p)));
-  const pri = rawData.priority_leads.filter(l => match(l.arrondissement, l.description_categorie_batiment, getLogements(l)));
-  const all = rawData.all_leads.filter(l => match(l.arrondissement, l.description_categorie_batiment, getLogements(l)));
-
-  render(pts, pri, all);
+  render(
+    rawData.geo_points.filter(p => ok(p.borough, p.category, units(p))),
+    rawData.priority_leads.filter(l => ok(l.arrondissement, l.description_categorie_batiment, units(l))),
+    rawData.all_leads.filter(l => ok(l.arrondissement, l.description_categorie_batiment, units(l)))
+  );
 }
 
-function render(points, priorityLeads, allLeads) {
-  priorityAddresses = new Set(priorityLeads.map(l => l.emplacement));
-  const boroughCounts = countBy(points, 'borough');
-  const categoryCounts = countBy(points, 'category');
-  const topBorough = Object.entries(boroughCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '—';
+function render(points, priority, all) {
+  priorityAddresses = new Set(priority.map(l => l.emplacement));
+  const boroughCounts = tally(points, 'borough');
+  const categoryCounts = tally(points, 'category');
+  const topBorough = Object.keys(boroughCounts)[0] || '—';
+  const pipeline = points.reduce((s, p) => s + units(p), 0);
 
-  const tape = document.getElementById('tape');
-  tape.innerHTML = `
-    <div class="tape-cell"><p class="t-label">Permits in view</p><p class="t-value">${points.length.toLocaleString()}</p></div>
-    <div class="tape-cell"><p class="t-label">Priority leads</p><p class="t-value gold">${priorityLeads.length}</p></div>
-    <div class="tape-cell"><p class="t-label">Top borough</p><p class="t-value small">${topBorough}</p></div>
-    <div class="tape-cell"><p class="t-label">Categories in view</p><p class="t-value">${Object.keys(categoryCounts).length}</p></div>
+  document.getElementById('ledger').innerHTML = `
+    <div class="ledger-cell"><p class="l-label">Permits in view</p><p class="l-value num">${points.length.toLocaleString()}</p></div>
+    <div class="ledger-cell"><p class="l-label">Priority leads</p><p class="l-value accent num">${priority.length}</p></div>
+    <div class="ledger-cell"><p class="l-label">Units in pipeline</p><p class="l-value num">${Math.round(pipeline).toLocaleString()}</p></div>
+    <div class="ledger-cell"><p class="l-label">Most active borough</p><p class="l-value place">${topBorough}</p></div>
   `;
 
-  drawTrendChart();
-  drawBarChart('boroughChart', 'borough', boroughCounts, '#34B364');
-  drawBarChart('categoryChart', 'category', categoryCounts, '#5B8DD9');
+  drawTrend();
+  drawBars('boroughChart', 'borough', boroughCounts, '#1F7740');
+  drawBars('categoryChart', 'category', categoryCounts, '#2E6DA4');
   updateMap(points);
 
-  renderPriorityTable(priorityLeads);
-  renderAllTable(allLeads);
-  document.getElementById('allLeadsCount').textContent = `${allLeads.length} permits`;
+  renderPriority(priority);
+  renderAll(all);
+  document.getElementById('priorityCount').textContent = `${priority.length} leads`;
+  document.getElementById('allCount').textContent = `${all.length} permits`;
 }
 
-function renderPriorityTable(leads) {
-  const tbody = document.querySelector('#priorityLeadsTable tbody');
-  const empty = document.getElementById('priorityEmptyState');
-  tbody.innerHTML = '';
-  if (!leads.length) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
+function renderPriority(leads) {
+  const tb = document.querySelector('#priorityLeadsTable tbody');
+  const empty = document.getElementById('priorityEmpty');
+  tb.innerHTML = '';
+  empty.hidden = leads.length > 0;
+  if (!leads.length) return;
 
   leads.forEach(l => {
-    const units = getLogements(l) || '—';
-    let intel;
     const it = l.intelligence;
+    let who = '<span class="no-hit">—</span>';
     if (it && (it.found || it.owner_developer || it.general_contractor || it.architect)) {
-      const parts = [];
-      if (it.owner_developer) parts.push(`<span class="intel-found">${it.owner_developer}</span>`);
-      if (it.general_contractor) parts.push(`GC: ${it.general_contractor}`);
-      if (it.architect) parts.push(`Arch: ${it.architect}`);
+      const bits = [];
+      if (it.owner_developer) bits.push(`<span class="who">${it.owner_developer}</span>`);
+      if (it.general_contractor) bits.push(`<span class="who-role">GC: ${it.general_contractor}</span>`);
+      if (it.architect) bits.push(`<span class="who-role">Architect: ${it.architect}</span>`);
       const src = (it.sources && it.sources.length)
-        ? ` <a class="intel-src" href="${it.sources[0]}" target="_blank" rel="noopener">src</a>` : '';
-      const tip = ((it.summary || '') + (it.next_step ? '\nNEXT: ' + it.next_step : '')).replace(/"/g, '&quot;');
-      intel = `<span title="${tip}">${parts.join(' · ')}</span>${src}`;
+        ? ` <a class="src-link" href="${it.sources[0]}" target="_blank" rel="noopener">source</a>` : '';
+      const tip = ((it.summary || '') + (it.next_step ? '\nNext: ' + it.next_step : '')).replace(/"/g, '&quot;');
+      who = `<span title="${tip}">${bits.join('<br>')}</span>${src}`;
     } else if (it) {
       const tip = (it.next_step || '').replace(/"/g, '&quot;');
-      intel = `<span class="intel-none" title="${tip}">no direct hit</span>`;
-    } else {
-      intel = `<span class="intel-none">—</span>`;
+      who = `<span class="no-hit" title="${tip}">Nothing public found</span>`;
     }
-    const threadUrl = (it && it.agora_threads && it.agora_threads.length) ? it.agora_threads[0].url : '';
-    tbody.innerHTML += `<tr>
-      <td class="mono">${l.date_emission}</td>
+    const thread = (it && it.agora_threads && it.agora_threads.length) ? it.agora_threads[0].url : '';
+    tb.innerHTML += `<tr>
+      <td class="dim num">${l.date_emission}</td>
       <td>${l.emplacement}</td>
       <td>${l.arrondissement}</td>
       <td>${l.description_categorie_batiment}</td>
       <td>${l.nature_travaux}</td>
-      <td class="num">${units}</td>
-      <td>${intel}</td>
-      <td><button data-address="${l.emplacement}" data-thread="${threadUrl}" class="lookup-btn">Agora</button></td>
+      <td class="num">${units(l) || '—'}</td>
+      <td>${who}</td>
+      <td><button class="btn" data-address="${l.emplacement}" data-thread="${thread}">Agora</button></td>
     </tr>`;
   });
-  bindLookups(tbody);
+  bind(tb);
 }
 
-function renderAllTable(leads) {
-  const tbody = document.querySelector('#allLeadsTable tbody');
-  const empty = document.getElementById('allEmptyState');
-  tbody.innerHTML = '';
-  if (!leads.length) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
+function renderAll(leads) {
+  const tb = document.querySelector('#allLeadsTable tbody');
+  const empty = document.getElementById('allEmpty');
+  tb.innerHTML = '';
+  empty.hidden = leads.length > 0;
+  if (!leads.length) return;
 
   leads.forEach(l => {
-    const units = getLogements(l) || '—';
-    tbody.innerHTML += `<tr>
-      <td class="mono">${l.date_emission}</td>
+    tb.innerHTML += `<tr>
+      <td class="dim num">${l.date_emission}</td>
       <td>${l.emplacement}</td>
       <td>${l.arrondissement}</td>
       <td>${l.description_categorie_batiment}</td>
       <td>${l.nature_travaux}</td>
-      <td class="num">${units}</td>
-      <td><button data-address="${l.emplacement}" data-thread="" class="lookup-btn">Agora</button></td>
+      <td class="num">${units(l) || '—'}</td>
+      <td><button class="btn" data-address="${l.emplacement}" data-thread="">Agora</button></td>
     </tr>`;
   });
-  bindLookups(tbody);
+  bind(tb);
 }
 
-function bindLookups(tbody) {
-  tbody.querySelectorAll('.lookup-btn').forEach(btn => {
-    btn.addEventListener('click', () => openAgora(btn.dataset.address, btn.dataset.thread));
+function bind(tb) {
+  tb.querySelectorAll('.btn').forEach(b => {
+    b.addEventListener('click', () => openAgora(b.dataset.address, b.dataset.thread));
   });
 }
 
-function openAgora(address, threadUrl) {
-  if (threadUrl) {
-    window.open(threadUrl, '_blank');
-  } else {
-    const query = encodeURIComponent(address.split(' ').slice(0, 4).join(' '));
-    window.open(`https://agoramtl.com/search?q=${query}`, '_blank');
-  }
+function openAgora(address, thread) {
+  if (thread) { window.open(thread, '_blank'); return; }
+  const q = encodeURIComponent(address.split(',')[0].trim());
+  window.open(`https://agoramtl.com/search?q=${q}`, '_blank');
 }
 
-function countBy(points, field) {
-  const counts = {};
-  points.forEach(p => { counts[p[field]] = (counts[p[field]] || 0) + 1; });
-  return Object.fromEntries(Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 20));
+function tally(points, field) {
+  const c = {};
+  points.forEach(p => { c[p[field]] = (c[p[field]] || 0) + 1; });
+  return Object.fromEntries(Object.entries(c).sort((a, b) => b[1] - a[1]).slice(0, 20));
 }
 
-function drawTrendChart() {
+function drawTrend() {
   if (trendChart) trendChart.destroy();
   trendChart = new Chart(document.getElementById('trendChart'), {
     type: 'bar',
     data: {
       labels: rawData.trend_weeks,
       datasets: Object.entries(rawData.trend_series).map(([label, values], i) => ({
-        label, data: values,
-        backgroundColor: ['#34B364', '#D98A4A', '#5B8DD9', '#C9A227'][i % 4],
-        borderRadius: 0, barPercentage: 0.7
+        label, data: values, backgroundColor: SERIES[i % SERIES.length],
+        borderRadius: 2, barPercentage: 0.75
       }))
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: CHART_TEXT, boxWidth: 8, boxHeight: 8 } } },
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, padding: 14 } } },
       scales: {
-        x: { stacked: true, grid: { display: false }, ticks: { color: CHART_TEXT, maxRotation: 0 } },
-        y: { stacked: true, grid: { color: CHART_GRID }, ticks: { color: CHART_TEXT }, border: { display: false } }
+        x: { stacked: true, grid: { display: false }, ticks: { maxRotation: 0, autoSkipPadding: 12 } },
+        y: { stacked: true, grid: { color: GRID }, border: { display: false } }
       }
     }
   });
 }
 
-function drawBarChart(canvasId, which, counts, color) {
+function drawBars(canvasId, which, counts, color) {
   if (which === 'borough' && boroughChart) boroughChart.destroy();
   if (which === 'category' && categoryChart) categoryChart.destroy();
-
   const chart = new Chart(document.getElementById(canvasId), {
     type: 'bar',
     data: {
       labels: Object.keys(counts),
-      datasets: [{ data: Object.values(counts), backgroundColor: color, borderRadius: 0, barPercentage: 0.65 }]
+      datasets: [{ data: Object.values(counts), backgroundColor: color, borderRadius: 2, barPercentage: 0.7 }]
     },
     options: {
-      indexAxis: 'y',
-      responsive: true, maintainAspectRatio: false,
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        x: { grid: { color: CHART_GRID }, ticks: { color: CHART_TEXT }, border: { display: false } },
-        y: { grid: { display: false }, ticks: { color: CHART_TEXT }, border: { display: false } }
+        x: { grid: { color: GRID }, border: { display: false } },
+        y: { grid: { display: false }, border: { display: false } }
       }
     }
   });
-
-  if (which === 'borough') boroughChart = chart;
-  else categoryChart = chart;
+  if (which === 'borough') boroughChart = chart; else categoryChart = chart;
 }
 
 function initMap() {
   map = L.map('map', { scrollWheelZoom: false }).setView([45.55, -73.65], 10);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
   }).addTo(map);
   markersLayer = L.markerClusterGroup({
-    showCoverageOnHover: false,
-    spiderfyOnMaxZoom: true,
-    disableClusteringAtZoom: 15,
-    maxClusterRadius: 45
+    showCoverageOnHover: false, disableClusteringAtZoom: 15, maxClusterRadius: 45
   });
   map.addLayer(markersLayer);
 
@@ -599,79 +569,67 @@ function initMap() {
       document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       mapScope = btn.dataset.scope;
-      drawMarkers();
-      drawLegend();
+      drawMarkers(); drawLegend();
     });
   });
 
   const lt = document.getElementById('legendToggle');
   lt.addEventListener('click', () => {
     const legend = document.getElementById('mapLegend');
-    const open = legend.hasAttribute('hidden');
-    if (open) legend.removeAttribute('hidden'); else legend.setAttribute('hidden', '');
+    const open = legend.hidden;
+    legend.hidden = !open;
     lt.setAttribute('aria-expanded', String(open));
   });
 }
 
-function getColorFor(category) {
+function colorFor(category) {
   if (!(category in categoryColorMap)) {
-    const idx = Object.keys(categoryColorMap).length % CATEGORY_COLORS.length;
-    categoryColorMap[category] = CATEGORY_COLORS[idx];
+    categoryColorMap[category] = CATEGORY_COLORS[Object.keys(categoryColorMap).length % CATEGORY_COLORS.length];
   }
   return categoryColorMap[category];
 }
 
-function updateMap(points) {
-  currentPoints = points;
-  drawMarkers();
-  drawLegend();
+function scoped() {
+  return mapScope === 'priority'
+    ? currentPoints.filter(p => priorityAddresses.has(p.address))
+    : currentPoints;
 }
 
-function scopedPoints() {
-  if (mapScope === 'priority') {
-    return currentPoints.filter(p => priorityAddresses.has(p.address));
-  }
-  return currentPoints;
-}
+function updateMap(points) { currentPoints = points; drawMarkers(); drawLegend(); }
 
 function drawMarkers() {
   markersLayer.clearLayers();
-  const pts = scopedPoints().filter(p => !hiddenCategories.has(p.category));
-  const markers = pts.map(p => {
-    const isPriority = priorityAddresses.has(p.address);
+  const pts = scoped().filter(p => !hiddenCategories.has(p.category));
+  markersLayer.addLayers(pts.map(p => {
+    const pri = priorityAddresses.has(p.address);
     return L.circleMarker([p.lat, p.lng], {
-      radius: isPriority ? 6 : 4,
-      color: isPriority ? '#C9A227' : getColorFor(p.category),
-      fillColor: isPriority ? '#C9A227' : getColorFor(p.category),
-      fillOpacity: isPriority ? 0.9 : 0.6,
-      weight: isPriority ? 2 : 1
+      radius: pri ? 7 : 4,
+      color: pri ? '#A8622C' : colorFor(p.category),
+      fillColor: pri ? '#A8622C' : colorFor(p.category),
+      fillOpacity: pri ? 0.9 : 0.55,
+      weight: pri ? 2 : 1
     }).bindPopup(
       `<strong>${p.address}</strong><br>${p.borough}<br>${p.category}` +
-      (p.nb_logements ? `<br>${p.nb_logements} logements` : '') +
-      (isPriority ? '<br><span style="color:#C9A227">PRIORITY LEAD</span>' : '')
+      (p.nb_logements ? `<br>${p.nb_logements} units` : '') +
+      (pri ? '<br><strong style="color:#A8622C">Priority lead</strong>' : '')
     );
-  });
-  markersLayer.addLayers(markers);
+  }));
 }
 
 function drawLegend() {
   const legend = document.getElementById('mapLegend');
   const counts = {};
-  scopedPoints().forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
-  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-
+  scoped().forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
   legend.innerHTML = '';
-  sorted.forEach(([category, count]) => {
-    const item = document.createElement('div');
-    item.className = 'legend-item' + (hiddenCategories.has(category) ? ' off' : '');
-    item.innerHTML = `<span class="swatch" style="background:${getColorFor(category)}"></span>${category} (${count})`;
-    item.addEventListener('click', () => {
-      if (hiddenCategories.has(category)) hiddenCategories.delete(category);
-      else hiddenCategories.add(category);
-      drawMarkers();
-      drawLegend();
+  Object.entries(counts).sort((a, b) => b[1] - a[1]).forEach(([cat, n]) => {
+    const el = document.createElement('div');
+    el.className = 'legend-item' + (hiddenCategories.has(cat) ? ' off' : '');
+    el.innerHTML = `<span class="swatch" style="background:${colorFor(cat)}"></span>${cat} (${n})`;
+    el.addEventListener('click', () => {
+      hiddenCategories.has(cat) ? hiddenCategories.delete(cat) : hiddenCategories.add(cat);
+      drawMarkers(); drawLegend();
     });
-    legend.appendChild(item);
+    legend.appendChild(el);
   });
 }
 </script>
