@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Libre+Baskerville:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
 <style>
   :root {
     --ink: #0B0D0C;
@@ -108,10 +109,43 @@
   }
   .panel-eyebrow::before { content: ''; width: 8px; height: 1px; background: var(--green-bright); }
 
-  #map { height: 430px; filter: grayscale(0.35) brightness(0.82); }
+  #map { height: 520px; filter: grayscale(0.35) brightness(0.82); }
+  .map-block { border: 1px solid var(--hairline); background: var(--panel); margin-bottom: 40px; }
+  .map-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 18px 24px 14px; flex-wrap: wrap;
+  }
+  .map-tools { display: flex; align-items: center; gap: 10px; }
+  .seg { display: flex; border: 1px solid var(--hairline-strong); border-radius: 2px; overflow: hidden; }
+  .seg-btn {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 7px 14px; border: none; background: transparent; color: var(--text-faint);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .seg-btn + .seg-btn { border-left: 1px solid var(--hairline-strong); }
+  .seg-btn:hover { color: var(--text-dim); }
+  .seg-btn.active { background: var(--green-tint); color: var(--green-bright); }
   .map-panel { position: relative; }
+  .marker-cluster {
+    background: rgba(52, 179, 100, 0.18); border: 1px solid rgba(52, 179, 100, 0.55);
+    border-radius: 50%;
+  }
+  .marker-cluster div {
+    background: rgba(11, 13, 12, 0.85); border-radius: 50%;
+    width: 30px; height: 30px; margin: 3px; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .marker-cluster span {
+    font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--green-bright);
+  }
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: var(--panel-raised); color: var(--text);
+    border: 1px solid var(--hairline-strong); border-radius: 2px; box-shadow: none;
+  }
+  .leaflet-popup-content { font-family: var(--mono); font-size: 11px; line-height: 1.6; }
+  .leaflet-container a.leaflet-popup-close-button { color: var(--text-faint); }
   .map-legend {
-    position: absolute; top: 62px; right: 36px; z-index: 1000;
+    position: absolute; top: 12px; right: 12px; z-index: 1000;
     background: rgba(11, 13, 12, 0.93); border: 1px solid var(--hairline-strong);
     border-radius: 3px; padding: 10px 12px; max-height: 320px; overflow-y: auto;
     backdrop-filter: blur(4px); max-width: 250px;
@@ -251,16 +285,28 @@
       <canvas id="boroughChart"></canvas>
     </div>
   </div>
-  <div class="panel">
+  <div class="panel" style="grid-column: 1 / -1;">
     <p class="panel-eyebrow">Volume by building category</p>
-    <div style="position: relative; height: 430px;">
+    <div style="position: relative; height: 300px;">
       <canvas id="categoryChart"></canvas>
     </div>
   </div>
-  <div class="panel map-panel">
-    <p class="panel-eyebrow">Geographic distribution</p>
+</div>
+
+<div class="map-block">
+  <div class="map-head">
+    <p class="panel-eyebrow" style="margin:0;">Geographic distribution</p>
+    <div class="map-tools">
+      <div class="seg" role="group" aria-label="Map scope">
+        <button class="seg-btn active" data-scope="all">All permits</button>
+        <button class="seg-btn" data-scope="priority">Priority only</button>
+      </div>
+      <button class="toggle-all-btn" id="legendToggle" aria-expanded="false">Categories</button>
+    </div>
+  </div>
+  <div class="map-panel">
     <div id="map"></div>
-    <div class="map-legend" id="mapLegend"></div>
+    <div class="map-legend" id="mapLegend" hidden></div>
   </div>
 </div>
 
@@ -301,6 +347,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
 <script>
 let rawData = null;
 let map = null, markersLayer = null;
@@ -317,6 +364,8 @@ const CATEGORY_COLORS = [
 let categoryColorMap = {};
 let hiddenCategories = new Set();
 let currentPoints = [];
+let priorityAddresses = new Set();
+let mapScope = 'all';
 
 Chart.defaults.font.family = MONO;
 Chart.defaults.font.size = 10;
@@ -377,6 +426,7 @@ function applyFilters() {
 }
 
 function render(points, priorityLeads, allLeads) {
+  priorityAddresses = new Set(priorityLeads.map(l => l.emplacement));
   const boroughCounts = countBy(points, 'borough');
   const categoryCounts = countBy(points, 'category');
   const topBorough = Object.entries(boroughCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '—';
@@ -532,11 +582,35 @@ function drawBarChart(canvasId, which, counts, color) {
 }
 
 function initMap() {
-  map = L.map('map').setView([45.55, -73.65], 10);
+  map = L.map('map', { scrollWheelZoom: false }).setView([45.55, -73.65], 10);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
   }).addTo(map);
-  markersLayer = L.layerGroup().addTo(map);
+  markersLayer = L.markerClusterGroup({
+    showCoverageOnHover: false,
+    spiderfyOnMaxZoom: true,
+    disableClusteringAtZoom: 15,
+    maxClusterRadius: 45
+  });
+  map.addLayer(markersLayer);
+
+  document.querySelectorAll('.seg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      mapScope = btn.dataset.scope;
+      drawMarkers();
+      drawLegend();
+    });
+  });
+
+  const lt = document.getElementById('legendToggle');
+  lt.addEventListener('click', () => {
+    const legend = document.getElementById('mapLegend');
+    const open = legend.hasAttribute('hidden');
+    if (open) legend.removeAttribute('hidden'); else legend.setAttribute('hidden', '');
+    lt.setAttribute('aria-expanded', String(open));
+  });
 }
 
 function getColorFor(category) {
@@ -553,22 +627,37 @@ function updateMap(points) {
   drawLegend();
 }
 
+function scopedPoints() {
+  if (mapScope === 'priority') {
+    return currentPoints.filter(p => priorityAddresses.has(p.address));
+  }
+  return currentPoints;
+}
+
 function drawMarkers() {
   markersLayer.clearLayers();
-  currentPoints.forEach(p => {
-    if (hiddenCategories.has(p.category)) return;
-    L.circleMarker([p.lat, p.lng], {
-      radius: 4, color: getColorFor(p.category), fillOpacity: 0.7, weight: 1
-    })
-      .bindPopup(`${p.address}<br>${p.borough}<br>${p.category}${p.nb_logements ? '<br>' + p.nb_logements + ' logements' : ''}`)
-      .addTo(markersLayer);
+  const pts = scopedPoints().filter(p => !hiddenCategories.has(p.category));
+  const markers = pts.map(p => {
+    const isPriority = priorityAddresses.has(p.address);
+    return L.circleMarker([p.lat, p.lng], {
+      radius: isPriority ? 6 : 4,
+      color: isPriority ? '#C9A227' : getColorFor(p.category),
+      fillColor: isPriority ? '#C9A227' : getColorFor(p.category),
+      fillOpacity: isPriority ? 0.9 : 0.6,
+      weight: isPriority ? 2 : 1
+    }).bindPopup(
+      `<strong>${p.address}</strong><br>${p.borough}<br>${p.category}` +
+      (p.nb_logements ? `<br>${p.nb_logements} logements` : '') +
+      (isPriority ? '<br><span style="color:#C9A227">PRIORITY LEAD</span>' : '')
+    );
   });
+  markersLayer.addLayers(markers);
 }
 
 function drawLegend() {
   const legend = document.getElementById('mapLegend');
   const counts = {};
-  currentPoints.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
+  scopedPoints().forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
   const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
 
   legend.innerHTML = '';
