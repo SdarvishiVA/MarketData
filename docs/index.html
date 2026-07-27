@@ -44,23 +44,30 @@
 
   /* ---------- Masthead ---------- */
   .masthead {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    gap: 16px; flex-wrap: wrap;
-    padding: 30px 0 18px; border-bottom: 2px solid var(--ink);
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 32px; flex-wrap: wrap;
+    padding: 34px 0 20px; border-bottom: 2px solid var(--ink);
   }
-  .masthead-left { display: flex; align-items: center; gap: 16px; }
-  #logo { height: 32px; width: auto; display: block; }
-  .wordmark {
-    font-family: var(--sans); font-size: 12px; font-weight: 600;
-    letter-spacing: 2.5px; color: var(--green); text-transform: uppercase;
-    padding-right: 16px; border-right: 1px solid var(--rule-strong);
+  .brand { display: flex; align-items: flex-start; gap: 18px; }
+  #logo { height: 46px; width: auto; display: block; flex-shrink: 0; }
+  .brand-text { display: flex; flex-direction: column; }
+  .eyebrow {
+    font-size: 11.5px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--green); margin: 0 0 5px;
   }
   .masthead h1 {
-    font-family: var(--serif); font-size: clamp(20px, 2.6vw, 27px);
-    font-weight: 400; margin: 0; color: var(--ink); letter-spacing: -0.1px;
+    font-family: var(--serif); font-size: clamp(21px, 2.6vw, 28px);
+    font-weight: 400; margin: 0; color: var(--ink); line-height: 1.15;
   }
-  .dateline { font-size: 12.5px; color: var(--ink-mute); text-align: right; }
-  .dateline strong { color: var(--ink-soft); font-weight: 500; }
+  .subtitle { font-size: 13px; color: var(--ink-mute); margin: 6px 0 0; }
+  .dateline {
+    margin: 0; display: grid; grid-template-columns: auto auto;
+    gap: 4px 16px; align-content: start; font-size: 12.5px;
+  }
+  .dateline dt { color: var(--ink-mute); }
+  .dateline dd { margin: 0; color: var(--ink); font-weight: 500; text-align: right; }
+  .dateline .run { grid-column: 1 / -1; color: var(--ink-faint); font-size: 11.5px;
+    text-align: right; margin: 6px 0 0; padding-top: 6px; border-top: 1px solid var(--rule); }
 
   /* ---------- Stat ledger ---------- */
   .ledger {
@@ -221,12 +228,15 @@
 <body>
 
 <header class="masthead">
-  <div class="masthead-left">
-    <img id="logo" src="logo.png" alt="VA Capital" onerror="this.remove(); document.getElementById('wordmark').hidden = false;">
-    <span class="wordmark" id="wordmark" hidden>VA Capital</span>
-    <h1>Permit intelligence — Montréal</h1>
+  <div class="brand">
+    <img id="logo" src="logo.png" alt="VA Capital" onerror="this.remove();">
+    <div class="brand-text">
+      <p class="eyebrow">VA Capital</p>
+      <h1>Montréal Permit Intelligence</h1>
+      <p class="subtitle">Commercial construction activity and financing signals</p>
+    </div>
   </div>
-  <div class="dateline" id="dateline">Loading…</div>
+  <dl class="dateline" id="dateline"><dt>Status</dt><dd>Loading…</dd></dl>
 </header>
 
 <div class="ledger" id="ledger"></div>
@@ -278,8 +288,8 @@
     <p class="panel-title">Geographic distribution</p>
     <div class="map-tools">
       <div class="seg" role="group" aria-label="Map scope">
-        <button class="seg-btn active" data-scope="priority">Priority only</button>
-        <button class="seg-btn" data-scope="all">All permits</button>
+        <button class="seg-btn active" data-scope="all">All permits</button>
+        <button class="seg-btn" data-scope="priority">Priority only</button>
       </div>
       <button class="btn" id="legendToggle" aria-expanded="false">Categories</button>
     </div>
@@ -342,7 +352,7 @@ let rawData = null;
 let map = null, markersLayer = null;
 let trendChart = null, boroughChart = null, categoryChart = null;
 let currentPoints = [], priorityAddresses = new Set();
-let hiddenCategories = new Set(), mapScope = 'priority';
+let hiddenCategories = new Set(), mapScope = 'all';
 let categoryColorMap = {};
 
 const AXIS = '#7A7469';
@@ -358,8 +368,11 @@ fetch('data.json')
   .then(r => r.json())
   .then(data => {
     rawData = data;
-    document.getElementById('dateline').innerHTML =
-      `Data through <strong>${data.data_through || '—'}</strong> · Market view ${data.window_days} days · Leads ${data.leads_window_days} days<br>Last run ${data.last_updated}`;
+    document.getElementById('dateline').innerHTML = `
+      <dt>Data through</dt><dd>${prettyDate(data.data_through)}</dd>
+      <dt>Market view</dt><dd>${data.window_days} days</dd>
+      <dt>Lead window</dt><dd>${data.leads_window_days} days</dd>
+      <p class="run">Last run ${data.last_updated}</p>`;
 
     fill('boroughFilter', Object.keys(data.by_borough));
     fill('categoryFilter', Object.keys(data.by_category));
@@ -378,8 +391,15 @@ fetch('data.json')
     });
   })
   .catch(() => {
-    document.getElementById('dateline').textContent = 'Could not load data.json — run the scan workflow.';
+    document.getElementById('dateline').innerHTML = '<dt>Status</dt><dd>No data — run the scan workflow</dd>';
   });
+
+function prettyDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso + 'T00:00:00');
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString('en-CA', { day: 'numeric', month: 'short', year: 'numeric' });
+}
 
 function fill(id, values) {
   const s = document.getElementById(id);
