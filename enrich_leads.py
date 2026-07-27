@@ -77,31 +77,74 @@ def empty_intel():
     }
 
 
+STREET_TYPES = {
+    "rue", "avenue", "av", "boulevard", "boul", "blvd", "chemin", "ch",
+    "place", "montee", "montée", "cote", "côte", "impasse", "terrasse",
+    "square", "croissant", "allee", "allée", "voie", "route", "rang",
+}
+
+
+def clean_address(address):
+    """Normalize a permit address into a searchable string.
+    Drops anything after a comma (suite/unit noise) and collapses whitespace."""
+    return " ".join(address.split(",")[0].split()).strip()
+
+
+def street_only(address):
+    """Street name without the civic number or street-type word.
+    'ave' -> useful fallback when the exact number isn't discussed."""
+    parts = clean_address(address).split()
+    parts = [p for p in parts if not p[0].isdigit()]
+    parts = [p for p in parts if p.lower().strip(".") not in STREET_TYPES]
+    return " ".join(parts).strip()
+
+
+def _agora_request(query):
+    r = requests.get(
+        AGORA_SEARCH_URL,
+        params={"q": query},
+        headers={"User-Agent": "VA-Capital-Research/1.0 (permit market research)"},
+        timeout=30,
+    )
+    r.raise_for_status()
+    data = r.json()
+    topics = data.get("topics", [])[:3]
+    posts = {p.get("topic_id"): p.get("blurb", "") for p in data.get("posts", [])}
+    return [
+        {
+            "title": t.get("title", ""),
+            "url": f"https://agoramtl.com/t/{t.get('slug')}/{t.get('id')}",
+            "excerpt": posts.get(t.get("id"), "")[:300],
+        }
+        for t in topics
+    ]
+
+
 def search_agora(address):
     """Query Agora MTL's public Discourse search API for threads about this address.
+    Tries the full address first, then falls back to the street name alone,
+    since threads are often titled by project or street rather than civic number.
     Returns a list of {title, url, excerpt} dicts, or [] on any failure."""
-    query = " ".join(address.split()[:4])
+    full = clean_address(address)
+    if not full:
+        return []
+
     try:
-        r = requests.get(
-            AGORA_SEARCH_URL,
-            params={"q": query},
-            headers={"User-Agent": "VA-Capital-Research/1.0 (permit market research)"},
-            timeout=30,
-        )
-        r.raise_for_status()
-        data = r.json()
-        topics = data.get("topics", [])[:3]
-        posts = {p.get("topic_id"): p.get("blurb", "") for p in data.get("posts", [])}
-        return [
-            {
-                "title": t.get("title", ""),
-                "url": f"https://agoramtl.com/t/{t.get('slug')}/{t.get('id')}",
-                "excerpt": posts.get(t.get("id"), "")[:300],
-            }
-            for t in topics
-        ]
+        results = _agora_request(full)
+        if results:
+            return results
     except Exception as e:
-        print(f"  Agora search failed: {e}")
+        print(f"  Agora search failed ({full}): {e}")
+
+    fallback = street_only(address)
+    if not fallback or fallback.lower() == full.lower():
+        return []
+
+    try:
+        time.sleep(1)
+        return _agora_request(fallback)
+    except Exception as e:
+        print(f"  Agora fallback search failed ({fallback}): {e}")
         return []
 
 
