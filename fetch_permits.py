@@ -12,6 +12,7 @@ Sources:
 import json
 import os
 import smtplib
+import unicodedata
 from datetime import datetime, timedelta
 
 import pandas as pd
@@ -139,14 +140,22 @@ def load_laval():
         print(f"  Laval load failed ({e}) - continuing with Montreal only.")
         return pd.DataFrame(columns=COLUMNS)
 
-    cols = {c.lower().strip(): c for c in df.columns}
+    print(f"  Laval columns: {list(df.columns)}")
 
-    def col(name, default=None):
-        return cols.get(name.lower())
+    def norm(text):
+        text = unicodedata.normalize("NFKD", str(text))
+        text = "".join(ch for ch in text if not unicodedata.combining(ch))
+        return "".join(ch for ch in text.lower() if ch.isalnum())
+
+    cols = {norm(c): c for c in df.columns}
+    missing = []
 
     def series(name, fill=""):
-        c = col(name)
-        return df[c] if c else pd.Series([fill] * len(df), index=df.index)
+        c = cols.get(norm(name))
+        if not c:
+            missing.append(name)
+            return pd.Series([fill] * len(df), index=df.index)
+        return df[c]
 
     type_desc = series("Type_Permis_Description").fillna("").astype(str)
 
@@ -171,6 +180,8 @@ def load_laval():
     )
     out["city"] = "Laval"
 
+    if missing:
+        print(f"  Laval columns NOT FOUND (filled blank): {missing}")
     print(f"  Laval newest permit: {out['date_emission'].max()}")
     print(f"  Laval permit types (top 12): {type_desc.value_counts().head(12).to_dict()}")
     print(f"  Laval rows flagged as construction: {int(out['is_construction'].sum()):,}")
@@ -255,6 +266,10 @@ def build_dashboard_data(df, priority_leads, all_leads):
         "window_days": DASHBOARD_LOOKBACK_DAYS,
         "leads_window_days": LEADS_LOOKBACK_DAYS,
         "cities": sorted(window["city"].dropna().unique().tolist()),
+        "city_freshness": {
+            c: g["date_emission"].max().strftime("%Y-%m-%d")
+            for c, g in df.groupby("city") if pd.notna(g["date_emission"].max())
+        },
         "total_permits": int(len(window)),
         "total_housing_units": int(window["nb_logements"].fillna(0).sum()),
         "by_city": window["city"].value_counts().to_dict(),
@@ -272,15 +287,17 @@ def build_dashboard_data(df, priority_leads, all_leads):
 
 # --- State + email --------------------------------------------------------
 def load_seen_ids():
+    """Stored IDs are always strings. Older state files may contain integers
+    from the single-city version, so coerce on read as well as write."""
     if os.path.exists(STATE_FILE):
         with open(STATE_FILE, "r") as f:
-            return set(json.load(f))
+            return {str(x) for x in json.load(f)}
     return set()
 
 
 def save_seen_ids(ids):
     with open(STATE_FILE, "w") as f:
-        json.dump(sorted(ids), f)
+        json.dump(sorted(str(x) for x in ids), f)
 
 
 def send_email(new_leads):
