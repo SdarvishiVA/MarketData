@@ -9,7 +9,6 @@ Sources:
   - Ville de Laval     (donneesquebec.ca)      daily refresh, has contractor name + cost
 """
 
-import io
 import json
 import os
 import smtplib
@@ -71,20 +70,42 @@ COLUMNS = [
 
 
 # --- Loading --------------------------------------------------------------
+HTTP_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+    "Accept": "text/csv,application/csv,*/*",
+}
+
+
 def _download_csv(url, label):
+    """Stream the CSV to a temp file, then parse it. Streaming keeps peak memory
+    low, and the browser-style User-Agent avoids 403s from municipal servers
+    that block default library agents."""
     print(f"Downloading {label} dataset...")
-    r = requests.get(url, timeout=600)
-    r.raise_for_status()
-    raw = r.content
+    tmp_path = f"/tmp/{label.lower()}_permits.csv"
+
+    with requests.get(url, headers=HTTP_HEADERS, stream=True, timeout=600) as r:
+        r.raise_for_status()
+        with open(tmp_path, "wb") as fh:
+            for chunk in r.iter_content(chunk_size=1 << 20):
+                if chunk:
+                    fh.write(chunk)
+
+    size_mb = os.path.getsize(tmp_path) / (1024 * 1024)
+    print(f"  {label}: downloaded {size_mb:.1f} MB")
+
     for enc in ("utf-8", "latin-1"):
         for sep in (",", ";"):
             try:
-                df = pd.read_csv(io.BytesIO(raw), encoding=enc, sep=sep, low_memory=False)
+                df = pd.read_csv(tmp_path, encoding=enc, sep=sep, low_memory=False)
                 if df.shape[1] > 3:
                     print(f"  {label}: {len(df):,} rows, {df.shape[1]} columns (enc={enc}, sep='{sep}')")
+                    os.remove(tmp_path)
                     return df
             except Exception:
                 continue
+
+    os.remove(tmp_path)
     raise RuntimeError(f"Could not parse {label} CSV")
 
 
