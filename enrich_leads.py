@@ -24,11 +24,13 @@ AGORA_SEARCH_URL = "https://agoramtl.com/search.json"
 PROMPT_TEMPLATE = """You are an investigative researcher for a commercial real estate lender. A construction permit was issued in Montreal. Your job: identify who is behind the project, using every public trail available.
 
 PERMIT:
+City: {city}
 Address: {address}
-Borough: {borough}
+Sector: {borough}
 Building category: {category}
 Nature of work: {nature}
 Housing units: {logements}
+Permit applicant on record: {entrepreneur}
 
 INVESTIGATE THESE TRAILS (use multiple searches, in French AND English):
 1. Direct: search the address + "projet" / "developpement" / "condos" / "logements" - developer announcements, project marketing sites, news.
@@ -41,6 +43,7 @@ RULES:
 - Names must come from sources explicitly tied to THIS address/project. Never guess or pattern-match from similar names.
 - A general contractor or architect finding is valuable even if the owner isn't found - report them with their role.
 - Prefer 1 confirmed name over 3 maybes.
+- If a permit applicant is already listed above, that is usually the general contractor. Confirm who they are and try to identify the OWNER/DEVELOPER who hired them.
 
 Respond ONLY with a JSON object, no markdown fences:
 {{
@@ -157,11 +160,13 @@ def enrich_lead(lead):
             agora_context += f"- {t['title']} - {t['url']}\n  Excerpt: {t['excerpt']}\n"
 
     prompt = PROMPT_TEMPLATE.format(
+        city=lead.get("city", "Montréal"),
         address=lead.get("emplacement", ""),
-        borough=lead.get("arrondissement", ""),
-        category=lead.get("description_categorie_batiment", ""),
-        nature=lead.get("nature_travaux", ""),
+        borough=lead.get("secteur", ""),
+        category=lead.get("categorie", ""),
+        nature=lead.get("nature", ""),
         logements=lead.get("nb_logements", ""),
+        entrepreneur=lead.get("entrepreneur") or "not listed",
     ) + agora_context
 
     response = requests.post(
