@@ -243,8 +243,12 @@
 
 <div class="toolbar">
   <div class="field">
-    <label for="boroughFilter">Borough</label>
-    <select id="boroughFilter"><option value="__all__">All boroughs</option></select>
+    <label for="cityFilter">City</label>
+    <select id="cityFilter"><option value="__all__">All cities</option></select>
+  </div>
+  <div class="field">
+    <label for="boroughFilter">Sector</label>
+    <select id="boroughFilter"><option value="__all__">All sectors</option></select>
   </div>
   <div class="field">
     <label for="categoryFilter">Category</label>
@@ -285,7 +289,7 @@
 
 <div class="map-block">
   <div class="map-head">
-    <p class="panel-title">Geographic distribution</p>
+    <p class="panel-title">Geographic distribution <span style="font-weight:400;color:var(--ink-mute);">— Montréal only</span></p>
     <div class="map-tools">
       <div class="seg" role="group" aria-label="Map scope">
         <button class="seg-btn active" data-scope="all">All permits</button>
@@ -310,7 +314,7 @@
 <div class="table-wrap">
   <table id="priorityLeadsTable">
     <thead>
-      <tr><th>Issued</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Units</th><th>Who's behind it</th><th></th></tr>
+      <tr><th>Issued</th><th>City</th><th>Address</th><th>Sector</th><th>Category</th><th>Nature of work</th><th>Units</th><th>Who's behind it</th><th></th></tr>
     </thead>
     <tbody></tbody>
   </table>
@@ -331,7 +335,7 @@
   <div class="table-wrap">
     <table id="allLeadsTable">
       <thead>
-        <tr><th>Issued</th><th>Address</th><th>Borough</th><th>Category</th><th>Nature of work</th><th>Units</th><th></th></tr>
+        <tr><th>Issued</th><th>City</th><th>Address</th><th>Sector</th><th>Category</th><th>Nature of work</th><th>Units</th><th>Contractor</th><th></th></tr>
       </thead>
       <tbody></tbody>
     </table>
@@ -340,7 +344,8 @@
 </div>
 
 <p class="footnote">
-  Source: Ville de Montréal open permit data, refreshed weekly. Lachine and Saint-Léonard are not yet included in the city's dataset.
+  Sources: Ville de Montréal open permit data (weekly refresh) and Ville de Laval open permit data (daily refresh, CC-BY).
+  Lachine and Saint-Léonard are not yet included in Montréal's dataset. Only Montréal publishes coordinates, so Laval permits appear in the tables but not on the map.
   Developer attribution is assembled from public sources and should be verified before outreach.
 </p>
 
@@ -374,13 +379,14 @@ fetch('data.json')
       <dt>Lead window</dt><dd>${data.leads_window_days} days</dd>
       <p class="run">Last run ${data.last_updated}</p>`;
 
+    fill('cityFilter', data.cities || Object.keys(data.by_city || {}));
     fill('boroughFilter', Object.keys(data.by_borough));
     fill('categoryFilter', Object.keys(data.by_category));
 
     initMap();
     applyFilters();
 
-    ['boroughFilter','categoryFilter','logementsFilter'].forEach(id =>
+    ['cityFilter','boroughFilter','categoryFilter','logementsFilter'].forEach(id =>
       document.getElementById(id).addEventListener('change', applyFilters));
 
     const tb = document.getElementById('toggleAllBtn');
@@ -416,16 +422,19 @@ function units(o) {
 }
 
 function applyFilters() {
+  const city = document.getElementById('cityFilter').value;
   const b = document.getElementById('boroughFilter').value;
   const c = document.getElementById('categoryFilter').value;
   const min = parseInt(document.getElementById('logementsFilter').value, 10);
-  const ok = (bo, ca, u) =>
-    (b === '__all__' || bo === b) && (c === '__all__' || ca === c) && u >= min;
+  const ok = (ci, bo, ca, u) =>
+    (city === '__all__' || ci === city) &&
+    (b === '__all__' || bo === b) &&
+    (c === '__all__' || ca === c) && u >= min;
 
   render(
-    rawData.geo_points.filter(p => ok(p.borough, p.category, units(p))),
-    rawData.priority_leads.filter(l => ok(l.arrondissement, l.description_categorie_batiment, units(l))),
-    rawData.all_leads.filter(l => ok(l.arrondissement, l.description_categorie_batiment, units(l)))
+    rawData.geo_points.filter(p => ok(p.city, p.borough, p.category, units(p))),
+    rawData.priority_leads.filter(l => ok(l.city, l.secteur, l.categorie, units(l))),
+    rawData.all_leads.filter(l => ok(l.city, l.secteur, l.categorie, units(l)))
   );
 }
 
@@ -463,27 +472,37 @@ function renderPriority(leads) {
 
   leads.forEach(l => {
     const it = l.intelligence;
-    let who = '<span class="no-hit">—</span>';
+    const bits = [];
+
+    if (l.entrepreneur) {
+      bits.push(`<span class="who">${l.entrepreneur}</span> <span class="who-role">(permit applicant)</span>`);
+    }
     if (it && (it.found || it.owner_developer || it.general_contractor || it.architect)) {
-      const bits = [];
       if (it.owner_developer) bits.push(`<span class="who">${it.owner_developer}</span>`);
       if (it.general_contractor) bits.push(`<span class="who-role">GC: ${it.general_contractor}</span>`);
       if (it.architect) bits.push(`<span class="who-role">Architect: ${it.architect}</span>`);
-      const src = (it.sources && it.sources.length)
+    }
+
+    let who;
+    if (bits.length) {
+      const src = (it && it.sources && it.sources.length)
         ? ` <a class="src-link" href="${it.sources[0]}" target="_blank" rel="noopener">source</a>` : '';
-      const tip = ((it.summary || '') + (it.next_step ? '\nNext: ' + it.next_step : '')).replace(/"/g, '&quot;');
+      const tip = it ? ((it.summary || '') + (it.next_step ? '\nNext: ' + it.next_step : '')).replace(/"/g, '&quot;') : '';
       who = `<span title="${tip}">${bits.join('<br>')}</span>${src}`;
     } else if (it) {
-      const tip = (it.next_step || '').replace(/"/g, '&quot;');
-      who = `<span class="no-hit" title="${tip}">Nothing public found</span>`;
+      who = `<span class="no-hit" title="${(it.next_step || '').replace(/"/g, '&quot;')}">Nothing public found</span>`;
+    } else {
+      who = '<span class="no-hit">—</span>';
     }
+
     const thread = (it && it.agora_threads && it.agora_threads.length) ? it.agora_threads[0].url : '';
     tb.innerHTML += `<tr>
       <td class="dim num">${l.date_emission}</td>
-      <td>${l.emplacement}</td>
-      <td>${l.arrondissement}</td>
-      <td>${l.description_categorie_batiment}</td>
-      <td>${l.nature_travaux}</td>
+      <td>${l.city}</td>
+      <td>${l.emplacement}${l.cout ? `<br><span class="dim">Permit value $${Math.round(l.cout).toLocaleString()}</span>` : ''}</td>
+      <td>${l.secteur}</td>
+      <td>${l.categorie}</td>
+      <td>${l.nature}</td>
       <td class="num">${units(l) || '—'}</td>
       <td>${who}</td>
       <td><button class="btn" data-address="${l.emplacement}" data-thread="${thread}">Agora</button></td>
@@ -502,11 +521,13 @@ function renderAll(leads) {
   leads.forEach(l => {
     tb.innerHTML += `<tr>
       <td class="dim num">${l.date_emission}</td>
+      <td>${l.city}</td>
       <td>${l.emplacement}</td>
-      <td>${l.arrondissement}</td>
-      <td>${l.description_categorie_batiment}</td>
-      <td>${l.nature_travaux}</td>
+      <td>${l.secteur}</td>
+      <td>${l.categorie}</td>
+      <td>${l.nature}</td>
       <td class="num">${units(l) || '—'}</td>
+      <td>${l.entrepreneur ? `<span class="who">${l.entrepreneur}</span>` : '<span class="no-hit">—</span>'}</td>
       <td><button class="btn" data-address="${l.emplacement}" data-thread="">Agora</button></td>
     </tr>`;
   });
