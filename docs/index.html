@@ -85,7 +85,19 @@
   @media (max-width:1000px){.grid2{grid-template-columns:1fr}}
 
   /* Leads table */
-  .tablewrap{overflow-x:auto}
+  .tablewrap{overflow:auto;max-height:min(66vh,680px)}
+  .jump{display:flex;gap:4px}
+  .jump a{font-size:12.5px;color:var(--ink-3);text-decoration:none;padding:6px 11px;
+    border-radius:7px;transition:all .15s}
+  .jump a:hover{color:var(--green);background:var(--green-soft)}
+  .pager{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:12px 18px;border-top:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
+  .pager .info{font-size:12.5px;color:var(--ink-3)}
+  .pager .ctl{display:flex;align-items:center;gap:8px}
+  .pager select{font-family:var(--sans);font-size:12.5px;padding:6px 10px;border-radius:7px;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--ink);cursor:pointer}
+  .pager button:disabled{opacity:.4;cursor:default}
+  .pager button:disabled:hover{border-color:var(--line-2);color:var(--ink-2);background:var(--surface)}
   table{width:100%;border-collapse:collapse;font-size:13px;min-width:1000px}
   thead th{text-align:left;padding:11px 16px;font-size:11.5px;font-weight:600;color:var(--ink-3);
     background:var(--surface-2);border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0}
@@ -186,6 +198,9 @@
       <p>Construction activity, property timelines and financing signals</p>
     </div>
   </div>
+  <nav class="jump">
+    <a href="#leads">Leads</a><a href="#market">Market</a><a href="#map-section">Map</a>
+  </nav>
   <div class="status" id="status"><span>Loading…</span></div>
 </div></div>
 
@@ -221,7 +236,7 @@
   <button class="reset" id="fReset">Reset filters</button>
 </div>
 
-<div class="sec">
+<div class="sec" id="leads">
   <div><h2>Scored leads</h2>
     <span class="note">Click any row for the scoring rationale and full property timeline</span></div>
   <span class="note" id="leadCount">—</span>
@@ -238,9 +253,21 @@
     </table>
   </div>
   <div class="empty" id="leadsEmpty" hidden>No leads match these filters.</div>
+  <div class="pager" id="pager">
+    <span class="info" id="pageInfo">—</span>
+    <div class="ctl">
+      <label for="pageSize" class="info">Rows</label>
+      <select id="pageSize">
+        <option value="25">25</option><option value="50" selected>50</option>
+        <option value="100">100</option><option value="99999">All</option>
+      </select>
+      <button class="btn" id="prevPage">Previous</button>
+      <button class="btn" id="nextPage">Next</button>
+    </div>
+  </div>
 </div>
 
-<div class="sec"><div><h2>Market context</h2>
+<div class="sec" id="market"><div><h2>Market context</h2>
   <span class="note">All permit activity in the trailing window, not just scored leads</span></div></div>
 
 <div class="grid2">
@@ -253,7 +280,7 @@
 <div class="panel" style="margin-bottom:16px"><div class="panel-head"><h3>Volume by building category</h3></div>
   <div class="panel-pad"><div style="position:relative;height:280px"><canvas id="catChart"></canvas></div></div></div>
 
-<div class="panel">
+<div class="panel" id="map-section">
   <div class="panel-head">
     <h3>Geographic distribution <span class="muted" style="font-weight:400">— cities publishing coordinates</span></h3>
     <div style="display:flex;gap:10px;align-items:center">
@@ -283,6 +310,7 @@
 let DATA=null,map=null,layer=null;
 let cTrend=null,cSector=null,cCat=null;
 let pts=[],leadAddr=new Set(),hidden=new Set(),scope='leads',open=new Set(),colorMap={};
+let page=0,pageSize=50,lastLeads=[];
 
 const AXIS='#6E7C76',GRID='rgba(14,21,18,.06)';
 const WORK={construction:'#0F7A43',demolition:'#C2410C',transformation:'#B45309',certificate:'#1D5FA8',other:'#9AA6A0'};
@@ -317,7 +345,17 @@ fetch('data.json?v='+Date.now())
 
     safely('map setup',initMap);
     ['fTier','fStage','fCity','fSector','fCat','fUnits','fCost','fNamed','fSort']
-      .forEach(id=>document.getElementById(id).addEventListener('change',apply));
+      .forEach(id=>document.getElementById(id).addEventListener('change',()=>{page=0;apply()}));
+    document.getElementById('pageSize').addEventListener('change',e=>{
+      pageSize=+e.target.value;page=0;apply();
+    });
+    document.getElementById('prevPage').addEventListener('click',()=>{
+      if(page>0){page--;apply();document.getElementById('leads').scrollIntoView({block:'start'})}
+    });
+    document.getElementById('nextPage').addEventListener('click',()=>{
+      if((page+1)*pageSize<lastLeads.length){page++;apply();
+        document.getElementById('leads').scrollIntoView({block:'start'})}
+    });
     document.getElementById('fReset').addEventListener('click',()=>{
       ['fTier','fStage','fCity','fSector','fCat'].forEach(id=>document.getElementById(id).value='__all__');
       ['fUnits','fCost','fNamed'].forEach(id=>document.getElementById(id).value='0');
@@ -381,7 +419,18 @@ function render(leads,mapPts){
       <p class="sub">trailing ${DATA.window_days} days</p></div>`;
 
   document.getElementById('leadCount').textContent=`${leads.length} leads`;
-  safely('leads table',()=>renderLeads(leads));
+  lastLeads=leads;
+  const maxPage=Math.max(0,Math.ceil(leads.length/pageSize)-1);
+  if(page>maxPage)page=maxPage;
+  const start=page*pageSize,slice=leads.slice(start,start+pageSize);
+  safely('leads table',()=>renderLeads(slice));
+  safely('pager',()=>{
+    const shown=leads.length?`${start+1}–${Math.min(start+pageSize,leads.length)} of ${leads.length}`:'0';
+    document.getElementById('pageInfo').textContent='Showing '+shown;
+    document.getElementById('prevPage').disabled=page===0;
+    document.getElementById('nextPage').disabled=(page+1)*pageSize>=leads.length;
+    document.getElementById('pager').hidden=leads.length===0;
+  });
   safely('trend chart',drawTrend);
   safely('sector chart',()=>drawBar('sectorChart','sector',DATA.by_borough,'#0F7A43'));
   safely('category chart',()=>drawBar('catChart','cat',DATA.by_category,'#1D5FA8'));
