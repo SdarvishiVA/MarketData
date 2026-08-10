@@ -320,7 +320,10 @@ Chart.defaults.font.family="'Montserrat',sans-serif";
 Chart.defaults.font.size=11;
 Chart.defaults.color=AXIS;
 
-fetch('data.json').then(r=>r.json()).then(data=>{
+fetch('data.json?v=' + Date.now()).then(r=>{
+  if(!r.ok) throw new Error('data.json returned HTTP ' + r.status);
+  return r.json();
+}).then(data=>{
   rawData=data;
   document.getElementById('dateline').innerHTML=`
     <dt>Data through</dt><dd>${prettyDate(data.data_through)}</dd>
@@ -336,7 +339,7 @@ fetch('data.json').then(r=>r.json()).then(data=>{
   fill('boroughFilter',Object.keys(data.by_borough||{}));
   fill('categoryFilter',Object.keys(data.by_category||{}));
 
-  initMap();
+  safely('map setup', ()=>initMap());
   applyFilters();
 
   ['cityFilter','signalFilter','boroughFilter','categoryFilter','logementsFilter']
@@ -347,9 +350,16 @@ fetch('data.json').then(r=>r.json()).then(data=>{
     const open=wrap.classList.toggle('expanded');
     tb.textContent=open?'Hide all':'Show all';
   });
-}).catch(()=>{
-  document.getElementById('dateline').innerHTML='<dt>Status</dt><dd>No data — run the scan workflow</dd>';
+}).catch(err=>{
+  console.error('Dashboard load failed:', err);
+  document.getElementById('dateline').innerHTML=
+    '<dt>Status</dt><dd style="color:#9B3B2E">'+(err && err.message ? err.message : 'Could not load data.json')+'</dd>';
 });
+
+function safely(what, fn){
+  try { fn(); }
+  catch(e){ console.error('Dashboard: ' + what + ' failed —', e); }
+}
 
 function prettyDate(iso){
   if(!iso)return '—';
@@ -393,12 +403,12 @@ function render(points,leads,all){
     <div class="ledger-cell"><p class="l-label">Cleared sites, no rebuild filed</p><p class="l-value hot num">${hot}</p></div>
     <div class="ledger-cell"><p class="l-label">Units in pipeline</p><p class="l-value num">${Math.round(pipeline).toLocaleString()}</p></div>`;
 
-  drawTrend();
-  drawBars('boroughChart','borough',boroughCounts,'#1F7740');
-  drawBars('categoryChart','category',categoryCounts,'#2E6DA4');
-  updateMap(points);
-  renderLeads(leads);
-  renderAll(all);
+  safely('trend chart', ()=>drawTrend());
+  safely('borough chart', ()=>drawBars('boroughChart','borough',boroughCounts,'#1F7740'));
+  safely('category chart', ()=>drawBars('categoryChart','category',categoryCounts,'#2E6DA4'));
+  safely('map', ()=>updateMap(points));
+  safely('leads table', ()=>renderLeads(leads));
+  safely('all-permits table', ()=>renderAll(all));
   document.getElementById('priorityCount').textContent=`${leads.length} leads`;
   document.getElementById('allCount').textContent=`${all.length} permits`;
 }
@@ -544,7 +554,11 @@ function initMap(){
   map=L.map('map',{scrollWheelZoom:false}).setView([46.4,-72.5],7);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
     {attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}).addTo(map);
-  markersLayer=L.markerClusterGroup({showCoverageOnHover:false,disableClusteringAtZoom:15,maxClusterRadius:45});
+  // The clustering plugin is optional - if its CDN is blocked or slow, fall back
+  // to plain markers rather than taking the whole dashboard down with it.
+  markersLayer = (typeof L.markerClusterGroup === 'function')
+    ? L.markerClusterGroup({showCoverageOnHover:false,disableClusteringAtZoom:15,maxClusterRadius:45})
+    : L.layerGroup();
   map.addLayer(markersLayer);
 
   document.querySelectorAll('.seg-btn').forEach(btn=>{
@@ -575,7 +589,7 @@ function updateMap(points){currentPoints=points;drawMarkers();drawLegend();}
 function drawMarkers(){
   markersLayer.clearLayers();
   const pts=scoped().filter(p=>!hiddenCategories.has(p.category));
-  markersLayer.addLayers(pts.map(p=>{
+  const built = pts.map(p=>{
     const isLead=leadAddresses.has(p.address);
     const col=p.work_class==='demolition'?'#9B3B2E':(isLead?'#A8622C':colorFor(p.category));
     return L.circleMarker([p.lat,p.lng],{
@@ -584,7 +598,9 @@ function drawMarkers(){
       (p.nb_logements?`<br>${p.nb_logements} units`:'')+
       (p.work_class==='demolition'?'<br><strong style="color:#9B3B2E">Demolition</strong>':'')+
       (isLead?'<br><strong style="color:#A8622C">Lead</strong>':''));
-  }));
+  });
+  if(typeof markersLayer.addLayers === 'function') markersLayer.addLayers(built);
+  else built.forEach(m=>markersLayer.addLayer(m));
 }
 
 function drawLegend(){
