@@ -13,6 +13,7 @@ needed.
 """
 
 import json
+import math
 import os
 import re
 import smtplib
@@ -141,6 +142,30 @@ MONTREAL_CODE_LABELS = {
     "CO": "Construction", "TR": "Transformation",
     "DE": "Démolition", "CA": "Certificat d'autorisation",
 }
+
+
+def json_safe(obj):
+    """Convert values that json.dump would emit as NaN/Infinity - which are
+    valid Python but invalid JSON, and rejected outright by JSON.parse."""
+    if isinstance(obj, dict):
+        return {k: json_safe(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [json_safe(v) for v in obj]
+    if obj is None or isinstance(obj, (str, bool)):
+        return obj
+    if isinstance(obj, (int, float)):
+        f = float(obj)
+        if math.isnan(f) or math.isinf(f):
+            return None
+        return obj
+    if hasattr(obj, "item"):          # numpy scalar
+        try:
+            return json_safe(obj.item())
+        except Exception:
+            return str(obj)
+    if pd.isna(obj) is True:
+        return None
+    return obj
 
 
 def norm(text):
@@ -460,12 +485,23 @@ def build_all_permits(df):
     recent = recent[recent["work_class"].isin(["construction", "demolition"])]
     recent = recent.sort_values("date_emission", ascending=False).head(500)
     print(f"All construction/demolition permits in window: {len(recent)}")
-    out = recent.copy()
-    out["date_emission"] = out["date_emission"].dt.strftime("%Y-%m-%d")
-    out = out.where(pd.notna(out), None)
-    return out[["city", "id_permis", "date_emission", "emplacement", "secteur",
-                "categorie", "nature", "type_label", "work_class",
-                "nb_logements", "entrepreneur", "cout"]].to_dict(orient="records")
+    return [
+        {
+            "city": r.city,
+            "id_permis": r.id_permis,
+            "date_emission": r.date_emission.strftime("%Y-%m-%d"),
+            "emplacement": r.emplacement,
+            "secteur": r.secteur,
+            "categorie": r.categorie,
+            "nature": r.nature,
+            "type_label": r.type_label,
+            "work_class": r.work_class,
+            "nb_logements": int(r.nb_logements) if pd.notna(r.nb_logements) else 0,
+            "entrepreneur": r.entrepreneur or "",
+            "cout": None if pd.isna(r.cout) else float(r.cout),
+        }
+        for r in recent.itertuples()
+    ]
 
 
 def build_dashboard_data(df, leads, all_permits):
@@ -564,9 +600,15 @@ def main():
     all_permits = build_all_permits(df)
     new_leads = [l for l in leads if l["id_permis"] not in seen]
 
-    data = build_dashboard_data(df, leads, all_permits)
+    data = json_safe(build_dashboard_data(df, leads, all_permits))
     with open(DASHBOARD_DATA_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2, default=str)
+        # allow_nan=False makes any remaining NaN a hard error here rather than
+        # invalid JSON that only fails later in the browser.
+        json.dump(data, f, ensure_ascii=False, indent=2, default=str, allow_nan=False)
+
+    with open(DASHBOARD_DATA_FILE, "r", encoding="utf-8") as f:
+        json.load(f)   # parse-back check: guarantees the file is valid JSON
+    print("data.json validated as parseable JSON")
     size_mb = os.path.getsize(DASHBOARD_DATA_FILE) / 1048576
     print(f"Dashboard data written to {DASHBOARD_DATA_FILE} ({size_mb:.1f} MB)")
     if size_mb > 50:
