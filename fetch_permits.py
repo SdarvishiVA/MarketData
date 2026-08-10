@@ -67,6 +67,10 @@ SOURCES = [
     {
         "city": "Montréal",
         "kind": "direct",
+        # Montreal encodes the work type in a reliable code column, so the type
+        # wins over descriptive text (which often mentions partial demolition
+        # inside what is really a renovation permit).
+        "type_is_authoritative": True,
         "url": "https://donnees.montreal.ca/dataset/d90eaf1b-2de8-43f0-923a-27a620ecdf41/resource/5232a72d-235a-48eb-ae20-bb9d501300ad/download/permis-construction.csv",
         "fields": {
             "id": ["id_permis", "numero_permis"],
@@ -160,24 +164,9 @@ def address_key(address, city):
     return f"{norm(city)}|{a}"
 
 
-def classify_work(label, category="", nature=""):
-    """City-agnostic work classification.
-
-    Cities disagree about where the real work type lives. Montreal encodes it in
-    the permit type; Quebec City files a demolition as a 'Certificat
-    d'autorisation' with the actual work in the category and description. So we
-    check the descriptive fields first for the two classes we care about, then
-    fall back to the permit type.
-    """
-    detail = norm(category) + " " + norm(nature)
-    t = norm(label)
-
-    if "demol" in detail or "demol" in t:
+def _class_from_label(t):
+    if "demol" in t:
         return "demolition"
-    if "nouveaubatiment" in detail or "nouvelleconstruction" in detail or "nouveaubatiment" in t:
-        return "construction"
-    if "transform" in detail or "agrandiss" in detail or "renov" in detail:
-        return "transformation"
     if "construction" in t:
         return "construction"
     if "transform" in t or "renov" in t or "agrandiss" in t or "modif" in t:
@@ -185,6 +174,31 @@ def classify_work(label, category="", nature=""):
     if "certificat" in t or "autorisation" in t:
         return "certificate"
     return "other"
+
+
+def classify_work(label, category="", nature="", trust_label=False):
+    """City-agnostic work classification.
+
+    Cities disagree about where the real work type lives. Montreal encodes it in
+    a reliable code, so that code decides - important because Montreal
+    renovation permits often mention partial demolition in the work description,
+    which would otherwise be misread as a building demolition. Quebec City has no
+    such code and files demolitions as a 'Certificat d'autorisation' with the
+    real work in the category and description, so there we read those fields
+    first.
+    """
+    t = norm(label)
+    if trust_label:
+        return _class_from_label(t)
+
+    detail = norm(category) + " " + norm(nature)
+    if "demol" in detail or "demol" in t:
+        return "demolition"
+    if "nouveaubatiment" in detail or "nouvelleconstruction" in detail or "nouveaubatiment" in t:
+        return "construction"
+    if "transform" in detail or "agrandiss" in detail or "renov" in detail:
+        return "transformation"
+    return _class_from_label(t)
 
 
 def resolve_ckan_url(resource_id, label):
@@ -259,14 +273,18 @@ def load_source(spec):
     out["longitude"] = pd.to_numeric(pick("lng", None), errors="coerce")
 
     label = pick("type_label").fillna("").astype(str)
-    if city == "Montréal":
+    authoritative = pd.Series([False] * len(df), index=df.index)
+    if spec.get("type_is_authoritative"):
         codes = pick("type_code").fillna("").astype(str)
         mapped = codes.map(MONTREAL_CODE_LABELS)
         label = mapped.where(mapped.notna(), label)
+        authoritative = mapped.notna()
+
     out["type_label"] = label.replace("", "Autre")
     out["work_class"] = [
-        classify_work(lbl, cat, nat)
-        for lbl, cat, nat in zip(out["type_label"], out["categorie"], out["nature"])
+        classify_work(lbl, cat, nat, trust_label=bool(auth))
+        for lbl, cat, nat, auth in zip(out["type_label"], out["categorie"],
+                                       out["nature"], authoritative)
     ]
     out["city"] = city
     out["address_key"] = [address_key(a, city) for a in out["emplacement"]]
@@ -363,6 +381,10 @@ def signal_for(timeline, lead_class):
     }
 
 
+def _date_ord(iso):
+    return datetime.strptime(iso, "%Y-%m-%d").toordinal()
+
+
 def build_leads(df):
     newest = latest_date(df)
     recent = df[df["date_emission"] >= newest - timedelta(days=LEADS_LOOKBACK_DAYS)]
@@ -409,7 +431,7 @@ def build_leads(df):
             "timeline": tl,
         })
 
-    records.sort(key=lambda x: (x["signal"]["rank"], x["date_emission"]))
+    records.sort(key=lambda x: (x["signal"]["rank"], -_date_ord(x["date_emission"])))
     if len(records) > MAX_LEADS:
         print(f"  Capping leads at {MAX_LEADS} (from {len(records)}), strongest signals kept")
         records = records[:MAX_LEADS]
