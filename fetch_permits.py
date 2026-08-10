@@ -42,6 +42,12 @@ DASHBOARD_LOOKBACK_DAYS = 90    # market-intelligence charts
 TIMELINE_YEARS = 6              # history depth for per-property timelines
 TREND_WEEKS = 12
 
+# Guards. Permits with unusable addresses collapse into one key, so a property
+# "history" can otherwise balloon to the size of the whole dataset.
+MAX_LEADS = 300                 # hard cap on leads written to the dashboard
+MAX_TIMELINE_ENTRIES = 40       # most recent N permits per property
+MAX_GROUP_SIZE = 250            # above this, the key is junk, not a property
+
 KEYWORDS_INCLUDE = [
     "commercial", "industriel", "institutionnel", "bureau", "office building",
     "immeuble à bureaux", "centre commercial", "shopping centre", "retail",
@@ -142,11 +148,15 @@ def norm(text):
 
 
 def address_key(address, city):
-    """Loose property key so permits at the same address group together."""
+    """Loose property key so permits at the same address group together.
+    Returns "" when the address is unusable - blank, or with no civic number -
+    so those rows never group with each other."""
     a = unicodedata.normalize("NFKD", str(address).split(",")[0].lower())
     a = "".join(ch for ch in a if not unicodedata.combining(ch))
     a = re.sub(r"\b(rue|avenue|av|boulevard|boul|blvd|chemin|ch|place|croissant|montee|cote|terrasse|impasse|route|rang)\b", " ", a)
     a = re.sub(r"[^a-z0-9]+", " ", a).strip()
+    if len(a) < 5 or not any(ch.isdigit() for ch in a):
+        return ""
     return f"{norm(city)}|{a}"
 
 
@@ -282,12 +292,21 @@ def latest_date(df):
 
 def build_timelines(df, keys):
     """Full permit history for the given property keys, oldest first."""
+    keys = {k for k in keys if k}
+    if not keys:
+        return {}
+
     horizon = latest_date(df) - timedelta(days=365 * TIMELINE_YEARS)
     hist = df[(df["address_key"].isin(keys)) & (df["date_emission"] >= horizon)]
     hist = hist.sort_values("date_emission")
 
     timelines = {}
+    skipped = 0
     for key, group in hist.groupby("address_key"):
+        if len(group) > MAX_GROUP_SIZE:
+            skipped += 1
+            continue
+        group = group.tail(MAX_TIMELINE_ENTRIES)
         timelines[key] = [
             {
                 "date": r.date_emission.strftime("%Y-%m-%d"),
@@ -299,6 +318,8 @@ def build_timelines(df, keys):
             }
             for r in group.itertuples()
         ]
+    if skipped:
+        print(f"  Skipped {skipped} oversized address group(s) - likely non-specific addresses")
     return timelines
 
 
@@ -356,8 +377,12 @@ def build_leads(df):
     demo_window = df[df["date_emission"] >= newest - timedelta(days=DEMO_LOOKBACK_DAYS)]
     demolition_leads = demo_window[demo_window["work_class"] == "demolition"]
 
-    leads = pd.concat([construction_leads, demolition_leads]).drop_duplicates(subset=["id_permis"])
+    leads = pd.concat([construction_leads, demolition_leads])
+    leads = leads[leads["address_key"] != ""]
+    leads = leads.sort_values("date_emission", ascending=False)
+    leads = leads.drop_duplicates(subset=["address_key"], keep="first")
     print(f"Lead candidates: {len(construction_leads)} construction + {len(demolition_leads)} demolition")
+    print(f"  After address cleanup and one-row-per-property: {len(leads)}")
 
     timelines = build_timelines(df, set(leads["address_key"]))
 
@@ -385,6 +410,9 @@ def build_leads(df):
         })
 
     records.sort(key=lambda x: (x["signal"]["rank"], x["date_emission"]))
+    if len(records) > MAX_LEADS:
+        print(f"  Capping leads at {MAX_LEADS} (from {len(records)}), strongest signals kept")
+        records = records[:MAX_LEADS]
     by_signal = {}
     for rec in records:
         by_signal[rec["signal"]["label"]] = by_signal.get(rec["signal"]["label"], 0) + 1
@@ -505,7 +533,13 @@ def main():
     data = build_dashboard_data(df, leads, all_permits)
     with open(DASHBOARD_DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2, default=str)
-    print(f"Dashboard data written to {DASHBOARD_DATA_FILE}")
+    size_mb = os.path.getsize(DASHBOARD_DATA_FILE) / 1048576
+    print(f"Dashboard data written to {DASHBOARD_DATA_FILE} ({size_mb:.1f} MB)")
+    if size_mb > 50:
+        raise RuntimeError(
+            f"data.json is {size_mb:.0f} MB - refusing to commit. "
+            "Something is generating far too many records."
+        )
 
     if new_leads:
         pd.DataFrame([{k: v for k, v in l.items() if k not in ("timeline", "signal")}
