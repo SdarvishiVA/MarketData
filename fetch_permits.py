@@ -1,593 +1,852 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>VA Capital — Permit Intelligence</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
-<style>
-  :root{
-    --bg:#F4F6F5; --surface:#FFFFFF; --surface-2:#FAFBFA;
-    --line:#E3E7E4; --line-2:#CFD6D1;
-    --ink:#0E1512; --ink-2:#41504A; --ink-3:#6E7C76;
-    --green:#0F7A43; --green-2:#0B5E33; --green-soft:#E8F4EC;
-    --hot:#C2410C; --hot-soft:#FDF0E8;
-    --strong:#B45309; --strong-soft:#FCF3E4;
-    --mod:#1D5FA8; --mod-soft:#EAF1F9;
-    --watch:#6E7C76; --watch-soft:#F0F2F1;
-    --shadow:0 1px 2px rgba(14,21,18,.05),0 4px 16px rgba(14,21,18,.05);
-    --shadow-lg:0 2px 6px rgba(14,21,18,.06),0 12px 32px rgba(14,21,18,.09);
-    --sans:'Inter',system-ui,-apple-system,sans-serif;
-    --serif:'Libre Baskerville',Georgia,serif;
-  }
-  *{box-sizing:border-box}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-  body{font-family:var(--sans);background:var(--bg);color:var(--ink);margin:0;
-    font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px) 100px}
-  .num{font-variant-numeric:tabular-nums}
-  h1,h2,h3{margin:0}
+"""
+Quebec Building Permit Market Intelligence + Lead Scoring
 
-  /* Header */
-  .topbar{background:var(--surface);border-bottom:1px solid var(--line);
-    position:sticky;top:0;z-index:900;box-shadow:0 1px 3px rgba(14,21,18,.04)}
-  .topbar-in{max-width:1600px;margin:0 auto;padding:16px clamp(16px,3vw,40px);
-    display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-  .brand{display:flex;align-items:center;gap:14px}
-  #logo{height:38px;width:auto;display:block;border-radius:4px}
-  .brand h1{font-size:17px;font-weight:600;letter-spacing:-.2px}
-  .brand p{margin:1px 0 0;font-size:12.5px;color:var(--ink-3)}
-  .status{display:flex;align-items:center;gap:18px;font-size:12.5px;color:var(--ink-3);flex-wrap:wrap}
-  .status b{color:var(--ink);font-weight:600}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px}
+Pulls open permit data from multiple Quebec municipalities, normalizes to a
+common schema, reconstructs a per-property permit timeline (including
+forward-dated milestones such as planned work start and occupancy), and scores
+every lead on a weighted, explainable model.
 
-  /* Hero stats */
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:26px 0 22px}
-  .stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;
-    padding:18px 20px;box-shadow:var(--shadow);transition:box-shadow .18s,transform .18s}
-  .stat:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
-  .stat .k{font-size:12px;color:var(--ink-3);margin:0 0 8px;font-weight:500}
-  .stat .v{font-size:30px;font-weight:600;letter-spacing:-1px;line-height:1}
-  .stat .v.hot{color:var(--hot)} .stat .v.green{color:var(--green)}
-  .stat .sub{font-size:12px;color:var(--ink-3);margin:7px 0 0}
+Scoring is deliberately multi-factor. A single binary test (e.g. "is this a
+demolition") produces a monotonous list; real financing opportunity is a
+function of project stage, scale, recency, asset type, developer activity and
+how reachable the party is.
 
-  /* Filter bar */
-  .filters{background:var(--surface);border:1px solid var(--line);border-radius:12px;
-    padding:16px 18px;box-shadow:var(--shadow);margin-bottom:24px;
-    display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
-  .fg{display:flex;flex-direction:column;gap:5px;min-width:130px}
-  .fg label{font-size:11.5px;font-weight:600;color:var(--ink-3);letter-spacing:.2px}
-  .fg select,.fg input{font-family:var(--sans);font-size:13px;padding:8px 11px;border-radius:8px;
-    border:1px solid var(--line-2);background:var(--surface);color:var(--ink);cursor:pointer;outline:none;
-    transition:border-color .15s,box-shadow .15s}
-  .fg select:hover{border-color:var(--ink-3)}
-  .fg select:focus-visible{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
-  .reset{margin-left:auto;font-family:var(--sans);font-size:12.5px;font-weight:500;
-    padding:9px 16px;border-radius:8px;border:1px solid var(--line-2);background:var(--surface);
-    color:var(--ink-2);cursor:pointer;transition:all .15s}
-  .reset:hover{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+Adding a city: append one entry to SOURCES.
+"""
 
-  /* Sections */
-  .sec{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
-    flex-wrap:wrap;margin:34px 0 14px}
-  .sec h2{font-size:19px;font-weight:600;letter-spacing:-.3px}
-  .sec .note{font-size:12.5px;color:var(--ink-3)}
-  .panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;
-    box-shadow:var(--shadow);overflow:hidden}
-  .panel-pad{padding:18px 20px 20px}
-  .panel-head{padding:16px 20px;border-bottom:1px solid var(--line);
-    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  .panel-head h3{font-size:13.5px;font-weight:600}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-  @media (max-width:1000px){.grid2{grid-template-columns:1fr}}
+import json
+import math
+import os
+import re
+import smtplib
+import unicodedata
+from datetime import datetime, timedelta
 
-  /* Leads table */
-  .tablewrap{overflow:auto;max-height:min(66vh,680px)}
-  .jump{display:flex;gap:4px}
-  .jump a{font-size:12.5px;color:var(--ink-3);text-decoration:none;padding:6px 11px;
-    border-radius:7px;transition:all .15s}
-  .jump a:hover{color:var(--green);background:var(--green-soft)}
-  .pager{display:flex;align-items:center;justify-content:space-between;gap:12px;
-    padding:12px 18px;border-top:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
-  .pager .info{font-size:12.5px;color:var(--ink-3)}
-  .pager .ctl{display:flex;align-items:center;gap:8px}
-  .pager select{font-family:var(--sans);font-size:12.5px;padding:6px 10px;border-radius:7px;
-    border:1px solid var(--line-2);background:var(--surface);color:var(--ink);cursor:pointer}
-  .pager button:disabled{opacity:.4;cursor:default}
-  .pager button:disabled:hover{border-color:var(--line-2);color:var(--ink-2);background:var(--surface)}
-  table{width:100%;border-collapse:collapse;font-size:13px;min-width:1000px}
-  thead th{text-align:left;padding:11px 16px;font-size:11.5px;font-weight:600;color:var(--ink-3);
-    background:var(--surface-2);border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0}
-  tbody td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
-  tbody tr.lead{cursor:pointer;transition:background .12s}
-  tbody tr.lead:hover{background:var(--surface-2)}
-  tbody tr.lead.open{background:var(--green-soft)}
-  .addr{font-weight:600;color:var(--ink)}
-  .meta{font-size:12px;color:var(--ink-3);margin-top:2px}
-  .muted{color:var(--ink-3)}
+import pandas as pd
+import requests
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
-  /* Score */
-  .score{display:flex;align-items:center;gap:10px;min-width:104px}
-  .score .n{font-size:19px;font-weight:700;letter-spacing:-.5px;min-width:26px}
-  .bar{flex:1;height:5px;border-radius:3px;background:var(--line);overflow:hidden;min-width:44px}
-  .bar span{display:block;height:100%;border-radius:3px}
-  .tier{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap}
-  .t-hot{background:var(--hot-soft);color:var(--hot)} .n-hot{color:var(--hot)} .b-hot{background:var(--hot)}
-  .t-strong{background:var(--strong-soft);color:var(--strong)} .n-strong{color:var(--strong)} .b-strong{background:var(--strong)}
-  .t-moderate{background:var(--mod-soft);color:var(--mod)} .n-moderate{color:var(--mod)} .b-moderate{background:var(--mod)}
-  .t-watch{background:var(--watch-soft);color:var(--watch)} .n-watch{color:var(--watch)} .b-watch{background:var(--watch)}
-  .stage{font-size:12.5px;font-weight:500}
+STATE_FILE = "seen_permits.json"
+LEADS_FILE = "new_leads.csv"
+DASHBOARD_DATA_FILE = "docs/data.json"
 
-  /* Expanded detail */
-  .detail td{background:var(--surface-2);padding:0;border-bottom:1px solid var(--line)}
-  .detail-in{padding:22px 26px 26px;display:grid;grid-template-columns:1.05fr .95fr;gap:32px}
-  @media (max-width:1100px){.detail-in{grid-template-columns:1fr}}
-  .dh{font-size:11.5px;font-weight:700;color:var(--ink-3);letter-spacing:.6px;
-    text-transform:uppercase;margin:0 0 12px}
-  .verdict{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--green);
-    border-radius:0 8px 8px 0;padding:13px 16px;margin:0 0 18px;font-size:13px;color:var(--ink-2)}
-  .rl{list-style:none;margin:0;padding:0}
-  .rl li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
-  .rl li:last-child{border-bottom:none}
-  .pts{font-size:12.5px;font-weight:700;color:var(--green);min-width:34px;
-    background:var(--green-soft);border-radius:6px;text-align:center;height:22px;line-height:22px}
-  .rl .f{font-size:12.5px;font-weight:600;margin-bottom:2px}
-  .rl .d{font-size:12.5px;color:var(--ink-2);line-height:1.5}
-
-  /* Timeline */
-  .tl{list-style:none;margin:0;padding:0 0 0 22px;border-left:2px solid var(--line-2)}
-  .tl li{position:relative;padding:0 0 18px 20px}
-  .tl li:last-child{padding-bottom:0}
-  .tl li::before{content:'';position:absolute;left:-29px;top:4px;width:12px;height:12px;
-    border-radius:50%;border:2px solid var(--surface-2);background:var(--ink-3)}
-  .tl li.demolition::before{background:var(--hot)}
-  .tl li.construction::before{background:var(--green)}
-  .tl li.transformation::before{background:var(--strong)}
-  .tl li.future::before{background:var(--surface-2);border:2px dashed var(--mod);width:14px;height:14px;left:-30px}
-  .tl li.application::before{background:#6D28D9}
-  .tl li.agreement::before{background:#0E7490}
-  .kind-chip{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;margin-left:7px;vertical-align:1px}
-  .kind-application{background:#F1EAFB;color:#6D28D9}
-  .kind-agreement{background:#E4F4F6;color:#0E7490}
-  .tl .d{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;font-weight:500}
-  .tl .t{font-size:13px;font-weight:600;margin-top:1px}
-  .tl .x{font-size:12.5px;color:var(--ink-2);margin-top:2px}
-  .tl .m{font-size:12px;color:var(--ink-3);margin-top:3px}
-  .future-chip{display:inline-block;font-size:10.5px;font-weight:600;color:var(--mod);
-    background:var(--mod-soft);padding:1px 7px;border-radius:20px;margin-left:7px;vertical-align:1px}
-
-  .btn{font-family:var(--sans);font-size:12.5px;font-weight:500;padding:7px 14px;border-radius:8px;
-    border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);cursor:pointer;
-    transition:all .15s;white-space:nowrap}
-  .btn:hover{border-color:var(--green);color:var(--green);background:var(--green-soft)}
-  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
-  .btn.primary:hover{background:var(--green-2);color:#fff}
-
-  .seg{display:inline-flex;border:1px solid var(--line-2);border-radius:8px;overflow:hidden}
-  .seg button{font-family:var(--sans);font-size:12.5px;padding:7px 14px;border:none;
-    background:var(--surface);color:var(--ink-3);cursor:pointer;transition:all .15s}
-  .seg button+button{border-left:1px solid var(--line-2)}
-  .seg button.active{background:var(--green);color:#fff}
-
-  #map{height:520px}
-  .maprow{position:relative}
-  .legend{position:absolute;top:14px;right:14px;z-index:800;background:rgba(255,255,255,.97);
-    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;max-height:320px;
-    overflow-y:auto;max-width:250px;box-shadow:var(--shadow-lg)}
-  .legend .li{display:flex;align-items:center;gap:9px;padding:4px 2px;font-size:12.5px;
-    color:var(--ink-2);cursor:pointer}
-  .legend .li.off{opacity:.35}
-  .legend .sw{width:10px;height:10px;border-radius:3px;flex-shrink:0}
-  .marker-cluster{background:rgba(15,122,67,.2);border-radius:50%}
-  .marker-cluster div{background:var(--green);border-radius:50%;color:#fff;width:30px;height:30px;
-    margin:3px;display:flex;align-items:center;justify-content:center}
-  .marker-cluster span{font-family:var(--sans);font-size:12px;font-weight:600}
-  .leaflet-popup-content-wrapper{border-radius:10px;box-shadow:var(--shadow-lg);border:1px solid var(--line)}
-  .leaflet-popup-content{font-family:var(--sans);font-size:12.5px}
-
-  .empty{padding:40px 20px;text-align:center;color:var(--ink-3);font-size:13.5px}
-  .foot{font-size:12px;color:var(--ink-3);margin-top:30px;line-height:1.75;max-width:900px}
-  .err{color:var(--hot);font-weight:600}
-</style>
-</head>
-<body>
-
-<div class="topbar"><div class="topbar-in">
-  <div class="brand">
-    <img id="logo" src="logo.png" alt="VA Capital" onerror="this.remove()">
-    <div>
-      <h1>Québec Permit Intelligence</h1>
-      <p>Construction activity, property timelines and financing signals</p>
-    </div>
-  </div>
-  <nav class="jump">
-    <a href="#leads">Leads</a><a href="#market">Market</a><a href="#map-section">Map</a>
-  </nav>
-  <div class="status" id="status"><span>Loading…</span></div>
-</div></div>
-
-<div class="wrap">
-
-<div class="stats" id="stats"></div>
-
-<div class="filters">
-  <div class="fg"><label for="fTier">Signal tier</label><select id="fTier">
-    <option value="__all__">All tiers</option><option value="hot">Hot (70+)</option>
-    <option value="strong">Strong (52-69)</option><option value="moderate">Moderate (34-51)</option>
-    <option value="watch">Watch (&lt;34)</option></select></div>
-  <div class="fg"><label for="fStage">Project stage</label><select id="fStage">
-    <option value="__all__">All stages</option></select></div>
-  <div class="fg"><label for="fCity">City</label><select id="fCity">
-    <option value="__all__">All cities</option></select></div>
-  <div class="fg"><label for="fSector">Sector</label><select id="fSector">
-    <option value="__all__">All sectors</option></select></div>
-  <div class="fg"><label for="fCat">Category</label><select id="fCat">
-    <option value="__all__">All categories</option></select></div>
-  <div class="fg"><label for="fUnits">Min. units</label><select id="fUnits">
-    <option value="0">Any</option><option value="2">2+</option><option value="5">5+</option>
-    <option value="10">10+</option><option value="20">20+</option><option value="50">50+</option></select></div>
-  <div class="fg"><label for="fCost">Min. permit value</label><select id="fCost">
-    <option value="0">Any</option><option value="250000">$250k+</option>
-    <option value="500000">$500k+</option><option value="1000000">$1M+</option>
-    <option value="5000000">$5M+</option></select></div>
-  <div class="fg"><label for="fNamed">Contact known</label><select id="fNamed">
-    <option value="0">Any</option><option value="1">Applicant named</option></select></div>
-  <div class="fg"><label for="fSort">Sort by</label><select id="fSort">
-    <option value="score">Signal score</option><option value="date">Most recent</option>
-    <option value="units">Most units</option><option value="cost">Highest value</option></select></div>
-  <button class="reset" id="fReset">Reset filters</button>
-</div>
-
-<div class="sec" id="leads">
-  <div><h2>Scored leads</h2>
-    <span class="note">Click any row for the scoring rationale and full property timeline</span></div>
-  <span class="note" id="leadCount">—</span>
-</div>
-<div class="panel">
-  <div class="tablewrap">
-    <table id="leadsTable">
-      <thead><tr>
-        <th style="width:130px">Signal</th><th>Property</th><th>Stage</th>
-        <th>Issued</th><th style="width:70px">Units</th><th>Permit value</th>
-        <th>Applicant</th><th style="width:80px"></th>
-      </tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-  <div class="empty" id="leadsEmpty" hidden>No leads match these filters.</div>
-  <div class="pager" id="pager">
-    <span class="info" id="pageInfo">—</span>
-    <div class="ctl">
-      <label for="pageSize" class="info">Rows</label>
-      <select id="pageSize">
-        <option value="25">25</option><option value="50" selected>50</option>
-        <option value="100">100</option><option value="99999">All</option>
-      </select>
-      <button class="btn" id="prevPage">Previous</button>
-      <button class="btn" id="nextPage">Next</button>
-    </div>
-  </div>
-</div>
-
-<div class="sec" id="market"><div><h2>Market context</h2>
-  <span class="note">All permit activity in the trailing window, not just scored leads</span></div></div>
-
-<div class="grid2">
-  <div class="panel"><div class="panel-head"><h3>Weekly permit activity by work type</h3></div>
-    <div class="panel-pad"><div style="position:relative;height:250px"><canvas id="trendChart"></canvas></div></div></div>
-  <div class="panel"><div class="panel-head"><h3>Volume by sector</h3></div>
-    <div class="panel-pad"><div style="position:relative;height:250px"><canvas id="sectorChart"></canvas></div></div></div>
-</div>
-
-<div class="panel" style="margin-bottom:16px"><div class="panel-head"><h3>Volume by building category</h3></div>
-  <div class="panel-pad"><div style="position:relative;height:280px"><canvas id="catChart"></canvas></div></div></div>
-
-<div class="panel" id="map-section">
-  <div class="panel-head">
-    <h3>Geographic distribution <span class="muted" style="font-weight:400">— cities publishing coordinates</span></h3>
-    <div style="display:flex;gap:10px;align-items:center">
-      <div class="seg" id="mapScope">
-        <button data-scope="leads" class="active">Leads</button>
-        <button data-scope="all">All permits</button>
-      </div>
-      <button class="btn" id="legendBtn">Categories</button>
-    </div>
-  </div>
-  <div class="maprow"><div id="map"></div><div class="legend" id="legend" hidden></div></div>
-</div>
-
-<p class="foot">
-  Sources: municipal open permit data published by each city. Coverage, fields and refresh cadence vary
-  by municipality — see the freshness indicators in the header. Lachine and Saint-Léonard are not yet
-  included in Montréal's dataset. Only some cities publish coordinates, so the map shows a subset of the
-  table. Signal scores are a prioritisation aid built from public permit records, not a credit assessment;
-  verify ownership and project details before outreach.
-</p>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
-<script>
-let DATA=null,map=null,layer=null;
-let cTrend=null,cSector=null,cCat=null;
-let pts=[],leadAddr=new Set(),hidden=new Set(),scope='leads',open=new Set(),colorMap={};
-let page=0,pageSize=50,lastLeads=[];
-
-const AXIS='#6E7C76',GRID='rgba(14,21,18,.06)';
-const WORK={construction:'#0F7A43',demolition:'#C2410C',transformation:'#B45309',certificate:'#1D5FA8',other:'#9AA6A0',agreement:'#0E7490',application:'#6D28D9'};
-const PAL=['#0F7A43','#1D5FA8','#B45309','#6D28D9','#0E7490','#BE123C','#4D7C0F','#A16207','#7C3AED','#0369A1'];
-
-function safely(what,fn){try{fn()}catch(e){console.error('Dashboard: '+what+' failed —',e)}}
-function fmtDate(iso){if(!iso)return '—';const d=new Date(iso+'T00:00:00');
-  return isNaN(d)?iso:d.toLocaleDateString('en-CA',{day:'numeric',month:'short',year:'numeric'})}
-function money(v){return v==null?null:'$'+Math.round(v).toLocaleString()}
-function units(o){const n=parseFloat(o.nb_logements);return isNaN(n)?0:n}
-function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-
-Chart.defaults.font.family="'Inter',sans-serif";
-Chart.defaults.font.size=11;
-Chart.defaults.color=AXIS;
-
-fetch('data.json?v='+Date.now())
-  .then(r=>{if(!r.ok)throw new Error('data.json returned HTTP '+r.status);return r.json()})
-  .then(d=>{
-    DATA=d;
-    const fresh=d.city_freshness||{};
-    document.getElementById('status').innerHTML=
-      `<span><span class="dot"></span>Data through <b>${fmtDate(d.data_through)}</b></span>`+
-      Object.entries(fresh).map(([c,dt])=>`<span>${esc(c)} <b>${fmtDate(dt)}</b></span>`).join('')+
-      `<span>Last run ${esc(d.last_updated)}</span>`;
-
-    const stages=[...new Set((d.leads||[]).map(l=>l.stage_label))].sort();
-    fill('fStage',stages);
-    fill('fCity',d.cities||[]);
-    fill('fSector',Object.keys(d.by_borough||{}));
-    fill('fCat',Object.keys(d.by_category||{}));
-
-    safely('map setup',initMap);
-    ['fTier','fStage','fCity','fSector','fCat','fUnits','fCost','fNamed','fSort']
-      .forEach(id=>document.getElementById(id).addEventListener('change',()=>{page=0;apply()}));
-    document.getElementById('pageSize').addEventListener('change',e=>{
-      pageSize=+e.target.value;page=0;apply();
-    });
-    document.getElementById('prevPage').addEventListener('click',()=>{
-      if(page>0){page--;apply();document.getElementById('leads').scrollIntoView({block:'start'})}
-    });
-    document.getElementById('nextPage').addEventListener('click',()=>{
-      if((page+1)*pageSize<lastLeads.length){page++;apply();
-        document.getElementById('leads').scrollIntoView({block:'start'})}
-    });
-    document.getElementById('fReset').addEventListener('click',()=>{
-      ['fTier','fStage','fCity','fSector','fCat'].forEach(id=>document.getElementById(id).value='__all__');
-      ['fUnits','fCost','fNamed'].forEach(id=>document.getElementById(id).value='0');
-      document.getElementById('fSort').value='score';apply();
-    });
-    apply();
-  })
-  .catch(err=>{
-    console.error('Dashboard load failed:',err);
-    document.getElementById('status').innerHTML=
-      '<span class="err">'+esc(err&&err.message?err.message:'Could not load data.json')+'</span>';
-  });
-
-function fill(id,vals){const s=document.getElementById(id);
-  vals.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o)})}
-
-function apply(){
-  const g=id=>document.getElementById(id).value;
-  const tier=g('fTier'),stage=g('fStage'),city=g('fCity'),sector=g('fSector'),cat=g('fCat');
-  const minU=+g('fUnits'),minC=+g('fCost'),named=g('fNamed')==='1',sort=g('fSort');
-
-  let leads=(DATA.leads||[]).filter(l=>
-    (tier==='__all__'||l.scoring.tier===tier)&&
-    (stage==='__all__'||l.stage_label===stage)&&
-    (city==='__all__'||l.city===city)&&
-    (sector==='__all__'||l.secteur===sector)&&
-    (cat==='__all__'||l.categorie===cat)&&
-    units(l)>=minU&&(l.cout||0)>=minC&&
-    (!named||!!l.entrepreneur));
-
-  const cmp={score:(a,b)=>b.scoring.score-a.scoring.score,
-    date:(a,b)=>b.date_emission.localeCompare(a.date_emission),
-    units:(a,b)=>units(b)-units(a),
-    cost:(a,b)=>(b.cout||0)-(a.cout||0)};
-  leads.sort(cmp[sort]);
-
-  const mapPts=(DATA.geo_points||[]).filter(p=>
-    (city==='__all__'||p.city===city)&&
-    (sector==='__all__'||p.borough===sector)&&
-    (cat==='__all__'||p.category===cat)&&units(p)>=minU);
-
-  render(leads,mapPts);
+CKAN_API = "https://www.donneesquebec.ca/recherche/api/3/action/resource_show"
+HTTP_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+    "Accept": "text/csv,application/csv,application/json,*/*",
 }
 
-function render(leads,mapPts){
-  const hot=leads.filter(l=>l.scoring.tier==='hot').length;
-  const strong=leads.filter(l=>l.scoring.tier==='strong').length;
-  const pipeline=leads.reduce((s,l)=>s+units(l),0);
-  const value=leads.reduce((s,l)=>s+(l.cout||0),0);
+LEADS_LOOKBACK_DAYS = 45
+DEMO_LOOKBACK_DAYS = 300
+DASHBOARD_LOOKBACK_DAYS = 90
+TIMELINE_YEARS = 8
+TREND_WEEKS = 12
 
-  document.getElementById('stats').innerHTML=`
-    <div class="stat"><p class="k">Leads in view</p><p class="v">${leads.length}</p>
-      <p class="sub">of ${(DATA.leads||[]).length} scored</p></div>
-    <div class="stat"><p class="k">Hot signals</p><p class="v hot">${hot}</p>
-      <p class="sub">${strong} strong behind them</p></div>
-    <div class="stat"><p class="k">Units in pipeline</p><p class="v green">${pipeline.toLocaleString()}</p>
-      <p class="sub">across leads in view</p></div>`;
+MAX_LEADS = 400
+MAX_TIMELINE_ENTRIES = 40
+MAX_GROUP_SIZE = 250
+GEO_POINTS_PER_CITY = 1200
 
-  document.getElementById('leadCount').textContent=`${leads.length} leads`;
-  lastLeads=leads;
-  const maxPage=Math.max(0,Math.ceil(leads.length/pageSize)-1);
-  if(page>maxPage)page=maxPage;
-  const start=page*pageSize,slice=leads.slice(start,start+pageSize);
-  safely('leads table',()=>renderLeads(slice));
-  safely('pager',()=>{
-    const shown=leads.length?`${start+1}–${Math.min(start+pageSize,leads.length)} of ${leads.length}`:'0';
-    document.getElementById('pageInfo').textContent='Showing '+shown;
-    document.getElementById('prevPage').disabled=page===0;
-    document.getElementById('nextPage').disabled=(page+1)*pageSize>=leads.length;
-    document.getElementById('pager').hidden=leads.length===0;
-  });
-  safely('trend chart',drawTrend);
-  safely('sector chart',()=>drawBar('sectorChart','sector',DATA.by_borough,'#0F7A43'));
-  safely('category chart',()=>drawBar('catChart','cat',DATA.by_category,'#1D5FA8'));
-  safely('map',()=>{leadAddr=new Set(leads.map(l=>l.emplacement));updateMap(mapPts)});
+CRE_KEYWORDS = [
+    "commercial", "industriel", "institutionnel", "bureau", "office",
+    "centre commercial", "retail", "mixte", "mixed", "multilogement",
+    "condominium", "residentiel multiple", "apartment", "logements",
+    "residence", "entrepot", "warehouse", "logistique", "usine",
+    "manufacturing", "distribution", "storage", "entreposage",
+    "hotel", "motel", "stationnement", "parking", "tour", "tower",
+    "clinique", "clinic", "data centre", "data center", "ecole", "school",
+]
+
+SOURCES = [
+    {
+        "city": "Montréal",
+        "kind": "direct",
+        "type_is_authoritative": True,
+        "url": "https://donnees.montreal.ca/dataset/d90eaf1b-2de8-43f0-923a-27a620ecdf41/resource/5232a72d-235a-48eb-ae20-bb9d501300ad/download/permis-construction.csv",
+        "fields": {
+            "id": ["id_permis"],
+            "date": ["date_emission"],
+            "start_date": ["date_debut"],
+            "address": ["emplacement"],
+            "sector": ["arrondissement"],
+            "type_code": ["code_type_base_demande"],
+            "type_label": ["description_type_demande"],
+            "category": ["description_categorie_batiment"],
+            "building_type": ["description_type_batiment"],
+            "nature": ["nature_travaux"],
+            "units": ["nb_logements"],
+            "lat": ["latitude"],
+            "lng": ["longitude"],
+        },
+    },
+    {
+        "city": "Laval",
+        "kind": "ckan",
+        "resource_id": "d4731ee2-b1e5-4a31-bc56-4e13115e74ef",
+        "fields": {
+            "id": ["NO_PERMIS"],
+            "date": ["DATE_EMISSION"],
+            "occupancy_start": ["OCCUPATION_DEBUT"],
+            "occupancy_end": ["OCCUPATION_FIN"],
+            "address": ["ADRESSE"],
+            "sector": ["EXVILLE_DESCR"],
+            "type_code": ["TYPE_PERMIS"],
+            "type_label": ["TYPE_PERMIS_DESCR"],
+            "category": ["CATEGORIE_BATIMENT"],
+            "building_type": ["TYPE_BATIMENT"],
+            "nature": ["TYPE_PERMIS_DESCR"],
+            "units": ["NOMBRE_LOGEMENTS"],
+            "storeys": ["NOMBRE_ETAGES"],
+            "contractor": ["ENTREPRENEUR"],
+            "cost": ["COUT_PERMIS"],
+            "area": ["SUP_CA"],
+        },
+    },
+    {
+        "city": "Québec",
+        "kind": "ckan",
+        "resource_id": "9555031e-cfc5-4b78-bec9-4ab84b549f67",
+        "fields": {
+            "id": ["NUMERO_PERMIS"],
+            "date": ["DATE_DELIVRANCE"],
+            "address": ["ADRESSE_TRAVAUX"],
+            "sector": ["ARRONDISSEMENT"],
+            "type_label": ["TYPE_PERMIS"],
+            "category": ["DOMAINE"],
+            "nature": ["RAISON"],
+            "lat": ["LATITUDE"],
+            "lng": ["LONGITUDE"],
+        },
+    },
+    {
+        # Application-stage data - filed BEFORE a permit is issued. This is
+        # upstream of everything else in the pipeline: a property showing up
+        # here with no matching issued permit yet is the earliest financing
+        # signal we have access to.
+        "city": "Montréal",
+        "kind": "ckan",
+        "resource_id": "02ef21a5-3a21-4112-a134-4d7d22348e44",
+        "id_prefix": "MTLAPP",
+        "record_kind": "application",
+        "fields": {
+            "id": ["Numéro de demande"],
+            "date": ["Date d'ouverture de la demande"],
+            "address": ["Adresse"],
+            "sector": ["Arrondissement"],
+            "building_type": ["Type de bâtiment"],
+            "nature": ["Description du permis"],
+            "units": ["Nombre unités de logements"],
+        },
+    },
+    {
+        # Signed inclusionary-housing agreements ("metropole mixte"). Every row
+        # is a confirmed residential development with a committed unit count -
+        # signed around the same stage as, sometimes before, the permit itself.
+        "city": "Montréal",
+        "kind": "ckan",
+        "resource_id": "1b5a181d-11d4-4491-b3fa-b6e5264a2f47",
+        "id_prefix": "MTLENT",
+        "record_kind": "agreement",
+        "force_work_class": "agreement",
+        "fields": {
+            "id": ["id_entente"],
+            "date": ["date_signature_sys"],
+            "address": ["adr_emplacement"],
+            "sector": ["arrondissement"],
+            "units": ["nb_log_ajout"],
+        },
+    },
+]
+
+SMTP_SERVER = os.environ.get("SMTP_SERVER", "smtp.gmail.com")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", 587))
+EMAIL_SENDER = os.environ.get("EMAIL_SENDER")
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+EMAIL_RECIPIENT = os.environ.get("EMAIL_RECIPIENT")
+
+COLUMNS = [
+    "city", "id_permis", "date_emission", "date_debut", "occupancy_start",
+    "occupancy_end", "emplacement", "address_key", "secteur", "type_label",
+    "work_class", "record_kind", "categorie", "type_batiment", "nature",
+    "nb_logements", "storeys", "entrepreneur", "cout", "superficie",
+    "latitude", "longitude",
+]
+
+MONTREAL_CODE_LABELS = {
+    "CO": "Construction", "TR": "Transformation",
+    "DE": "Démolition", "CA": "Certificat d'autorisation",
 }
 
-function renderLeads(leads){
-  const tb=document.querySelector('#leadsTable tbody');
-  document.getElementById('leadsEmpty').hidden=leads.length>0;
-  tb.innerHTML='';
-  leads.forEach(l=>{
-    const s=l.scoring,t=s.tier,isOpen=open.has(l.id_permis);
-    tb.insertAdjacentHTML('beforeend',`
-      <tr class="lead ${isOpen?'open':''}" data-id="${esc(l.id_permis)}">
-        <td><div class="score">
-            <span class="n n-${t}">${s.score}</span>
-            <span class="bar"><span class="b-${t}" style="width:${s.score}%"></span></span>
-          </div><span class="tier t-${t}" style="margin-top:6px">${esc(s.tier_label)}</span></td>
-        <td><div class="addr">${esc(l.emplacement)}</div>
-          <div class="meta">${esc(l.city)} · ${esc(l.secteur)} · ${esc(l.categorie)}</div></td>
-        <td><span class="stage">${esc(l.stage_label)}</span>
-          ${l.record_kind==='application'?'<span class="kind-chip kind-application">Application</span>':''}
-          ${l.record_kind==='agreement'?'<span class="kind-chip kind-agreement">Agreement</span>':''}
-          <div class="meta">${esc(l.type_label)}</div></td>
-        <td class="num muted">${l.date_emission}</td>
-        <td class="num">${units(l)||'—'}</td>
-        <td class="num">${l.cout?money(l.cout):'<span class="muted">—</span>'}</td>
-        <td>${l.entrepreneur?esc(l.entrepreneur):'<span class="muted">Not published</span>'}</td>
-        <td><button class="btn agora" data-a="${esc(l.emplacement)}">Research</button></td>
-      </tr>`);
-    if(isOpen)tb.insertAdjacentHTML('beforeend',detailRow(l));
-  });
 
-  tb.querySelectorAll('tr.lead').forEach(row=>row.addEventListener('click',e=>{
-    if(e.target.closest('.agora'))return;
-    const id=row.dataset.id;
-    open.has(id)?open.delete(id):open.add(id);
-    apply();
-  }));
-  tb.querySelectorAll('.agora').forEach(b=>b.addEventListener('click',e=>{
-    e.stopPropagation();
-    window.open('https://agoramtl.com/search?q='+encodeURIComponent(b.dataset.a.split(',')[0].trim()),'_blank');
-  }));
+# --------------------------------------------------------------------------
+# Utilities
+# --------------------------------------------------------------------------
+def json_safe(obj):
+    """NaN/Infinity are valid Python floats but invalid JSON - JSON.parse
+    rejects them outright, which silently breaks the dashboard."""
+    if isinstance(obj, dict):
+        return {k: json_safe(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [json_safe(v) for v in obj]
+    if obj is None or isinstance(obj, (str, bool)):
+        return obj
+    if isinstance(obj, (int, float)):
+        f = float(obj)
+        return None if (math.isnan(f) or math.isinf(f)) else obj
+    if hasattr(obj, "item"):
+        try:
+            return json_safe(obj.item())
+        except Exception:
+            return str(obj)
+    try:
+        if pd.isna(obj):
+            return None
+    except Exception:
+        pass
+    return obj
+
+
+def norm(text):
+    text = unicodedata.normalize("NFKD", str(text))
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    return "".join(ch for ch in text.lower() if ch.isalnum())
+
+
+def soft(text):
+    """Lowercase, accent-stripped, but keeps word spacing for keyword search."""
+    text = unicodedata.normalize("NFKD", str(text).lower())
+    return "".join(ch for ch in text if not unicodedata.combining(ch))
+
+
+def address_key(address, city):
+    a = soft(str(address).split(",")[0])
+    a = re.sub(r"\b(rue|avenue|av|boulevard|boul|blvd|chemin|ch|place|croissant|montee|cote|terrasse|impasse|route|rang)\b", " ", a)
+    a = re.sub(r"[^a-z0-9]+", " ", a).strip()
+    if len(a) < 5 or not any(ch.isdigit() for ch in a):
+        return ""
+    return f"{norm(city)}|{a}"
+
+
+def _class_from_label(t):
+    if "demol" in t:
+        return "demolition"
+    if "construction" in t:
+        return "construction"
+    if "transform" in t or "renov" in t or "agrandiss" in t or "modif" in t:
+        return "transformation"
+    if "certificat" in t or "autorisation" in t:
+        return "certificate"
+    return "other"
+
+
+def classify_work(label, category="", nature="", trust_label=False):
+    t = norm(label)
+    if trust_label:
+        return _class_from_label(t)
+    detail = norm(category) + " " + norm(nature)
+    if "demol" in detail or "demol" in t:
+        return "demolition"
+    if "nouveaubatiment" in detail or "nouvelleconstruction" in detail:
+        return "construction"
+    if "transform" in detail or "agrandiss" in detail or "renov" in detail:
+        return "transformation"
+    return _class_from_label(t)
+
+
+# --------------------------------------------------------------------------
+# Loading
+# --------------------------------------------------------------------------
+def resolve_ckan_url(resource_id, label):
+    r = requests.get(CKAN_API, params={"id": resource_id}, headers=HTTP_HEADERS, timeout=60)
+    r.raise_for_status()
+    payload = r.json()
+    if not payload.get("success"):
+        raise RuntimeError(f"CKAN lookup failed for {label}")
+    return payload["result"]["url"]
+
+
+def download_csv(url, label):
+    print(f"Downloading {label}...")
+    tmp = f"/tmp/{norm(label)}_permits.csv"
+    with requests.get(url, headers=HTTP_HEADERS, stream=True, timeout=900) as r:
+        r.raise_for_status()
+        with open(tmp, "wb") as fh:
+            for chunk in r.iter_content(chunk_size=1 << 20):
+                if chunk:
+                    fh.write(chunk)
+    print(f"  {label}: {os.path.getsize(tmp) / 1048576:.1f} MB")
+    for enc in ("utf-8", "utf-8-sig", "latin-1"):
+        for sep in (",", ";", "\t"):
+            try:
+                df = pd.read_csv(tmp, encoding=enc, sep=sep, low_memory=False)
+                if df.shape[1] > 3:
+                    print(f"  {label}: {len(df):,} rows x {df.shape[1]} cols")
+                    os.remove(tmp)
+                    return df
+            except Exception:
+                continue
+    os.remove(tmp)
+    raise RuntimeError(f"Could not parse {label} CSV")
+
+
+def load_source(spec):
+    city = spec["city"]
+    try:
+        url = spec["url"] if spec["kind"] == "direct" else resolve_ckan_url(spec["resource_id"], city)
+        df = download_csv(url, city)
+    except Exception as e:
+        print(f"  {city}: SKIPPED ({e})")
+        return pd.DataFrame(columns=COLUMNS)
+
+    lookup = {norm(c): c for c in df.columns}
+    missing = []
+
+    def pick(key, fill=""):
+        for candidate in spec["fields"].get(key, []):
+            col = lookup.get(norm(candidate))
+            if col is not None:
+                return df[col]
+        missing.append(key)
+        return pd.Series([fill] * len(df), index=df.index)
+
+    out = pd.DataFrame()
+    prefix = spec.get("id_prefix", norm(city)[:3].upper())
+    out["id_permis"] = f"{prefix}-" + pick("id").astype(str)
+    out["date_emission"] = pd.to_datetime(pick("date"), errors="coerce")
+    out["date_debut"] = pd.to_datetime(pick("start_date", None), errors="coerce")
+    out["occupancy_start"] = pd.to_datetime(pick("occupancy_start", None), errors="coerce")
+    out["occupancy_end"] = pd.to_datetime(pick("occupancy_end", None), errors="coerce")
+    out["emplacement"] = pick("address").fillna("").astype(str)
+    out["secteur"] = pick("sector").fillna(city).astype(str).replace("", city)
+    out["categorie"] = pick("category").fillna("Non précisé").astype(str).replace("", "Non précisé")
+    out["type_batiment"] = pick("building_type").fillna("").astype(str)
+    out["nature"] = pick("nature").fillna("").astype(str)
+    out["nb_logements"] = pd.to_numeric(pick("units", 0), errors="coerce").fillna(0)
+    out["storeys"] = pd.to_numeric(pick("storeys", None), errors="coerce")
+    out["entrepreneur"] = pick("contractor").fillna("").astype(str)
+    out["cout"] = pd.to_numeric(pick("cost", None), errors="coerce")
+    out["superficie"] = pd.to_numeric(pick("area", None), errors="coerce")
+    out["latitude"] = pd.to_numeric(pick("lat", None), errors="coerce")
+    out["longitude"] = pd.to_numeric(pick("lng", None), errors="coerce")
+
+    label = pick("type_label").fillna("").astype(str)
+    authoritative = pd.Series([False] * len(df), index=df.index)
+    if spec.get("type_is_authoritative"):
+        codes = pick("type_code").fillna("").astype(str)
+        mapped = codes.map(MONTREAL_CODE_LABELS)
+        label = mapped.where(mapped.notna(), label)
+        authoritative = mapped.notna()
+
+    out["type_label"] = label.replace("", "Autre")
+
+    if spec.get("force_work_class"):
+        # This source isn't classifiable by permit-type text (e.g. a signed
+        # agreement has no "construction/demolition" wording) - the record
+        # kind itself is the signal.
+        out["work_class"] = spec["force_work_class"]
+    else:
+        out["work_class"] = [
+            classify_work(l, c, n, trust_label=bool(a))
+            for l, c, n, a in zip(out["type_label"], out["categorie"], out["nature"], authoritative)
+        ]
+    out["record_kind"] = spec.get("record_kind", "permit")
+    out["city"] = city
+    out["address_key"] = [address_key(a, city) for a in out["emplacement"]]
+
+    if missing:
+        print(f"  {city}: unmapped fields -> {missing}")
+    print(f"  {city} [{out['record_kind'].iloc[0] if len(out) else spec.get('record_kind','permit')}]: "
+          f"newest {out['date_emission'].max()}, classes {out['work_class'].value_counts().to_dict()}")
+    return out[COLUMNS]
+
+
+def fetch_permits():
+    frames = [load_source(s) for s in SOURCES]
+    df = pd.concat([f for f in frames if not f.empty], ignore_index=True)
+    df = df.dropna(subset=["date_emission"])
+    print(f"Combined: {len(df):,} rows across {df['city'].nunique()} cities")
+    return df
+
+
+def latest_date(df):
+    return df["date_emission"].max()
+
+
+def _window(df, days):
+    """Recent rows measured per city - publication lag varies widely, and a
+    single global cutoff would silently exclude slower publishers."""
+    parts = []
+    for _, group in df.groupby("city"):
+        newest = group["date_emission"].max()
+        if pd.notna(newest):
+            parts.append(group[group["date_emission"] >= newest - timedelta(days=days)])
+    return pd.concat(parts) if parts else df.iloc[0:0]
+
+
+# --------------------------------------------------------------------------
+# Timelines
+# --------------------------------------------------------------------------
+def build_timelines(df, keys):
+    keys = {k for k in keys if k}
+    if not keys:
+        return {}
+
+    horizon = latest_date(df) - timedelta(days=365 * TIMELINE_YEARS)
+    hist = df[(df["address_key"].isin(keys)) & (df["date_emission"] >= horizon)]
+    hist = hist.sort_values("date_emission")
+
+    timelines, skipped = {}, 0
+    for key, group in hist.groupby("address_key"):
+        if len(group) > MAX_GROUP_SIZE:
+            skipped += 1
+            continue
+        events = []
+        for r in group.tail(MAX_TIMELINE_ENTRIES).itertuples():
+            title = r.type_label
+            if r.record_kind == "application":
+                title = f"Application filed: {r.type_label}" if r.type_label != "Autre" else "Application filed"
+            elif r.record_kind == "agreement":
+                title = "Inclusionary housing agreement signed"
+            events.append({
+                "date": r.date_emission.strftime("%Y-%m-%d"),
+                "kind": "permit",
+                "record_kind": r.record_kind,
+                "work_class": r.work_class,
+                "title": title,
+                "detail": (r.nature or "")[:180],
+                "units": int(r.nb_logements or 0),
+                "cost": None if pd.isna(r.cout) else float(r.cout),
+            })
+            if pd.notna(r.date_debut):
+                events.append({
+                    "date": r.date_debut.strftime("%Y-%m-%d"),
+                    "kind": "milestone",
+                    "work_class": r.work_class,
+                    "title": "Work scheduled to begin",
+                    "detail": f"Declared start date for {r.type_label.lower()}",
+                    "units": 0, "cost": None,
+                })
+            if pd.notna(r.occupancy_start):
+                events.append({
+                    "date": r.occupancy_start.strftime("%Y-%m-%d"),
+                    "kind": "milestone",
+                    "work_class": r.work_class,
+                    "title": "Occupancy begins",
+                    "detail": "Declared occupancy start",
+                    "units": 0, "cost": None,
+                })
+        events.sort(key=lambda e: e["date"])
+        timelines[key] = events
+
+    if skipped:
+        print(f"  Skipped {skipped} oversized address group(s)")
+    return timelines
+
+
+# --------------------------------------------------------------------------
+# Scoring
+# --------------------------------------------------------------------------
+def _days_between(a, b):
+    return (b - a).days
+
+
+def score_lead(row, timeline, reference_date):
+    """Weighted, explainable score. Each contributing factor records the points
+    it added and why, so the dashboard can show the reasoning rather than an
+    unexplained number."""
+    reasons = []
+    score = 0
+
+    demos = [e for e in timeline if e["kind"] == "permit" and e.get("record_kind", "permit") == "permit"
+              and e["work_class"] == "demolition"]
+    builds = [e for e in timeline if e["kind"] == "permit" and e.get("record_kind", "permit") == "permit"
+              and e["work_class"] == "construction"]
+    permits = [e for e in timeline if e["kind"] == "permit" and e.get("record_kind", "permit") == "permit"]
+
+    issued = datetime.strptime(row["date_emission"], "%Y-%m-%d")
+    age_days = max(0, _days_between(issued, reference_date))
+    record_kind = row.get("record_kind", "permit")
+
+    # --- 1. Project stage (0-35) -----------------------------------------
+    stage = None
+    if record_kind == "agreement":
+        pts, stage = 30, "confirmed_development"
+        u = int(row.get("nb_logements") or 0)
+        why = (f"Signed inclusionary-housing agreement confirming {u} residential units at this "
+               "address. This is a formally committed development — often signed before or "
+               "alongside the permit itself, so it is a very early, high-confidence signal.")
+    elif record_kind == "application" and not permits:
+        pts, stage = 30, "application_pending"
+        why = ("A permit application has been opened for this property, but no permit has been "
+               "issued yet and none appears in the historical record. This is earlier than a "
+               "demolition — the project has not even cleared the approval process, so it is "
+               "very unlikely any lender conversation has started.")
+    elif demos:
+        last_demo = max(e["date"] for e in demos)
+        later_builds = [e for e in builds if e["date"] > last_demo]
+        demo_age = _days_between(datetime.strptime(last_demo, "%Y-%m-%d"), reference_date)
+        if not later_builds:
+            if 20 <= demo_age <= 240:
+                pts, stage = 35, "cleared_site"
+                why = (f"Demolition permit issued {demo_age} days ago with no construction "
+                       "permit filed since. The site is being cleared but the build is not "
+                       "yet permitted — construction financing is very unlikely to be closed.")
+            elif demo_age < 20:
+                pts, stage = 26, "cleared_site"
+                why = ("Demolition permit issued within the last three weeks. Very early — the "
+                       "owner may still be arranging the redevelopment.")
+            else:
+                pts, stage = 12, "stalled_site"
+                why = (f"Demolition was {demo_age} days ago with still no construction permit. "
+                       "Either a long approval process or a stalled project — worth a call, "
+                       "but lower confidence.")
+        else:
+            pts, stage = 24, "rebuilding"
+            why = ("Demolition followed by a construction permit — a full redevelopment is "
+                   "underway. Financing may exist, but redevelopments often need bridge or "
+                   "mezzanine layers.")
+    elif row["work_class"] == "construction":
+        pts, stage = 22, "new_build"
+        why = "New construction permit — the build is approved and capital is being deployed."
+    elif row["work_class"] == "transformation":
+        pts, stage = 14, "major_reno"
+        why = ("Major transformation permit — repositioning an existing asset, which often "
+               "triggers refinancing.")
+    else:
+        pts, stage = 6, "activity"
+        why = "Recent permit activity at this property."
+    score += pts
+    reasons.append({"factor": "Project stage", "points": pts, "detail": why})
+
+    # --- 2. Scale (0-25) --------------------------------------------------
+    units = int(row.get("nb_logements") or 0)
+    cost = row.get("cout")
+    scale_pts, scale_why = 0, None
+    if units >= 50:
+        scale_pts, scale_why = 25, f"{units} residential units — institutional-scale project."
+    elif units >= 20:
+        scale_pts, scale_why = 21, f"{units} units — solidly in commercial mortgage territory."
+    elif units >= 10:
+        scale_pts, scale_why = 16, f"{units} units — multi-residential financing candidate."
+    elif units >= 5:
+        scale_pts, scale_why = 11, f"{units} units — small multi-residential."
+    elif units >= 2:
+        scale_pts, scale_why = 5, f"{units} units."
+    if cost:
+        if cost >= 5_000_000 and scale_pts < 25:
+            scale_pts, scale_why = 25, f"Declared permit value of ${cost:,.0f}."
+        elif cost >= 1_000_000 and scale_pts < 19:
+            scale_pts, scale_why = 19, f"Declared permit value of ${cost:,.0f}."
+        elif cost >= 400_000 and scale_pts < 12:
+            scale_pts, scale_why = 12, f"Declared permit value of ${cost:,.0f}."
+    if scale_pts:
+        score += scale_pts
+        reasons.append({"factor": "Project scale", "points": scale_pts, "detail": scale_why})
+
+    # --- 3. Recency (0-15) ------------------------------------------------
+    if age_days <= 14:
+        r_pts, r_why = 15, f"Filed {age_days} days ago — you would be early in the conversation."
+    elif age_days <= 30:
+        r_pts, r_why = 11, f"Filed {age_days} days ago."
+    elif age_days <= 75:
+        r_pts, r_why = 6, f"Filed {age_days} days ago."
+    else:
+        r_pts, r_why = 2, f"Filed {age_days} days ago — cooling."
+    score += r_pts
+    reasons.append({"factor": "Recency", "points": r_pts, "detail": r_why})
+
+    # --- 4. Asset type (0-15) --------------------------------------------
+    haystack = soft(f"{row.get('categorie','')} {row.get('type_batiment','')} {row.get('nature','')}")
+    hits = [k for k in CRE_KEYWORDS if k in haystack]
+    if hits:
+        a_pts = 15 if len(hits) > 1 else 11
+        score += a_pts
+        reasons.append({
+            "factor": "Asset type",
+            "points": a_pts,
+            "detail": f"Commercial-relevant asset signals in the permit record: {', '.join(hits[:3])}.",
+        })
+
+    # --- 5. Developer activity (0-10) ------------------------------------
+    if len(permits) >= 4:
+        d_pts, d_why = 10, f"{len(permits)} permits on record at this property — an actively worked site."
+    elif len(permits) == 3:
+        d_pts, d_why = 7, "Three permits on record — sustained activity at this property."
+    elif len(permits) == 2:
+        d_pts, d_why = 4, "A second permit at this property — repeat activity."
+    else:
+        d_pts, d_why = 0, None
+    if d_pts:
+        score += d_pts
+        reasons.append({"factor": "Property activity", "points": d_pts, "detail": d_why})
+
+    # --- 6. Reachability (0-8) -------------------------------------------
+    if row.get("entrepreneur"):
+        score += 8
+        reasons.append({
+            "factor": "Reachability",
+            "points": 8,
+            "detail": f"Permit applicant named in the public record: {row['entrepreneur']}. "
+                      "A direct route to whoever is running the project.",
+        })
+
+    # --- 7. Forward-dated work (0-12) ------------------------------------
+    future = [e for e in timeline
+              if e["kind"] == "milestone" and e["date"] > reference_date.strftime("%Y-%m-%d")]
+    if future:
+        nxt = min(future, key=lambda e: e["date"])
+        days_out = _days_between(reference_date, datetime.strptime(nxt["date"], "%Y-%m-%d"))
+        score += 12
+        reasons.append({
+            "factor": "Timing window",
+            "points": 12,
+            "detail": f"{nxt['title']} on {nxt['date']} — {days_out} days out. Work has not "
+                      "started yet, so the financing decision is still open.",
+        })
+
+    score = min(100, score)
+    if score >= 70:
+        tier, tier_label = "hot", "Hot"
+    elif score >= 52:
+        tier, tier_label = "strong", "Strong"
+    elif score >= 34:
+        tier, tier_label = "moderate", "Moderate"
+    else:
+        tier, tier_label = "watch", "Watch"
+
+    reasons.sort(key=lambda r: -r["points"])
+    return {
+        "score": score,
+        "tier": tier,
+        "tier_label": tier_label,
+        "stage": stage,
+        "headline": reasons[0]["detail"] if reasons else "",
+        "reasons": reasons,
+    }
+
+
+STAGE_LABELS = {
+    "confirmed_development": "Confirmed development (signed agreement)",
+    "application_pending": "Application filed, not yet permitted",
+    "cleared_site": "Cleared site, no rebuild filed",
+    "stalled_site": "Cleared site, long gap",
+    "rebuilding": "Demolished and rebuilding",
+    "new_build": "New construction",
+    "major_reno": "Major transformation",
+    "activity": "Permit activity",
 }
 
-function detailRow(l){
-  const s=l.scoring,today=DATA.data_through;
-  const reasons=(s.reasons||[]).map(r=>`
-    <li><span class="pts">+${r.points}</span>
-      <div><div class="f">${esc(r.factor)}</div><div class="d">${esc(r.detail)}</div></div></li>`).join('');
 
-  const tl=(l.timeline||[]).map(e=>{
-    const future=e.date>today;
-    const kindCls=(e.record_kind&&e.record_kind!=='permit')?e.record_kind:e.work_class;
-    const cls=(e.kind==='milestone'?'future ':'')+kindCls;
-    const bits=[];
-    if(e.units)bits.push(e.units+' units');
-    if(e.cost)bits.push(money(e.cost));
-    return `<li class="${cls}">
-      <div class="d">${fmtDate(e.date)}${future?'<span class="future-chip">upcoming</span>':''}</div>
-      <div class="t">${esc(e.title)}</div>
-      ${e.detail?`<div class="x">${esc(e.detail)}</div>`:''}
-      ${bits.length?`<div class="m">${bits.join(' · ')}</div>`:''}</li>`;
-  }).join('');
+def build_leads(df):
+    """Candidate pool is deliberately broad - demolitions, new construction,
+    substantial transformations, plus pre-permit applications and signed
+    agreements - so the ranking does the discriminating rather than the filter
+    producing a single-flavour list."""
+    is_permit = df["record_kind"] == "permit"
+    recent = _window(df[is_permit], LEADS_LOOKBACK_DAYS)
+    demo_pool = _window(df[is_permit], DEMO_LOOKBACK_DAYS)
 
-  return `<tr class="detail"><td colspan="8"><div class="detail-in">
-    <div>
-      <p class="dh">Why this scored ${s.score}</p>
-      <p class="verdict"><strong>${esc(s.tier_label)} signal — ${esc(l.stage_label)}.</strong> ${esc(s.headline)}</p>
-      <ul class="rl">${reasons}</ul>
-    </div>
-    <div>
-      <p class="dh">Property timeline</p>
-      ${tl?`<ul class="tl">${tl}</ul>`:'<p class="muted">No other permits on record for this property.</p>'}
-    </div>
-  </div></td></tr>`;
-}
+    haystack = (recent["categorie"].fillna("") + " " +
+                recent["type_batiment"].fillna("") + " " +
+                recent["nature"].fillna("")).map(soft)
+    cre = haystack.apply(lambda t: any(k in t for k in CRE_KEYWORDS))
 
-function drawTrend(){
-  if(cTrend)cTrend.destroy();
-  cTrend=new Chart(document.getElementById('trendChart'),{type:'bar',
-    data:{labels:DATA.trend_weeks,datasets:Object.entries(DATA.trend_series||{}).map(([k,v])=>
-      ({label:k,data:v,backgroundColor:WORK[k]||'#9AA6A0',borderRadius:3,barPercentage:.8}))},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom',labels:{boxWidth:9,boxHeight:9,padding:14,usePointStyle:true,pointStyle:'circle'}}},
-      scales:{x:{stacked:true,grid:{display:false},ticks:{maxRotation:0,autoSkipPadding:14}},
-        y:{stacked:true,grid:{color:GRID},border:{display:false}}}}});
-}
+    big = (recent["nb_logements"].fillna(0) >= 4) | (recent["cout"].fillna(0) >= 400_000)
 
-function drawBar(id,which,counts,color){
-  const c=which==='sector'?cSector:cCat;
-  if(c)c.destroy();
-  const chart=new Chart(document.getElementById(id),{type:'bar',
-    data:{labels:Object.keys(counts||{}),datasets:[{data:Object.values(counts||{}),
-      backgroundColor:color,borderRadius:3,barPercentage:.75}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
-      scales:{x:{grid:{color:GRID},border:{display:false}},
-        y:{grid:{display:false},border:{display:false}}}}});
-  if(which==='sector')cSector=chart;else cCat=chart;
-}
+    construction = recent[(recent["work_class"] == "construction") & (cre | big)]
+    transformation = recent[(recent["work_class"] == "transformation") &
+                            ((recent["nb_logements"].fillna(0) >= 8) |
+                             (recent["cout"].fillna(0) >= 750_000))]
+    demolition = demo_pool[demo_pool["work_class"] == "demolition"]
 
-function initMap(){
-  map=L.map('map',{scrollWheelZoom:false}).setView([46.6,-72.5],7);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    {attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
-  layer=(typeof L.markerClusterGroup==='function')
-    ? L.markerClusterGroup({showCoverageOnHover:false,disableClusteringAtZoom:15,maxClusterRadius:45})
-    : L.layerGroup();
-  map.addLayer(layer);
+    # Pre-permit signals get no size filter - being upstream of the permit
+    # itself is the entire point, regardless of scale.
+    applications = _window(df[df["record_kind"] == "application"], LEADS_LOOKBACK_DAYS)
+    agreements = _window(df[df["record_kind"] == "agreement"], LEADS_LOOKBACK_DAYS * 3)
 
-  document.querySelectorAll('#mapScope button').forEach(b=>b.addEventListener('click',()=>{
-    document.querySelectorAll('#mapScope button').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');scope=b.dataset.scope;drawMarkers();drawLegend();
-  }));
-  document.getElementById('legendBtn').addEventListener('click',()=>{
-    const el=document.getElementById('legend');el.hidden=!el.hidden;
-  });
-}
+    print(f"Candidates -> construction {len(construction)}, "
+          f"transformation {len(transformation)}, demolition {len(demolition)}, "
+          f"applications {len(applications)}, agreements {len(agreements)}")
 
-function colorFor(c){
-  if(!(c in colorMap))colorMap[c]=PAL[Object.keys(colorMap).length%PAL.length];
-  return colorMap[c];
-}
-function scoped(){return scope==='leads'?pts.filter(p=>leadAddr.has(p.address)):pts}
-function updateMap(points){pts=points;drawMarkers();drawLegend()}
+    pool = pd.concat([construction, transformation, demolition, applications, agreements])
+    pool = pool[pool["address_key"] != ""]
+    pool = pool.sort_values("date_emission", ascending=False)
+    pool = pool.drop_duplicates(subset=["address_key"], keep="first")
+    print(f"  Unique properties: {len(pool)}")
 
-function drawMarkers(){
-  if(!layer)return;
-  layer.clearLayers();
-  const list=scoped().filter(p=>!hidden.has(p.category));
-  const built=list.map(p=>{
-    const isLead=leadAddr.has(p.address);
-    const col=p.work_class==='demolition'?'#C2410C':(isLead?'#0F7A43':colorFor(p.category));
-    return L.circleMarker([p.lat,p.lng],{radius:isLead?7:4,color:col,fillColor:col,
-      fillOpacity:isLead?.85:.5,weight:isLead?2:1})
-      .bindPopup(`<strong>${esc(p.address)}</strong><br>${esc(p.city)} · ${esc(p.borough)}<br>${esc(p.category)}`+
-        (p.nb_logements?`<br>${p.nb_logements} units`:'')+
-        (isLead?'<br><strong style="color:#0F7A43">Scored lead</strong>':''));
-  });
-  if(typeof layer.addLayers==='function')layer.addLayers(built);
-  else built.forEach(m=>layer.addLayer(m));
-}
+    timelines = build_timelines(df, set(pool["address_key"]))
+    reference = latest_date(df).to_pydatetime()
 
-function drawLegend(){
-  const el=document.getElementById('legend'),counts={};
-  scoped().forEach(p=>{counts[p.category]=(counts[p.category]||0)+1});
-  el.innerHTML='';
-  Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,18).forEach(([c,n])=>{
-    const d=document.createElement('div');
-    d.className='li'+(hidden.has(c)?' off':'');
-    d.innerHTML=`<span class="sw" style="background:${colorFor(c)}"></span>${esc(c)} (${n})`;
-    d.addEventListener('click',()=>{hidden.has(c)?hidden.delete(c):hidden.add(c);drawMarkers();drawLegend()});
-    el.appendChild(d);
-  });
-}
-</script>
-</body>
-</html>
+    records = []
+    for r in pool.itertuples():
+        base = {
+            "city": r.city,
+            "id_permis": r.id_permis,
+            "record_kind": r.record_kind,
+            "date_emission": r.date_emission.strftime("%Y-%m-%d"),
+            "emplacement": r.emplacement,
+            "address_key": r.address_key,
+            "secteur": r.secteur,
+            "categorie": r.categorie,
+            "type_batiment": r.type_batiment,
+            "nature": r.nature,
+            "type_label": r.type_label,
+            "work_class": r.work_class,
+            "nb_logements": int(r.nb_logements or 0),
+            "storeys": None if pd.isna(r.storeys) else int(r.storeys),
+            "entrepreneur": r.entrepreneur or "",
+            "cout": None if pd.isna(r.cout) else float(r.cout),
+            "superficie": None if pd.isna(r.superficie) else float(r.superficie),
+            "latitude": None if pd.isna(r.latitude) else float(r.latitude),
+            "longitude": None if pd.isna(r.longitude) else float(r.longitude),
+        }
+        tl = timelines.get(r.address_key, [])
+        scoring = score_lead(base, tl, reference)
+        base["timeline"] = tl
+        base["scoring"] = scoring
+        base["stage_label"] = STAGE_LABELS.get(scoring["stage"], "Permit activity")
+        records.append(base)
+
+    records.sort(key=lambda x: -x["scoring"]["score"])
+    if len(records) > MAX_LEADS:
+        print(f"  Capping at {MAX_LEADS} (from {len(records)})")
+        records = records[:MAX_LEADS]
+
+    tiers = {}
+    stages = {}
+    for rec in records:
+        tiers[rec["scoring"]["tier_label"]] = tiers.get(rec["scoring"]["tier_label"], 0) + 1
+        stages[rec["stage_label"]] = stages.get(rec["stage_label"], 0) + 1
+    print(f"Leads by tier: {tiers}")
+    print(f"Leads by stage: {stages}")
+    return records
+
+
+def build_dashboard_data(df, leads):
+    cutoff = latest_date(df) - timedelta(days=DASHBOARD_LOOKBACK_DAYS)
+    # Market charts represent issued-permit activity. Applications and signed
+    # agreements are a different lifecycle stage and would muddy the "by type"
+    # and "by category" breakdowns - they still surface fully in the leads list.
+    # Market charts represent activity we actually act on. Certificate-class
+    # permits (signage, tree removal, minor site changes in Montreal - and a
+    # catch-all bucket in Quebec City for anything not clearly demolition or
+    # construction) never become leads, so they're excluded here too rather
+    # than padding out the volume charts with noise.
+    window = df[(df["date_emission"] >= cutoff) &
+                (df["record_kind"] == "permit") &
+                (df["work_class"] != "certificate")].copy()
+    print(f"Market window: {len(window):,} permits from {cutoff.date()}")
+
+    window["week"] = window["date_emission"].dt.to_period("W").apply(
+        lambda p: p.start_time.strftime("%Y-%m-%d"))
+    trend = window.groupby(["week", "work_class"]).size().unstack(fill_value=0).tail(TREND_WEEKS)
+    trend_series = {c: trend[c].tolist() for c in trend.columns}
+
+    # Sample per city so a large city cannot crowd the others off the map.
+    geo_frames = []
+    for _, group in window.dropna(subset=["latitude", "longitude"]).groupby("city"):
+        geo_frames.append(group.head(GEO_POINTS_PER_CITY))
+    geo = pd.concat(geo_frames) if geo_frames else window.iloc[0:0]
+    geo_points = (
+        geo[["latitude", "longitude", "secteur", "categorie", "emplacement",
+             "nb_logements", "city", "work_class"]]
+        .rename(columns={"latitude": "lat", "longitude": "lng", "secteur": "borough",
+                         "categorie": "category", "emplacement": "address"})
+        .to_dict(orient="records")
+    )
+    print(f"Map points by city: {geo['city'].value_counts().to_dict() if len(geo) else {}}")
+
+    return {
+        "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "data_through": latest_date(df).strftime("%Y-%m-%d"),
+        "window_days": DASHBOARD_LOOKBACK_DAYS,
+        "leads_window_days": LEADS_LOOKBACK_DAYS,
+        "demo_window_days": DEMO_LOOKBACK_DAYS,
+        "cities": sorted(window["city"].dropna().unique().tolist()),
+        "city_freshness": {
+            c: g["date_emission"].max().strftime("%Y-%m-%d")
+            for c, g in df.groupby("city") if pd.notna(g["date_emission"].max())
+        },
+        "total_permits": int(len(window)),
+        "total_housing_units": int(window["nb_logements"].fillna(0).sum()),
+        "by_city": window["city"].value_counts().to_dict(),
+        "by_type": window["type_label"].value_counts().head(8).to_dict(),
+        "by_borough": window["secteur"].value_counts().head(20).to_dict(),
+        "by_category": window["categorie"].value_counts().head(15).to_dict(),
+        "trend_weeks": trend.index.tolist(),
+        "trend_series": trend_series,
+        "geo_points": geo_points,
+        "leads": leads,
+    }
+
+
+def load_seen_ids():
+    if os.path.exists(STATE_FILE):
+        with open(STATE_FILE, "r") as f:
+            return {str(x) for x in json.load(f)}
+    return set()
+
+
+def save_seen_ids(ids):
+    with open(STATE_FILE, "w") as f:
+        json.dump(sorted(str(x) for x in ids), f)
+
+
+def send_email(new_leads):
+    if not (EMAIL_SENDER and EMAIL_PASSWORD and EMAIL_RECIPIENT):
+        print("Email credentials not set - skipping notification.")
+        return
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = f"{len(new_leads)} new permit lead(s) - {datetime.now().strftime('%Y-%m-%d')}"
+    msg["From"] = EMAIL_SENDER
+    msg["To"] = EMAIL_RECIPIENT
+    rows = ""
+    for r in sorted(new_leads, key=lambda x: -x["scoring"]["score"])[:40]:
+        rows += (f"<tr><td>{r['scoring']['score']}</td><td>{r['scoring']['tier_label']}</td>"
+                 f"<td>{r['date_emission']}</td><td>{r['city']}</td>"
+                 f"<td>{r['emplacement']}</td><td>{r['stage_label']}</td></tr>")
+    msg.attach(MIMEText(f"""<html><body><h2>New permit leads</h2>
+      <table border="1" cellpadding="6" cellspacing="0">
+      <tr><th>Score</th><th>Tier</th><th>Issued</th><th>City</th><th>Address</th><th>Stage</th></tr>
+      {rows}</table></body></html>""", "html"))
+    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+        server.starttls()
+        server.login(EMAIL_SENDER, EMAIL_PASSWORD)
+        server.send_message(msg)
+    print("Email sent.")
+
+
+def main():
+    os.makedirs("docs", exist_ok=True)
+    seen = load_seen_ids()
+    df = fetch_permits()
+
+    leads = build_leads(df)
+    new_leads = [l for l in leads if l["id_permis"] not in seen]
+
+    data = json_safe(build_dashboard_data(df, leads))
+    with open(DASHBOARD_DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2, default=str, allow_nan=False)
+    with open(DASHBOARD_DATA_FILE, "r", encoding="utf-8") as f:
+        json.load(f)
+    size_mb = os.path.getsize(DASHBOARD_DATA_FILE) / 1048576
+    print(f"data.json written and validated ({size_mb:.1f} MB)")
+    if size_mb > 50:
+        raise RuntimeError(f"data.json is {size_mb:.0f} MB - refusing to commit.")
+
+    if new_leads:
+        pd.DataFrame([{k: v for k, v in l.items() if k not in ("timeline", "scoring")}
+                      for l in new_leads]).to_csv(LEADS_FILE, index=False)
+        print(f"{len(new_leads)} new lead(s) written to {LEADS_FILE}")
+        send_email(new_leads)
+    else:
+        print("No new leads this run.")
+
+    seen.update(l["id_permis"] for l in leads)
+    save_seen_ids(seen)
+
+
+if __name__ == "__main__":
+    main()
