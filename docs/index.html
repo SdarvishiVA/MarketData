@@ -147,6 +147,11 @@
   .tl li.construction::before{background:var(--green)}
   .tl li.transformation::before{background:var(--strong)}
   .tl li.future::before{background:var(--surface-2);border:2px dashed var(--mod);width:14px;height:14px;left:-30px}
+  .tl li.application::before{background:#6D28D9}
+  .tl li.agreement::before{background:#0E7490}
+  .kind-chip{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;margin-left:7px;vertical-align:1px}
+  .kind-application{background:#F1EAFB;color:#6D28D9}
+  .kind-agreement{background:#E4F4F6;color:#0E7490}
   .tl .d{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;font-weight:500}
   .tl .t{font-size:13px;font-weight:600;margin-top:1px}
   .tl .x{font-size:12.5px;color:var(--ink-2);margin-top:2px}
@@ -313,7 +318,7 @@ let pts=[],leadAddr=new Set(),hidden=new Set(),scope='leads',open=new Set(),colo
 let page=0,pageSize=50,lastLeads=[];
 
 const AXIS='#6E7C76',GRID='rgba(14,21,18,.06)';
-const WORK={construction:'#0F7A43',demolition:'#C2410C',transformation:'#B45309',certificate:'#1D5FA8',other:'#9AA6A0'};
+const WORK={construction:'#0F7A43',demolition:'#C2410C',transformation:'#B45309',certificate:'#1D5FA8',other:'#9AA6A0',agreement:'#0E7490',application:'#6D28D9'};
 const PAL=['#0F7A43','#1D5FA8','#B45309','#6D28D9','#0E7490','#BE123C','#4D7C0F','#A16207','#7C3AED','#0369A1'];
 
 function safely(what,fn){try{fn()}catch(e){console.error('Dashboard: '+what+' failed —',e)}}
@@ -412,11 +417,7 @@ function render(leads,mapPts){
     <div class="stat"><p class="k">Hot signals</p><p class="v hot">${hot}</p>
       <p class="sub">${strong} strong behind them</p></div>
     <div class="stat"><p class="k">Units in pipeline</p><p class="v green">${pipeline.toLocaleString()}</p>
-      <p class="sub">across leads in view</p></div>
-    <div class="stat"><p class="k">Declared permit value</p><p class="v">${value?money(value):'—'}</p>
-      <p class="sub">where cities publish it</p></div>
-    <div class="stat"><p class="k">Market permits</p><p class="v">${(DATA.total_permits||0).toLocaleString()}</p>
-      <p class="sub">trailing ${DATA.window_days} days</p></div>`;
+      <p class="sub">across leads in view</p></div>`;
 
   document.getElementById('leadCount').textContent=`${leads.length} leads`;
   lastLeads=leads;
@@ -452,6 +453,8 @@ function renderLeads(leads){
         <td><div class="addr">${esc(l.emplacement)}</div>
           <div class="meta">${esc(l.city)} · ${esc(l.secteur)} · ${esc(l.categorie)}</div></td>
         <td><span class="stage">${esc(l.stage_label)}</span>
+          ${l.record_kind==='application'?'<span class="kind-chip kind-application">Application</span>':''}
+          ${l.record_kind==='agreement'?'<span class="kind-chip kind-agreement">Agreement</span>':''}
           <div class="meta">${esc(l.type_label)}</div></td>
         <td class="num muted">${l.date_emission}</td>
         <td class="num">${units(l)||'—'}</td>
@@ -482,7 +485,8 @@ function detailRow(l){
 
   const tl=(l.timeline||[]).map(e=>{
     const future=e.date>today;
-    const cls=(e.kind==='milestone'?'future ':'')+e.work_class;
+    const kindCls=(e.record_kind&&e.record_kind!=='permit')?e.record_kind:e.work_class;
+    const cls=(e.kind==='milestone'?'future ':'')+kindCls;
     const bits=[];
     if(e.units)bits.push(e.units+' units');
     if(e.cost)bits.push(money(e.cost));
