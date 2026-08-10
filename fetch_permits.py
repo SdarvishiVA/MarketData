@@ -92,19 +92,19 @@ SOURCES = [
         "kind": "ckan",
         "resource_id": "d4731ee2-b1e5-4a31-bc56-4e13115e74ef",
         "fields": {
-            "id": ["No_Identifiant", "No_Permis"],
-            "date": ["Date_Emission"],
-            "address": ["Adresse"],
-            "sector": ["ExVille_Descr", "ExVille_Code"],
-            "type_code": ["Type_Permis"],
-            "type_label": ["Type_Permis_Description", "Type_Permis_Desc"],
-            "category": ["Categorie_Batiment"],
-            "building_type": ["Type_Batiment"],
-            "nature": ["Type_Permis_Description", "Structure"],
-            "units": ["Nombre_Logements"],
-            "contractor": ["Entrepreneur"],
-            "cost": ["Cout_Permis"],
-            "area": ["Superficie_Pi_Carre"],
+            "id": ["NO_PERMIS"],
+            "date": ["DATE_EMISSION"],
+            "address": ["ADRESSE"],
+            "sector": ["EXVILLE_DESCR", "EXVILLE_CODE"],
+            "type_code": ["TYPE_PERMIS"],
+            "type_label": ["TYPE_PERMIS_DESCR"],
+            "category": ["CATEGORIE_BATIMENT"],
+            "building_type": ["TYPE_BATIMENT"],
+            "nature": ["TYPE_PERMIS_DESCR"],
+            "units": ["NOMBRE_LOGEMENTS"],
+            "contractor": ["ENTREPRENEUR"],
+            "cost": ["COUT_PERMIS"],
+            "area": ["SUP_CA"],
         },
     },
     {
@@ -112,17 +112,15 @@ SOURCES = [
         "kind": "ckan",
         "resource_id": "9555031e-cfc5-4b78-bec9-4ab84b549f67",
         "fields": {
-            "id": ["no_permis", "numero_permis", "numero", "id_permis", "no_dossier", "id"],
-            "date": ["date_emission", "date_delivrance", "date_permis", "date"],
-            "address": ["adresse", "adresse_complete", "adresse_civique", "localisation"],
-            "sector": ["arrondissement", "nom_arrondissement", "quartier", "secteur"],
-            "type_label": ["type_permis", "type", "nature_permis"],
-            "category": ["categorie", "categorie_travaux", "nature_travaux", "type_travaux"],
-            "nature": ["description", "description_travaux", "objet", "raison", "travaux"],
-            "units": ["nb_logements", "nombre_logements", "logements"],
-            "cost": ["cout", "valeur_travaux", "cout_travaux", "cout_estime"],
-            "lat": ["latitude", "lat", "y"],
-            "lng": ["longitude", "long", "lon", "x"],
+            "id": ["NUMERO_PERMIS"],
+            "date": ["DATE_DELIVRANCE"],
+            "address": ["ADRESSE_TRAVAUX"],
+            "sector": ["ARRONDISSEMENT"],
+            "type_label": ["TYPE_PERMIS"],
+            "category": ["DOMAINE"],
+            "nature": ["RAISON"],
+            "lat": ["LATITUDE"],
+            "lng": ["LONGITUDE"],
         },
     },
 ]
@@ -385,9 +383,24 @@ def _date_ord(iso):
     return datetime.strptime(iso, "%Y-%m-%d").toordinal()
 
 
+def _window(df, days):
+    """Recent rows, measured per city.
+
+    Cities publish with very different lags - Quebec City is days behind while
+    Laval can be months. Anchoring every city to the single freshest date would
+    silently exclude the slower publishers entirely.
+    """
+    parts = []
+    for city, group in df.groupby("city"):
+        newest = group["date_emission"].max()
+        if pd.isna(newest):
+            continue
+        parts.append(group[group["date_emission"] >= newest - timedelta(days=days)])
+    return pd.concat(parts) if parts else df.iloc[0:0]
+
+
 def build_leads(df):
-    newest = latest_date(df)
-    recent = df[df["date_emission"] >= newest - timedelta(days=LEADS_LOOKBACK_DAYS)]
+    recent = _window(df, LEADS_LOOKBACK_DAYS)
 
     text = (recent["categorie"].fillna("") + " " +
             recent["type_batiment"].fillna("") + " " +
@@ -396,7 +409,7 @@ def build_leads(df):
 
     construction_leads = recent[(recent["work_class"] == "construction") & cre]
 
-    demo_window = df[df["date_emission"] >= newest - timedelta(days=DEMO_LOOKBACK_DAYS)]
+    demo_window = _window(df, DEMO_LOOKBACK_DAYS)
     demolition_leads = demo_window[demo_window["work_class"] == "demolition"]
 
     leads = pd.concat([construction_leads, demolition_leads])
@@ -443,9 +456,8 @@ def build_leads(df):
 
 
 def build_all_permits(df):
-    newest = latest_date(df)
-    recent = df[(df["date_emission"] >= newest - timedelta(days=LEADS_LOOKBACK_DAYS)) &
-                (df["work_class"].isin(["construction", "demolition"]))]
+    recent = _window(df, LEADS_LOOKBACK_DAYS)
+    recent = recent[recent["work_class"].isin(["construction", "demolition"])]
     recent = recent.sort_values("date_emission", ascending=False).head(500)
     print(f"All construction/demolition permits in window: {len(recent)}")
     out = recent.copy()
