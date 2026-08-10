@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-10 14:53",
+  "last_updated": "2026-08-10 14:58",
   "data_through": "2026-08-07",
   "window_days": 90,
   "leads_window_days": 30,
@@ -37073,9 +37073,9 @@
       "nature": "Construction d'un nouveau bâtiment commercial",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37087,9 +37087,9 @@
       "nature": "Construction d'un bâtiment accessoire de 18 m² et moins détaché du bâtiment principal ",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37101,9 +37101,9 @@
       "nature": "Démolition d'un bâtiment accessoire détaché du bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37115,9 +37115,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37129,9 +37129,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37143,9 +37143,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37157,9 +37157,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37171,9 +37171,9 @@
       "nature": "Ajout d'un abri d'automobile annexé à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37185,9 +37185,9 @@
       "nature": "Démolition d'un bâtiment accessoire détaché du bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37199,9 +37199,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37213,9 +37213,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37227,9 +37227,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37241,9 +37241,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37255,9 +37255,9 @@
       "nature": "Démolition d'un bâtiment accessoire annexé au bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37269,9 +37269,9 @@
       "nature": "Ajout d'un garage attaché à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37283,9 +37283,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37297,9 +37297,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37311,9 +37311,9 @@
       "nature": "Installation d'un appareil de climatisation ou d'une thermopompe sur le bâtiment",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37325,9 +37325,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation multifamilial de 4 à 8 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37339,9 +37339,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37353,9 +37353,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37367,9 +37367,9 @@
       "nature": "Ajout d'un abri d'automobile annexé à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37381,9 +37381,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37395,9 +37395,9 @@
       "nature": "Installation d'un appareil de climatisation ou d'une thermopompe sur le bâtiment",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37409,9 +37409,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation multifamilial de 4 à 8 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37423,9 +37423,9 @@
       "nature": "Ajout d'un garage attaché à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37437,9 +37437,9 @@
       "nature": "EN COURS ARRIÈRE: AMÉNAGER UNE PISCINE HORS-TERRE DE FORME OVALE D'UN DIAMÈTRE DE 10'X 16' ACCESSIBLE PAR UNE ECHELLE SÉCURITAIRE",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37451,9 +37451,9 @@
       "nature": "INSTALLATION D'UNE PORTE-PATIO EN FAÇADE ARRIÈRE AVEC MODIFICATION DE L'OUVERTURE ET INSTALLATION D'UNE FENÊTRE EN FAÇADE AVANT AVEC CRÉATION D'UNE NOUVELLE OUVERTURE DANS LE MUR.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37465,9 +37465,9 @@
       "nature": "Construction d'un bâtiment accessoire de 18 m² et moins détaché du bâtiment principal ",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37479,9 +37479,9 @@
       "nature": "PERMIS POUR LE REMPLACEMENT DE DEUX GALERIES EN BOIS. TEL QUE LE PLAN APPROUVÉS.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37493,9 +37493,9 @@
       "nature": "RÉAMÉNAGEMENT DU REZ-DE-CHAUSSÉE PAR LE RETRAIT DE MURS ENTRE LA CUISINE ET LA SALLE À MANGER + RETRAIT D'UN MUR AU SOUS-SOL+ CONVERSION D'UNE FENÊTRE EN PORTE PATIO AVEC GARDE-CORPS, TEL QU'INDIQUÉ AUX PLANS APPROUVÉS.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37507,9 +37507,9 @@
       "nature": "EXC - En cour avant, excaver pour effectuer des réparations de l'entrée d'eau.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37521,9 +37521,9 @@
       "nature": "REMPLACER UNE FENÊTRE EN BAIE ET UNE PORTE-PATIO PAR DEUX PORTES-PATIO SUR LA FAÇADE ARRIÈRE AU NIVEAU DU REZ-DE-CHAUSSÉE, CONFORMÉMENT À LA SOUMISSION ET AUX PLANS APPROUVÉS.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37535,9 +37535,9 @@
       "nature": "EXC - Excavation pour séparer les conduits communes (égout et aqueduc) avec le voisin du 1025-1029.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37549,9 +37549,9 @@
       "nature": "Démolir un bâtiment industriel d'un étage. Disjoindre le branchement d'eau et murer le branchement d'égout. Annuler les numéros civiques \"11875-11885, avenue Bellevois\".",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37563,9 +37563,9 @@
       "nature": "Démolir un bâtiment industriel d'un étage. Disjoindre le branchement d'eau et murer le branchement d'égout. Annuler le numéro civique \"11895, avenue Bellevois\".",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37577,9 +37577,9 @@
       "nature": "Installation d'un appareil de climatisation ou d'une thermopompe sur le bâtiment",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37591,9 +37591,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37605,9 +37605,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37619,9 +37619,9 @@
       "nature": "STABILISATION DE LA FONDATION ET REFAIRE LA DALLE DE BÉTON DU GARAGE",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37633,9 +37633,9 @@
       "nature": "PIIA - CONSTRUCTION D'UNE RÉSIDENCE UNIFAMILIALE DE 1 ÉTAGE AVEC GARAGE ATTENANT+ 39 ARBRES ABATTUS ET 8 ARBRES À PLANTER",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37647,9 +37647,9 @@
       "nature": "Refaire le mur de brique latérale (côté stationnement) en entier avec la même brique.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37661,9 +37661,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37675,9 +37675,9 @@
       "nature": "EXC - Excavation en cours avant sur 15pi pour une réparation du tuyau d'égout",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37689,9 +37689,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37703,9 +37703,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37717,9 +37717,9 @@
       "nature": "Remplacer tout les linteaux et allèges de la maison (modèles similaires), réparer les briques sur la cheminée du côté droit et refaire les murs arrière et latéral côté gauche en entier avec la même brique.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37731,9 +37731,9 @@
       "nature": "Remplacer le revêtement du toit à versants par du bardeaux d'asphalte.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37745,9 +37745,9 @@
       "nature": "Installation d'un appareil de climatisation ou d'une thermopompe sur le bâtiment",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37759,9 +37759,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37773,9 +37773,9 @@
       "nature": "Excavation sur le domaine privé afin de faire 5 puits de forage pour l'installation de la géothermie.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37787,9 +37787,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37801,9 +37801,9 @@
       "nature": "EN COURS ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE, OVALE DE 3M X 5.8M. ACCESSIBLE PAR UNE SAILLIE EXISTANTE RATTACHÉE À LA MAISON, MUNIE D'UNE ENCEINTE REGLEMENTAIRE AVEC UNE PORTE REFERMABLE ET VERROUILLABLE AUTOMATIQUEMENT.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37815,9 +37815,9 @@
       "nature": "CONSTRUCTION D'UNE TERRASSE ARRIÈRE DE 12' X 25'",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37829,9 +37829,9 @@
       "nature": "Démolition d'une piscine creusée et de ses accessoires",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37843,9 +37843,9 @@
       "nature": "EXT- En façade arrière, remplacer la maçonnerie sur une section de la fenêtre droite au 2e étage par la même brique",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37857,9 +37857,9 @@
       "nature": "Construction d'une maison de jardin accessoire à une résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37871,9 +37871,9 @@
       "nature": "DÉMOLITION DES MURS ET TOITURE D'UNE VÉRANDA EN COURS ARRIÈRE + AJOUT GARDE-CORPS ET ESCALIER",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37885,9 +37885,9 @@
       "nature": "EXT - Remplacer le revêtement de plancher du balcon arrière au 2e étage.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37899,9 +37899,9 @@
       "nature": "Installation d'un drain français (25') extérieur pour le mur avant de la propriété.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37913,9 +37913,9 @@
       "nature": "Ext - Remplacer les allèges sous les longues fenêtres au 2e étage sur la façade avant pour les suites du 465 & 471 et remplacer l'allège au-bas de la porte avant du balcon au 469.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37927,9 +37927,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37941,9 +37941,9 @@
       "nature": "SUITE AU PERMIS DE DÉMOLITION 3001546419-22 : CONSTRUCTION D'UN BÂTIMENT DE 3 ÉTAGES COMPRENANT 8 LOGEMENTS SUR LE LOT NUMÉRO 2 133 191, LE TOUT CONFORMÉMENT AUX PLANS ANNOTÉS, AINSI QU'AUX RÉSOLUTIONS CA 24 19 0159, CA 24 19 0166 ET CA 25 19 0343.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 8.0,
+      "nb_logements": 8,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37955,9 +37955,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -37969,9 +37969,9 @@
       "nature": "TRANSFORMATION D'UN LOCAL COMMERCIAL DE DÉTAIL (CABINET DE CUISINE) À UN SALON DE POUR LES ONGLES.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37983,9 +37983,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -37997,9 +37997,9 @@
       "nature": "Démolition d'une partie d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38011,9 +38011,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38025,9 +38025,9 @@
       "nature": "REMPLACEMENT DU REVÊTEMENT DU TOIT PLAT EN TOTALITÉ,EXISTANT EN GRAVIER POUR MEMBRANE ÉLASTOMÈRE TEL QUE DOCUMENTS APPROUVÉS.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38039,9 +38039,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38053,9 +38053,9 @@
       "nature": "Construction d'un bâtiment accessoire de 18 m² et moins détaché du bâtiment principal ",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38067,9 +38067,9 @@
       "nature": "COUR LATÉRALE, AGRANDISSEMENT DU BÂTIMENT PRINCIPAL.TEL QU'AUX PLANS ET DOCUMENTS APPROUVÉS.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38081,9 +38081,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38095,9 +38095,9 @@
       "nature": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE DE 12' (3.66m) DE DIAMÈTRE, ACCESSIBLE DEPUIS UNE ÉCHELLE SÉCURITAIRE QUI SE REFERME ET SE VEROUILLE AUTOMATIQUEMENT.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38109,9 +38109,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38123,9 +38123,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38137,9 +38137,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38151,9 +38151,9 @@
       "nature": "REMPLACEMENT DU REVÊTEMENT DE BARDEAUX D'ASPHALTE POUR BARDEAUX",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38165,9 +38165,9 @@
       "nature": "INSTALLATION D'UN DRAIN FRANÇAIS DE 4'' DE TYPE BNQ PERFORÉ TOUT AUTOUR DE LA MAISON, D'UN BASSIN DE CAPTATION AINSI QU'UNE POMPE.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38179,9 +38179,9 @@
       "nature": "Démolition d'une piscine creusée et de ses accessoires",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38193,9 +38193,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38207,9 +38207,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38221,9 +38221,9 @@
       "nature": "Construction d'un bâtiment accessoire détaché de plus de 18 m² pour un usage autre que résidentiel ou agricole",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38235,9 +38235,9 @@
       "nature": "Bâtiment mixte de 27 étages, 383 logements, 1 suite commercial au rez-de-chaussée, 132 stationnements pour voiture et 356 stationnements pour vélos aux sous-sols, tels qu'aux plans approuvés.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 383.0,
+      "nb_logements": 383,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38249,9 +38249,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38263,9 +38263,9 @@
       "nature": "REMPLACEMENT DE REVÊTEMENT DU TOIT PLAT DE LA MAISON EN TOTALITÉ,EXISTANT EN GRAVIER POUR MEMBRANE ÉLASTOMÈRE.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38277,9 +38277,9 @@
       "nature": "Ajout d'un garage attaché à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38291,9 +38291,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38305,9 +38305,9 @@
       "nature": "Démolition d'un bâtiment accessoire détaché du bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38319,9 +38319,9 @@
       "nature": "REMPLACEMENT DU DRAIN FRANÇAIS EN COUR LATÉRALE DE GAUCHE ET EN COUR ARRIÈRE TEL QUE PLAN APPROUVÉ.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38333,9 +38333,9 @@
       "nature": "Construction d'un bâtiment accessoire de 18 m² et moins détaché du bâtiment principal ",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38347,9 +38347,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38361,9 +38361,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38375,9 +38375,9 @@
       "nature": "Installation d'un appareil de climatisation ou d'une thermopompe sur le bâtiment",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38389,9 +38389,9 @@
       "nature": "EXT - En cours arrière, reconstruire la terrasse (dimensions similaires)",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38403,9 +38403,9 @@
       "nature": "Construction d'un bâtiment résidentiel de 2 étages, 4 logements, avec sous-sol.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 4.0,
+      "nb_logements": 4,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38417,9 +38417,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38431,9 +38431,9 @@
       "nature": "Installation d'un appareil de climatisation ou d'une thermopompe sur le bâtiment",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38445,9 +38445,9 @@
       "nature": "Démolition d'un bâtiment résidentiel de 2 étages.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": -1.0,
+      "nb_logements": -1,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38459,9 +38459,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38473,9 +38473,9 @@
       "nature": "Démolir une habitation unifamiliale de deux étages. Disjoindre le branchement d'eau et murer le branchement d'égout. Annuler le numéro civique \"6175, boul. Gouin Est\".",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": -1.0,
+      "nb_logements": -1,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38487,9 +38487,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation multifamilial de 4 à 8 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38501,9 +38501,9 @@
       "nature": "Abattage de deux arbres dans l'aire de l'implantation de la piscine creusé (voir certificat de piscine no 3003692364) à noter que ces arbres ne doivent être coupés s'il n'y a pas l'installation de piscine.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38515,9 +38515,9 @@
       "nature": "Ajout d'un abri d'automobile annexé à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38529,9 +38529,9 @@
       "nature": "Démolition d'une partie d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38543,9 +38543,9 @@
       "nature": "EXT - Remplacer le revêtement de toiture par des bardeaux d'asphalte.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38557,9 +38557,9 @@
       "nature": "EXT - Remplacer le revêtement de toiture du toit plat par une membrane blanche.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38571,9 +38571,9 @@
       "nature": "TRAVAUX EN LIEN AVEC L'INONDATION DU 20 JUIN 2026: REMPLACER LA PORTE DE GARAGE PAR UN MUR, AINSI QU'AMÉNAGER L'ESPACE EN PIÈCE HABITABLE, ET REMBLAYER L'ENTRÉE DE GARAGE DE MANIÈRE À AVOIR UNE PENTE VERS LA RUE.(PHEC)",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38585,9 +38585,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38599,9 +38599,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38613,9 +38613,9 @@
       "nature": "Démolition d'un bâtiment accessoire détaché du bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38627,9 +38627,9 @@
       "nature": "A L'ARRIÈRE: INSTALLATION D'UNE PISCINE HORS-TERRE D'UN DIAMÈTRE DE 3.70M D'UNE HAUTEUR MINIMALE DE 1.2M. ACCESSIBLE PAR UNE ÉCHELLE SÉCURITAIRE VENDU DANS LE COMMERCE. LE TOUT CONFORME A TOUT RÈGLEMENTS",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38641,9 +38641,9 @@
       "nature": "Installation d'une piscine creusée 10' X 20' en fibre. (Voir permis 3001953085-26 Abattage de deux arbres dans l'implantation de la piscine) Ne pas installer la piscine dans la servitude de passage no 4 085 378. Un appareil de climatisation ou une thermopompe doivent être éloignés d'au moins 1,30m de toute ligne de terrain.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38655,9 +38655,9 @@
       "nature": "EXT, aménagement d'un placottoir sur le trottoir en face du commerce pour la période de la piétonisation soit du 15 juin au 14 septembre 2026.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38669,9 +38669,9 @@
       "nature": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE DE 12', ACCESSIBLE DEPUIS UNE ÉCHELLE SÉCURITAIRE QUI SE REFERME ET SE VEROUILLE AUTOMATIQUEMENT.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38683,9 +38683,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38697,9 +38697,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38711,9 +38711,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38725,9 +38725,9 @@
       "nature": "Construction d'un bâtiment résidentiel 2 étages avec mezzanine. Aménager 3 logements. Nouveaux numéros municipaux 3606, 3608 et 3610. Tels que documents approuvés.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38739,9 +38739,9 @@
       "nature": "Construction d'un bâtiment accessoire de 18 m² et moins détaché du bâtiment principal ",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38753,9 +38753,9 @@
       "nature": "INSTALLATION DE 3 FENÊTRES AU SOUS-SOL SANS MODIFICATION AUX OUVERTURES (TRAVAUX EN LIEN AVEC L'INONDATION DU 20 JUIN 2026)",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38767,9 +38767,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38781,9 +38781,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38795,9 +38795,9 @@
       "nature": "INSTALLATION DE 7 FENÊTRES, LA PORTE PRINCIPALE ET LA PORTE PATIO SANS MODIFICATION AUX OUVERTURES",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38809,9 +38809,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38823,9 +38823,9 @@
       "nature": "Refaire le revêtement du toit plat avec une membrane blanche.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38837,9 +38837,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38851,9 +38851,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38865,9 +38865,9 @@
       "nature": "Démolition d'un bâtiment accessoire annexé au bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38879,9 +38879,9 @@
       "nature": "Construction d'une maison de jardin accessoire à une résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38893,9 +38893,9 @@
       "nature": "En cour arrière : Installer une piscine creusée de forme rectangulaire, de dimensions (3,05 m x 6,10 m).",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38907,9 +38907,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38921,9 +38921,9 @@
       "nature": "INSTALLATION D'UNE VÉRANDA NON-HABITABLE DE 10' X 16' EN COUR LATÉRALE TEL QUE PLANS APPROUVÉS.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38935,9 +38935,9 @@
       "nature": "A L'ARRIÈRE:  INSTALLATION D'UNE PISCINE HORS-TERRE DE FORME OBLONG D'UNE GRANDEUR DE 3.66M X 5.49M D'UNE HAUTEUR MINIMALE DE 1.2M. ACCESSIBLE PAR UNE TERRASSE ATTACHÉ A LA PROPRIÉTÉ. AYANT UNE ENCEINTE CONFORME A TOUS RÈGLEMENT",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38949,9 +38949,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation multifamilial de 9 logements et plus",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -38963,9 +38963,9 @@
       "nature": "Excavation en cour avant pour le remplacement des entrées d'eau et égout",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38977,9 +38977,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -38991,9 +38991,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39005,9 +39005,9 @@
       "nature": "Construction d'un nouveau bâtiment avec une mixité d'usages",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39019,9 +39019,9 @@
       "nature": "Construction d'un nouveau bâtiment avec une mixité d'usages",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39033,9 +39033,9 @@
       "nature": "En cour arrière : installer une piscine hors terre de forme ronde d'un diamètre de +- 15 pieds et d'une hauteur de +- 52 pouces.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39047,9 +39047,9 @@
       "nature": "Ajout d'un abri d'automobile annexé à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39061,9 +39061,9 @@
       "nature": "Démolition d'un hangar de moins de 25 m2",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39075,9 +39075,9 @@
       "nature": "PIIA - CONSTRUCTION D'UN BÂTIMENT ACCESSOIRE SUR UN TERRAIN AGRICOLE DE 6.7 M X 7.3M",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39089,9 +39089,9 @@
       "nature": "En cour arrière : installer une piscine hors terre de forme ovale, d'une dimension de 12 pieds x 18 pieds et d'une hauteur d'environ 52 pouces.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39103,9 +39103,9 @@
       "nature": "En cour arrière, aménager une enceinte pour piscine (garde-corps). Poser 2 limitateurs d'ouverture.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39117,9 +39117,9 @@
       "nature": "Démolition d'une piscine creusée et de ses accessoires",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39131,9 +39131,9 @@
       "nature": "Excavation près du domaine public, côtés rue Moffat et rue Manning, pour le nouveau stationnement et le réseau d'égouts.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39145,9 +39145,9 @@
       "nature": "Construction d'un bâtiment accessoire détaché de plus de 18 m² pour un usage autre que résidentiel ou agricole",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39159,9 +39159,9 @@
       "nature": "INSTALLATION D'UN ABRI AUTO EN COUR LATÉRALE (RMUN)",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39173,9 +39173,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39187,9 +39187,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39201,9 +39201,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39215,9 +39215,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39229,9 +39229,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39243,9 +39243,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39257,9 +39257,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39271,9 +39271,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39285,9 +39285,9 @@
       "nature": "SUR LE LOT 2 249 140, AGRANDIR EN HAUTEUR LE BÂTIMENT EXISTANT POUR UN USAGE PROJETÉ MIXTE (COMMERCIAL + 1 LOGEMENT) DANS UN BÂTIMENT DE 3 ÉTAGES AVEC MEZZANINE, TEL QUE DOCUMENTS SOUMIS.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39299,9 +39299,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39313,9 +39313,9 @@
       "nature": "SUR LE LOT 2 249 140, DÉMOLIR LE BÂTIMENT COMMERCIAL EXISTANT D'UN ÉTAGE.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39327,9 +39327,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39341,9 +39341,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39355,9 +39355,9 @@
       "nature": "MODIFICATION DE L'ESCALIER EXISTANT AVANT, REMPLACER LES DERNIÈRES 6 MARCHES EN DEMI-CERCLE EN BÉTON PAR 6 MARCHES DROITES EN BÉTON ,TEL QUE PLAN APPROUVÉ.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39369,9 +39369,9 @@
       "nature": "Dans la cour arrière, construire un garage détaché. Tel que documents approuvés.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39383,9 +39383,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39397,9 +39397,9 @@
       "nature": "Démolition d'une construction accessoire attachée au bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39411,9 +39411,9 @@
       "nature": "RÉFECTION DU PERRON DE L'ENTRÉE PRINCIPALE, AJOUT D'UN AUVENT SUR 5 POTEAUX EN ACIER ET REMPLACEMENT DE LA FENÊTRE AU DESSUS LA PORTE D'ENTRÉE PAR UN PANNEAU D'ALUMINIUM",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39425,9 +39425,9 @@
       "nature": "DÉMOLITION D'UNE PISCINE CREUSÉE SITUÉE EN COUR ARRIÈRE.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39439,9 +39439,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39453,9 +39453,9 @@
       "nature": "Installation d'un appareil de climatisation ou d'une thermopompe sur le bâtiment",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39467,9 +39467,9 @@
       "nature": "Construction d'un bâtiment accessoire de 18 m² et moins détaché du bâtiment principal ",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39481,9 +39481,9 @@
       "nature": "PIIA : Construction d'un nouveau bâtiment trifamilial en mode isolé avec un logement supplémentaire au sous-sol.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 4.0,
+      "nb_logements": 4,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39495,9 +39495,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39509,9 +39509,9 @@
       "nature": "Dans la cour arrière, construire un garage détaché. Tel que documents approuvés.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39523,9 +39523,9 @@
       "nature": "Refaire le mur de brique latéral gauche avec une nouvelle brique d'argile de 90mm d'épaisseur.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39537,9 +39537,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39551,9 +39551,9 @@
       "nature": "CONSTRUCTION D'UNE GALERIE, 14 PIEDS PAR 20 PIEDS, EN COUR ARRIÈRE TEL QUE LES PLANS APPROUVÉS",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39565,9 +39565,9 @@
       "nature": "AMÉNAGEMENT DU SOUS-SOL SUITE AU PERMIS DE CONSTRUCTION NO. 3001940191-26.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39579,9 +39579,9 @@
       "nature": "AGRANDISSEMENT EN COUR ARRIÈRE ET LATÉRALE AU REZ-DE-CHAUSSÉE, VISANT L'AJOUT D'UNE AIRE DE PLANCHER D'ENVIRON 45 M² POUR UN ESPACE DE BUREAU ET UNE CHAMBRE, EN CONFORMITÉ AVEC LA RÉSOLUTION CA26 19 0160, AINSI QU'AUX SOUMISSIONS ET PLANS APPROUVÉS.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39593,9 +39593,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39607,9 +39607,9 @@
       "nature": "Ajout d'un garage attaché à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39621,9 +39621,9 @@
       "nature": "REMPLACEMENT DU REVÊTEMENT DU TOIT EN PENTE EN TOTALITÉ ( EXISTANT EN BARDEAUX D'ASPHALTE, PROPOSÉ TOITURE MÉTALLIQUE MODEL BRAVO)",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39635,9 +39635,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39649,9 +39649,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39663,9 +39663,9 @@
       "nature": "REMPLACEMENT DU DRAIN FRANÇAIS SUR LA FAÇADE AVANT DE LA MAISON TEL QUE PLAN APPROUVÉ.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39677,9 +39677,9 @@
       "nature": "Ajout d'un garage attaché à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39691,9 +39691,9 @@
       "nature": "EXT - Remplacer le revêtement du toit plat avec une une membrane blanche",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39705,9 +39705,9 @@
       "nature": "Remplacer le revêtement du toit plat par un gravier blanc",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39719,9 +39719,9 @@
       "nature": "Démolir le bâtiment afin d'y construire une habitation de 3 étages + mezzanine, 53 logements et 4 locaux commerciaux. Tel que documents approuvés",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39733,9 +39733,9 @@
       "nature": "Construire un nouveau bâtiment commercial mixte de 3 étages + mezzanine, 4 commerces et 53 logements. Tel que documents approuvés",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 53.0,
+      "nb_logements": 53,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39747,9 +39747,9 @@
       "nature": "Démolition d'une partie d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39761,9 +39761,9 @@
       "nature": "Démolir le bâtiment commercial (bâtiment de station-service) afin d'y construire une habitation de 3 étages + mezzanine, 53 logements et 5 locaux commerciaux. Tel que documents approuvés.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39775,9 +39775,9 @@
       "nature": "CONSTRUIRE UN BÂTIMENT DE TYPE UNIFAMILLIALE DE DEUX ÉTAGES AVEC GARAGE AU REZ-DE-CHAUSSÉ",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39789,9 +39789,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39803,9 +39803,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39817,9 +39817,9 @@
       "nature": "TRAVAUX EN LIEN AVEC L'INONDATION DU 20 JUIN 2026 : REMPLACER LES PORTES DE GARAGE PAR UN MUR COMPRENANT DEUX FENÊTRES, AINSI QU'AMÉNAGER L'ESPACE DU GARAGE EN PIÈCE HABITABLE, ET REMBLAYER L'ENTRÉE DE GARAGE EN PENTE SANS MODIFICATION DE SA LARGEUR, TEL QUE PLANS ET DEVIS APPROUVÉS.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39831,9 +39831,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39845,9 +39845,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation multifamilial de 9 logements et plus",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39859,9 +39859,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39873,9 +39873,9 @@
       "nature": "Bâtiment contigu de 3 étages 12 logements tels que documents approuvés",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": -12.0,
+      "nb_logements": -12,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39887,9 +39887,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39901,9 +39901,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39915,9 +39915,9 @@
       "nature": "Démolition de la dépendance détaché, en vue de la construction d'un triplex avec logement au sous-sol.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39929,9 +39929,9 @@
       "nature": "Cour arrière : Abattre un arbre malade (Lilas japonais). Un arbre abattu dans la cour arrière doit être replanté dans la même cour si les normes de l'article 186 du RCA 40 sont respectées. Dans l'éventualité où l'arbre ne puisse être planté dans la cour arrière, il devra être planté dans une autre cour.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39943,9 +39943,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39957,9 +39957,9 @@
       "nature": "REMPLACEMENT DES FENÊTRES SANS MODIFICATION AUX OUVERTURES, TEL QUE LA SOUMISSION APPROUVÉE.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -39971,9 +39971,9 @@
       "nature": "Fenêtre, 3, facade arriere, Remplacement avec les mêmes modèles que l'existant et sans modification aux ouvertures",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39985,9 +39985,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -39999,9 +39999,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40013,9 +40013,9 @@
       "nature": "Reconstruire la cornique sur le mur arrière sans changement de dimensions.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40027,9 +40027,9 @@
       "nature": "Construction d'un nouveau bâtiment commercial",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40041,9 +40041,9 @@
       "nature": "PIIA-CONSTRUCTION D'UN GARAGE DÉTACHÉ",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40055,9 +40055,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40069,9 +40069,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40083,9 +40083,9 @@
       "nature": "EXT- En façade avant, remplacer 2 portes coulissantes sur les mezzanines au toit. En façade arrière, remplacer 4 portes coulissantes.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40097,9 +40097,9 @@
       "nature": "DÉMOLIR UNE MAISON UNIFAMILIAL DE DEUX ÉTAGES AVEC GARAGE AU REZ-DE-CHAUSSÉ TOUT EN CONSERVANT LA FONDATION D'ORIGINE",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": -1.0,
+      "nb_logements": -1,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40111,9 +40111,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40125,9 +40125,9 @@
       "nature": "Renouvellement du permis # 3001856213-25 : PIIA : Agrandir en aire de bâtiment et réaménager les bureaux conformément aux plans fournis par l'architecte.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40139,9 +40139,9 @@
       "nature": "Construction d'un bâtiment accessoire de 18 m² et moins détaché du bâtiment principal ",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40153,9 +40153,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40167,9 +40167,9 @@
       "nature": "Construction d'un bâtiment de 7 étages, 173 logements",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 173.0,
+      "nb_logements": 173,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40181,9 +40181,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation multifamilial de 9 logements et plus",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40195,9 +40195,9 @@
       "nature": "Dans la cour arrière, démolir le garage détaché de 28.37 mètre carrés. Tel que documents approuvés.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40209,9 +40209,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40223,9 +40223,9 @@
       "nature": "Remplacer la fenêtre de la cuisine et celle du sous-sol sur la façade arrière pour le 1091.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40237,9 +40237,9 @@
       "nature": "CONSTRUCTION D'UN NOUVEAU BÂTIMENT PRINCIPAL DE DEUX ÉTAGE D'UNE SUPERFICIE D'IMPLANTATION DE 157.29 m2",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40251,9 +40251,9 @@
       "nature": "TRAVAUX D'AMÉNAGEMENT DU SOUS-SOL COMPRENANT L'AJOUT DE DEUX CHAMBRES À COUCHER, D'UNE SALLE DE BAIN ET D'UNE SALLE DE LAVAGE + REMPLACEMENT DES FENÊTRES DU SOUS-SOL, CONFORMÉMENT AUX PLANS APPROUVÉS.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40265,9 +40265,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40279,9 +40279,9 @@
       "nature": "AJOUT D'UNE NOUVELLE PORTE PATIO SUR LA FAÇADE ARRIÈRE DE LA MAISON, TEL QUE LES PLANS APPROUVÉS",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40293,9 +40293,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40307,9 +40307,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40321,9 +40321,9 @@
       "nature": "Démolition d'une piscine creusée et de ses accessoires",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40335,9 +40335,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40349,9 +40349,9 @@
       "nature": "Condamner les foyers des suites #106 & 107 au 16  et #106 & 107 au 18 de même que le démantèlement des boîtiers de cheminées en Canexel au toit et leurs cheminées.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40363,9 +40363,9 @@
       "nature": "CONSTRUCTION BÂTIMENT ISOLÉ UNIFAMILIAL (H1) 1 ÉTAGE (283MC)",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40377,9 +40377,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40391,9 +40391,9 @@
       "nature": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40405,9 +40405,9 @@
       "nature": "Construire un bâtiment résidentiel unifamilial isolé de 2 étages avec un stationnement intérieur. Aucun arbre à battre.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40419,9 +40419,9 @@
       "nature": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 3 cases de stationnement. Phase D.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 8.0,
+      "nb_logements": 8,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40433,9 +40433,9 @@
       "nature": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 4 cases de stationnement. Phase F. Dérogation à la marge latérale gauche.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 8.0,
+      "nb_logements": 8,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40447,9 +40447,9 @@
       "nature": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 3 cases de stationnement. Phase E.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 8.0,
+      "nb_logements": 8,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40461,9 +40461,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40475,9 +40475,9 @@
       "nature": "Construire un bâtiment jumelé de 3 étages 8 logements. En cour arrière, aménager 4 cases de stationnement. Phase C.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 8.0,
+      "nb_logements": 8,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40489,9 +40489,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation multifamilial de 9 logements et plus",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40503,9 +40503,9 @@
       "nature": "Construction d'un bâtiment de 4 étages et 60 logements (Projet Anodisation)",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 60.0,
+      "nb_logements": 60,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40517,9 +40517,9 @@
       "nature": "REMPLACEMENT COMPLET DU REVÊTEMENT DE LA TOITURE À FAIBLE PENTE (2/12), EXISTANT EN GRAVIER, PAR UNE MEMBRANE ÉLASTOMÈRE",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40531,9 +40531,9 @@
       "nature": "Construire une école primaire. Attribuer le numéro civique \"12167, boul. Albert-Hudon\".",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40545,9 +40545,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40559,9 +40559,9 @@
       "nature": "En cours latérale, installer une clôture de 48'' pour rendre conforme une piscine creusée existante.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40573,9 +40573,9 @@
       "nature": "Ajout d'un abri d'automobile annexé à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40587,9 +40587,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40601,9 +40601,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40615,9 +40615,9 @@
       "nature": "Construction d'un bâtiment résidentiel de 3 étages et 8 logements avec sous-sol et ajout de l'adresse civique suivante 5951. Le tout tel que plans d'architecture et d'ingénierie.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 8.0,
+      "nb_logements": 8,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40629,9 +40629,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40643,9 +40643,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40657,9 +40657,9 @@
       "nature": "Construire un bâtiment de 15 étages comprenant 357 logements, 5 ateliers d'artistes ainsi que 2 locaux commerciaux au RDC, 1 niveau de sous-sol.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 357.0,
+      "nb_logements": 357,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40671,9 +40671,9 @@
       "nature": "PIIA : En cour arrière, agrandissement du bâtiment d'un étage, sur une profondeur de 4,27 m et une largeur de 8,53 m. Fondations coulées et revêtement léger vertical versa de MAC MÉTAL, couleur noir. Aménagement d'une galerie. Réaménagement intérieur. En façade avant, au rdc remplacement des portes, fenêtres et porte garage. Tels qu'aux documents soumis, approuvés et annotés.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40685,9 +40685,9 @@
       "nature": "RÉAMÉNAGEMENT DU SOUS-SOL ET DU REZ-DE-CHAUSÉE TEL QUE LES PLANS APPROUVÉS . (EN LIEN AVEC LES INONDATIONS DU 20 JUIN 2026)",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40699,9 +40699,9 @@
       "nature": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 12' X 15' ACCESSIBLE PAR LA TERRASSE RATTACHÉE AU BÂTIMENT.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40713,9 +40713,9 @@
       "nature": "Démolition d'un bâtiment accessoire détaché du bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40727,9 +40727,9 @@
       "nature": "Démolition d'un bâtiment principal",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40741,9 +40741,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40755,9 +40755,9 @@
       "nature": "Ajout d'un abri d'automobile annexé à la résidence",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40769,9 +40769,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40783,9 +40783,9 @@
       "nature": "Construction d'un bâtiment détaché de plus de 18 m² accessoire à une habitation",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40797,9 +40797,9 @@
       "nature": "Installation ou modification d'une enceinte donnant ou empêchant l'accès à une piscine",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40811,9 +40811,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Québec",
@@ -40825,9 +40825,9 @@
       "nature": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
       "type_label": "Permis de construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40839,9 +40839,9 @@
       "nature": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 12' X 21' ACCESSIBLE PAR UNE ÉCHELLE SÉCURITAIRE.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40853,9 +40853,9 @@
       "nature": "EXT, en façade, excavation afin de remplacer l'entrée d'eau et l'égout",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40867,9 +40867,9 @@
       "nature": "Excavation pour la démolition de fondations d'un bâtiment principal.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40881,9 +40881,9 @@
       "nature": "Relocalisation d'une dépendance d'une superficie de 29,7m² servant de cuisine de restaurant vers le secteur entre le chemin des Floralies et l'avenue Pierre-Dupuy. Tel qu'aux documents approuvés.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40895,9 +40895,9 @@
       "nature": "REMPLACEMENT DU DRAIN FRANÇAIS SUR LE CÔTÉ LATÉRAL DE DROITE.(EN LIEN AVEC LES INONDATIONS DU AU PLUIE DU 20 JUIN 2026)",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40909,9 +40909,9 @@
       "nature": "Renouvellement du permis # 3001739173-24 du 11-07-2024. Parachèvement des travaux objet du permis # 3001739173-24 du 11-07-2024. Les travaux objet du présent permis doivent être réalisés dans les mêmes conditions que le permis initial. Pour les détails voir le permis # 3001739173-24.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40923,9 +40923,9 @@
       "nature": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE DE 21' ACCESSIBLE PAR UNE ÉCHELLE SÉCURITAIRE.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40937,9 +40937,9 @@
       "nature": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRE OVALE DE 15' X 24' ACCESSIBLE PAR LA TERRASSE ADJACENTE AU BÂTIMENT.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40951,9 +40951,9 @@
       "nature": "EXT - En cour arrière, installation d'une piscine creusée",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40965,9 +40965,9 @@
       "nature": "CHANGEMENT DES PORTES ET FENÊTRES SANS MODIFICATION DE LA STRUCTURE",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40979,9 +40979,9 @@
       "nature": "CONSTRUCTION D'UNE GALERIE EN BOIS AVEC OSSATURE MÉTALLIQUE EN COUR ARRIÈRE.(RMUN)",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -40993,9 +40993,9 @@
       "nature": "Démolition d'un bâtiment commercial de 1 étage.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41007,9 +41007,9 @@
       "nature": "Remplacer gouttières, fascias, soffites, ainsi que le revêtement en aluminium sur la lucarne de toit (chien-assis) et le pignon surplombant le balcon avant. Le tout en aluminium de couleur noire. Remplacer le revêtement du toit en pente par un bardeau d'asphalte de couleur noir et retirer la cheminée désaffectée.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41021,9 +41021,9 @@
       "nature": "Cour arrière : Abattre un arbre malade et dangereux (Érable de l'Amur). Un arbre abattu dans la cour arrière doit être replanté dans la même cour si les normes de l'article 186 du RCA 40 sont respectées. Dans l'éventualité où l'arbre ne puisse être planté dans la cour arrière, il devra être planté dans une autre cour.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41035,9 +41035,9 @@
       "nature": "Installer une piscine hors terre 18 pi en cour arrière.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41049,9 +41049,9 @@
       "nature": "EXT - Au mur arrière, à tous les étages, remplacer le bardeau d'asphalte des petites toitures et du garage, tel que l'existant.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41063,9 +41063,9 @@
       "nature": "Construction d'un bâtiment mixte de 4 étages et 25 logements et 1 local commercial.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 25.0,
+      "nb_logements": 25,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41077,9 +41077,9 @@
       "nature": "Bâtiment résidentiel de 2 étages.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": -2.0,
+      "nb_logements": -2,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41091,9 +41091,9 @@
       "nature": "EN COURS ARRIÈRE: AMÉNAGER UNE PISCINE HORS-TERRE DE FORME OVALE D'UNE DIMENSION DE 12' X 20' ACCESSIBLE À PARTIR D¿UNE TERRASSE ATTACHÉE AU BÂTIMENT PRINCIPAL EXISTANT",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41105,9 +41105,9 @@
       "nature": "CONSTRUCTION D'UN COTTAGE DE DEUX (2) ETAGES AVEC UN UNITÉ DE STATIONNEMENT AU RDC SUR LE LOT 6 710 565.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41119,9 +41119,9 @@
       "nature": "Démolition d'un duplex, pour faire place à un projet de construction de 60 logements.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": -2.0,
+      "nb_logements": -2,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41133,9 +41133,9 @@
       "nature": "Démolition d'un quadruplex et deux bâtiments accessoire, pour faire place à un projet de construction de 60 logements.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": -4.0,
+      "nb_logements": -4,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41147,9 +41147,9 @@
       "nature": "Démolition d'un quadruplex, pour faire place à un projet de construction de 60 logements.",
       "type_label": "Démolition",
       "work_class": "demolition",
-      "nb_logements": -4.0,
+      "nb_logements": -4,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41161,9 +41161,9 @@
       "nature": "Au 375, installation d'une thermopompe en cour arrière à plus de 1m des lignes de propriété et pour le 373 installation d'une thermopompe sur le toit à plus de 3m de la façade avant et à plus de 1 m de la ligne de propriété.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41175,9 +41175,9 @@
       "nature": "CONSTRUCTION D'UN COTTAGE DE DEUX (2) ETAGES AVEC UN UNITÉ DE STATIONEMENT AU RDC SUR LE LOT 6 710 564",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41189,9 +41189,9 @@
       "nature": "EN COUR ARRIÈRE, INSTALLER UNE PISCINE HORS-TERRRE DE 12', ACCESSIBLE DEPUIS UNE TERRASSE RELIÉE À LA RÉSIDENCE. ET ADAPTER LE BALCON POUR MISE EN CONFORMITÉ À LA PISCINE.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41203,9 +41203,9 @@
       "nature": "Refaire le revêtement du toit plat avec une membrane blanche IRS 82",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41217,9 +41217,9 @@
       "nature": "REMPLACEMENT DE 3 FENÊTRES DE LA FAÇADE AVANT, LA PORTE D'ENTRÉE ET LA PORTE PATIO SANS MODIFICATION AUX OUVERTURES.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41231,9 +41231,9 @@
       "nature": "EXT - En façade, en partie supérieure gauche et droite, débriqueter en partie la brique pour le ventre de boeuf et rebriqueter avec la même brique, tel que l'existant.",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Montréal",
@@ -41245,9 +41245,9 @@
       "nature": "EXT - En cour arrière, installation d'une piscine hors-terre",
       "type_label": "Construction",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41259,7 +41259,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -41273,7 +41273,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 522.0
     },
@@ -41287,7 +41287,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 522.0
     },
@@ -41301,7 +41301,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -41315,7 +41315,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -41329,7 +41329,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -41343,7 +41343,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -41357,7 +41357,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -41371,7 +41371,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -41385,7 +41385,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -41399,7 +41399,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 117.0
     },
@@ -41413,9 +41413,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "MPRO EXCAVATION INC",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41427,7 +41427,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 829.5
     },
@@ -41441,7 +41441,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 92.0
     },
@@ -41455,7 +41455,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 557.0
     },
@@ -41469,9 +41469,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "PTFB IMMOBILIER INC.",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41483,7 +41483,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 379.5
     },
@@ -41497,7 +41497,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 50.0,
+      "nb_logements": 50,
       "entrepreneur": "",
       "cout": 31340.0
     },
@@ -41511,7 +41511,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 829.5
     },
@@ -41525,7 +41525,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 417.0
     },
@@ -41539,9 +41539,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41553,9 +41553,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "PTFB IMMOBILIER INC.",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41567,9 +41567,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "PTFB IMMOBILIER INC.",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41581,7 +41581,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 92.4
     },
@@ -41595,7 +41595,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 102.0
     },
@@ -41609,7 +41609,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 721.0
     },
@@ -41623,7 +41623,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 721.0
     },
@@ -41637,7 +41637,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 138.0
     },
@@ -41651,9 +41651,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "PATIO DU NORD CONSTRUCTION BC",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41665,7 +41665,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -41679,7 +41679,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 342.0
     },
@@ -41693,9 +41693,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "EXCAVATION JEAN-CLAUDE ALARY INC",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41707,7 +41707,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 142.0
     },
@@ -41721,7 +41721,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 667.0
     },
@@ -41735,7 +41735,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 167.0
     },
@@ -41749,7 +41749,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 247.0
     },
@@ -41763,7 +41763,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 1056.5
     },
@@ -41777,7 +41777,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 417.0
     },
@@ -41791,7 +41791,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 629.0
     },
@@ -41805,9 +41805,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "CONSTRUCTION RI-MAR INC.",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41819,9 +41819,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41833,9 +41833,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "C. LACOMBE EXCAVATION",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41847,9 +41847,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "CONSTRUCTION DEKKO INC.",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41861,9 +41861,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "VALLEX",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41875,9 +41875,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41889,9 +41889,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "9551-7892 QUEBEC INC",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41903,7 +41903,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 90.0
     },
@@ -41917,7 +41917,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 629.0
     },
@@ -41931,9 +41931,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "DA ARCHITECTE ET DESIGN INC",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -41945,7 +41945,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 179.5
     },
@@ -41959,7 +41959,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 6241.5
     },
@@ -41973,7 +41973,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 23.0,
+      "nb_logements": 23,
       "entrepreneur": "",
       "cout": 15284.0
     },
@@ -41987,7 +41987,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 192.0
     },
@@ -42001,7 +42001,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 715.0
     },
@@ -42015,7 +42015,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 92.0
     },
@@ -42029,7 +42029,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 92.0
     },
@@ -42043,7 +42043,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42057,7 +42057,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42071,7 +42071,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42085,9 +42085,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -42099,7 +42099,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42113,7 +42113,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42127,7 +42127,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 214.5
     },
@@ -42141,7 +42141,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42155,7 +42155,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 18.0,
+      "nb_logements": 18,
       "entrepreneur": "",
       "cout": 12159.0
     },
@@ -42169,7 +42169,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -42183,7 +42183,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 488.4
     },
@@ -42197,7 +42197,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 417.0
     },
@@ -42211,7 +42211,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 522.0
     },
@@ -42225,7 +42225,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 762.0
     },
@@ -42239,7 +42239,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 715.0
     },
@@ -42253,7 +42253,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 762.0
     },
@@ -42267,7 +42267,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 54.0,
+      "nb_logements": 54,
       "entrepreneur": "",
       "cout": 35478.0
     },
@@ -42281,7 +42281,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 5.0,
+      "nb_logements": 5,
       "entrepreneur": "",
       "cout": 3215.0
     },
@@ -42295,7 +42295,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 92.0
     },
@@ -42309,7 +42309,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 12.0,
+      "nb_logements": 12,
       "entrepreneur": "",
       "cout": 8409.0
     },
@@ -42323,7 +42323,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42337,7 +42337,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42351,7 +42351,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42365,9 +42365,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "9376-4116 QUEBEC INC. (GH3 EXCAVATION)",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -42379,7 +42379,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42393,7 +42393,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42407,7 +42407,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 3.0,
+      "nb_logements": 3,
       "entrepreneur": "",
       "cout": 2012.0
     },
@@ -42421,7 +42421,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 444.5
     },
@@ -42435,7 +42435,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 819.6
     },
@@ -42449,7 +42449,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 715.0
     },
@@ -42463,7 +42463,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 342.0
     },
@@ -42477,7 +42477,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 762.0
     },
@@ -42491,7 +42491,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 186.0
     },
@@ -42505,7 +42505,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 751.5
     },
@@ -42519,7 +42519,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 186.0
     },
@@ -42533,7 +42533,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 92.0
     },
@@ -42547,7 +42547,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 184.2
     },
@@ -42561,7 +42561,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -42575,7 +42575,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 172.0
     },
@@ -42589,9 +42589,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -42603,7 +42603,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 2.0,
+      "nb_logements": 2,
       "entrepreneur": "",
       "cout": 1372.0
     },
@@ -42617,7 +42617,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 2.0,
+      "nb_logements": 2,
       "entrepreneur": "",
       "cout": 1372.0
     },
@@ -42631,7 +42631,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 989.4
     },
@@ -42645,7 +42645,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 367.0
     },
@@ -42659,7 +42659,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -42673,7 +42673,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 715.0
     },
@@ -42687,7 +42687,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 426.0
     },
@@ -42701,7 +42701,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 629.5
     },
@@ -42715,9 +42715,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "LES ENTREPRISES FRANÇOIS PESANT INC.",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -42729,7 +42729,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 8.0,
+      "nb_logements": 8,
       "entrepreneur": "",
       "cout": 5909.0
     },
@@ -42743,7 +42743,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 8.0,
+      "nb_logements": 8,
       "entrepreneur": "",
       "cout": 5909.0
     },
@@ -42757,7 +42757,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 824.7
     },
@@ -42771,7 +42771,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 47462.5
     },
@@ -42785,7 +42785,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -42799,7 +42799,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -42813,9 +42813,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -42827,7 +42827,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -42841,7 +42841,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 1056.5
     },
@@ -42855,7 +42855,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 9688.0
     },
@@ -42869,7 +42869,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 92.0
     },
@@ -42883,7 +42883,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 354.5
     },
@@ -42897,7 +42897,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 667.0
     },
@@ -42911,7 +42911,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 464.5
     },
@@ -42925,9 +42925,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -42939,9 +42939,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -42953,7 +42953,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 92.0
     },
@@ -42967,7 +42967,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 1056.5
     },
@@ -42981,7 +42981,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 354.5
     },
@@ -42995,9 +42995,9 @@
       "nature": "Certificat d'autorisation",
       "type_label": "Certificat d'autorisation",
       "work_class": "demolition",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "ANTHONY RAINONE",
-      "cout": NaN
+      "cout": null
     },
     {
       "city": "Laval",
@@ -43009,7 +43009,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -43023,7 +43023,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 1.0,
+      "nb_logements": 1,
       "entrepreneur": "",
       "cout": 732.0
     },
@@ -43037,7 +43037,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 715.0
     },
@@ -43051,7 +43051,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 2.0,
+      "nb_logements": 2,
       "entrepreneur": "",
       "cout": 1340.0
     },
@@ -43065,7 +43065,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 715.0
     },
@@ -43079,7 +43079,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 19788.0
     },
@@ -43093,7 +43093,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 19788.0
     },
@@ -43107,7 +43107,7 @@
       "nature": "Permis de construction - nouvelle",
       "type_label": "Permis de construction - nouvelle",
       "work_class": "construction",
-      "nb_logements": 2.0,
+      "nb_logements": 2,
       "entrepreneur": "",
       "cout": 1340.0
     },
@@ -43121,7 +43121,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 117.0
     },
@@ -43135,7 +43135,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 2506.5
     },
@@ -43149,7 +43149,7 @@
       "nature": "Permis de construction - amélioration",
       "type_label": "Permis de construction - amélioration",
       "work_class": "construction",
-      "nb_logements": 0.0,
+      "nb_logements": 0,
       "entrepreneur": "",
       "cout": 123.6
     }
