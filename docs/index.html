@@ -2,620 +2,537 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>VA Capital — Permit Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
 <style>
-  :root {
-    --paper:#FBF9F4; --panel:#FFFFFF; --panel-tint:#F5F2EB;
-    --rule:#E4DED2; --rule-strong:#CFC7B6;
-    --ink:#1A1A17; --ink-soft:#4A473F; --ink-mute:#7A7469; --ink-faint:#9E9789;
-    --green:#1F7740; --green-deep:#175C31; --green-tint:#EDF4EF;
-    --clay:#A8622C; --clay-tint:#F7EDE4;
-    --rust:#9B3B2E; --rust-tint:#F8EAE7;
-    --gold:#8A7420;
-    --sans:'Montserrat',system-ui,sans-serif; --serif:'Libre Baskerville',Georgia,serif;
+  :root{
+    --bg:#F4F6F5; --surface:#FFFFFF; --surface-2:#FAFBFA;
+    --line:#E3E7E4; --line-2:#CFD6D1;
+    --ink:#0E1512; --ink-2:#41504A; --ink-3:#6E7C76;
+    --green:#0F7A43; --green-2:#0B5E33; --green-soft:#E8F4EC;
+    --hot:#C2410C; --hot-soft:#FDF0E8;
+    --strong:#B45309; --strong-soft:#FCF3E4;
+    --mod:#1D5FA8; --mod-soft:#EAF1F9;
+    --watch:#6E7C76; --watch-soft:#F0F2F1;
+    --shadow:0 1px 2px rgba(14,21,18,.05),0 4px 16px rgba(14,21,18,.05);
+    --shadow-lg:0 2px 6px rgba(14,21,18,.06),0 12px 32px rgba(14,21,18,.09);
+    --sans:'Inter',system-ui,-apple-system,sans-serif;
+    --serif:'Libre Baskerville',Georgia,serif;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
-  body{font-family:var(--sans);background:var(--paper);color:var(--ink);margin:0;
-    padding:0 clamp(20px,4vw,60px) 90px;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);margin:0;
+    font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px) 100px}
   .num{font-variant-numeric:tabular-nums}
+  h1,h2,h3{margin:0}
 
-  .masthead{display:flex;align-items:flex-start;justify-content:space-between;gap:32px;
-    flex-wrap:wrap;padding:34px 0 20px;border-bottom:2px solid var(--ink)}
-  .brand{display:flex;align-items:flex-start;gap:18px}
-  #logo{height:46px;width:auto;display:block;flex-shrink:0}
-  .brand-text{display:flex;flex-direction:column}
-  .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
-    color:var(--green);margin:0 0 5px}
-  .masthead h1{font-family:var(--serif);font-size:clamp(21px,2.6vw,28px);font-weight:400;
-    margin:0;color:var(--ink);line-height:1.15}
-  .subtitle{font-size:13px;color:var(--ink-mute);margin:6px 0 0}
-  .dateline{margin:0;display:grid;grid-template-columns:auto auto;gap:4px 16px;
-    align-content:start;font-size:12.5px}
-  .dateline dt{color:var(--ink-mute)}
-  .dateline dd{margin:0;color:var(--ink);font-weight:500;text-align:right}
-  .dateline .run{grid-column:1/-1;color:var(--ink-faint);font-size:11.5px;text-align:right;
-    margin:6px 0 0;padding-top:6px;border-top:1px solid var(--rule)}
+  /* Header */
+  .topbar{background:var(--surface);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:900;box-shadow:0 1px 3px rgba(14,21,18,.04)}
+  .topbar-in{max-width:1600px;margin:0 auto;padding:16px clamp(16px,3vw,40px);
+    display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:14px}
+  #logo{height:38px;width:auto;display:block;border-radius:4px}
+  .brand h1{font-size:17px;font-weight:600;letter-spacing:-.2px}
+  .brand p{margin:1px 0 0;font-size:12.5px;color:var(--ink-3)}
+  .status{display:flex;align-items:center;gap:18px;font-size:12.5px;color:var(--ink-3);flex-wrap:wrap}
+  .status b{color:var(--ink);font-weight:600}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px}
 
-  .ledger{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--rule);margin-bottom:26px}
-  .ledger-cell{padding:20px 24px 20px 0}
-  .ledger-cell+.ledger-cell{padding-left:24px;border-left:1px solid var(--rule)}
-  .l-label{font-size:12px;color:var(--ink-mute);margin:0 0 6px}
-  .l-value{font-family:var(--serif);font-size:27px;font-weight:400;color:var(--ink);margin:0;line-height:1.15}
-  .l-value.accent{color:var(--green)}
-  .l-value.hot{color:var(--rust)}
-  .l-value.place{font-size:17px;padding-top:8px;font-family:var(--sans);font-weight:500}
+  /* Hero stats */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:26px 0 22px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;box-shadow:var(--shadow);transition:box-shadow .18s,transform .18s}
+  .stat:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
+  .stat .k{font-size:12px;color:var(--ink-3);margin:0 0 8px;font-weight:500}
+  .stat .v{font-size:30px;font-weight:600;letter-spacing:-1px;line-height:1}
+  .stat .v.hot{color:var(--hot)} .stat .v.green{color:var(--green)}
+  .stat .sub{font-size:12px;color:var(--ink-3);margin:7px 0 0}
 
-  .toolbar{display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding-bottom:22px;
-    margin-bottom:28px;border-bottom:1px solid var(--rule)}
-  .field{display:flex;align-items:center;gap:9px}
-  .field label{font-size:12.5px;color:var(--ink-mute)}
-  .field select{font-family:var(--sans);font-size:13px;padding:8px 12px;border-radius:4px;
-    border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink);cursor:pointer;
-    outline:none;transition:border-color .15s}
-  .field select:hover{border-color:var(--ink-mute)}
-  .field select:focus-visible{border-color:var(--green);box-shadow:0 0 0 3px var(--green-tint)}
+  /* Filter bar */
+  .filters{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px;box-shadow:var(--shadow);margin-bottom:24px;
+    display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+  .fg{display:flex;flex-direction:column;gap:5px;min-width:130px}
+  .fg label{font-size:11.5px;font-weight:600;color:var(--ink-3);letter-spacing:.2px}
+  .fg select,.fg input{font-family:var(--sans);font-size:13px;padding:8px 11px;border-radius:8px;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--ink);cursor:pointer;outline:none;
+    transition:border-color .15s,box-shadow .15s}
+  .fg select:hover{border-color:var(--ink-3)}
+  .fg select:focus-visible{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
+  .reset{margin-left:auto;font-family:var(--sans);font-size:12.5px;font-weight:500;
+    padding:9px 16px;border-radius:8px;border:1px solid var(--line-2);background:var(--surface);
+    color:var(--ink-2);cursor:pointer;transition:all .15s}
+  .reset:hover{border-color:var(--green);color:var(--green);background:var(--green-soft)}
 
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
-  .panel{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:20px 22px 22px}
-  .panel-title{font-size:13px;font-weight:600;color:var(--ink);margin:0 0 16px;
-    padding-bottom:10px;border-bottom:1px solid var(--rule)}
+  /* Sections */
+  .sec{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+    flex-wrap:wrap;margin:34px 0 14px}
+  .sec h2{font-size:19px;font-weight:600;letter-spacing:-.3px}
+  .sec .note{font-size:12.5px;color:var(--ink-3)}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    box-shadow:var(--shadow);overflow:hidden}
+  .panel-pad{padding:18px 20px 20px}
+  .panel-head{padding:16px 20px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .panel-head h3{font-size:13.5px;font-weight:600}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  @media (max-width:1000px){.grid2{grid-template-columns:1fr}}
 
-  .map-block{background:var(--panel);border:1px solid var(--rule);border-radius:6px;
-    margin-bottom:44px;overflow:hidden}
-  .map-head{display:flex;align-items:center;justify-content:space-between;gap:14px;
-    padding:20px 22px 16px;flex-wrap:wrap;border-bottom:1px solid var(--rule)}
-  .map-head .panel-title{margin:0;padding:0;border:none}
-  .map-tools{display:flex;align-items:center;gap:10px}
-  .seg{display:flex;border:1px solid var(--rule-strong);border-radius:4px;overflow:hidden}
-  .seg-btn{font-family:var(--sans);font-size:12.5px;padding:7px 15px;border:none;
-    background:var(--panel);color:var(--ink-mute);cursor:pointer;transition:all .15s}
-  .seg-btn+.seg-btn{border-left:1px solid var(--rule-strong)}
-  .seg-btn:hover{background:var(--panel-tint);color:var(--ink)}
-  .seg-btn.active{background:var(--green);color:#fff}
-  .map-panel{position:relative}
-  #map{height:540px}
-  .map-legend{position:absolute;top:14px;right:14px;z-index:1000;background:rgba(255,255,255,.96);
-    border:1px solid var(--rule-strong);border-radius:5px;padding:12px 14px;max-height:330px;
-    overflow-y:auto;max-width:260px;box-shadow:0 2px 10px rgba(26,26,23,.08)}
-  .legend-item{display:flex;align-items:center;gap:9px;padding:5px 2px;font-size:12.5px;
-    color:var(--ink-soft);cursor:pointer;user-select:none;transition:opacity .15s}
-  .legend-item.off{opacity:.35}
-  .legend-item:hover{color:var(--ink)}
-  .legend-item .swatch{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-  .marker-cluster{background:rgba(31,119,64,.2);border-radius:50%}
+  /* Leads table */
+  .tablewrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:1000px}
+  thead th{text-align:left;padding:11px 16px;font-size:11.5px;font-weight:600;color:var(--ink-3);
+    background:var(--surface-2);border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0}
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr.lead{cursor:pointer;transition:background .12s}
+  tbody tr.lead:hover{background:var(--surface-2)}
+  tbody tr.lead.open{background:var(--green-soft)}
+  .addr{font-weight:600;color:var(--ink)}
+  .meta{font-size:12px;color:var(--ink-3);margin-top:2px}
+  .muted{color:var(--ink-3)}
+
+  /* Score */
+  .score{display:flex;align-items:center;gap:10px;min-width:104px}
+  .score .n{font-size:19px;font-weight:700;letter-spacing:-.5px;min-width:26px}
+  .bar{flex:1;height:5px;border-radius:3px;background:var(--line);overflow:hidden;min-width:44px}
+  .bar span{display:block;height:100%;border-radius:3px}
+  .tier{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  .t-hot{background:var(--hot-soft);color:var(--hot)} .n-hot{color:var(--hot)} .b-hot{background:var(--hot)}
+  .t-strong{background:var(--strong-soft);color:var(--strong)} .n-strong{color:var(--strong)} .b-strong{background:var(--strong)}
+  .t-moderate{background:var(--mod-soft);color:var(--mod)} .n-moderate{color:var(--mod)} .b-moderate{background:var(--mod)}
+  .t-watch{background:var(--watch-soft);color:var(--watch)} .n-watch{color:var(--watch)} .b-watch{background:var(--watch)}
+  .stage{font-size:12.5px;font-weight:500}
+
+  /* Expanded detail */
+  .detail td{background:var(--surface-2);padding:0;border-bottom:1px solid var(--line)}
+  .detail-in{padding:22px 26px 26px;display:grid;grid-template-columns:1.05fr .95fr;gap:32px}
+  @media (max-width:1100px){.detail-in{grid-template-columns:1fr}}
+  .dh{font-size:11.5px;font-weight:700;color:var(--ink-3);letter-spacing:.6px;
+    text-transform:uppercase;margin:0 0 12px}
+  .verdict{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--green);
+    border-radius:0 8px 8px 0;padding:13px 16px;margin:0 0 18px;font-size:13px;color:var(--ink-2)}
+  .rl{list-style:none;margin:0;padding:0}
+  .rl li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .rl li:last-child{border-bottom:none}
+  .pts{font-size:12.5px;font-weight:700;color:var(--green);min-width:34px;
+    background:var(--green-soft);border-radius:6px;text-align:center;height:22px;line-height:22px}
+  .rl .f{font-size:12.5px;font-weight:600;margin-bottom:2px}
+  .rl .d{font-size:12.5px;color:var(--ink-2);line-height:1.5}
+
+  /* Timeline */
+  .tl{list-style:none;margin:0;padding:0 0 0 22px;border-left:2px solid var(--line-2)}
+  .tl li{position:relative;padding:0 0 18px 20px}
+  .tl li:last-child{padding-bottom:0}
+  .tl li::before{content:'';position:absolute;left:-29px;top:4px;width:12px;height:12px;
+    border-radius:50%;border:2px solid var(--surface-2);background:var(--ink-3)}
+  .tl li.demolition::before{background:var(--hot)}
+  .tl li.construction::before{background:var(--green)}
+  .tl li.transformation::before{background:var(--strong)}
+  .tl li.future::before{background:var(--surface-2);border:2px dashed var(--mod);width:14px;height:14px;left:-30px}
+  .tl .d{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;font-weight:500}
+  .tl .t{font-size:13px;font-weight:600;margin-top:1px}
+  .tl .x{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+  .tl .m{font-size:12px;color:var(--ink-3);margin-top:3px}
+  .future-chip{display:inline-block;font-size:10.5px;font-weight:600;color:var(--mod);
+    background:var(--mod-soft);padding:1px 7px;border-radius:20px;margin-left:7px;vertical-align:1px}
+
+  .btn{font-family:var(--sans);font-size:12.5px;font-weight:500;padding:7px 14px;border-radius:8px;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);cursor:pointer;
+    transition:all .15s;white-space:nowrap}
+  .btn:hover{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .btn.primary:hover{background:var(--green-2);color:#fff}
+
+  .seg{display:inline-flex;border:1px solid var(--line-2);border-radius:8px;overflow:hidden}
+  .seg button{font-family:var(--sans);font-size:12.5px;padding:7px 14px;border:none;
+    background:var(--surface);color:var(--ink-3);cursor:pointer;transition:all .15s}
+  .seg button+button{border-left:1px solid var(--line-2)}
+  .seg button.active{background:var(--green);color:#fff}
+
+  #map{height:520px}
+  .maprow{position:relative}
+  .legend{position:absolute;top:14px;right:14px;z-index:800;background:rgba(255,255,255,.97);
+    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;max-height:320px;
+    overflow-y:auto;max-width:250px;box-shadow:var(--shadow-lg)}
+  .legend .li{display:flex;align-items:center;gap:9px;padding:4px 2px;font-size:12.5px;
+    color:var(--ink-2);cursor:pointer}
+  .legend .li.off{opacity:.35}
+  .legend .sw{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+  .marker-cluster{background:rgba(15,122,67,.2);border-radius:50%}
   .marker-cluster div{background:var(--green);border-radius:50%;color:#fff;width:30px;height:30px;
     margin:3px;display:flex;align-items:center;justify-content:center}
   .marker-cluster span{font-family:var(--sans);font-size:12px;font-weight:600}
-  .leaflet-popup-content-wrapper{background:var(--panel);color:var(--ink);border-radius:5px;
-    border:1px solid var(--rule-strong);box-shadow:0 3px 14px rgba(26,26,23,.12)}
-  .leaflet-popup-content{font-family:var(--sans);font-size:12.5px;line-height:1.6}
+  .leaflet-popup-content-wrapper{border-radius:10px;box-shadow:var(--shadow-lg);border:1px solid var(--line)}
+  .leaflet-popup-content{font-family:var(--sans);font-size:12.5px}
 
-  .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
-    flex-wrap:wrap;padding-bottom:12px;border-bottom:2px solid var(--ink)}
-  .section-head-left{display:flex;align-items:baseline;gap:14px}
-  .section-head h2{font-family:var(--serif);font-size:20px;font-weight:400;margin:0;color:var(--ink)}
-  .section-note{font-size:12.5px;color:var(--ink-mute)}
-  .count-tag{font-size:12.5px;color:var(--ink-mute);padding:3px 10px;background:var(--panel-tint);border-radius:3px}
-
-  .table-wrap{background:var(--panel);border:1px solid var(--rule);border-top:none;
-    border-radius:0 0 6px 6px;overflow-x:auto;margin-bottom:44px}
-  table{width:100%;border-collapse:collapse;font-size:13px;min-width:960px}
-  th{text-align:left;padding:12px 16px;font-weight:600;font-size:12px;color:var(--ink-mute);
-    background:var(--panel-tint);border-bottom:1px solid var(--rule);white-space:nowrap}
-  td{padding:13px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink)}
-  td.dim{color:var(--ink-mute);white-space:nowrap}
-  tbody tr.lead-row{cursor:pointer;transition:background .12s}
-  tbody tr.lead-row:hover{background:var(--green-tint)}
-  tbody tr:last-child td{border-bottom:none}
-
-  .sig{display:inline-block;font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:3px;
-    white-space:nowrap;line-height:1.3}
-  .sig-demo_no_rebuild{background:var(--rust-tint);color:var(--rust);border:1px solid #E3C4BD}
-  .sig-rebuild_active{background:var(--clay-tint);color:var(--clay);border:1px solid #E8D2BE}
-  .sig-new_construction{background:var(--green-tint);color:var(--green-deep);border:1px solid #C9DFD1}
-  .sig-activity{background:var(--panel-tint);color:var(--ink-mute);border:1px solid var(--rule)}
-
-  .who{color:var(--green-deep);font-weight:600}
-  .who-role{color:var(--ink-soft)}
-  .no-hit{color:var(--ink-faint)}
-  .src-link{color:var(--ink-mute);font-size:12px;text-decoration:none;border-bottom:1px dotted var(--ink-faint)}
-  .src-link:hover{color:var(--green);border-color:var(--green)}
-  .expand-hint{color:var(--ink-faint);font-size:11px;margin-left:6px}
-
-  .timeline-row td{background:var(--panel-tint);padding:0}
-  .timeline-inner{padding:20px 26px 24px}
-  .timeline-title{font-size:12px;font-weight:600;color:var(--ink-mute);margin:0 0 14px;
-    text-transform:uppercase;letter-spacing:.5px}
-  .tl{list-style:none;margin:0;padding:0 0 0 20px;border-left:2px solid var(--rule-strong)}
-  .tl li{position:relative;padding:0 0 16px 18px}
-  .tl li:last-child{padding-bottom:0}
-  .tl li::before{content:'';position:absolute;left:-27px;top:5px;width:11px;height:11px;
-    border-radius:50%;border:2px solid var(--panel)}
-  .tl li.demolition::before{background:var(--rust)}
-  .tl li.construction::before{background:var(--green)}
-  .tl li.transformation::before{background:var(--clay)}
-  .tl li.certificate::before,.tl li.other::before{background:var(--ink-faint)}
-  .tl-date{font-size:12px;color:var(--ink-mute);font-variant-numeric:tabular-nums}
-  .tl-type{font-weight:600;color:var(--ink)}
-  .tl-nature{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
-  .tl-meta{font-size:12px;color:var(--ink-mute);margin-top:2px}
-  .why{font-size:12.5px;color:var(--ink-soft);background:var(--panel);border-left:3px solid var(--rust);
-    padding:10px 14px;border-radius:0 4px 4px 0;margin:0 0 18px}
-
-  .btn{font-family:var(--sans);font-size:12.5px;padding:7px 14px;border-radius:4px;
-    border:1px solid var(--rule-strong);background:var(--panel);color:var(--ink-soft);
-    cursor:pointer;transition:all .15s;white-space:nowrap}
-  .btn:hover,.btn:focus-visible{border-color:var(--green);color:var(--green);background:var(--green-tint)}
-
-  #allLeadsWrapper{max-height:0;overflow:hidden;transition:max-height .35s ease}
-  #allLeadsWrapper.expanded{max-height:12000px}
-  .empty{font-size:13px;color:var(--ink-mute);padding:30px 16px;text-align:center}
-  .footnote{font-size:12px;color:var(--ink-faint);margin-top:28px;line-height:1.7}
-  .freshness{font-size:12px;color:var(--ink-mute);margin:0 0 22px}
-  .freshness span{margin-right:16px}
-
-  @media (max-width:960px){
-    .ledger{grid-template-columns:repeat(2,1fr)}
-    .ledger-cell:nth-child(3){padding-left:0;border-left:none;border-top:1px solid var(--rule)}
-    .ledger-cell:nth-child(4){border-top:1px solid var(--rule)}
-    .grid-2{grid-template-columns:1fr}
-  }
+  .empty{padding:40px 20px;text-align:center;color:var(--ink-3);font-size:13.5px}
+  .foot{font-size:12px;color:var(--ink-3);margin-top:30px;line-height:1.75;max-width:900px}
+  .err{color:var(--hot);font-weight:600}
 </style>
 </head>
 <body>
 
-<header class="masthead">
+<div class="topbar"><div class="topbar-in">
   <div class="brand">
-    <img id="logo" src="logo.png" alt="VA Capital" onerror="this.remove();">
-    <div class="brand-text">
-      <p class="eyebrow">VA Capital</p>
+    <img id="logo" src="logo.png" alt="VA Capital" onerror="this.remove()">
+    <div>
       <h1>Québec Permit Intelligence</h1>
-      <p class="subtitle">Construction activity, property timelines and financing signals</p>
+      <p>Construction activity, property timelines and financing signals</p>
     </div>
   </div>
-  <dl class="dateline" id="dateline"><dt>Status</dt><dd>Loading…</dd></dl>
-</header>
+  <div class="status" id="status"><span>Loading…</span></div>
+</div></div>
 
-<div class="ledger" id="ledger"></div>
-<p class="freshness" id="freshness"></p>
+<div class="wrap">
 
-<div class="toolbar">
-  <div class="field">
-    <label for="cityFilter">City</label>
-    <select id="cityFilter"><option value="__all__">All cities</option></select>
-  </div>
-  <div class="field">
-    <label for="signalFilter">Signal</label>
-    <select id="signalFilter">
-      <option value="__all__">All signals</option>
-      <option value="demo_no_rebuild">Demolition, no rebuild filed</option>
-      <option value="rebuild_active">Demolished and rebuilding</option>
-      <option value="new_construction">New construction</option>
-    </select>
-  </div>
-  <div class="field">
-    <label for="boroughFilter">Sector</label>
-    <select id="boroughFilter"><option value="__all__">All sectors</option></select>
-  </div>
-  <div class="field">
-    <label for="categoryFilter">Category</label>
-    <select id="categoryFilter"><option value="__all__">All categories</option></select>
-  </div>
-  <div class="field">
-    <label for="logementsFilter">Minimum units</label>
-    <select id="logementsFilter">
-      <option value="0">Any</option><option value="1">1+</option><option value="2">2+</option>
-      <option value="5">5+</option><option value="10">10+</option><option value="20">20+</option>
-      <option value="50">50+</option><option value="100">100+</option>
-    </select>
-  </div>
+<div class="stats" id="stats"></div>
+
+<div class="filters">
+  <div class="fg"><label for="fTier">Signal tier</label><select id="fTier">
+    <option value="__all__">All tiers</option><option value="hot">Hot (70+)</option>
+    <option value="strong">Strong (52-69)</option><option value="moderate">Moderate (34-51)</option>
+    <option value="watch">Watch (&lt;34)</option></select></div>
+  <div class="fg"><label for="fStage">Project stage</label><select id="fStage">
+    <option value="__all__">All stages</option></select></div>
+  <div class="fg"><label for="fCity">City</label><select id="fCity">
+    <option value="__all__">All cities</option></select></div>
+  <div class="fg"><label for="fSector">Sector</label><select id="fSector">
+    <option value="__all__">All sectors</option></select></div>
+  <div class="fg"><label for="fCat">Category</label><select id="fCat">
+    <option value="__all__">All categories</option></select></div>
+  <div class="fg"><label for="fUnits">Min. units</label><select id="fUnits">
+    <option value="0">Any</option><option value="2">2+</option><option value="5">5+</option>
+    <option value="10">10+</option><option value="20">20+</option><option value="50">50+</option></select></div>
+  <div class="fg"><label for="fCost">Min. permit value</label><select id="fCost">
+    <option value="0">Any</option><option value="250000">$250k+</option>
+    <option value="500000">$500k+</option><option value="1000000">$1M+</option>
+    <option value="5000000">$5M+</option></select></div>
+  <div class="fg"><label for="fNamed">Contact known</label><select id="fNamed">
+    <option value="0">Any</option><option value="1">Applicant named</option></select></div>
+  <div class="fg"><label for="fSort">Sort by</label><select id="fSort">
+    <option value="score">Signal score</option><option value="date">Most recent</option>
+    <option value="units">Most units</option><option value="cost">Highest value</option></select></div>
+  <button class="reset" id="fReset">Reset filters</button>
 </div>
 
-<div class="grid-2">
-  <div class="panel">
-    <p class="panel-title">Weekly permit activity by work type</p>
-    <div style="position:relative;height:250px"><canvas id="trendChart"></canvas></div>
-  </div>
-  <div class="panel">
-    <p class="panel-title">Volume by sector</p>
-    <div style="position:relative;height:250px"><canvas id="boroughChart"></canvas></div>
-  </div>
+<div class="sec">
+  <div><h2>Scored leads</h2>
+    <span class="note">Click any row for the scoring rationale and full property timeline</span></div>
+  <span class="note" id="leadCount">—</span>
 </div>
-
-<div class="grid-2" style="grid-template-columns:1fr">
-  <div class="panel">
-    <p class="panel-title">Volume by building category</p>
-    <div style="position:relative;height:300px"><canvas id="categoryChart"></canvas></div>
-  </div>
-</div>
-
-<div class="map-block">
-  <div class="map-head">
-    <p class="panel-title">Geographic distribution <span style="font-weight:400;color:var(--ink-mute)">— cities publishing coordinates</span></p>
-    <div class="map-tools">
-      <div class="seg" role="group" aria-label="Map scope">
-        <button class="seg-btn active" data-scope="priority">Leads only</button>
-        <button class="seg-btn" data-scope="all">All permits</button>
-      </div>
-      <button class="btn" id="legendToggle" aria-expanded="false">Categories</button>
-    </div>
-  </div>
-  <div class="map-panel">
-    <div id="map"></div>
-    <div class="map-legend" id="mapLegend" hidden></div>
-  </div>
-</div>
-
-<div class="section-head">
-  <div class="section-head-left">
-    <h2>Leads by signal strength</h2>
-    <span class="section-note">Click any row to see the property's permit timeline</span>
-  </div>
-  <span class="count-tag" id="priorityCount">—</span>
-</div>
-<div class="table-wrap">
-  <table id="priorityLeadsTable">
-    <thead>
-      <tr><th>Signal</th><th>Issued</th><th>City</th><th>Address</th><th>Sector</th>
-      <th>Category</th><th>Units</th><th>Who's behind it</th><th></th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  <div class="empty" id="priorityEmpty" hidden>No leads match these filters.</div>
-</div>
-
-<div class="section-head">
-  <div class="section-head-left">
-    <h2>All construction and demolition permits</h2>
-    <span class="section-note">Unfiltered, same window</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:10px">
-    <span class="count-tag" id="allCount">—</span>
-    <button class="btn" id="toggleAllBtn">Show all</button>
-  </div>
-</div>
-<div id="allLeadsWrapper">
-  <div class="table-wrap">
-    <table id="allLeadsTable">
-      <thead>
-        <tr><th>Issued</th><th>City</th><th>Address</th><th>Sector</th><th>Type</th>
-        <th>Category</th><th>Units</th><th>Contractor</th><th></th></tr>
-      </thead>
+<div class="panel">
+  <div class="tablewrap">
+    <table id="leadsTable">
+      <thead><tr>
+        <th style="width:130px">Signal</th><th>Property</th><th>Stage</th>
+        <th>Issued</th><th style="width:70px">Units</th><th>Permit value</th>
+        <th>Applicant</th><th style="width:80px"></th>
+      </tr></thead>
       <tbody></tbody>
     </table>
-    <div class="empty" id="allEmpty" hidden>No permits match these filters.</div>
   </div>
+  <div class="empty" id="leadsEmpty" hidden>No leads match these filters.</div>
 </div>
 
-<p class="footnote">
-  Sources: municipal open permit data published by each city. Coverage and refresh rates vary by
-  municipality — see the freshness line above. Lachine and Saint-Léonard are not yet included in
-  Montréal's dataset. Only some cities publish coordinates, so the map is a subset of the tables.
-  Developer attribution is assembled from public sources and should be verified before outreach.
+<div class="sec"><div><h2>Market context</h2>
+  <span class="note">All permit activity in the trailing window, not just scored leads</span></div></div>
+
+<div class="grid2">
+  <div class="panel"><div class="panel-head"><h3>Weekly permit activity by work type</h3></div>
+    <div class="panel-pad"><div style="position:relative;height:250px"><canvas id="trendChart"></canvas></div></div></div>
+  <div class="panel"><div class="panel-head"><h3>Volume by sector</h3></div>
+    <div class="panel-pad"><div style="position:relative;height:250px"><canvas id="sectorChart"></canvas></div></div></div>
+</div>
+
+<div class="panel" style="margin-bottom:16px"><div class="panel-head"><h3>Volume by building category</h3></div>
+  <div class="panel-pad"><div style="position:relative;height:280px"><canvas id="catChart"></canvas></div></div></div>
+
+<div class="panel">
+  <div class="panel-head">
+    <h3>Geographic distribution <span class="muted" style="font-weight:400">— cities publishing coordinates</span></h3>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div class="seg" id="mapScope">
+        <button data-scope="leads" class="active">Leads</button>
+        <button data-scope="all">All permits</button>
+      </div>
+      <button class="btn" id="legendBtn">Categories</button>
+    </div>
+  </div>
+  <div class="maprow"><div id="map"></div><div class="legend" id="legend" hidden></div></div>
+</div>
+
+<p class="foot">
+  Sources: municipal open permit data published by each city. Coverage, fields and refresh cadence vary
+  by municipality — see the freshness indicators in the header. Lachine and Saint-Léonard are not yet
+  included in Montréal's dataset. Only some cities publish coordinates, so the map shows a subset of the
+  table. Signal scores are a prioritisation aid built from public permit records, not a credit assessment;
+  verify ownership and project details before outreach.
 </p>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
 <script>
-let rawData=null,map=null,markersLayer=null;
-let trendChart=null,boroughChart=null,categoryChart=null;
-let currentPoints=[],leadAddresses=new Set();
-let hiddenCategories=new Set(),mapScope='priority';
-let categoryColorMap={},expanded=new Set();
+let DATA=null,map=null,layer=null;
+let cTrend=null,cSector=null,cCat=null;
+let pts=[],leadAddr=new Set(),hidden=new Set(),scope='leads',open=new Set(),colorMap={};
 
-const AXIS='#7A7469',GRID='rgba(26,26,23,0.07)';
-const WORK_COLORS={construction:'#1F7740',demolition:'#9B3B2E',transformation:'#A8622C',
-  certificate:'#8A7420',other:'#9E9789'};
-const CATEGORY_COLORS=['#1F7740','#2E6DA4','#A8622C','#8A7420','#6B4E8F','#9B3B2E','#2C7A7B','#5C7A2E','#8F5A7A','#3F5A8F'];
+const AXIS='#6E7C76',GRID='rgba(14,21,18,.06)';
+const WORK={construction:'#0F7A43',demolition:'#C2410C',transformation:'#B45309',certificate:'#1D5FA8',other:'#9AA6A0'};
+const PAL=['#0F7A43','#1D5FA8','#B45309','#6D28D9','#0E7490','#BE123C','#4D7C0F','#A16207','#7C3AED','#0369A1'];
 
-Chart.defaults.font.family="'Montserrat',sans-serif";
+function safely(what,fn){try{fn()}catch(e){console.error('Dashboard: '+what+' failed —',e)}}
+function fmtDate(iso){if(!iso)return '—';const d=new Date(iso+'T00:00:00');
+  return isNaN(d)?iso:d.toLocaleDateString('en-CA',{day:'numeric',month:'short',year:'numeric'})}
+function money(v){return v==null?null:'$'+Math.round(v).toLocaleString()}
+function units(o){const n=parseFloat(o.nb_logements);return isNaN(n)?0:n}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+Chart.defaults.font.family="'Inter',sans-serif";
 Chart.defaults.font.size=11;
 Chart.defaults.color=AXIS;
 
-fetch('data.json?v=' + Date.now()).then(r=>{
-  if(!r.ok) throw new Error('data.json returned HTTP ' + r.status);
-  return r.json();
-}).then(data=>{
-  rawData=data;
-  document.getElementById('dateline').innerHTML=`
-    <dt>Data through</dt><dd>${prettyDate(data.data_through)}</dd>
-    <dt>Lead window</dt><dd>${data.leads_window_days} days</dd>
-    <dt>Demolition window</dt><dd>${data.demo_window_days} days</dd>
-    <p class="run">Last run ${data.last_updated}</p>`;
+fetch('data.json?v='+Date.now())
+  .then(r=>{if(!r.ok)throw new Error('data.json returned HTTP '+r.status);return r.json()})
+  .then(d=>{
+    DATA=d;
+    const fresh=d.city_freshness||{};
+    document.getElementById('status').innerHTML=
+      `<span><span class="dot"></span>Data through <b>${fmtDate(d.data_through)}</b></span>`+
+      Object.entries(fresh).map(([c,dt])=>`<span>${esc(c)} <b>${fmtDate(dt)}</b></span>`).join('')+
+      `<span>Last run ${esc(d.last_updated)}</span>`;
 
-  const fresh=data.city_freshness||{};
-  document.getElementById('freshness').innerHTML='Latest permit per city: '+
-    Object.entries(fresh).map(([c,d])=>`<span><strong>${c}</strong> ${prettyDate(d)}</span>`).join('');
+    const stages=[...new Set((d.leads||[]).map(l=>l.stage_label))].sort();
+    fill('fStage',stages);
+    fill('fCity',d.cities||[]);
+    fill('fSector',Object.keys(d.by_borough||{}));
+    fill('fCat',Object.keys(d.by_category||{}));
 
-  fill('cityFilter',data.cities||[]);
-  fill('boroughFilter',Object.keys(data.by_borough||{}));
-  fill('categoryFilter',Object.keys(data.by_category||{}));
-
-  safely('map setup', ()=>initMap());
-  applyFilters();
-
-  ['cityFilter','signalFilter','boroughFilter','categoryFilter','logementsFilter']
-    .forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
-
-  const tb=document.getElementById('toggleAllBtn'),wrap=document.getElementById('allLeadsWrapper');
-  tb.addEventListener('click',()=>{
-    const open=wrap.classList.toggle('expanded');
-    tb.textContent=open?'Hide all':'Show all';
+    safely('map setup',initMap);
+    ['fTier','fStage','fCity','fSector','fCat','fUnits','fCost','fNamed','fSort']
+      .forEach(id=>document.getElementById(id).addEventListener('change',apply));
+    document.getElementById('fReset').addEventListener('click',()=>{
+      ['fTier','fStage','fCity','fSector','fCat'].forEach(id=>document.getElementById(id).value='__all__');
+      ['fUnits','fCost','fNamed'].forEach(id=>document.getElementById(id).value='0');
+      document.getElementById('fSort').value='score';apply();
+    });
+    apply();
+  })
+  .catch(err=>{
+    console.error('Dashboard load failed:',err);
+    document.getElementById('status').innerHTML=
+      '<span class="err">'+esc(err&&err.message?err.message:'Could not load data.json')+'</span>';
   });
-}).catch(err=>{
-  console.error('Dashboard load failed:', err);
-  document.getElementById('dateline').innerHTML=
-    '<dt>Status</dt><dd style="color:#9B3B2E">'+(err && err.message ? err.message : 'Could not load data.json')+'</dd>';
-});
 
-function safely(what, fn){
-  try { fn(); }
-  catch(e){ console.error('Dashboard: ' + what + ' failed —', e); }
+function fill(id,vals){const s=document.getElementById(id);
+  vals.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o)})}
+
+function apply(){
+  const g=id=>document.getElementById(id).value;
+  const tier=g('fTier'),stage=g('fStage'),city=g('fCity'),sector=g('fSector'),cat=g('fCat');
+  const minU=+g('fUnits'),minC=+g('fCost'),named=g('fNamed')==='1',sort=g('fSort');
+
+  let leads=(DATA.leads||[]).filter(l=>
+    (tier==='__all__'||l.scoring.tier===tier)&&
+    (stage==='__all__'||l.stage_label===stage)&&
+    (city==='__all__'||l.city===city)&&
+    (sector==='__all__'||l.secteur===sector)&&
+    (cat==='__all__'||l.categorie===cat)&&
+    units(l)>=minU&&(l.cout||0)>=minC&&
+    (!named||!!l.entrepreneur));
+
+  const cmp={score:(a,b)=>b.scoring.score-a.scoring.score,
+    date:(a,b)=>b.date_emission.localeCompare(a.date_emission),
+    units:(a,b)=>units(b)-units(a),
+    cost:(a,b)=>(b.cout||0)-(a.cout||0)};
+  leads.sort(cmp[sort]);
+
+  const mapPts=(DATA.geo_points||[]).filter(p=>
+    (city==='__all__'||p.city===city)&&
+    (sector==='__all__'||p.borough===sector)&&
+    (cat==='__all__'||p.category===cat)&&units(p)>=minU);
+
+  render(leads,mapPts);
 }
 
-function prettyDate(iso){
-  if(!iso)return '—';
-  const d=new Date(iso+'T00:00:00');
-  return isNaN(d)?iso:d.toLocaleDateString('en-CA',{day:'numeric',month:'short',year:'numeric'});
-}
-function fill(id,values){
-  const s=document.getElementById(id);
-  values.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});
-}
-function units(o){const n=parseFloat(o.nb_logements);return isNaN(n)?0:n;}
-function money(v){return v==null?null:'$'+Math.round(v).toLocaleString();}
+function render(leads,mapPts){
+  const hot=leads.filter(l=>l.scoring.tier==='hot').length;
+  const strong=leads.filter(l=>l.scoring.tier==='strong').length;
+  const pipeline=leads.reduce((s,l)=>s+units(l),0);
+  const value=leads.reduce((s,l)=>s+(l.cout||0),0);
 
-function applyFilters(){
-  const city=document.getElementById('cityFilter').value;
-  const sig=document.getElementById('signalFilter').value;
-  const b=document.getElementById('boroughFilter').value;
-  const c=document.getElementById('categoryFilter').value;
-  const min=parseInt(document.getElementById('logementsFilter').value,10);
+  document.getElementById('stats').innerHTML=`
+    <div class="stat"><p class="k">Leads in view</p><p class="v">${leads.length}</p>
+      <p class="sub">of ${(DATA.leads||[]).length} scored</p></div>
+    <div class="stat"><p class="k">Hot signals</p><p class="v hot">${hot}</p>
+      <p class="sub">${strong} strong behind them</p></div>
+    <div class="stat"><p class="k">Units in pipeline</p><p class="v green">${pipeline.toLocaleString()}</p>
+      <p class="sub">across leads in view</p></div>
+    <div class="stat"><p class="k">Declared permit value</p><p class="v">${value?money(value):'—'}</p>
+      <p class="sub">where cities publish it</p></div>
+    <div class="stat"><p class="k">Market permits</p><p class="v">${(DATA.total_permits||0).toLocaleString()}</p>
+      <p class="sub">trailing ${DATA.window_days} days</p></div>`;
 
-  const ok=(ci,bo,ca,u)=>(city==='__all__'||ci===city)&&(b==='__all__'||bo===b)&&
-    (c==='__all__'||ca===c)&&u>=min;
-
-  render(
-    rawData.geo_points.filter(p=>ok(p.city,p.borough,p.category,units(p))),
-    rawData.priority_leads.filter(l=>ok(l.city,l.secteur,l.categorie,units(l))&&
-      (sig==='__all__'||(l.signal&&l.signal.code===sig))),
-    rawData.all_leads.filter(l=>ok(l.city,l.secteur,l.categorie,units(l)))
-  );
-}
-
-function render(points,leads,all){
-  leadAddresses=new Set(leads.map(l=>l.emplacement));
-  const boroughCounts=tally(points,'borough'),categoryCounts=tally(points,'category');
-  const hot=leads.filter(l=>l.signal&&l.signal.code==='demo_no_rebuild').length;
-  const pipeline=points.reduce((s,p)=>s+units(p),0);
-
-  document.getElementById('ledger').innerHTML=`
-    <div class="ledger-cell"><p class="l-label">Permits in view</p><p class="l-value num">${points.length.toLocaleString()}</p></div>
-    <div class="ledger-cell"><p class="l-label">Total leads</p><p class="l-value accent num">${leads.length}</p></div>
-    <div class="ledger-cell"><p class="l-label">Cleared sites, no rebuild filed</p><p class="l-value hot num">${hot}</p></div>
-    <div class="ledger-cell"><p class="l-label">Units in pipeline</p><p class="l-value num">${Math.round(pipeline).toLocaleString()}</p></div>`;
-
-  safely('trend chart', ()=>drawTrend());
-  safely('borough chart', ()=>drawBars('boroughChart','borough',boroughCounts,'#1F7740'));
-  safely('category chart', ()=>drawBars('categoryChart','category',categoryCounts,'#2E6DA4'));
-  safely('map', ()=>updateMap(points));
-  safely('leads table', ()=>renderLeads(leads));
-  safely('all-permits table', ()=>renderAll(all));
-  document.getElementById('priorityCount').textContent=`${leads.length} leads`;
-  document.getElementById('allCount').textContent=`${all.length} permits`;
+  document.getElementById('leadCount').textContent=`${leads.length} leads`;
+  safely('leads table',()=>renderLeads(leads));
+  safely('trend chart',drawTrend);
+  safely('sector chart',()=>drawBar('sectorChart','sector',DATA.by_borough,'#0F7A43'));
+  safely('category chart',()=>drawBar('catChart','cat',DATA.by_category,'#1D5FA8'));
+  safely('map',()=>{leadAddr=new Set(leads.map(l=>l.emplacement));updateMap(mapPts)});
 }
 
 function renderLeads(leads){
-  const tb=document.querySelector('#priorityLeadsTable tbody');
-  document.getElementById('priorityEmpty').hidden=leads.length>0;
+  const tb=document.querySelector('#leadsTable tbody');
+  document.getElementById('leadsEmpty').hidden=leads.length>0;
   tb.innerHTML='';
-  if(!leads.length)return;
-
   leads.forEach(l=>{
-    const it=l.intelligence,bits=[];
-    if(l.entrepreneur)bits.push(`<span class="who">${l.entrepreneur}</span> <span class="who-role">(permit applicant)</span>`);
-    if(it){
-      if(it.owner_developer)bits.push(`<span class="who">${it.owner_developer}</span>`);
-      if(it.general_contractor)bits.push(`<span class="who-role">GC: ${it.general_contractor}</span>`);
-      if(it.architect)bits.push(`<span class="who-role">Architect: ${it.architect}</span>`);
-    }
-    let who;
-    if(bits.length){
-      const src=(it&&it.sources&&it.sources.length)?` <a class="src-link" href="${it.sources[0]}" target="_blank" rel="noopener">source</a>`:'';
-      who=`${bits.join('<br>')}${src}`;
-    } else who=`<span class="no-hit">${it?'Nothing public found':'—'}</span>`;
-
-    const sig=l.signal||{code:'activity',label:'Permit activity'};
-    const thread=(it&&it.agora_threads&&it.agora_threads.length)?it.agora_threads[0].url:'';
-    const id=l.id_permis;
-    const open=expanded.has(id);
-
-    tb.innerHTML+=`<tr class="lead-row" data-id="${id}">
-      <td><span class="sig sig-${sig.code}">${sig.label}</span></td>
-      <td class="dim num">${l.date_emission}</td>
-      <td>${l.city}</td>
-      <td>${l.emplacement}${l.cout?`<br><span class="dim">Permit value ${money(l.cout)}</span>`:''}
-        <span class="expand-hint">${open?'▾':'▸'} timeline</span></td>
-      <td>${l.secteur}</td>
-      <td>${l.categorie}</td>
-      <td class="num">${units(l)||'—'}</td>
-      <td>${who}</td>
-      <td><button class="btn agora-btn" data-address="${l.emplacement}" data-thread="${thread}">Agora</button></td>
-    </tr>`;
-
-    if(open)tb.innerHTML+=timelineRow(l);
+    const s=l.scoring,t=s.tier,isOpen=open.has(l.id_permis);
+    tb.insertAdjacentHTML('beforeend',`
+      <tr class="lead ${isOpen?'open':''}" data-id="${esc(l.id_permis)}">
+        <td><div class="score">
+            <span class="n n-${t}">${s.score}</span>
+            <span class="bar"><span class="b-${t}" style="width:${s.score}%"></span></span>
+          </div><span class="tier t-${t}" style="margin-top:6px">${esc(s.tier_label)}</span></td>
+        <td><div class="addr">${esc(l.emplacement)}</div>
+          <div class="meta">${esc(l.city)} · ${esc(l.secteur)} · ${esc(l.categorie)}</div></td>
+        <td><span class="stage">${esc(l.stage_label)}</span>
+          <div class="meta">${esc(l.type_label)}</div></td>
+        <td class="num muted">${l.date_emission}</td>
+        <td class="num">${units(l)||'—'}</td>
+        <td class="num">${l.cout?money(l.cout):'<span class="muted">—</span>'}</td>
+        <td>${l.entrepreneur?esc(l.entrepreneur):'<span class="muted">Not published</span>'}</td>
+        <td><button class="btn agora" data-a="${esc(l.emplacement)}">Research</button></td>
+      </tr>`);
+    if(isOpen)tb.insertAdjacentHTML('beforeend',detailRow(l));
   });
 
-  tb.querySelectorAll('.lead-row').forEach(row=>{
-    row.addEventListener('click',e=>{
-      if(e.target.closest('.agora-btn'))return;
-      const id=row.dataset.id;
-      expanded.has(id)?expanded.delete(id):expanded.add(id);
-      applyFilters();
-    });
-  });
-  bindAgora(tb);
+  tb.querySelectorAll('tr.lead').forEach(row=>row.addEventListener('click',e=>{
+    if(e.target.closest('.agora'))return;
+    const id=row.dataset.id;
+    open.has(id)?open.delete(id):open.add(id);
+    apply();
+  }));
+  tb.querySelectorAll('.agora').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();
+    window.open('https://agoramtl.com/search?q='+encodeURIComponent(b.dataset.a.split(',')[0].trim()),'_blank');
+  }));
 }
 
-function timelineRow(l){
-  const tl=l.timeline||[];
-  const items=tl.map(e=>`<li class="${e.work_class}">
-      <div class="tl-date">${prettyDate(e.date)}</div>
-      <div class="tl-type">${e.type}</div>
-      ${e.nature?`<div class="tl-nature">${e.nature}</div>`:''}
-      ${(e.units||e.cost)?`<div class="tl-meta">${e.units?e.units+' units':''}${e.units&&e.cost?' · ':''}${e.cost?money(e.cost):''}</div>`:''}
-    </li>`).join('');
+function detailRow(l){
+  const s=l.scoring,today=DATA.data_through;
+  const reasons=(s.reasons||[]).map(r=>`
+    <li><span class="pts">+${r.points}</span>
+      <div><div class="f">${esc(r.factor)}</div><div class="d">${esc(r.detail)}</div></div></li>`).join('');
 
-  return `<tr class="timeline-row"><td colspan="9"><div class="timeline-inner">
-    ${l.signal&&l.signal.why?`<p class="why"><strong>${l.signal.label}.</strong> ${l.signal.why}</p>`:''}
-    <p class="timeline-title">Permit history — ${l.emplacement}</p>
-    ${items?`<ul class="tl">${items}</ul>`:'<p class="no-hit">No other permits on record for this property.</p>'}
+  const tl=(l.timeline||[]).map(e=>{
+    const future=e.date>today;
+    const cls=(e.kind==='milestone'?'future ':'')+e.work_class;
+    const bits=[];
+    if(e.units)bits.push(e.units+' units');
+    if(e.cost)bits.push(money(e.cost));
+    return `<li class="${cls}">
+      <div class="d">${fmtDate(e.date)}${future?'<span class="future-chip">upcoming</span>':''}</div>
+      <div class="t">${esc(e.title)}</div>
+      ${e.detail?`<div class="x">${esc(e.detail)}</div>`:''}
+      ${bits.length?`<div class="m">${bits.join(' · ')}</div>`:''}</li>`;
+  }).join('');
+
+  return `<tr class="detail"><td colspan="8"><div class="detail-in">
+    <div>
+      <p class="dh">Why this scored ${s.score}</p>
+      <p class="verdict"><strong>${esc(s.tier_label)} signal — ${esc(l.stage_label)}.</strong> ${esc(s.headline)}</p>
+      <ul class="rl">${reasons}</ul>
+    </div>
+    <div>
+      <p class="dh">Property timeline</p>
+      ${tl?`<ul class="tl">${tl}</ul>`:'<p class="muted">No other permits on record for this property.</p>'}
+    </div>
   </div></td></tr>`;
 }
 
-function renderAll(leads){
-  const tb=document.querySelector('#allLeadsTable tbody');
-  document.getElementById('allEmpty').hidden=leads.length>0;
-  tb.innerHTML='';
-  if(!leads.length)return;
-  leads.forEach(l=>{
-    tb.innerHTML+=`<tr>
-      <td class="dim num">${l.date_emission}</td>
-      <td>${l.city}</td>
-      <td>${l.emplacement}</td>
-      <td>${l.secteur}</td>
-      <td>${l.type_label||''}</td>
-      <td>${l.categorie}</td>
-      <td class="num">${units(l)||'—'}</td>
-      <td>${l.entrepreneur?`<span class="who">${l.entrepreneur}</span>`:'<span class="no-hit">—</span>'}</td>
-      <td><button class="btn agora-btn" data-address="${l.emplacement}" data-thread="">Agora</button></td>
-    </tr>`;
-  });
-  bindAgora(tb);
-}
-
-function bindAgora(tb){
-  tb.querySelectorAll('.agora-btn').forEach(b=>{
-    b.addEventListener('click',e=>{
-      e.stopPropagation();
-      openAgora(b.dataset.address,b.dataset.thread);
-    });
-  });
-}
-function openAgora(address,thread){
-  if(thread){window.open(thread,'_blank');return;}
-  window.open('https://agoramtl.com/search?q='+encodeURIComponent(address.split(',')[0].trim()),'_blank');
-}
-
-function tally(points,field){
-  const c={};
-  points.forEach(p=>{c[p[field]]=(c[p[field]]||0)+1;});
-  return Object.fromEntries(Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,20));
-}
-
 function drawTrend(){
-  if(trendChart)trendChart.destroy();
-  trendChart=new Chart(document.getElementById('trendChart'),{
-    type:'bar',
-    data:{labels:rawData.trend_weeks,
-      datasets:Object.entries(rawData.trend_series).map(([label,values])=>({
-        label,data:values,backgroundColor:WORK_COLORS[label]||'#9E9789',borderRadius:2,barPercentage:.75}))},
+  if(cTrend)cTrend.destroy();
+  cTrend=new Chart(document.getElementById('trendChart'),{type:'bar',
+    data:{labels:DATA.trend_weeks,datasets:Object.entries(DATA.trend_series||{}).map(([k,v])=>
+      ({label:k,data:v,backgroundColor:WORK[k]||'#9AA6A0',borderRadius:3,barPercentage:.8}))},
     options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom',labels:{boxWidth:10,boxHeight:10,padding:14}}},
-      scales:{x:{stacked:true,grid:{display:false},ticks:{maxRotation:0,autoSkipPadding:12}},
-        y:{stacked:true,grid:{color:GRID},border:{display:false}}}}
-  });
+      plugins:{legend:{position:'bottom',labels:{boxWidth:9,boxHeight:9,padding:14,usePointStyle:true,pointStyle:'circle'}}},
+      scales:{x:{stacked:true,grid:{display:false},ticks:{maxRotation:0,autoSkipPadding:14}},
+        y:{stacked:true,grid:{color:GRID},border:{display:false}}}}});
 }
 
-function drawBars(canvasId,which,counts,color){
-  if(which==='borough'&&boroughChart)boroughChart.destroy();
-  if(which==='category'&&categoryChart)categoryChart.destroy();
-  const chart=new Chart(document.getElementById(canvasId),{
-    type:'bar',
-    data:{labels:Object.keys(counts),
-      datasets:[{data:Object.values(counts),backgroundColor:color,borderRadius:2,barPercentage:.7}]},
+function drawBar(id,which,counts,color){
+  const c=which==='sector'?cSector:cCat;
+  if(c)c.destroy();
+  const chart=new Chart(document.getElementById(id),{type:'bar',
+    data:{labels:Object.keys(counts||{}),datasets:[{data:Object.values(counts||{}),
+      backgroundColor:color,borderRadius:3,barPercentage:.75}]},
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false}},
       scales:{x:{grid:{color:GRID},border:{display:false}},
-        y:{grid:{display:false},border:{display:false}}}}
-  });
-  if(which==='borough')boroughChart=chart;else categoryChart=chart;
+        y:{grid:{display:false},border:{display:false}}}}});
+  if(which==='sector')cSector=chart;else cCat=chart;
 }
 
 function initMap(){
-  map=L.map('map',{scrollWheelZoom:false}).setView([46.4,-72.5],7);
+  map=L.map('map',{scrollWheelZoom:false}).setView([46.6,-72.5],7);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    {attribution:'&copy; OpenStreetMap contributors &copy; CARTO'}).addTo(map);
-  // The clustering plugin is optional - if its CDN is blocked or slow, fall back
-  // to plain markers rather than taking the whole dashboard down with it.
-  markersLayer = (typeof L.markerClusterGroup === 'function')
+    {attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+  layer=(typeof L.markerClusterGroup==='function')
     ? L.markerClusterGroup({showCoverageOnHover:false,disableClusteringAtZoom:15,maxClusterRadius:45})
     : L.layerGroup();
-  map.addLayer(markersLayer);
+  map.addLayer(layer);
 
-  document.querySelectorAll('.seg-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      mapScope=btn.dataset.scope;
-      drawMarkers();drawLegend();
-    });
-  });
-  const lt=document.getElementById('legendToggle');
-  lt.addEventListener('click',()=>{
-    const legend=document.getElementById('mapLegend'),open=legend.hidden;
-    legend.hidden=!open;lt.setAttribute('aria-expanded',String(open));
+  document.querySelectorAll('#mapScope button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#mapScope button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');scope=b.dataset.scope;drawMarkers();drawLegend();
+  }));
+  document.getElementById('legendBtn').addEventListener('click',()=>{
+    const el=document.getElementById('legend');el.hidden=!el.hidden;
   });
 }
 
-function colorFor(category){
-  if(!(category in categoryColorMap))
-    categoryColorMap[category]=CATEGORY_COLORS[Object.keys(categoryColorMap).length%CATEGORY_COLORS.length];
-  return categoryColorMap[category];
+function colorFor(c){
+  if(!(c in colorMap))colorMap[c]=PAL[Object.keys(colorMap).length%PAL.length];
+  return colorMap[c];
 }
-function scoped(){
-  return mapScope==='priority'?currentPoints.filter(p=>leadAddresses.has(p.address)):currentPoints;
-}
-function updateMap(points){currentPoints=points;drawMarkers();drawLegend();}
+function scoped(){return scope==='leads'?pts.filter(p=>leadAddr.has(p.address)):pts}
+function updateMap(points){pts=points;drawMarkers();drawLegend()}
 
 function drawMarkers(){
-  markersLayer.clearLayers();
-  const pts=scoped().filter(p=>!hiddenCategories.has(p.category));
-  const built = pts.map(p=>{
-    const isLead=leadAddresses.has(p.address);
-    const col=p.work_class==='demolition'?'#9B3B2E':(isLead?'#A8622C':colorFor(p.category));
-    return L.circleMarker([p.lat,p.lng],{
-      radius:isLead?7:4,color:col,fillColor:col,fillOpacity:isLead?.9:.55,weight:isLead?2:1
-    }).bindPopup(`<strong>${p.address}</strong><br>${p.city} · ${p.borough}<br>${p.category}`+
-      (p.nb_logements?`<br>${p.nb_logements} units`:'')+
-      (p.work_class==='demolition'?'<br><strong style="color:#9B3B2E">Demolition</strong>':'')+
-      (isLead?'<br><strong style="color:#A8622C">Lead</strong>':''));
+  if(!layer)return;
+  layer.clearLayers();
+  const list=scoped().filter(p=>!hidden.has(p.category));
+  const built=list.map(p=>{
+    const isLead=leadAddr.has(p.address);
+    const col=p.work_class==='demolition'?'#C2410C':(isLead?'#0F7A43':colorFor(p.category));
+    return L.circleMarker([p.lat,p.lng],{radius:isLead?7:4,color:col,fillColor:col,
+      fillOpacity:isLead?.85:.5,weight:isLead?2:1})
+      .bindPopup(`<strong>${esc(p.address)}</strong><br>${esc(p.city)} · ${esc(p.borough)}<br>${esc(p.category)}`+
+        (p.nb_logements?`<br>${p.nb_logements} units`:'')+
+        (isLead?'<br><strong style="color:#0F7A43">Scored lead</strong>':''));
   });
-  if(typeof markersLayer.addLayers === 'function') markersLayer.addLayers(built);
-  else built.forEach(m=>markersLayer.addLayer(m));
+  if(typeof layer.addLayers==='function')layer.addLayers(built);
+  else built.forEach(m=>layer.addLayer(m));
 }
 
 function drawLegend(){
-  const legend=document.getElementById('mapLegend'),counts={};
-  scoped().forEach(p=>{counts[p.category]=(counts[p.category]||0)+1;});
-  legend.innerHTML='';
-  Object.entries(counts).sort((a,b)=>b[1]-a[1]).forEach(([cat,n])=>{
-    const el=document.createElement('div');
-    el.className='legend-item'+(hiddenCategories.has(cat)?' off':'');
-    el.innerHTML=`<span class="swatch" style="background:${colorFor(cat)}"></span>${cat} (${n})`;
-    el.addEventListener('click',()=>{
-      hiddenCategories.has(cat)?hiddenCategories.delete(cat):hiddenCategories.add(cat);
-      drawMarkers();drawLegend();
-    });
-    legend.appendChild(el);
+  const el=document.getElementById('legend'),counts={};
+  scoped().forEach(p=>{counts[p.category]=(counts[p.category]||0)+1});
+  el.innerHTML='';
+  Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,18).forEach(([c,n])=>{
+    const d=document.createElement('div');
+    d.className='li'+(hidden.has(c)?' off':'');
+    d.innerHTML=`<span class="sw" style="background:${colorFor(c)}"></span>${esc(c)} (${n})`;
+    d.addEventListener('click',()=>{hidden.has(c)?hidden.delete(c):hidden.add(c);drawMarkers();drawLegend()});
+    el.appendChild(d);
   });
 }
 </script>
