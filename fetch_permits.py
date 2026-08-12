@@ -50,14 +50,27 @@ MAX_GROUP_SIZE = 250
 GEO_POINTS_PER_CITY = 1200
 
 CRE_KEYWORDS = [
-    "commercial", "industriel", "institutionnel", "bureau", "office",
-    "centre commercial", "retail", "mixte", "mixed", "multilogement",
-    "condominium", "residentiel multiple", "apartment", "logements",
-    "residence", "entrepot", "warehouse", "logistique", "usine",
+    # Commercial / office
+    "commercial", "bureau", "office", "centre commercial", "shopping centre",
+    "shopping mall", "retail", "commerce de detail",
+    # Industrial
+    "industriel", "industrial", "usine", "factory", "plant",
+    "entrepot", "warehouse", "logistique", "logistics",
     "manufacturing", "distribution", "storage", "entreposage",
+    # Institutional
+    "institutionnel", "institutional", "clinique", "clinic",
+    "ecole", "school", "data centre", "data center",
+    # Mixed-use / multi-residential
+    "mixte", "mixed", "multilogement", "multi-unit", "multifamily",
+    "multi-residential", "residentiel multiple", "condominium",
+    "apartment", "logements", "residence",
+    # Hospitality / parking
     "hotel", "motel", "stationnement", "parking", "tour", "tower",
-    "clinique", "clinic", "data centre", "data center", "ecole", "school",
 ]
+# Note: accent-stripping (see soft()/norm() below) already matches most
+# French/English pairs that differ only by accent (e.g. "residence" ==
+# "résidence" once normalized) - the entries above cover the pairs that
+# differ by more than accents.
 
 SOURCES = [
     {
@@ -156,6 +169,50 @@ SOURCES = [
             "address": ["adr_emplacement"],
             "sector": ["arrondissement"],
             "units": ["nb_log_ajout"],
+        },
+    },
+    {
+        # Longueuil issued construction permits - live ArcGIS FeatureServer,
+        # not a CKAN dataset. Includes a contractor name field, which neither
+        # Montreal nor Quebec City publish.
+        "city": "Longueuil",
+        "kind": "arcgis",
+        "base_url": "https://gociteweb.longueuil.quebec/arcgis/rest/services/Urbanisme/GPI/FeatureServer/43",
+        "fields": {
+            "id": ["NO_PERMIS"],
+            "date": ["DATE_EMISSION"],
+            "address": ["NO_CIV", "VOIE_CIRC"],
+            "sector": ["ANCIENNE_VILLE"],
+            "type_label": ["TYPE_PERMIS"],
+            "category": ["TYPE_DEMANDE"],
+            "nature": ["NATURE_TRAVAUX", "DESCRIPTION"],
+            "contractor": ["REQ_NOM_ENTREPRISE"],
+            "cost": ["VALEUR_TRAVAUX"],
+            "lat": ["_GEOM_LAT"],
+            "lng": ["_GEOM_LNG"],
+        },
+    },
+    {
+        # Longueuil's own pre-permit signal: applications still being
+        # processed, not yet issued. Their direct equivalent of the Montreal
+        # "harmonised delays" application-stage dataset above.
+        "city": "Longueuil",
+        "kind": "arcgis",
+        "base_url": "https://gociteweb.longueuil.quebec/arcgis/rest/services/Urbanisme/GPI/FeatureServer/44",
+        "id_prefix": "LONGAPP",
+        "record_kind": "application",
+        "fields": {
+            "id": ["NO_PERMIS", "OBJECTID"],
+            "date": ["DATE_CREATION"],
+            "address": ["NO_CIV", "VOIE_CIRC"],
+            "sector": ["ANCIENNE_VILLE"],
+            "type_label": ["TYPE_PERMIS"],
+            "category": ["TYPE_DEMANDE"],
+            "nature": ["NATURE_TRAVAUX", "DESCRIPTION"],
+            "contractor": ["REQ_NOM_ENTREPRISE"],
+            "cost": ["VALEUR_TRAVAUX"],
+            "lat": ["_GEOM_LAT"],
+            "lng": ["_GEOM_LNG"],
         },
     },
 ]
@@ -291,13 +348,54 @@ def download_csv(url, label):
     raise RuntimeError(f"Could not parse {label} CSV")
 
 
+def download_arcgis_layer(base_url, label, max_pages=250):
+    """Query an ArcGIS FeatureServer/MapServer layer with pagination and pull
+    geometry back reprojected to WGS84, so lat/lng arrive alongside the
+    attribute table exactly like the CKAN sources do."""
+    print(f"Downloading {label} (ArcGIS)...")
+    params = {
+        "where": "1=1", "outFields": "*", "f": "json",
+        "outSR": 4326, "resultRecordCount": 1000, "resultOffset": 0,
+    }
+    features = []
+    for _ in range(max_pages):
+        r = requests.get(f"{base_url}/query", params=params, headers=HTTP_HEADERS, timeout=120)
+        r.raise_for_status()
+        payload = r.json()
+        if "error" in payload:
+            raise RuntimeError(payload["error"].get("message", "ArcGIS query error"))
+        batch = payload.get("features", [])
+        features.extend(batch)
+        if not payload.get("exceededTransferLimit") and len(batch) < params["resultRecordCount"]:
+            break
+        params["resultOffset"] += params["resultRecordCount"]
+    else:
+        print(f"  {label}: hit the {max_pages}-page safety cap, data may be truncated")
+
+    print(f"  {label}: {len(features):,} features")
+    if not features:
+        return pd.DataFrame()
+
+    df = pd.DataFrame(f.get("attributes", {}) for f in features)
+    df["_GEOM_LNG"] = [(f.get("geometry") or {}).get("x") for f in features]
+    df["_GEOM_LAT"] = [(f.get("geometry") or {}).get("y") for f in features]
+    return df
+
+
 def load_source(spec):
     city = spec["city"]
     try:
-        url = spec["url"] if spec["kind"] == "direct" else resolve_ckan_url(spec["resource_id"], city)
-        df = download_csv(url, city)
+        if spec["kind"] == "arcgis":
+            df = download_arcgis_layer(spec["base_url"], f"{city} ({spec['base_url'].rsplit('/', 1)[-1]})")
+        else:
+            url = spec["url"] if spec["kind"] == "direct" else resolve_ckan_url(spec["resource_id"], city)
+            df = download_csv(url, city)
     except Exception as e:
         print(f"  {city}: SKIPPED ({e})")
+        return pd.DataFrame(columns=COLUMNS)
+
+    if df.empty:
+        print(f"  {city}: no rows returned")
         return pd.DataFrame(columns=COLUMNS)
 
     lookup = {norm(c): c for c in df.columns}
@@ -311,14 +409,37 @@ def load_source(spec):
         missing.append(key)
         return pd.Series([fill] * len(df), index=df.index)
 
+    def pick_date(key, fill=None):
+        for candidate in spec["fields"].get(key, []):
+            col = lookup.get(norm(candidate))
+            if col is not None:
+                series = df[col]
+                if spec["kind"] == "arcgis":
+                    # ArcGIS date fields come back as epoch milliseconds.
+                    return pd.to_datetime(series, unit="ms", errors="coerce")
+                return pd.to_datetime(series, errors="coerce")
+        missing.append(key)
+        return pd.Series([pd.NaT] * len(df), index=df.index)
+
     out = pd.DataFrame()
     prefix = spec.get("id_prefix", norm(city)[:3].upper())
     out["id_permis"] = f"{prefix}-" + pick("id").astype(str)
-    out["date_emission"] = pd.to_datetime(pick("date"), errors="coerce")
-    out["date_debut"] = pd.to_datetime(pick("start_date", None), errors="coerce")
-    out["occupancy_start"] = pd.to_datetime(pick("occupancy_start", None), errors="coerce")
-    out["occupancy_end"] = pd.to_datetime(pick("occupancy_end", None), errors="coerce")
-    out["emplacement"] = pick("address").fillna("").astype(str)
+    out["date_emission"] = pick_date("date")
+    out["date_debut"] = pick_date("start_date")
+    out["occupancy_start"] = pick_date("occupancy_start")
+    out["occupancy_end"] = pick_date("occupancy_end")
+
+    address_fields = spec["fields"].get("address", [])
+    if len(address_fields) > 1:
+        # Some sources (Longueuil) split the address across a civic-number
+        # column and a street-name column rather than publishing one field.
+        parts = [df[lookup[norm(c)]].fillna("").astype(str) for c in address_fields if norm(c) in lookup]
+        out["emplacement"] = parts[0].str.cat(parts[1:], sep=" ").str.strip() if parts else ""
+        if len(parts) < len(address_fields):
+            missing.append("address")
+    else:
+        out["emplacement"] = pick("address").fillna("").astype(str)
+
     out["secteur"] = pick("sector").fillna(city).astype(str).replace("", city)
     out["categorie"] = pick("category").fillna("Non précisé").astype(str).replace("", "Non précisé")
     out["type_batiment"] = pick("building_type").fillna("").astype(str)
@@ -446,197 +567,88 @@ def build_timelines(df, keys):
 
 
 # --------------------------------------------------------------------------
-# Scoring
+# Classification
 # --------------------------------------------------------------------------
 def _days_between(a, b):
     return (b - a).days
 
 
-def score_lead(row, timeline, reference_date):
-    """Weighted, explainable score. Each contributing factor records the points
-    it added and why, so the dashboard can show the reasoning rather than an
-    unexplained number."""
-    reasons = []
-    score = 0
+CLASS_LABELS = {
+    "demolition_rebuild": "Demolition + Construction",
+    "demolition_only": "Demolition, No Construction Filed",
+    "transformation": "Transformation",
+    "construction": "Construction",
+    "application": "Application Filed (Pre-Permit)",
+    "agreement": "Agreement Signed (Pre-Permit)",
+}
 
-    demos = [e for e in timeline if e["kind"] == "permit" and e.get("record_kind", "permit") == "permit"
-              and e["work_class"] == "demolition"]
-    builds = [e for e in timeline if e["kind"] == "permit" and e.get("record_kind", "permit") == "permit"
-              and e["work_class"] == "construction"]
-    permits = [e for e in timeline if e["kind"] == "permit" and e.get("record_kind", "permit") == "permit"]
 
-    issued = datetime.strptime(row["date_emission"], "%Y-%m-%d")
-    age_days = max(0, _days_between(issued, reference_date))
+def classify_lead(row, timeline):
+    """Sort a lead into one bucket rather than scoring it. The property's own
+    permit history decides the bucket - not just the single most recent row -
+    so a construction permit that followed a demolition is still classified
+    as a demolition-rebuild rather than a plain new build."""
+    permits_hist = [e for e in timeline
+                    if e["kind"] == "permit" and e.get("record_kind", "permit") == "permit"]
+    demos = [e for e in permits_hist if e["work_class"] == "demolition"]
+    builds = [e for e in permits_hist if e["work_class"] == "construction"]
+
     record_kind = row.get("record_kind", "permit")
 
-    # --- 1. Project stage (0-35) -----------------------------------------
-    stage = None
     if record_kind == "agreement":
-        pts, stage = 30, "confirmed_development"
         u = int(row.get("nb_logements") or 0)
-        why = (f"Signed inclusionary-housing agreement confirming {u} residential units at this "
-               "address. This is a formally committed development — often signed before or "
-               "alongside the permit itself, so it is a very early, high-confidence signal.")
-    elif record_kind == "application" and not permits:
-        pts, stage = 30, "application_pending"
-        why = ("A permit application has been opened for this property, but no permit has been "
-               "issued yet and none appears in the historical record. This is earlier than a "
-               "demolition — the project has not even cleared the approval process, so it is "
-               "very unlikely any lender conversation has started.")
-    elif demos:
+        return {
+            "code": "agreement",
+            "label": CLASS_LABELS["agreement"],
+            "why": f"Signed inclusionary-housing agreement confirming {u} residential units at "
+                   "this address — a formally committed development, often signed before or "
+                   "alongside the permit itself.",
+        }
+
+    if record_kind == "application" and not permits_hist:
+        return {
+            "code": "application",
+            "label": CLASS_LABELS["application"],
+            "why": "A permit application has been opened for this property, but no permit has "
+                   "been issued yet and none appears in the historical record.",
+        }
+
+    if demos:
         last_demo = max(e["date"] for e in demos)
         later_builds = [e for e in builds if e["date"] > last_demo]
-        demo_age = _days_between(datetime.strptime(last_demo, "%Y-%m-%d"), reference_date)
-        if not later_builds:
-            if 20 <= demo_age <= 240:
-                pts, stage = 35, "cleared_site"
-                why = (f"Demolition permit issued {demo_age} days ago with no construction "
-                       "permit filed since. The site is being cleared but the build is not "
-                       "yet permitted — construction financing is very unlikely to be closed.")
-            elif demo_age < 20:
-                pts, stage = 26, "cleared_site"
-                why = ("Demolition permit issued within the last three weeks. Very early — the "
-                       "owner may still be arranging the redevelopment.")
-            else:
-                pts, stage = 12, "stalled_site"
-                why = (f"Demolition was {demo_age} days ago with still no construction permit. "
-                       "Either a long approval process or a stalled project — worth a call, "
-                       "but lower confidence.")
-        else:
-            pts, stage = 24, "rebuilding"
-            why = ("Demolition followed by a construction permit — a full redevelopment is "
-                   "underway. Financing may exist, but redevelopments often need bridge or "
-                   "mezzanine layers.")
-    elif row["work_class"] == "construction":
-        pts, stage = 22, "new_build"
-        why = "New construction permit — the build is approved and capital is being deployed."
-    elif row["work_class"] == "transformation":
-        pts, stage = 14, "major_reno"
-        why = ("Major transformation permit — repositioning an existing asset, which often "
-               "triggers refinancing.")
-    else:
-        pts, stage = 6, "activity"
-        why = "Recent permit activity at this property."
-    score += pts
-    reasons.append({"factor": "Project stage", "points": pts, "detail": why})
+        if later_builds:
+            return {
+                "code": "demolition_rebuild",
+                "label": CLASS_LABELS["demolition_rebuild"],
+                "why": "Demolition permit followed by a construction permit — a full "
+                       "redevelopment is underway at this property.",
+            }
+        return {
+            "code": "demolition_only",
+            "label": CLASS_LABELS["demolition_only"],
+            "why": f"Demolition permit issued on {last_demo} with no construction permit "
+                   "filed since — the site is cleared but the rebuild is not yet permitted.",
+        }
 
-    # --- 2. Scale (0-25) --------------------------------------------------
-    units = int(row.get("nb_logements") or 0)
-    cost = row.get("cout")
-    scale_pts, scale_why = 0, None
-    if units >= 50:
-        scale_pts, scale_why = 25, f"{units} residential units — institutional-scale project."
-    elif units >= 20:
-        scale_pts, scale_why = 21, f"{units} units — solidly in commercial mortgage territory."
-    elif units >= 10:
-        scale_pts, scale_why = 16, f"{units} units — multi-residential financing candidate."
-    elif units >= 5:
-        scale_pts, scale_why = 11, f"{units} units — small multi-residential."
-    elif units >= 2:
-        scale_pts, scale_why = 5, f"{units} units."
-    if cost:
-        if cost >= 5_000_000 and scale_pts < 25:
-            scale_pts, scale_why = 25, f"Declared permit value of ${cost:,.0f}."
-        elif cost >= 1_000_000 and scale_pts < 19:
-            scale_pts, scale_why = 19, f"Declared permit value of ${cost:,.0f}."
-        elif cost >= 400_000 and scale_pts < 12:
-            scale_pts, scale_why = 12, f"Declared permit value of ${cost:,.0f}."
-    if scale_pts:
-        score += scale_pts
-        reasons.append({"factor": "Project scale", "points": scale_pts, "detail": scale_why})
+    if row.get("work_class") == "construction":
+        return {
+            "code": "construction",
+            "label": CLASS_LABELS["construction"],
+            "why": "New construction permit, with no demolition on record at this property.",
+        }
 
-    # --- 3. Recency (0-15) ------------------------------------------------
-    if age_days <= 14:
-        r_pts, r_why = 15, f"Filed {age_days} days ago — you would be early in the conversation."
-    elif age_days <= 30:
-        r_pts, r_why = 11, f"Filed {age_days} days ago."
-    elif age_days <= 75:
-        r_pts, r_why = 6, f"Filed {age_days} days ago."
-    else:
-        r_pts, r_why = 2, f"Filed {age_days} days ago — cooling."
-    score += r_pts
-    reasons.append({"factor": "Recency", "points": r_pts, "detail": r_why})
+    if row.get("work_class") == "transformation":
+        return {
+            "code": "transformation",
+            "label": CLASS_LABELS["transformation"],
+            "why": "Major transformation/renovation permit at this property.",
+        }
 
-    # --- 4. Asset type (0-15) --------------------------------------------
-    haystack = soft(f"{row.get('categorie','')} {row.get('type_batiment','')} {row.get('nature','')}")
-    hits = [k for k in CRE_KEYWORDS if k in haystack]
-    if hits:
-        a_pts = 15 if len(hits) > 1 else 11
-        score += a_pts
-        reasons.append({
-            "factor": "Asset type",
-            "points": a_pts,
-            "detail": f"Commercial-relevant asset signals in the permit record: {', '.join(hits[:3])}.",
-        })
-
-    # --- 5. Developer activity (0-10) ------------------------------------
-    if len(permits) >= 4:
-        d_pts, d_why = 10, f"{len(permits)} permits on record at this property — an actively worked site."
-    elif len(permits) == 3:
-        d_pts, d_why = 7, "Three permits on record — sustained activity at this property."
-    elif len(permits) == 2:
-        d_pts, d_why = 4, "A second permit at this property — repeat activity."
-    else:
-        d_pts, d_why = 0, None
-    if d_pts:
-        score += d_pts
-        reasons.append({"factor": "Property activity", "points": d_pts, "detail": d_why})
-
-    # --- 6. Reachability (0-8) -------------------------------------------
-    if row.get("entrepreneur"):
-        score += 8
-        reasons.append({
-            "factor": "Reachability",
-            "points": 8,
-            "detail": f"Permit applicant named in the public record: {row['entrepreneur']}. "
-                      "A direct route to whoever is running the project.",
-        })
-
-    # --- 7. Forward-dated work (0-12) ------------------------------------
-    future = [e for e in timeline
-              if e["kind"] == "milestone" and e["date"] > reference_date.strftime("%Y-%m-%d")]
-    if future:
-        nxt = min(future, key=lambda e: e["date"])
-        days_out = _days_between(reference_date, datetime.strptime(nxt["date"], "%Y-%m-%d"))
-        score += 12
-        reasons.append({
-            "factor": "Timing window",
-            "points": 12,
-            "detail": f"{nxt['title']} on {nxt['date']} — {days_out} days out. Work has not "
-                      "started yet, so the financing decision is still open.",
-        })
-
-    score = min(100, score)
-    if score >= 70:
-        tier, tier_label = "hot", "Hot"
-    elif score >= 52:
-        tier, tier_label = "strong", "Strong"
-    elif score >= 34:
-        tier, tier_label = "moderate", "Moderate"
-    else:
-        tier, tier_label = "watch", "Watch"
-
-    reasons.sort(key=lambda r: -r["points"])
     return {
-        "score": score,
-        "tier": tier,
-        "tier_label": tier_label,
-        "stage": stage,
-        "headline": reasons[0]["detail"] if reasons else "",
-        "reasons": reasons,
+        "code": "construction",
+        "label": CLASS_LABELS["construction"],
+        "why": "Recent permit activity at this property.",
     }
-
-
-STAGE_LABELS = {
-    "confirmed_development": "Confirmed development (signed agreement)",
-    "application_pending": "Application filed, not yet permitted",
-    "cleared_site": "Cleared site, no rebuild filed",
-    "stalled_site": "Cleared site, long gap",
-    "rebuilding": "Demolished and rebuilding",
-    "new_build": "New construction",
-    "major_reno": "Major transformation",
-    "activity": "Permit activity",
-}
 
 
 def build_leads(df):
@@ -677,7 +689,6 @@ def build_leads(df):
     print(f"  Unique properties: {len(pool)}")
 
     timelines = build_timelines(df, set(pool["address_key"]))
-    reference = latest_date(df).to_pydatetime()
 
     records = []
     for r in pool.itertuples():
@@ -703,24 +714,22 @@ def build_leads(df):
             "longitude": None if pd.isna(r.longitude) else float(r.longitude),
         }
         tl = timelines.get(r.address_key, [])
-        scoring = score_lead(base, tl, reference)
         base["timeline"] = tl
-        base["scoring"] = scoring
-        base["stage_label"] = STAGE_LABELS.get(scoring["stage"], "Permit activity")
+        base["classification"] = classify_lead(base, tl)
         records.append(base)
 
-    records.sort(key=lambda x: -x["scoring"]["score"])
+    # Sort by recency - most recent activity at the property first - rather
+    # than by any weighted score.
+    records.sort(key=lambda x: x["date_emission"], reverse=True)
     if len(records) > MAX_LEADS:
-        print(f"  Capping at {MAX_LEADS} (from {len(records)})")
+        print(f"  Capping at {MAX_LEADS} (from {len(records)}), most recent kept")
         records = records[:MAX_LEADS]
 
-    tiers = {}
-    stages = {}
+    counts = {}
     for rec in records:
-        tiers[rec["scoring"]["tier_label"]] = tiers.get(rec["scoring"]["tier_label"], 0) + 1
-        stages[rec["stage_label"]] = stages.get(rec["stage_label"], 0) + 1
-    print(f"Leads by tier: {tiers}")
-    print(f"Leads by stage: {stages}")
+        label = rec["classification"]["label"]
+        counts[label] = counts.get(label, 0) + 1
+    print(f"Leads by classification: {counts}")
     return records
 
 
@@ -803,13 +812,13 @@ def send_email(new_leads):
     msg["From"] = EMAIL_SENDER
     msg["To"] = EMAIL_RECIPIENT
     rows = ""
-    for r in sorted(new_leads, key=lambda x: -x["scoring"]["score"])[:40]:
-        rows += (f"<tr><td>{r['scoring']['score']}</td><td>{r['scoring']['tier_label']}</td>"
+    for r in sorted(new_leads, key=lambda x: x["date_emission"], reverse=True)[:40]:
+        rows += (f"<tr><td>{r['classification']['label']}</td>"
                  f"<td>{r['date_emission']}</td><td>{r['city']}</td>"
-                 f"<td>{r['emplacement']}</td><td>{r['stage_label']}</td></tr>")
+                 f"<td>{r['emplacement']}</td></tr>")
     msg.attach(MIMEText(f"""<html><body><h2>New permit leads</h2>
       <table border="1" cellpadding="6" cellspacing="0">
-      <tr><th>Score</th><th>Tier</th><th>Issued</th><th>City</th><th>Address</th><th>Stage</th></tr>
+      <tr><th>Classification</th><th>Issued</th><th>City</th><th>Address</th></tr>
       {rows}</table></body></html>""", "html"))
     with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
         server.starttls()
@@ -837,8 +846,11 @@ def main():
         raise RuntimeError(f"data.json is {size_mb:.0f} MB - refusing to commit.")
 
     if new_leads:
-        pd.DataFrame([{k: v for k, v in l.items() if k not in ("timeline", "scoring")}
-                      for l in new_leads]).to_csv(LEADS_FILE, index=False)
+        pd.DataFrame([
+            {**{k: v for k, v in l.items() if k not in ("timeline", "classification")},
+             "classification": l["classification"]["label"]}
+            for l in new_leads
+        ]).to_csv(LEADS_FILE, index=False)
         print(f"{len(new_leads)} new lead(s) written to {LEADS_FILE}")
         send_email(new_leads)
     else:
