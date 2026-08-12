@@ -233,7 +233,7 @@
     <table id="leadsTable">
       <thead><tr>
         <th style="width:200px">Classification</th><th>Property</th>
-        <th>Issued</th><th style="width:70px">Units</th><th>Permit value</th>
+        <th>Issued</th><th style="width:70px">Units</th>
         <th>Applicant</th><th style="width:80px"></th>
       </tr></thead>
       <tbody></tbody>
@@ -431,7 +431,6 @@ function renderLeads(leads){
           <div class="meta">${esc(l.city)} · ${esc(l.secteur)} · ${esc(l.categorie)}</div></td>
         <td class="num muted">${l.date_emission}</td>
         <td class="num">${units(l)||'—'}</td>
-        <td class="num">${l.cout?money(l.cout):'<span class="muted">—</span>'}</td>
         <td>${l.entrepreneur?esc(l.entrepreneur):'<span class="muted">Not published</span>'}</td>
         <td><button class="btn agora" data-a="${esc(l.emplacement)}">Research</button></td>
       </tr>`);
@@ -466,7 +465,7 @@ function detailRow(l){
       ${bits.length?`<div class="m">${bits.join(' · ')}</div>`:''}</li>`;
   }).join('');
 
-  return `<tr class="detail"><td colspan="7"><div class="detail-in">
+  return `<tr class="detail"><td colspan="6"><div class="detail-in">
     <div>
       <p class="dh">Classification</p>
       <p class="verdict"><strong>${esc(c.label)}.</strong> ${esc(c.why)}</p>
