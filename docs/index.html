@@ -14,10 +14,11 @@
     --line:#E3E7E4; --line-2:#CFD6D1;
     --ink:#0E1512; --ink-2:#41504A; --ink-3:#6E7C76;
     --green:#0F7A43; --green-2:#0B5E33; --green-soft:#E8F4EC;
-    --hot:#C2410C; --hot-soft:#FDF0E8;
-    --strong:#B45309; --strong-soft:#FCF3E4;
-    --mod:#1D5FA8; --mod-soft:#EAF1F9;
-    --watch:#6E7C76; --watch-soft:#F0F2F1;
+    --rust:#9B3B2E; --rust-soft:#FBEAE7;
+    --clay:#A8622C; --clay-soft:#F7EDE4;
+    --amber:#8A7420; --amber-soft:#F6F1E1;
+    --violet:#6D28D9; --violet-soft:#F1EAFB;
+    --teal:#0E7490; --teal-soft:#E4F4F6;
     --shadow:0 1px 2px rgba(14,21,18,.05),0 4px 16px rgba(14,21,18,.05);
     --shadow-lg:0 2px 6px rgba(14,21,18,.06),0 12px 32px rgba(14,21,18,.09);
     --sans:'Inter',system-ui,-apple-system,sans-serif;
@@ -31,7 +32,6 @@
   .num{font-variant-numeric:tabular-nums}
   h1,h2,h3{margin:0}
 
-  /* Header */
   .topbar{background:var(--surface);border-bottom:1px solid var(--line);
     position:sticky;top:0;z-index:900;box-shadow:0 1px 3px rgba(14,21,18,.04)}
   .topbar-in{max-width:1600px;margin:0 auto;padding:16px clamp(16px,3vw,40px);
@@ -40,27 +40,30 @@
   #logo{height:38px;width:auto;display:block;border-radius:4px}
   .brand h1{font-size:17px;font-weight:600;letter-spacing:-.2px}
   .brand p{margin:1px 0 0;font-size:12.5px;color:var(--ink-3)}
+  .jump{display:flex;gap:4px}
+  .jump a{font-size:12.5px;color:var(--ink-3);text-decoration:none;padding:6px 11px;
+    border-radius:7px;transition:all .15s}
+  .jump a:hover{color:var(--green);background:var(--green-soft)}
   .status{display:flex;align-items:center;gap:18px;font-size:12.5px;color:var(--ink-3);flex-wrap:wrap}
   .status b{color:var(--ink);font-weight:600}
   .dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px}
+  .err{color:var(--rust);font-weight:600}
 
-  /* Hero stats */
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:26px 0 22px}
   .stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;
     padding:18px 20px;box-shadow:var(--shadow);transition:box-shadow .18s,transform .18s}
   .stat:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
   .stat .k{font-size:12px;color:var(--ink-3);margin:0 0 8px;font-weight:500}
   .stat .v{font-size:30px;font-weight:600;letter-spacing:-1px;line-height:1}
-  .stat .v.hot{color:var(--hot)} .stat .v.green{color:var(--green)}
+  .stat .v.rust{color:var(--rust)} .stat .v.green{color:var(--green)}
   .stat .sub{font-size:12px;color:var(--ink-3);margin:7px 0 0}
 
-  /* Filter bar */
   .filters{background:var(--surface);border:1px solid var(--line);border-radius:12px;
     padding:16px 18px;box-shadow:var(--shadow);margin-bottom:24px;
     display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
-  .fg{display:flex;flex-direction:column;gap:5px;min-width:130px}
+  .fg{display:flex;flex-direction:column;gap:5px;min-width:150px}
   .fg label{font-size:11.5px;font-weight:600;color:var(--ink-3);letter-spacing:.2px}
-  .fg select,.fg input{font-family:var(--sans);font-size:13px;padding:8px 11px;border-radius:8px;
+  .fg select{font-family:var(--sans);font-size:13px;padding:8px 11px;border-radius:8px;
     border:1px solid var(--line-2);background:var(--surface);color:var(--ink);cursor:pointer;outline:none;
     transition:border-color .15s,box-shadow .15s}
   .fg select:hover{border-color:var(--ink-3)}
@@ -70,7 +73,6 @@
     color:var(--ink-2);cursor:pointer;transition:all .15s}
   .reset:hover{border-color:var(--green);color:var(--green);background:var(--green-soft)}
 
-  /* Sections */
   .sec{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
     flex-wrap:wrap;margin:34px 0 14px}
   .sec h2{font-size:19px;font-weight:600;letter-spacing:-.3px}
@@ -84,21 +86,8 @@
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
   @media (max-width:1000px){.grid2{grid-template-columns:1fr}}
 
-  /* Leads table */
   .tablewrap{overflow:auto;max-height:min(66vh,680px)}
-  .jump{display:flex;gap:4px}
-  .jump a{font-size:12.5px;color:var(--ink-3);text-decoration:none;padding:6px 11px;
-    border-radius:7px;transition:all .15s}
-  .jump a:hover{color:var(--green);background:var(--green-soft)}
-  .pager{display:flex;align-items:center;justify-content:space-between;gap:12px;
-    padding:12px 18px;border-top:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
-  .pager .info{font-size:12.5px;color:var(--ink-3)}
-  .pager .ctl{display:flex;align-items:center;gap:8px}
-  .pager select{font-family:var(--sans);font-size:12.5px;padding:6px 10px;border-radius:7px;
-    border:1px solid var(--line-2);background:var(--surface);color:var(--ink);cursor:pointer}
-  .pager button:disabled{opacity:.4;cursor:default}
-  .pager button:disabled:hover{border-color:var(--line-2);color:var(--ink-2);background:var(--surface)}
-  table{width:100%;border-collapse:collapse;font-size:13px;min-width:1000px}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:960px}
   thead th{text-align:left;padding:11px 16px;font-size:11.5px;font-weight:600;color:var(--ink-3);
     background:var(--surface-2);border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0}
   tbody td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -109,63 +98,52 @@
   .meta{font-size:12px;color:var(--ink-3);margin-top:2px}
   .muted{color:var(--ink-3)}
 
-  /* Score */
-  .score{display:flex;align-items:center;gap:10px;min-width:104px}
-  .score .n{font-size:19px;font-weight:700;letter-spacing:-.5px;min-width:26px}
-  .bar{flex:1;height:5px;border-radius:3px;background:var(--line);overflow:hidden;min-width:44px}
-  .bar span{display:block;height:100%;border-radius:3px}
-  .tier{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap}
-  .t-hot{background:var(--hot-soft);color:var(--hot)} .n-hot{color:var(--hot)} .b-hot{background:var(--hot)}
-  .t-strong{background:var(--strong-soft);color:var(--strong)} .n-strong{color:var(--strong)} .b-strong{background:var(--strong)}
-  .t-moderate{background:var(--mod-soft);color:var(--mod)} .n-moderate{color:var(--mod)} .b-moderate{background:var(--mod)}
-  .t-watch{background:var(--watch-soft);color:var(--watch)} .n-watch{color:var(--watch)} .b-watch{background:var(--watch)}
-  .stage{font-size:12.5px;font-weight:500}
+  .cls{display:inline-block;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap}
+  .cls-demolition_only{background:var(--rust-soft);color:var(--rust)}
+  .cls-demolition_rebuild{background:var(--clay-soft);color:var(--clay)}
+  .cls-transformation{background:var(--amber-soft);color:var(--amber)}
+  .cls-construction{background:var(--green-soft);color:var(--green-2)}
+  .cls-application{background:var(--violet-soft);color:var(--violet)}
+  .cls-agreement{background:var(--teal-soft);color:var(--teal)}
 
-  /* Expanded detail */
+  .pager{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:12px 18px;border-top:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
+  .pager .info{font-size:12.5px;color:var(--ink-3)}
+  .pager .ctl{display:flex;align-items:center;gap:8px}
+  .pager select{font-family:var(--sans);font-size:12.5px;padding:6px 10px;border-radius:7px;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--ink);cursor:pointer}
+  .pager button:disabled{opacity:.4;cursor:default}
+
   .detail td{background:var(--surface-2);padding:0;border-bottom:1px solid var(--line)}
   .detail-in{padding:22px 26px 26px;display:grid;grid-template-columns:1.05fr .95fr;gap:32px}
   @media (max-width:1100px){.detail-in{grid-template-columns:1fr}}
   .dh{font-size:11.5px;font-weight:700;color:var(--ink-3);letter-spacing:.6px;
     text-transform:uppercase;margin:0 0 12px}
   .verdict{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--green);
-    border-radius:0 8px 8px 0;padding:13px 16px;margin:0 0 18px;font-size:13px;color:var(--ink-2)}
-  .rl{list-style:none;margin:0;padding:0}
-  .rl li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
-  .rl li:last-child{border-bottom:none}
-  .pts{font-size:12.5px;font-weight:700;color:var(--green);min-width:34px;
-    background:var(--green-soft);border-radius:6px;text-align:center;height:22px;line-height:22px}
-  .rl .f{font-size:12.5px;font-weight:600;margin-bottom:2px}
-  .rl .d{font-size:12.5px;color:var(--ink-2);line-height:1.5}
+    border-radius:0 8px 8px 0;padding:13px 16px;margin:0 0 6px;font-size:13px;color:var(--ink-2)}
 
-  /* Timeline */
   .tl{list-style:none;margin:0;padding:0 0 0 22px;border-left:2px solid var(--line-2)}
   .tl li{position:relative;padding:0 0 18px 20px}
   .tl li:last-child{padding-bottom:0}
   .tl li::before{content:'';position:absolute;left:-29px;top:4px;width:12px;height:12px;
     border-radius:50%;border:2px solid var(--surface-2);background:var(--ink-3)}
-  .tl li.demolition::before{background:var(--hot)}
+  .tl li.demolition::before{background:var(--rust)}
   .tl li.construction::before{background:var(--green)}
-  .tl li.transformation::before{background:var(--strong)}
-  .tl li.future::before{background:var(--surface-2);border:2px dashed var(--mod);width:14px;height:14px;left:-30px}
-  .tl li.application::before{background:#6D28D9}
-  .tl li.agreement::before{background:#0E7490}
-  .kind-chip{display:inline-block;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;margin-left:7px;vertical-align:1px}
-  .kind-application{background:#F1EAFB;color:#6D28D9}
-  .kind-agreement{background:#E4F4F6;color:#0E7490}
+  .tl li.transformation::before{background:var(--amber)}
+  .tl li.application::before{background:var(--violet)}
+  .tl li.agreement::before{background:var(--teal)}
+  .tl li.future::before{background:var(--surface-2);border:2px dashed var(--teal);width:14px;height:14px;left:-30px}
   .tl .d{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;font-weight:500}
   .tl .t{font-size:13px;font-weight:600;margin-top:1px}
   .tl .x{font-size:12.5px;color:var(--ink-2);margin-top:2px}
   .tl .m{font-size:12px;color:var(--ink-3);margin-top:3px}
-  .future-chip{display:inline-block;font-size:10.5px;font-weight:600;color:var(--mod);
-    background:var(--mod-soft);padding:1px 7px;border-radius:20px;margin-left:7px;vertical-align:1px}
+  .future-chip{display:inline-block;font-size:10.5px;font-weight:600;color:var(--teal);
+    background:var(--teal-soft);padding:1px 7px;border-radius:20px;margin-left:7px;vertical-align:1px}
 
   .btn{font-family:var(--sans);font-size:12.5px;font-weight:500;padding:7px 14px;border-radius:8px;
     border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);cursor:pointer;
     transition:all .15s;white-space:nowrap}
   .btn:hover{border-color:var(--green);color:var(--green);background:var(--green-soft)}
-  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
-  .btn.primary:hover{background:var(--green-2);color:#fff}
-
   .seg{display:inline-flex;border:1px solid var(--line-2);border-radius:8px;overflow:hidden}
   .seg button{font-family:var(--sans);font-size:12.5px;padding:7px 14px;border:none;
     background:var(--surface);color:var(--ink-3);cursor:pointer;transition:all .15s}
@@ -190,7 +168,8 @@
 
   .empty{padding:40px 20px;text-align:center;color:var(--ink-3);font-size:13.5px}
   .foot{font-size:12px;color:var(--ink-3);margin-top:30px;line-height:1.75;max-width:900px}
-  .err{color:var(--hot);font-weight:600}
+
+  @media (max-width:960px){.grid2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -214,12 +193,15 @@
 <div class="stats" id="stats"></div>
 
 <div class="filters">
-  <div class="fg"><label for="fTier">Signal tier</label><select id="fTier">
-    <option value="__all__">All tiers</option><option value="hot">Hot (70+)</option>
-    <option value="strong">Strong (52-69)</option><option value="moderate">Moderate (34-51)</option>
-    <option value="watch">Watch (&lt;34)</option></select></div>
-  <div class="fg"><label for="fStage">Project stage</label><select id="fStage">
-    <option value="__all__">All stages</option></select></div>
+  <div class="fg"><label for="fClass">Classification</label><select id="fClass">
+    <option value="__all__">All classifications</option>
+    <option value="demolition_only">Demolition, No Construction Filed</option>
+    <option value="demolition_rebuild">Demolition + Construction</option>
+    <option value="construction">Construction</option>
+    <option value="transformation">Transformation</option>
+    <option value="application">Application Filed (Pre-Permit)</option>
+    <option value="agreement">Agreement Signed (Pre-Permit)</option>
+  </select></div>
   <div class="fg"><label for="fCity">City</label><select id="fCity">
     <option value="__all__">All cities</option></select></div>
   <div class="fg"><label for="fSector">Sector</label><select id="fSector">
@@ -236,21 +218,21 @@
   <div class="fg"><label for="fNamed">Contact known</label><select id="fNamed">
     <option value="0">Any</option><option value="1">Applicant named</option></select></div>
   <div class="fg"><label for="fSort">Sort by</label><select id="fSort">
-    <option value="score">Signal score</option><option value="date">Most recent</option>
+    <option value="date">Most recent</option>
     <option value="units">Most units</option><option value="cost">Highest value</option></select></div>
   <button class="reset" id="fReset">Reset filters</button>
 </div>
 
 <div class="sec" id="leads">
-  <div><h2>Scored leads</h2>
-    <span class="note">Click any row for the scoring rationale and full property timeline</span></div>
+  <div><h2>Leads</h2>
+    <span class="note">Sorted by most recent activity · click any row for the property timeline</span></div>
   <span class="note" id="leadCount">—</span>
 </div>
 <div class="panel">
   <div class="tablewrap">
     <table id="leadsTable">
       <thead><tr>
-        <th style="width:130px">Signal</th><th>Property</th><th>Stage</th>
+        <th style="width:200px">Classification</th><th>Property</th>
         <th>Issued</th><th style="width:70px">Units</th><th>Permit value</th>
         <th>Applicant</th><th style="width:80px"></th>
       </tr></thead>
@@ -273,7 +255,7 @@
 </div>
 
 <div class="sec" id="market"><div><h2>Market context</h2>
-  <span class="note">All permit activity in the trailing window, not just scored leads</span></div></div>
+  <span class="note">All issued-permit activity in the trailing window</span></div></div>
 
 <div class="grid2">
   <div class="panel"><div class="panel-head"><h3>Weekly permit activity by work type</h3></div>
@@ -301,10 +283,8 @@
 
 <p class="foot">
   Sources: municipal open permit data published by each city. Coverage, fields and refresh cadence vary
-  by municipality — see the freshness indicators in the header. Lachine and Saint-Léonard are not yet
-  included in Montréal's dataset. Only some cities publish coordinates, so the map shows a subset of the
-  table. Signal scores are a prioritisation aid built from public permit records, not a credit assessment;
-  verify ownership and project details before outreach.
+  by municipality. Classifications are assembled from public permit records; developer and contact
+  information should be verified before outreach.
 </p>
 </div>
 
@@ -318,8 +298,8 @@ let pts=[],leadAddr=new Set(),hidden=new Set(),scope='leads',open=new Set(),colo
 let page=0,pageSize=50,lastLeads=[];
 
 const AXIS='#6E7C76',GRID='rgba(14,21,18,.06)';
-const WORK={construction:'#0F7A43',demolition:'#C2410C',transformation:'#B45309',certificate:'#1D5FA8',other:'#9AA6A0',agreement:'#0E7490',application:'#6D28D9'};
-const PAL=['#0F7A43','#1D5FA8','#B45309','#6D28D9','#0E7490','#BE123C','#4D7C0F','#A16207','#7C3AED','#0369A1'];
+const WORK={construction:'#0F7A43',demolition:'#9B3B2E',transformation:'#8A7420',certificate:'#1D5FA8',other:'#9AA6A0',agreement:'#0E7490',application:'#6D28D9'};
+const PAL=['#0F7A43','#1D5FA8','#A8622C','#6D28D9','#0E7490','#9B3B2E','#4D7C0F','#A16207','#7C3AED','#0369A1'];
 
 function safely(what,fn){try{fn()}catch(e){console.error('Dashboard: '+what+' failed —',e)}}
 function fmtDate(iso){if(!iso)return '—';const d=new Date(iso+'T00:00:00');
@@ -342,18 +322,22 @@ fetch('data.json?v='+Date.now())
       Object.entries(fresh).map(([c,dt])=>`<span>${esc(c)} <b>${fmtDate(dt)}</b></span>`).join('')+
       `<span>Last run ${esc(d.last_updated)}</span>`;
 
-    const stages=[...new Set((d.leads||[]).map(l=>l.stage_label))].sort();
-    fill('fStage',stages);
     fill('fCity',d.cities||[]);
     fill('fSector',Object.keys(d.by_borough||{}));
     fill('fCat',Object.keys(d.by_category||{}));
 
     safely('map setup',initMap);
-    ['fTier','fStage','fCity','fSector','fCat','fUnits','fCost','fNamed','fSort']
+    ['fClass','fCity','fSector','fCat','fUnits','fCost','fNamed','fSort']
       .forEach(id=>document.getElementById(id).addEventListener('change',()=>{page=0;apply()}));
-    document.getElementById('pageSize').addEventListener('change',e=>{
-      pageSize=+e.target.value;page=0;apply();
+    document.getElementById('fReset').addEventListener('click',()=>{
+      document.getElementById('fClass').value='__all__';
+      ['fCity','fSector','fCat'].forEach(id=>document.getElementById(id).value='__all__');
+      ['fUnits','fCost','fNamed'].forEach(id=>document.getElementById(id).value='0');
+      document.getElementById('fSort').value='date';
+      page=0;apply();
     });
+
+    document.getElementById('pageSize').addEventListener('change',e=>{pageSize=+e.target.value;page=0;apply()});
     document.getElementById('prevPage').addEventListener('click',()=>{
       if(page>0){page--;apply();document.getElementById('leads').scrollIntoView({block:'start'})}
     });
@@ -361,11 +345,7 @@ fetch('data.json?v='+Date.now())
       if((page+1)*pageSize<lastLeads.length){page++;apply();
         document.getElementById('leads').scrollIntoView({block:'start'})}
     });
-    document.getElementById('fReset').addEventListener('click',()=>{
-      ['fTier','fStage','fCity','fSector','fCat'].forEach(id=>document.getElementById(id).value='__all__');
-      ['fUnits','fCost','fNamed'].forEach(id=>document.getElementById(id).value='0');
-      document.getElementById('fSort').value='score';apply();
-    });
+
     apply();
   })
   .catch(err=>{
@@ -379,23 +359,21 @@ function fill(id,vals){const s=document.getElementById(id);
 
 function apply(){
   const g=id=>document.getElementById(id).value;
-  const tier=g('fTier'),stage=g('fStage'),city=g('fCity'),sector=g('fSector'),cat=g('fCat');
+  const cls=g('fClass'),city=g('fCity'),sector=g('fSector'),cat=g('fCat');
   const minU=+g('fUnits'),minC=+g('fCost'),named=g('fNamed')==='1',sort=g('fSort');
 
   let leads=(DATA.leads||[]).filter(l=>
-    (tier==='__all__'||l.scoring.tier===tier)&&
-    (stage==='__all__'||l.stage_label===stage)&&
+    (cls==='__all__'||l.classification.code===cls)&&
     (city==='__all__'||l.city===city)&&
     (sector==='__all__'||l.secteur===sector)&&
     (cat==='__all__'||l.categorie===cat)&&
     units(l)>=minU&&(l.cout||0)>=minC&&
     (!named||!!l.entrepreneur));
 
-  const cmp={score:(a,b)=>b.scoring.score-a.scoring.score,
-    date:(a,b)=>b.date_emission.localeCompare(a.date_emission),
+  const cmp={date:(a,b)=>b.date_emission.localeCompare(a.date_emission),
     units:(a,b)=>units(b)-units(a),
     cost:(a,b)=>(b.cout||0)-(a.cout||0)};
-  leads.sort(cmp[sort]);
+  leads.sort(cmp[sort]||cmp.date);
 
   const mapPts=(DATA.geo_points||[]).filter(p=>
     (city==='__all__'||p.city===city)&&
@@ -406,16 +384,14 @@ function apply(){
 }
 
 function render(leads,mapPts){
-  const hot=leads.filter(l=>l.scoring.tier==='hot').length;
-  const strong=leads.filter(l=>l.scoring.tier==='strong').length;
+  const noRebuild=leads.filter(l=>l.classification.code==='demolition_only').length;
   const pipeline=leads.reduce((s,l)=>s+units(l),0);
-  const value=leads.reduce((s,l)=>s+(l.cout||0),0);
 
   document.getElementById('stats').innerHTML=`
     <div class="stat"><p class="k">Leads in view</p><p class="v">${leads.length}</p>
-      <p class="sub">of ${(DATA.leads||[]).length} scored</p></div>
-    <div class="stat"><p class="k">Hot signals</p><p class="v hot">${hot}</p>
-      <p class="sub">${strong} strong behind them</p></div>
+      <p class="sub">of ${(DATA.leads||[]).length} total</p></div>
+    <div class="stat"><p class="k">Demolition, no construction filed</p><p class="v rust">${noRebuild}</p>
+      <p class="sub">sites cleared, no rebuild yet</p></div>
     <div class="stat"><p class="k">Units in pipeline</p><p class="v green">${pipeline.toLocaleString()}</p>
       <p class="sub">across leads in view</p></div>`;
 
@@ -424,6 +400,7 @@ function render(leads,mapPts){
   const maxPage=Math.max(0,Math.ceil(leads.length/pageSize)-1);
   if(page>maxPage)page=maxPage;
   const start=page*pageSize,slice=leads.slice(start,start+pageSize);
+
   safely('leads table',()=>renderLeads(slice));
   safely('pager',()=>{
     const shown=leads.length?`${start+1}–${Math.min(start+pageSize,leads.length)} of ${leads.length}`:'0';
@@ -432,6 +409,7 @@ function render(leads,mapPts){
     document.getElementById('nextPage').disabled=(page+1)*pageSize>=leads.length;
     document.getElementById('pager').hidden=leads.length===0;
   });
+
   safely('trend chart',drawTrend);
   safely('sector chart',()=>drawBar('sectorChart','sector',DATA.by_borough,'#0F7A43'));
   safely('category chart',()=>drawBar('catChart','cat',DATA.by_category,'#1D5FA8'));
@@ -442,20 +420,15 @@ function renderLeads(leads){
   const tb=document.querySelector('#leadsTable tbody');
   document.getElementById('leadsEmpty').hidden=leads.length>0;
   tb.innerHTML='';
+  if(!leads.length)return;
+
   leads.forEach(l=>{
-    const s=l.scoring,t=s.tier,isOpen=open.has(l.id_permis);
+    const c=l.classification,isOpen=open.has(l.id_permis);
     tb.insertAdjacentHTML('beforeend',`
       <tr class="lead ${isOpen?'open':''}" data-id="${esc(l.id_permis)}">
-        <td><div class="score">
-            <span class="n n-${t}">${s.score}</span>
-            <span class="bar"><span class="b-${t}" style="width:${s.score}%"></span></span>
-          </div><span class="tier t-${t}" style="margin-top:6px">${esc(s.tier_label)}</span></td>
+        <td><span class="cls cls-${c.code}">${esc(c.label)}</span></td>
         <td><div class="addr">${esc(l.emplacement)}</div>
           <div class="meta">${esc(l.city)} · ${esc(l.secteur)} · ${esc(l.categorie)}</div></td>
-        <td><span class="stage">${esc(l.stage_label)}</span>
-          ${l.record_kind==='application'?'<span class="kind-chip kind-application">Application</span>':''}
-          ${l.record_kind==='agreement'?'<span class="kind-chip kind-agreement">Agreement</span>':''}
-          <div class="meta">${esc(l.type_label)}</div></td>
         <td class="num muted">${l.date_emission}</td>
         <td class="num">${units(l)||'—'}</td>
         <td class="num">${l.cout?money(l.cout):'<span class="muted">—</span>'}</td>
@@ -478,11 +451,7 @@ function renderLeads(leads){
 }
 
 function detailRow(l){
-  const s=l.scoring,today=DATA.data_through;
-  const reasons=(s.reasons||[]).map(r=>`
-    <li><span class="pts">+${r.points}</span>
-      <div><div class="f">${esc(r.factor)}</div><div class="d">${esc(r.detail)}</div></div></li>`).join('');
-
+  const c=l.classification,today=DATA.data_through;
   const tl=(l.timeline||[]).map(e=>{
     const future=e.date>today;
     const kindCls=(e.record_kind&&e.record_kind!=='permit')?e.record_kind:e.work_class;
@@ -497,11 +466,10 @@ function detailRow(l){
       ${bits.length?`<div class="m">${bits.join(' · ')}</div>`:''}</li>`;
   }).join('');
 
-  return `<tr class="detail"><td colspan="8"><div class="detail-in">
+  return `<tr class="detail"><td colspan="7"><div class="detail-in">
     <div>
-      <p class="dh">Why this scored ${s.score}</p>
-      <p class="verdict"><strong>${esc(s.tier_label)} signal — ${esc(l.stage_label)}.</strong> ${esc(s.headline)}</p>
-      <ul class="rl">${reasons}</ul>
+      <p class="dh">Classification</p>
+      <p class="verdict"><strong>${esc(c.label)}.</strong> ${esc(c.why)}</p>
     </div>
     <div>
       <p class="dh">Property timeline</p>
@@ -535,7 +503,7 @@ function drawBar(id,which,counts,color){
 }
 
 function initMap(){
-  map=L.map('map',{scrollWheelZoom:false}).setView([46.6,-72.5],7);
+  map=L.map('map',{scrollWheelZoom:false}).setView([46.4,-72.5],7);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
     {attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
   layer=(typeof L.markerClusterGroup==='function')
@@ -565,12 +533,12 @@ function drawMarkers(){
   const list=scoped().filter(p=>!hidden.has(p.category));
   const built=list.map(p=>{
     const isLead=leadAddr.has(p.address);
-    const col=p.work_class==='demolition'?'#C2410C':(isLead?'#0F7A43':colorFor(p.category));
+    const col=p.work_class==='demolition'?'#9B3B2E':(isLead?'#0F7A43':colorFor(p.category));
     return L.circleMarker([p.lat,p.lng],{radius:isLead?7:4,color:col,fillColor:col,
       fillOpacity:isLead?.85:.5,weight:isLead?2:1})
       .bindPopup(`<strong>${esc(p.address)}</strong><br>${esc(p.city)} · ${esc(p.borough)}<br>${esc(p.category)}`+
         (p.nb_logements?`<br>${p.nb_logements} units`:'')+
-        (isLead?'<br><strong style="color:#0F7A43">Scored lead</strong>':''));
+        (isLead?'<br><strong style="color:#0F7A43">Lead</strong>':''));
   });
   if(typeof layer.addLayers==='function')layer.addLayers(built);
   else built.forEach(m=>layer.addLayer(m));
