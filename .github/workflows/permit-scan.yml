@@ -45,6 +45,12 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
+      - name: Ensure the enrichment cache exists
+        # git add treats a pathspec that matches nothing as fatal, so the
+        # commit step fails outright when enrichment has not produced a cache
+        # yet. An empty object is also a valid starting cache for the script.
+        run: '[ -f enrichment_cache.json ] || echo "{}" > enrichment_cache.json'
+
       - name: Sync with remote before committing
         run: |
           git config user.name "github-actions[bot]"
