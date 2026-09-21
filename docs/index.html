@@ -173,8 +173,15 @@
   .btn.claim:disabled{opacity:.55;cursor:default;background:var(--green-soft);color:var(--green)}
   .claimed{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;
     color:var(--green-2);background:var(--green-soft);border:1px solid rgba(15,122,67,.25);
-    padding:5px 10px;border-radius:20px;white-space:nowrap}
-  .claimed::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green)}
+    padding:5px 10px;border-radius:20px;white-space:nowrap;max-width:150px;
+    overflow:hidden;text-overflow:ellipsis}
+  .claimed::before{content:'';width:6px;height:6px;border-radius:50%;
+    background:var(--green);flex-shrink:0}
+  /* someone else's claim reads as unavailable rather than as a success */
+  .claimed.other{color:var(--ink-2);background:var(--surface-2);border-color:var(--line-2)}
+  .claimed.other::before{background:var(--ink-3)}
+  .btn.unclaim{border-color:var(--line-2);color:var(--ink-3);padding:5px 10px;font-size:11.5px}
+  .btn.unclaim:hover{border-color:var(--rust);color:var(--rust);background:var(--rust-soft)}
 
   #toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);z-index:2000;
     max-width:min(520px,calc(100vw - 32px));background:var(--ink);color:#fff;font-size:13px;
@@ -322,7 +329,10 @@ let page=0,pageSize=50,lastLeads=[];
    broker and writes to that broker's tracker in Box. Outside the Hub
    there is no token, so claiming is hidden and nothing else changes. */
 const HUB_TOKEN=new URLSearchParams(location.search).get('hub_token');
-const CLAIM_URL='https://va-capital-hub.vercel.app/api/permits/claim';
+const HUB_API='https://va-capital-hub.vercel.app/api/permits';
+const CLAIM_URL=HUB_API+'/claim';
+const CLAIMS_URL=HUB_API+'/claims';
+const UNCLAIM_URL=HUB_API+'/unclaim';
 const CLAIM_STORE='vacap.permit.claims.v1';
 
 /* CARTO now requires an API key on their raster basemaps (and is retiring
@@ -332,16 +342,44 @@ const CLAIM_STORE='vacap.permit.claims.v1';
    light cartography. Left empty, the map falls back to OpenStreetMap. */
 const CARTO_KEY='';
 
-/* The Hub records claims but does not serve them back, so this only
-   remembers what THIS browser claimed. Other brokers will not see it. */
-let claimed=loadClaims(),claiming=new Set();
+/* permitId -> {by, mine}. Seeded from this browser's own claims so the page
+   renders instantly, then replaced by the Hub's authoritative list. If the
+   Hub cannot be reached we keep showing just our own, which is the old
+   behaviour rather than a blank slate. */
+let claimed=loadClaims(),claiming=new Set(),claimsLive=false;
 
 function loadClaims(){
-  try{return new Map(Object.entries(JSON.parse(localStorage.getItem(CLAIM_STORE)||'{}')))}
-  catch(e){return new Map()}
+  try{
+    const raw=JSON.parse(localStorage.getItem(CLAIM_STORE)||'{}');
+    return new Map(Object.entries(raw).map(([id,by])=>[id,{by,mine:true}]));
+  }catch(e){return new Map()}
 }
 function saveClaims(){
-  try{localStorage.setItem(CLAIM_STORE,JSON.stringify(Object.fromEntries(claimed)))}catch(e){}
+  try{
+    const mine={};
+    claimed.forEach((v,k)=>{if(v.mine)mine[k]=v.by});
+    localStorage.setItem(CLAIM_STORE,JSON.stringify(mine));
+  }catch(e){}
+}
+
+/* Pulls what every broker has taken, so two people cannot chase the same
+   developer. Silent on failure: an unreachable endpoint must not stop the
+   dashboard being useful. */
+async function fetchClaims(){
+  if(!HUB_TOKEN)return;
+  try{
+    const res=await fetch(CLAIMS_URL,{headers:{'X-Hub-Token':HUB_TOKEN}});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(!Array.isArray(data.claims))throw new Error('unexpected response shape');
+    claimed=new Map(data.claims.map(c=>
+      [c.permitId,{by:c.claimedBy||'another broker',mine:!!c.mine}]));
+    claimsLive=true;
+    saveClaims();
+    apply();
+  }catch(err){
+    console.warn('Claim list unavailable, showing only your own claims.',err);
+  }
 }
 
 let toastTimer=null;
@@ -408,6 +446,15 @@ async function claimLead(l,btn){
     toast('Your session expired. Reload this tool from the Hub and try again.',true);
     return;
   }
+  if(res.status===409){
+    /* Someone beat us to it by a second. Show the truth rather than an
+       error, so nobody phones a developer another broker already has. */
+    claimed.set(id,{by:data.claimedBy||'another broker',mine:false});
+    saveClaims();
+    toast(`Already claimed by ${data.claimedBy||'another broker'}.`,true);
+    apply();
+    return;
+  }
   if(!res.ok){
     if(btn){btn.disabled=false;btn.textContent='Claim'}
     toast(data.message||'Claim failed.',true);
@@ -415,9 +462,59 @@ async function claimLead(l,btn){
   }
 
   /* tracker:"none" still comes back ok:true — the claim is recorded */
-  claimed.set(id,data.claimedBy||'you');
+  claimed.set(id,{by:data.claimedBy||'you',mine:true});
   saveClaims();
   toast(data.message||'Lead claimed.');
+  apply();
+}
+
+async function unclaimLead(l,btn){
+  const id=l.id_permis;
+  if(!HUB_TOKEN||claiming.has(id))return;
+  claiming.add(id);
+  if(btn){btn.disabled=true;btn.textContent='Releasing…'}
+
+  let res,data;
+  try{
+    res=await fetch(UNCLAIM_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({token:HUB_TOKEN,permitId:id})
+    });
+    data=await res.json().catch(()=>({}));
+  }catch(err){
+    console.error('Unclaim request failed:',err);
+    claiming.delete(id);
+    if(btn){btn.disabled=false;btn.textContent='Unclaim'}
+    toast('Could not reach the Hub. Check your connection and try again.',true);
+    return;
+  }
+
+  claiming.delete(id);
+
+  if(res.status===401){
+    if(btn){btn.disabled=false;btn.textContent='Unclaim'}
+    toast('Your session expired. Reload this tool from the Hub and try again.',true);
+    return;
+  }
+  if(res.status===403){
+    /* Not ours after all, most likely our view was stale. */
+    claimed.set(id,{by:data.claimedBy||'another broker',mine:false});
+    saveClaims();
+    toast(`That lead belongs to ${data.claimedBy||'another broker'}.`,true);
+    apply();
+    return;
+  }
+  if(!res.ok&&res.status!==404){
+    if(btn){btn.disabled=false;btn.textContent='Unclaim'}
+    toast(data.message||'Could not release the lead.',true);
+    return;
+  }
+
+  /* 404 means it was already released, which is the state we wanted. */
+  claimed.delete(id);
+  saveClaims();
+  toast(data.message||'Lead released.');
   apply();
 }
 
@@ -477,6 +574,7 @@ fetch('data.json?v='+Date.now())
 
     apply();
     safely('permit deep link',focusPermit);
+    fetchClaims();
   })
   .catch(err=>{
     console.error('Dashboard load failed:',err);
@@ -569,11 +667,18 @@ function renderLeads(leads){
   const byId=new Map();
 
   leads.forEach(l=>{
-    const c=l.classification,isOpen=open.has(l.id_permis),who=claimed.get(l.id_permis);
+    const c=l.classification,isOpen=open.has(l.id_permis),held=claimed.get(l.id_permis);
     byId.set(l.id_permis,l);
-    const claimBtn=who
-      ? `<span class="claimed" title="Recorded in your tracker">${esc(who)}</span>`
-      : (HUB_TOKEN?`<button class="btn claim" data-claim="${esc(l.id_permis)}">Claim</button>`:'');
+    let claimBtn='';
+    if(held&&held.mine){
+      claimBtn=`<span class="claimed" title="Claimed by you${claimsLive?'':' on this device'}">You</span>`+
+        `<button class="btn unclaim" data-unclaim="${esc(l.id_permis)}"
+           title="Give this lead back">Unclaim</button>`;
+    }else if(held){
+      claimBtn=`<span class="claimed other" title="Claimed by ${esc(held.by)}">${esc(held.by)}</span>`;
+    }else if(HUB_TOKEN){
+      claimBtn=`<button class="btn claim" data-claim="${esc(l.id_permis)}">Claim</button>`;
+    }
     tb.insertAdjacentHTML('beforeend',`
       <tr class="lead ${isOpen?'open':''}" data-id="${esc(l.id_permis)}">
         <td><span class="cls cls-${c.code}">${esc(c.label)}</span></td>
@@ -605,6 +710,11 @@ function renderLeads(leads){
     e.stopPropagation();
     const l=byId.get(b.dataset.claim);
     if(l)claimLead(l,b);
+  }));
+  tb.querySelectorAll('.unclaim').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();
+    const l=byId.get(b.dataset.unclaim);
+    if(l)unclaimLead(l,b);
   }));
 }
 
