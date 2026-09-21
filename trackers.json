@@ -1,0 +1,54 @@
+[
+  {
+    "broker": "Marc",
+    "name": "Marc_Lead_Tracker.xlsx",
+    "file_id": "2428372160425",
+    "enabled": false,
+    "note": "Structure verified against this file."
+  },
+  {
+    "broker": "Odi",
+    "name": "Odi_Lead_Tracker.xlsx",
+    "file_id": "2430542130148",
+    "enabled": false
+  },
+  {
+    "broker": "Raph",
+    "name": "Raph_Lead_Tracker_NEW.xlsx",
+    "file_id": "2415423203380",
+    "enabled": false,
+    "note": "An older VA_Capital_Lead_Contact_Tracker - Raph.xlsx also exists. Confirm this is the live one."
+  },
+  {
+    "broker": "Suzana",
+    "name": "Suzana_Lead_Tracker_NEW_TEMPLATE (1).xlsx",
+    "file_id": "2412094141422",
+    "enabled": false,
+    "note": "Filename says TEMPLATE and has a (1) suffix. Confirm this is the file she actually uses."
+  },
+  {
+    "broker": "Hung",
+    "name": "Hung_Lead_Tracker.xlsx",
+    "file_id": "2453838851845",
+    "enabled": false
+  },
+  {
+    "broker": "Yousif",
+    "name": "Yousif_Lead_Tracker.xlsx",
+    "file_id": "2458872779527",
+    "enabled": false
+  },
+  {
+    "broker": "Hussein",
+    "name": "Hussein_Lead_Tracker.xlsx",
+    "file_id": "2458479858233",
+    "enabled": false
+  },
+  {
+    "broker": "Kevin",
+    "name": "VA Capital - Lead Contact Tracker_Kevin Yazbek.xlsx",
+    "file_id": "2426484861293",
+    "enabled": false,
+    "note": "Two files with this name exist. This is the newer one, in the 'Lead Tracker - Kevin' folder. The other (2330784678295) is in 'Kevin Yazbek'. Confirm before enabling."
+  }
+]
