@@ -325,6 +325,13 @@ const HUB_TOKEN=new URLSearchParams(location.search).get('hub_token');
 const CLAIM_URL='https://va-capital-hub.vercel.app/api/permits/claim';
 const CLAIM_STORE='vacap.permit.claims.v1';
 
+/* CARTO now requires an API key on their raster basemaps (and is retiring
+   them), which is why the map started showing an "API KEY REQUIRED"
+   watermark. A free key takes a minute and needs no account:
+   https://carto.com/basemaps/apikey — paste it below to keep the current
+   light cartography. Left empty, the map falls back to OpenStreetMap. */
+const CARTO_KEY='';
+
 /* The Hub records claims but does not serve them back, so this only
    remembers what THIS browser claimed. Other brokers will not see it. */
 let claimed=loadClaims(),claiming=new Set();
@@ -655,8 +662,12 @@ function drawBar(id,which,counts,color){
 
 function initMap(){
   map=L.map('map',{scrollWheelZoom:false}).setView([46.4,-72.5],7);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    {attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+  (CARTO_KEY
+    ? L.tileLayer('https://basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png?key='+CARTO_KEY,
+        {attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:19})
+    : L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {attribution:'&copy; OpenStreetMap contributors',maxZoom:19})
+  ).addTo(map);
   layer=(typeof L.markerClusterGroup==='function')
     ? L.markerClusterGroup({showCoverageOnHover:false,disableClusteringAtZoom:15,maxClusterRadius:45})
     : L.layerGroup();
