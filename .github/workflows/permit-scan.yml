@@ -1,29 +1,58 @@
 name: Montreal Permit Scan
+
 on:
   schedule:
-    - cron: '0 13 * * *'
+    - cron: '0 13 * * *'   # daily, 9am ET
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: permit-scan
+  cancel-in-progress: false
 
 jobs:
   scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - run: pip install pandas requests
-      - run: python fetch_permits.py
+
+      - name: Fetch permits
+        run: python fetch_permits.py
         env:
           SMTP_SERVER: smtp.gmail.com
           SMTP_PORT: 587
           EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
+
+      - name: Enrich leads
+        run: |
+          if [ -f enrich_leads.py ]; then
+            python enrich_leads.py
+          else
+            echo "enrich_leads.py not present - skipping enrichment."
+          fi
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Sync with remote before committing
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git rebase --autostash origin/main || git rebase --abort
+
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update permit data"
-          file_pattern: "new_leads.csv seen_permits.json docs/data.json"
+          file_pattern: "new_leads.csv seen_permits.json enrichment_cache.json docs/data.json"
