@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="referrer" content="strict-origin">
 <title>VA Capital — Permit Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400&display=swap" rel="stylesheet">
@@ -166,6 +167,22 @@
   .leaflet-popup-content-wrapper{border-radius:10px;box-shadow:var(--shadow-lg);border:1px solid var(--line)}
   .leaflet-popup-content{font-family:var(--sans);font-size:12.5px}
 
+  .rowbtns{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+  .btn.claim{border-color:var(--green);color:var(--green);background:var(--green-soft);font-weight:600}
+  .btn.claim:hover{background:var(--green);color:#fff;border-color:var(--green)}
+  .btn.claim:disabled{opacity:.55;cursor:default;background:var(--green-soft);color:var(--green)}
+  .claimed{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;
+    color:var(--green-2);background:var(--green-soft);border:1px solid rgba(15,122,67,.25);
+    padding:5px 10px;border-radius:20px;white-space:nowrap}
+  .claimed::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+  #toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);z-index:2000;
+    max-width:min(520px,calc(100vw - 32px));background:var(--ink);color:#fff;font-size:13px;
+    line-height:1.45;padding:12px 18px;border-radius:10px;box-shadow:var(--shadow-lg);
+    opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+  #toast.show{opacity:1;transform:translate(-50%,0)}
+  #toast.bad{background:var(--rust)}
+
   .empty{padding:40px 20px;text-align:center;color:var(--ink-3);font-size:13.5px}
   .foot{font-size:12px;color:var(--ink-3);margin-top:30px;line-height:1.75;max-width:900px}
 
@@ -234,7 +251,7 @@
       <thead><tr>
         <th style="width:200px">Classification</th><th>Property</th>
         <th>Issued</th><th style="width:70px">Units</th>
-        <th>Applicant</th><th style="width:80px"></th>
+        <th>Applicant</th><th style="width:190px"></th>
       </tr></thead>
       <tbody></tbody>
     </table>
@@ -281,6 +298,8 @@
   <div class="maprow"><div id="map"></div><div class="legend" id="legend" hidden></div></div>
 </div>
 
+<div id="toast" role="status" aria-live="polite"></div>
+
 <p class="foot">
   Sources: municipal open permit data published by each city. Coverage, fields and refresh cadence vary
   by municipality. Classifications are assembled from public permit records; developer and contact
@@ -297,6 +316,105 @@ let cTrend=null,cSector=null,cCat=null;
 let pts=[],leadAddr=new Set(),hidden=new Set(),scope='leads',open=new Set(),colorMap={};
 let page=0,pageSize=50,lastLeads=[];
 
+/* ---- Hub integration -------------------------------------------------
+   The Hub embeds this page with ?hub_token=<token>. The token is opaque:
+   we send it back untouched and the Hub resolves it to the signed-in
+   broker and writes to that broker's tracker in Box. Outside the Hub
+   there is no token, so claiming is hidden and nothing else changes. */
+const HUB_TOKEN=new URLSearchParams(location.search).get('hub_token');
+const CLAIM_URL='https://va-capital-hub.vercel.app/api/permits/claim';
+const CLAIM_STORE='vacap.permit.claims.v1';
+
+/* The Hub records claims but does not serve them back, so this only
+   remembers what THIS browser claimed. Other brokers will not see it. */
+let claimed=loadClaims(),claiming=new Set();
+
+function loadClaims(){
+  try{return new Map(Object.entries(JSON.parse(localStorage.getItem(CLAIM_STORE)||'{}')))}
+  catch(e){return new Map()}
+}
+function saveClaims(){
+  try{localStorage.setItem(CLAIM_STORE,JSON.stringify(Object.fromEntries(claimed)))}catch(e){}
+}
+
+let toastTimer=null;
+function toast(msg,bad){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.className=(bad?'bad ':'')+'show';
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>{el.className=bad?'bad':''},bad?6000:4000);
+}
+
+/* Permit records rarely name a person: an applicant is published on about
+   one lead in ten. Fall back to the address so the tracker's Lead Name
+   column is never blank. */
+function claimPayload(l){
+  const c=l.classification||{},bits=[];
+  if(c.label)bits.push(c.label);
+  if(units(l))bits.push(units(l)+' units');
+  if(l.cout)bits.push(money(l.cout));
+  bits.push(`Permit ${l.id_permis} issued ${l.date_emission}`);
+  if(l.nature)bits.push(l.nature);
+  const notes=bits.join(' · ')+(c.why?` — ${c.why}`:'');
+  return {
+    name:l.entrepreneur||l.emplacement||'',
+    company:l.entrepreneur||'',
+    phone:'',
+    email:'',
+    address:[l.emplacement,l.secteur,l.city].filter(Boolean).join(', '),
+    type:l.type_batiment||l.categorie||'',
+    permitId:l.id_permis||'',
+    /* deliberately built from origin+pathname so the hub_token never
+       ends up written into a spreadsheet */
+    url:location.origin+location.pathname+'?permit='+encodeURIComponent(l.id_permis||''),
+    notes:notes
+  };
+}
+
+async function claimLead(l,btn){
+  const id=l.id_permis;
+  if(!HUB_TOKEN||claimed.has(id)||claiming.has(id))return;
+  claiming.add(id);
+  if(btn){btn.disabled=true;btn.textContent='Claiming…'}
+
+  let res,data;
+  try{
+    res=await fetch(CLAIM_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({token:HUB_TOKEN,lead:claimPayload(l)})
+    });
+    data=await res.json().catch(()=>({}));
+  }catch(err){
+    console.error('Claim request failed:',err);
+    claiming.delete(id);
+    if(btn){btn.disabled=false;btn.textContent='Claim'}
+    toast('Could not reach the Hub. Check your connection and try again.',true);
+    return;
+  }
+
+  claiming.delete(id);
+
+  if(res.status===401){
+    if(btn){btn.disabled=false;btn.textContent='Claim'}
+    toast('Your session expired. Reload this tool from the Hub and try again.',true);
+    return;
+  }
+  if(!res.ok){
+    if(btn){btn.disabled=false;btn.textContent='Claim'}
+    toast(data.message||'Claim failed.',true);
+    return;
+  }
+
+  /* tracker:"none" still comes back ok:true — the claim is recorded */
+  claimed.set(id,data.claimedBy||'you');
+  saveClaims();
+  toast(data.message||'Lead claimed.');
+  apply();
+}
+
+
 const AXIS='#6E7C76',GRID='rgba(14,21,18,.06)';
 const WORK={construction:'#0F7A43',demolition:'#9B3B2E',transformation:'#8A7420',certificate:'#1D5FA8',other:'#9AA6A0',agreement:'#0E7490',application:'#6D28D9'};
 const PAL=['#0F7A43','#1D5FA8','#A8622C','#6D28D9','#0E7490','#9B3B2E','#4D7C0F','#A16207','#7C3AED','#0369A1'];
@@ -306,6 +424,10 @@ function fmtDate(iso){if(!iso)return '—';const d=new Date(iso+'T00:00:00');
   return isNaN(d)?iso:d.toLocaleDateString('en-CA',{day:'numeric',month:'short',year:'numeric'})}
 function money(v){return v==null?null:'$'+Math.round(v).toLocaleString()}
 function units(o){const n=parseFloat(o.nb_logements);return isNaN(n)?0:n}
+/* Demolition records store units as a negative (a permit removing nine
+   units is -9). Size is the magnitude; filtering and sorting on the raw
+   value dropped those leads out of every view. */
+function mag(o){return Math.abs(units(o))}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 
 Chart.defaults.font.family="'Inter',sans-serif";
@@ -347,12 +469,27 @@ fetch('data.json?v='+Date.now())
     });
 
     apply();
+    safely('permit deep link',focusPermit);
   })
   .catch(err=>{
     console.error('Dashboard load failed:',err);
     document.getElementById('status').innerHTML=
       '<span class="err">'+esc(err&&err.message?err.message:'Could not load data.json')+'</span>';
   });
+
+/* Claims written to a tracker carry ?permit=<id> back to this page, so a
+   broker opening the row weeks later lands on the right lead. */
+function focusPermit(){
+  const want=new URLSearchParams(location.search).get('permit');
+  if(!want)return;
+  const i=lastLeads.findIndex(l=>l.id_permis===want);
+  if(i<0){toast('That permit is no longer in the current data window.',true);return}
+  open.add(want);
+  page=Math.floor(i/pageSize);
+  apply();
+  const row=document.querySelector('tr.lead[data-id="'+CSS.escape(want)+'"]');
+  if(row)row.scrollIntoView({block:'center'});
+}
 
 function fill(id,vals){const s=document.getElementById(id);
   vals.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o)})}
@@ -367,25 +504,25 @@ function apply(){
     (city==='__all__'||l.city===city)&&
     (sector==='__all__'||l.secteur===sector)&&
     (cat==='__all__'||l.categorie===cat)&&
-    units(l)>=minU&&(l.cout||0)>=minC&&
+    mag(l)>=minU&&(l.cout||0)>=minC&&
     (!named||!!l.entrepreneur));
 
   const cmp={date:(a,b)=>b.date_emission.localeCompare(a.date_emission),
-    units:(a,b)=>units(b)-units(a),
+    units:(a,b)=>mag(b)-mag(a),
     cost:(a,b)=>(b.cout||0)-(a.cout||0)};
   leads.sort(cmp[sort]||cmp.date);
 
   const mapPts=(DATA.geo_points||[]).filter(p=>
     (city==='__all__'||p.city===city)&&
     (sector==='__all__'||p.borough===sector)&&
-    (cat==='__all__'||p.category===cat)&&units(p)>=minU);
+    (cat==='__all__'||p.category===cat)&&mag(p)>=minU);
 
   render(leads,mapPts);
 }
 
 function render(leads,mapPts){
   const noRebuild=leads.filter(l=>l.classification.code==='demolition_only').length;
-  const pipeline=leads.reduce((s,l)=>s+units(l),0);
+  const pipeline=leads.reduce((s,l)=>s+Math.max(0,units(l)),0);
 
   document.getElementById('stats').innerHTML=`
     <div class="stat"><p class="k">Leads in view</p><p class="v">${leads.length}</p>
@@ -422,30 +559,45 @@ function renderLeads(leads){
   tb.innerHTML='';
   if(!leads.length)return;
 
+  const byId=new Map();
+
   leads.forEach(l=>{
-    const c=l.classification,isOpen=open.has(l.id_permis);
+    const c=l.classification,isOpen=open.has(l.id_permis),who=claimed.get(l.id_permis);
+    byId.set(l.id_permis,l);
+    const claimBtn=who
+      ? `<span class="claimed" title="Recorded in your tracker">${esc(who)}</span>`
+      : (HUB_TOKEN?`<button class="btn claim" data-claim="${esc(l.id_permis)}">Claim</button>`:'');
     tb.insertAdjacentHTML('beforeend',`
       <tr class="lead ${isOpen?'open':''}" data-id="${esc(l.id_permis)}">
         <td><span class="cls cls-${c.code}">${esc(c.label)}</span></td>
         <td><div class="addr">${esc(l.emplacement)}</div>
           <div class="meta">${esc(l.city)} · ${esc(l.secteur)} · ${esc(l.categorie)}</div></td>
         <td class="num muted">${l.date_emission}</td>
-        <td class="num">${units(l)||'—'}</td>
+        <td class="num">${mag(l)||'—'}</td>
         <td>${l.entrepreneur?esc(l.entrepreneur):'<span class="muted">Not published</span>'}</td>
-        <td><button class="btn agora" data-a="${esc(l.emplacement)}">Research</button></td>
+        <td><div class="rowbtns">
+          <button class="btn agora" data-a="${esc(l.emplacement)}">Research</button>
+          ${claimBtn}
+        </div></td>
       </tr>`);
     if(isOpen)tb.insertAdjacentHTML('beforeend',detailRow(l));
   });
 
   tb.querySelectorAll('tr.lead').forEach(row=>row.addEventListener('click',e=>{
-    if(e.target.closest('.agora'))return;
+    if(e.target.closest('.rowbtns'))return;
     const id=row.dataset.id;
     open.has(id)?open.delete(id):open.add(id);
     apply();
   }));
   tb.querySelectorAll('.agora').forEach(b=>b.addEventListener('click',e=>{
     e.stopPropagation();
-    window.open('https://agoramtl.com/search?q='+encodeURIComponent(b.dataset.a.split(',')[0].trim()),'_blank');
+    window.open('https://agoramtl.com/search?q='+encodeURIComponent(b.dataset.a.split(',')[0].trim()),
+      '_blank','noopener,noreferrer');
+  }));
+  tb.querySelectorAll('.claim').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();
+    const l=byId.get(b.dataset.claim);
+    if(l)claimLead(l,b);
   }));
 }
 
