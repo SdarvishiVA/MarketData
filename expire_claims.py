@@ -2,28 +2,45 @@
 Claim expiry for permit-tool leads.
 
 A broker claims a permit lead in the Hub, which writes a row into that
-broker's Lead Tracker in Box with Source of Lead = "Permit tool". If nobody
-works the lead within EXPIRY_DAYS, this job strikes the row out in red,
-notes that it was released, and (once the Hub exposes an endpoint) tells the
-Hub to put the lead back in the pool.
+broker's Lead Tracker (a SharePoint-hosted workbook) with Source of Lead =
+"Permit tool". If nobody works the lead within EXPIRY_DAYS, this job strikes
+the row out in red, notes that it was released, and (once the Hub exposes an
+endpoint) tells the Hub to put the lead back in the pool.
 
 Runs at 3am local so it never fights a broker who has the file open.
 
+Reads and writes go through the plain Microsoft Graph file-content endpoint
+(GET/PUT .../drives/{driveId}/items/{itemId}/content), the same whole-file
+download/edit/reupload pattern used when the trackers lived in Box, not
+Graph's Excel "workbook" API. That was deliberate, not a shortcut: the
+Excel workbook/range/format endpoints only support delegated (signed-in
+user) auth, never application (client-credentials) auth, so an unattended
+job can't reach them. They also have no strikethrough property even for a
+user who could. openpyxl already does the strike-through formatting exactly
+as it did for Box, so nothing about that logic changed.
+
 SAFETY: dry run is the default. It changes nothing and prints what it would
-have done. Set DRY_RUN=false to let it write. Every write goes to Box as a
-NEW VERSION, so anything it gets wrong can be rolled back from Box's version
-history.
+have done. Set DRY_RUN=false to let it write. Every write goes to SharePoint
+as a NEW VERSION, so anything it gets wrong can be rolled back from the
+file's version history in SharePoint.
+
+Because this is a whole-file overwrite, not a cell-level edit, it still
+depends on nobody having the workbook open when it runs - same constraint
+as Box, just pointed at a different backend. 3am is chosen for that reason.
 
 Config, all via environment:
   DRY_RUN              "false" to actually write. Default true.
   EXPIRY_DAYS          Days before an unworked claim is released. Default 14.
-  TRACKER_REGISTRY     Path to the broker -> Box file id map. Default trackers.json
+  TRACKER_REGISTRY     Path to the broker -> SharePoint item id map. Default trackers.json
   MAX_RELEASES_PER_RUN Per-file circuit breaker. Default 25.
-  BOX_CLIENT_ID        Box app credentials (client credentials grant)
-  BOX_CLIENT_SECRET
-  BOX_SUBJECT_TYPE     "enterprise" or "user". Default enterprise.
-  BOX_SUBJECT_ID
-  BOX_DEVELOPER_TOKEN  Alternative to the above for local testing.
+  MS_TENANT_ID          Entra app registration (client credentials grant),
+  MS_CLIENT_ID           granted Sites.Selected WRITE on the VA Capital site.
+  MS_CLIENT_SECRET        Same app the Hub itself can use - see
+                          hub-sharepoint-handoff.md for how that grant works.
+  MS_GRAPH_TOKEN        Alternative to the above for local testing: a
+                        pre-issued bearer token, used as-is.
+  SHAREPOINT_DRIVE_ID   Defaults to the VA Capital LEAD TRACKERS drive; only
+                        needed if the library moves.
   HUB_RELEASE_URL      Optional. When set, the Hub is told about each release.
   HUB_API_KEY          Optional bearer token for that call.
 """
@@ -39,6 +56,11 @@ from copy import copy
 import requests
 from openpyxl import load_workbook
 from openpyxl.styles import Font
+
+# Shared with the dashboard aggregator. Resolves fields by header NAME, so
+# this works on both the new template (banner on row 1, headers on row 2) and
+# any tracker still on the old layout, such as Hung's.
+import schema
 
 # --- config -----------------------------------------------------------------
 
@@ -59,99 +81,102 @@ SHEET_NAME = "Lead Log"
 RELEASE_MARKER = "Released by permit tool"
 STRIKE_COLOUR = "FF9B3B2E"  # the rust already used on the dashboard
 
-# Header text -> internal key. Matching is case and whitespace insensitive.
-COLUMNS = {
-    "date": "date",
-    "lead name": "name",
-    "source of lead": "source",
-    "responded?": "responded",
-    "qualified?": "qualified",
-    "next follow-up": "followup",
-    "notes": "notes",
-}
-REQUIRED = {"date", "source", "notes"}
+# Canonical field names, resolved through schema.ALIASES.
+F_DATE = "Date Received"
+F_SOURCE = "Source of Lead"
+F_NOTES = "Call Notes"
+F_NAME = "Lead Name"
+F_STATUS = "Status"
+REQUIRED = {F_DATE, F_SOURCE, F_NOTES}
 
-# Any of these carrying a value means a human touched the lead. Notes is
-# deliberately NOT in this list: the Hub writes the permit details into Notes
-# at claim time, so Notes is never empty on a permit row and would make every
-# claim look worked.
-CONTACT_FIELDS = ("responded", "qualified", "followup")
+# Any of these carrying a value means a human touched the lead. Call Notes is
+# deliberately NOT in this list: the Hub writes the permit details there at
+# claim time, so it is never empty on a permit row and would make every claim
+# look worked.
+CONTACT_FIELDS = ("Date Contacted", "Responded?", "Qualified?", "Next Follow-up")
+
+# Status values that mean the lead is still sitting untouched. Anything else
+# in Status counts as someone having picked it up.
+UNWORKED_STATUS = {"", "new", "to contact"}
 
 
-# --- Box --------------------------------------------------------------------
+# --- SharePoint (Microsoft Graph) --------------------------------------------
 
-class Box:
-    API = "https://api.box.com/2.0"
-    UPLOAD = "https://upload.box.com/api/2.0"
+XLSX_CONTENT_TYPE = (
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+# The VA Capital "LEAD TRACKERS" library. Same drive for every broker's file -
+# see hub-sharepoint-handoff.md. Override via SHAREPOINT_DRIVE_ID if the
+# library ever moves to a different site or document library.
+DEFAULT_DRIVE_ID = (
+    "b!4M3Xo43MWk6-YpK_Op-gi_2DvKPftLJNvE-rEWPipR70I5M80KMOQIB1AdKdLCdu"
+)
+
+
+class SharePoint:
+    GRAPH = "https://graph.microsoft.com/v1.0"
 
     def __init__(self):
+        self.drive_id = os.environ.get("SHAREPOINT_DRIVE_ID", "").strip() or DEFAULT_DRIVE_ID
         self.token = self._auth()
         self.s = requests.Session()
         self.s.headers["Authorization"] = f"Bearer {self.token}"
 
     @staticmethod
     def _auth():
-        tok = os.environ.get("BOX_DEVELOPER_TOKEN", "").strip()
+        tok = os.environ.get("MS_GRAPH_TOKEN", "").strip()
         if tok:
             return tok
-        cid = os.environ.get("BOX_CLIENT_ID", "").strip()
-        sec = os.environ.get("BOX_CLIENT_SECRET", "").strip()
-        sub_type = os.environ.get("BOX_SUBJECT_TYPE", "enterprise").strip()
-        sub_id = os.environ.get("BOX_SUBJECT_ID", "").strip()
-        if not (cid and sec and sub_id):
+        tenant = os.environ.get("MS_TENANT_ID", "").strip()
+        cid = os.environ.get("MS_CLIENT_ID", "").strip()
+        sec = os.environ.get("MS_CLIENT_SECRET", "").strip()
+        if not (tenant and cid and sec):
             raise SystemExit(
-                "No Box credentials. Set BOX_CLIENT_ID, BOX_CLIENT_SECRET and "
-                "BOX_SUBJECT_ID (or BOX_DEVELOPER_TOKEN for a local test)."
+                "No Microsoft Graph credentials. Set MS_TENANT_ID, MS_CLIENT_ID "
+                "and MS_CLIENT_SECRET for an app registration granted "
+                "Sites.Selected write access to the VA Capital site "
+                "(or MS_GRAPH_TOKEN for a local test)."
             )
         r = requests.post(
-            "https://api.box.com/oauth2/token",
+            f"https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token",
             data={
                 "grant_type": "client_credentials",
                 "client_id": cid,
                 "client_secret": sec,
-                "box_subject_type": sub_type,
-                "box_subject_id": sub_id,
+                "scope": "https://graph.microsoft.com/.default",
             },
             timeout=30,
         )
         r.raise_for_status()
         return r.json()["access_token"]
 
-    def download(self, file_id):
-        r = self.s.get(f"{self.API}/files/{file_id}/content", timeout=120)
+    def download(self, item_id):
+        r = self.s.get(
+            f"{self.GRAPH}/drives/{self.drive_id}/items/{item_id}/content",
+            timeout=120,
+        )
         r.raise_for_status()
         return r.content
 
-    def upload_version(self, file_id, name, blob):
-        r = self.s.post(
-            f"{self.UPLOAD}/files/{file_id}/content",
-            files={
-                "attributes": (None, json.dumps({"name": name})),
-                "file": (name, blob,
-                         "application/vnd.openxmlformats-officedocument."
-                         "spreadsheetml.sheet"),
-            },
+    def upload_version(self, item_id, blob):
+        # Simple PUT upload: fine up to 250MB, these trackers are a few MB at
+        # most. Creates a new SharePoint version automatically, same
+        # rollback safety the Box version history gave before.
+        r = self.s.put(
+            f"{self.GRAPH}/drives/{self.drive_id}/items/{item_id}/content",
+            data=blob,
+            headers={"Content-Type": XLSX_CONTENT_TYPE},
             timeout=180,
         )
         r.raise_for_status()
-        return r.json()["entries"][0]["file_version"]["id"]
+        return r.json().get("eTag", "?")
 
 
 # --- workbook ---------------------------------------------------------------
 
 def norm(v):
     return re.sub(r"\s+", " ", str(v or "")).strip().lower()
-
-
-def map_headers(ws):
-    """Resolve column letters by header text rather than fixed positions, so
-    a tracker with an extra column inserted still works."""
-    found = {}
-    for cell in ws[1]:
-        key = COLUMNS.get(norm(cell.value))
-        if key and key not in found:
-            found[key] = cell.column
-    return found
 
 
 def as_date(v):
@@ -185,27 +210,29 @@ def strike_row(ws, row, last_col):
 
 def scan(ws, today):
     """Return the rows that should be released. Pure: touches nothing."""
-    cols = map_headers(ws)
+    header_row = schema.find_header_row(ws)
+    cols, extras = schema.column_map(ws, header_row)
+
     missing = REQUIRED - set(cols)
     if missing:
-        raise ValueError(f"missing expected column(s): {sorted(missing)}")
+        raise ValueError(
+            f"missing expected column(s) {sorted(missing)} "
+            f"(header row detected at {header_row})"
+        )
 
-    last_col = max(cols.values())
-    for cell in ws[1]:
-        if cell.value not in (None, ""):
-            last_col = max(last_col, cell.column)
+    last_col = max(list(cols.values()) + list(extras.values()))
 
     hits = []
-    for row in range(2, ws.max_row + 1):
-        source = norm(ws.cell(row=row, column=cols["source"]).value)
+    for row in range(header_row + 1, ws.max_row + 1):
+        source = norm(ws.cell(row=row, column=cols[F_SOURCE]).value)
         if source != PERMIT_SOURCE:
             continue
 
-        notes = ws.cell(row=row, column=cols["notes"]).value
+        notes = ws.cell(row=row, column=cols[F_NOTES]).value
         if RELEASE_MARKER.lower() in norm(notes):
             continue  # already released, keep this run idempotent
 
-        claimed = as_date(ws.cell(row=row, column=cols["date"]).value)
+        claimed = as_date(ws.cell(row=row, column=cols[F_DATE]).value)
         if claimed is None:
             continue  # never guess at an unparseable date
         age = (today - claimed).days
@@ -216,6 +243,9 @@ def scan(ws, today):
             norm(ws.cell(row=row, column=cols[f]).value)
             for f in CONTACT_FIELDS if f in cols
         )
+        if not worked and F_STATUS in cols:
+            worked = norm(ws.cell(row=row, column=cols[F_STATUS]).value) \
+                not in UNWORKED_STATUS
         if worked:
             continue
 
@@ -223,15 +253,14 @@ def scan(ws, today):
             "row": row,
             "age_days": age,
             "claimed_on": claimed.isoformat(),
-            "lead": ws.cell(row=row,
-                            column=cols.get("name", 1)).value or "",
+            "lead": ws.cell(row=row, column=cols.get(F_NAME, 1)).value or "",
             "permit_id": permit_id_from(notes),
         })
     return hits, cols, last_col
 
 
 def release_rows(ws, hits, cols, last_col, today):
-    note_col = cols["notes"]
+    note_col = cols[F_NOTES]
     for h in hits:
         strike_row(ws, h["row"], last_col)
         existing = ws.cell(row=h["row"], column=note_col).value or ""
@@ -275,7 +304,7 @@ def main():
     if not os.path.exists(REGISTRY):
         raise SystemExit(
             f"No tracker registry at {REGISTRY}. It maps each broker to their "
-            f"Box file id. See SETUP-claim-expiry.md."
+            f"SharePoint item id. See SETUP-claim-expiry.md."
         )
     with open(REGISTRY, encoding="utf-8") as f:
         trackers = json.load(f)
@@ -284,16 +313,16 @@ def main():
     if not trackers:
         raise SystemExit("Tracker registry has no enabled entries.")
 
-    box = Box()
+    sp = SharePoint()
     report = {"run_at": dt.datetime.now().isoformat(timespec="seconds"),
               "dry_run": DRY_RUN, "expiry_days": EXPIRY_DAYS, "trackers": []}
     total = 0
 
     for t in trackers:
-        entry = {"broker": t.get("broker"), "file_id": t["file_id"],
+        entry = {"broker": t.get("broker"), "item_id": t["item_id"],
                  "released": [], "status": "ok"}
         try:
-            blob = box.download(t["file_id"])
+            blob = sp.download(t["item_id"])
             wb = load_workbook(io.BytesIO(blob))
             ws = wb[SHEET_NAME] if SHEET_NAME in wb.sheetnames else wb[wb.sheetnames[0]]
 
@@ -314,11 +343,11 @@ def main():
                 release_rows(ws, hits, cols, last_col, today)
                 out = io.BytesIO()
                 wb.save(out)
-                vid = box.upload_version(t["file_id"], t["name"], out.getvalue())
-                entry["status"] = f"released {len(hits)}, new Box version {vid}"
+                etag = sp.upload_version(t["item_id"], out.getvalue())
+                entry["status"] = f"released {len(hits)}, new SharePoint version {etag}"
                 total += len(hits)
                 for h in hits:
-                    h["tracker"] = t.get("name") or t["file_id"]
+                    h["tracker"] = t.get("name") or t["item_id"]
         except Exception as exc:  # one bad tracker must not stop the rest
             entry["status"] = f"ERROR: {type(exc).__name__}: {exc}"
 

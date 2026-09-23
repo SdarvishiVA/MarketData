@@ -2,53 +2,43 @@
   {
     "broker": "Marc",
     "name": "Marc_Lead_Tracker.xlsx",
-    "file_id": "2428372160425",
+    "item_id": "01XPFHACK3RLWKM6K2KJH2YXLA6BA2ZTQK",
     "enabled": false,
-    "note": "Structure verified against this file."
+    "note": "New template, headers row 2. driveId/itemId confirmed live via the read-only Microsoft 365 connector on 23 Sep."
   },
   {
     "broker": "Odi",
     "name": "Odi_Lead_Tracker.xlsx",
-    "file_id": "2430542130148",
-    "enabled": false
+    "item_id": "01XPFHACI24ESNNOXXENGJPTG67MWWIW3Y",
+    "enabled": false,
+    "note": "New template. driveId/itemId confirmed live on 23 Sep."
   },
   {
     "broker": "Raph",
-    "name": "Raph_Lead_Tracker_NEW.xlsx",
-    "file_id": "2415423203380",
+    "name": "Raph_Lead_Tracker.xlsx",
+    "item_id": "01XPFHACKSGIOBWFRRPZEKJGOWKZTUKLPA",
     "enabled": false,
-    "note": "An older VA_Capital_Lead_Contact_Tracker - Raph.xlsx also exists. Confirm this is the live one."
+    "note": "New template. driveId/itemId confirmed live on 23 Sep."
   },
   {
     "broker": "Suzana",
-    "name": "Suzana_Lead_Tracker_NEW_TEMPLATE (1).xlsx",
-    "file_id": "2412094141422",
+    "name": "Suzana_Lead_Tracker.xlsx",
+    "item_id": "01XPFHACMJISLMV7E6PVA3SSEKNAADK7KT",
     "enabled": false,
-    "note": "Filename says TEMPLATE and has a (1) suffix. Confirm this is the file she actually uses."
-  },
-  {
-    "broker": "Hung",
-    "name": "Hung_Lead_Tracker.xlsx",
-    "file_id": "2453838851845",
-    "enabled": false
-  },
-  {
-    "broker": "Yousif",
-    "name": "Yousif_Lead_Tracker.xlsx",
-    "file_id": "2458872779527",
-    "enabled": false
+    "note": "New template, 321 leads. driveId/itemId confirmed live on 23 Sep."
   },
   {
     "broker": "Hussein",
     "name": "Hussein_Lead_Tracker.xlsx",
-    "file_id": "2458479858233",
-    "enabled": false
+    "item_id": "01XPFHACNZ5HJIRVFT4BCICWIXR43KSUOJ",
+    "enabled": false,
+    "note": "New template, no leads yet. driveId/itemId confirmed live on 23 Sep."
   },
   {
     "broker": "Kevin",
-    "name": "VA Capital - Lead Contact Tracker_Kevin Yazbek.xlsx",
-    "file_id": "2426484861293",
+    "name": "Kevin_Lead_Tracker.xlsx",
+    "item_id": "01XPFHACNAIXQFCQK7OFBZ5BUKHL6IYWPB",
     "enabled": false,
-    "note": "Two files with this name exist. This is the newer one, in the 'Lead Tracker - Kevin' folder. The other (2330784678295) is in 'Kevin Yazbek'. Confirm before enabling."
+    "note": "New template. driveId/itemId confirmed live on 23 Sep."
   }
 ]

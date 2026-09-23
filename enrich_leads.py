@@ -220,7 +220,7 @@ def main():
         data = json.load(f)
 
     cache = load_cache()
-    leads = data.get("priority_leads", [])
+    leads = data.get("leads", [])
     researched = 0
 
     for lead in leads:
