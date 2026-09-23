@@ -1,0 +1,56 @@
+name: Expire Uncontacted Permit Claims
+
+on:
+  # 07:00 UTC is 3am Montreal while EDT is in effect. It becomes 2am when the
+  # clocks go back in November, so change this to '0 8 * * *' then if you want
+  # to stay on 3am local.
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Report only, write nothing'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: expire-claims
+  cancel-in-progress: false
+
+jobs:
+  expire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install openpyxl requests
+
+      - name: Expire uncontacted claims
+        run: python expire_claims.py
+        env:
+          # Scheduled runs stay in dry run until you flip this to 'false'.
+          # Manual runs use whatever you picked in the dispatch form.
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'true' }}
+          EXPIRY_DAYS: '14'
+          MS_TENANT_ID: ${{ secrets.MS_TENANT_ID }}
+          MS_CLIENT_ID: ${{ secrets.MS_CLIENT_ID }}
+          MS_CLIENT_SECRET: ${{ secrets.MS_CLIENT_SECRET }}
+          # Leave unset until the Hub exposes a release endpoint.
+          HUB_RELEASE_URL: ${{ secrets.HUB_RELEASE_URL }}
+          HUB_API_KEY: ${{ secrets.HUB_API_KEY }}
+
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: claim-expiry-report
+          path: claim_expiry_report.json
+          if-no-files-found: warn
+          retention-days: 30
