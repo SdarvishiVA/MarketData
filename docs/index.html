@@ -173,7 +173,7 @@
   .btn.claim:disabled{opacity:.55;cursor:default;background:var(--green-soft);color:var(--green)}
   .claimed{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;
     color:var(--green-2);background:var(--green-soft);border:1px solid rgba(15,122,67,.25);
-    padding:5px 10px;border-radius:20px;white-space:nowrap;max-width:150px;
+    padding:5px 10px;border-radius:20px;white-space:nowrap;max-width:210px;
     overflow:hidden;text-overflow:ellipsis}
   .claimed::before{content:'';width:6px;height:6px;border-radius:50%;
     background:var(--green);flex-shrink:0}
@@ -181,6 +181,7 @@
   .claimed.other{color:var(--ink-2);background:var(--surface-2);border-color:var(--line-2)}
   .claimed.other::before{background:var(--ink-3)}
   .btn.unclaim{border-color:var(--line-2);color:var(--ink-3);padding:5px 10px;font-size:11.5px}
+  tr.lead.taken td{background:var(--surface-2)}
   .btn.unclaim:hover{border-color:var(--rust);color:var(--rust);background:var(--rust-soft)}
 
   #toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);z-index:2000;
@@ -241,6 +242,9 @@
     <option value="5000000">$5M+</option></select></div>
   <div class="fg"><label for="fNamed">Contact known</label><select id="fNamed">
     <option value="0">Any</option><option value="1">Applicant named</option></select></div>
+  <div class="fg"><label for="fClaim">Claimed</label><select id="fClaim">
+    <option value="all">All leads</option><option value="open">Unclaimed only</option>
+    <option value="mine">Claimed by me</option><option value="taken">Claimed by anyone</option></select></div>
   <div class="fg"><label for="fSort">Sort by</label><select id="fSort">
     <option value="date">Most recent</option>
     <option value="units">Most units</option><option value="cost">Highest value</option></select></div>
@@ -258,7 +262,7 @@
       <thead><tr>
         <th style="width:200px">Classification</th><th>Property</th>
         <th>Issued</th><th style="width:70px">Units</th>
-        <th>Applicant</th><th style="width:190px"></th>
+        <th>Applicant</th><th style="width:250px"></th>
       </tr></thead>
       <tbody></tbody>
     </table>
@@ -396,6 +400,7 @@ function toast(msg,bad){
    column is never blank. */
 function claimPayload(l){
   const c=l.classification||{},bits=[];
+  const tidy=v=>String(v||'').replace(/\s+/g,' ').trim();
   if(c.label)bits.push(c.label);
   if(units(l))bits.push(units(l)+' units');
   if(l.cout)bits.push(money(l.cout));
@@ -403,11 +408,11 @@ function claimPayload(l){
   if(l.nature)bits.push(l.nature);
   const notes=bits.join(' · ')+(c.why?` — ${c.why}`:'');
   return {
-    name:l.entrepreneur||l.emplacement||'',
-    company:l.entrepreneur||'',
+    name:tidy(l.entrepreneur||l.emplacement),
+    company:tidy(l.entrepreneur),
     phone:'',
     email:'',
-    address:[l.emplacement,l.secteur,l.city].filter(Boolean).join(', '),
+    address:[l.emplacement,l.secteur,l.city].map(tidy).filter(Boolean).join(', '),
     type:l.type_batiment||l.categorie||'',
     permitId:l.id_permis||'',
     /* deliberately built from origin+pathname so the hub_token never
@@ -553,12 +558,13 @@ fetch('data.json?v='+Date.now())
     fill('fCat',Object.keys(d.by_category||{}));
 
     safely('map setup',initMap);
-    ['fClass','fCity','fSector','fCat','fUnits','fCost','fNamed','fSort']
+    ['fClass','fCity','fSector','fCat','fUnits','fCost','fNamed','fClaim','fSort']
       .forEach(id=>document.getElementById(id).addEventListener('change',()=>{page=0;apply()}));
     document.getElementById('fReset').addEventListener('click',()=>{
       document.getElementById('fClass').value='__all__';
       ['fCity','fSector','fCat'].forEach(id=>document.getElementById(id).value='__all__');
       ['fUnits','fCost','fNamed'].forEach(id=>document.getElementById(id).value='0');
+      document.getElementById('fClaim').value='all';
       document.getElementById('fSort').value='date';
       page=0;apply();
     });
@@ -603,6 +609,14 @@ function apply(){
   const g=id=>document.getElementById(id).value;
   const cls=g('fClass'),city=g('fCity'),sector=g('fSector'),cat=g('fCat');
   const minU=+g('fUnits'),minC=+g('fCost'),named=g('fNamed')==='1',sort=g('fSort');
+  const claimView=g('fClaim');
+  const claimOk=l=>{
+    const h=claimed.get(l.id_permis);
+    if(claimView==='open')return !h;
+    if(claimView==='mine')return !!(h&&h.mine);
+    if(claimView==='taken')return !!h;
+    return true;
+  };
 
   let leads=(DATA.leads||[]).filter(l=>
     (cls==='__all__'||l.classification.code===cls)&&
@@ -610,7 +624,7 @@ function apply(){
     (sector==='__all__'||l.secteur===sector)&&
     (cat==='__all__'||l.categorie===cat)&&
     mag(l)>=minU&&(l.cout||0)>=minC&&
-    (!named||!!l.entrepreneur));
+    (!named||!!l.entrepreneur)&&claimOk(l));
 
   const cmp={date:(a,b)=>b.date_emission.localeCompare(a.date_emission),
     units:(a,b)=>mag(b)-mag(a),
@@ -637,7 +651,9 @@ function render(leads,mapPts){
     <div class="stat"><p class="k">Units in pipeline</p><p class="v green">${pipeline.toLocaleString()}</p>
       <p class="sub">across leads in view</p></div>`;
 
-  document.getElementById('leadCount').textContent=`${leads.length} leads`;
+  const taken=leads.filter(l=>claimed.has(l.id_permis)).length;
+  document.getElementById('leadCount').textContent=
+    `${leads.length} leads · ${leads.length-taken} unclaimed · ${taken} claimed`;
   lastLeads=leads;
   const maxPage=Math.max(0,Math.ceil(leads.length/pageSize)-1);
   if(page>maxPage)page=maxPage;
@@ -671,16 +687,16 @@ function renderLeads(leads){
     byId.set(l.id_permis,l);
     let claimBtn='';
     if(held&&held.mine){
-      claimBtn=`<span class="claimed" title="Claimed by you${claimsLive?'':' on this device'}">You</span>`+
+      claimBtn=`<span class="claimed" title="Claimed by you${claimsLive?'':' (on this device)'}">Claimed by you</span>`+
         `<button class="btn unclaim" data-unclaim="${esc(l.id_permis)}"
            title="Give this lead back">Unclaim</button>`;
     }else if(held){
-      claimBtn=`<span class="claimed other" title="Claimed by ${esc(held.by)}">${esc(held.by)}</span>`;
+      claimBtn=`<span class="claimed other" title="Claimed by ${esc(held.by)}">Claimed by ${esc(held.by)}</span>`;
     }else if(HUB_TOKEN){
       claimBtn=`<button class="btn claim" data-claim="${esc(l.id_permis)}">Claim</button>`;
     }
     tb.insertAdjacentHTML('beforeend',`
-      <tr class="lead ${isOpen?'open':''}" data-id="${esc(l.id_permis)}">
+      <tr class="lead ${isOpen?'open':''} ${held&&!held.mine?'taken':''}" data-id="${esc(l.id_permis)}">
         <td><span class="cls cls-${c.code}">${esc(c.label)}</span></td>
         <td><div class="addr">${esc(l.emplacement)}</div>
           <div class="meta">${esc(l.city)} · ${esc(l.secteur)} · ${esc(l.categorie)}</div></td>
