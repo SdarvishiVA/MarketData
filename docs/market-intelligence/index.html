@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow">
+<title>VA Capital · Market Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
+<style>
+
+  :root{
+    --bg:#F4F6F5; --surface:#FFFFFF; --surface-2:#FAFBFA;
+    --line:#E3E7E4; --line-2:#CFD6D1;
+    --ink:#0E1512; --ink-2:#41504A; --ink-3:#6E7C76;
+    --green:#0F7A43; --green-2:#0B5E33; --green-soft:#E8F4EC;
+    --rust:#9B3B2E; --rust-soft:#FBEAE7;
+    --clay:#A8622C; --clay-soft:#F7EDE4;
+    --amber:#8A7420; --amber-soft:#F6F1E1;
+    --violet:#6D28D9; --violet-soft:#F1EAFB;
+    --teal:#0E7490; --teal-soft:#E4F4F6;
+    --shadow:0 1px 2px rgba(14,21,18,.05),0 4px 16px rgba(14,21,18,.05);
+    --shadow-lg:0 2px 6px rgba(14,21,18,.06),0 12px 32px rgba(14,21,18,.09);
+    --sans:'Inter',system-ui,-apple-system,sans-serif;
+    --serif:'Libre Baskerville',Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);margin:0;
+    font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px) 100px}
+  .num{font-variant-numeric:tabular-nums}
+  h1,h2,h3{margin:0}
+
+  .topbar{background:var(--surface);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:900;box-shadow:0 1px 3px rgba(14,21,18,.04)}
+  .topbar-in{max-width:1600px;margin:0 auto;padding:16px clamp(16px,3vw,40px);
+    display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:14px}
+  #logo{height:38px;width:auto;display:block;border-radius:4px}
+  .brand h1{font-size:17px;font-weight:600;letter-spacing:-.2px}
+  .brand p{margin:1px 0 0;font-size:12.5px;color:var(--ink-3)}
+  .jump{display:flex;gap:4px}
+  .jump a{font-size:12.5px;color:var(--ink-3);text-decoration:none;padding:6px 11px;
+    border-radius:7px;transition:all .15s}
+  .jump a:hover{color:var(--green);background:var(--green-soft)}
+  .status{display:flex;align-items:center;gap:18px;font-size:12.5px;color:var(--ink-3);flex-wrap:wrap}
+  .status b{color:var(--ink);font-weight:600}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px}
+  .err{color:var(--rust);font-weight:600}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:26px 0 22px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;box-shadow:var(--shadow);transition:box-shadow .18s,transform .18s}
+  .stat:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
+  .stat .k{font-size:12px;color:var(--ink-3);margin:0 0 8px;font-weight:500}
+  .stat .v{font-size:30px;font-weight:600;letter-spacing:-1px;line-height:1}
+  .stat .v.rust{color:var(--rust)} .stat .v.green{color:var(--green)}
+  .stat .sub{font-size:12px;color:var(--ink-3);margin:7px 0 0}
+
+  .filters{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px;box-shadow:var(--shadow);margin-bottom:24px;
+    display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+  .fg{display:flex;flex-direction:column;gap:5px;min-width:150px}
+  .fg label{font-size:11.5px;font-weight:600;color:var(--ink-3);letter-spacing:.2px}
+  .fg select{font-family:var(--sans);font-size:13px;padding:8px 11px;border-radius:8px;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--ink);cursor:pointer;outline:none;
+    transition:border-color .15s,box-shadow .15s}
+  .fg select:hover{border-color:var(--ink-3)}
+  .fg select:focus-visible{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
+  .reset{margin-left:auto;font-family:var(--sans);font-size:12.5px;font-weight:500;
+    padding:9px 16px;border-radius:8px;border:1px solid var(--line-2);background:var(--surface);
+    color:var(--ink-2);cursor:pointer;transition:all .15s}
+  .reset:hover{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+
+  .sec{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+    flex-wrap:wrap;margin:34px 0 14px}
+  .sec h2{font-size:19px;font-weight:600;letter-spacing:-.3px}
+  .sec .note{font-size:12.5px;color:var(--ink-3)}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+    box-shadow:var(--shadow);overflow:hidden}
+  .panel-pad{padding:18px 20px 20px}
+  .panel-head{padding:16px 20px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .panel-head h3{font-size:13.5px;font-weight:600}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  @media (max-width:1000px){.grid2{grid-template-columns:1fr}}
+
+  .tablewrap{overflow:auto;max-height:min(66vh,680px)}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:960px}
+  thead th{text-align:left;padding:11px 16px;font-size:11.5px;font-weight:600;color:var(--ink-3);
+    background:var(--surface-2);border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0}
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr.lead{cursor:pointer;transition:background .12s}
+  tbody tr.lead:hover{background:var(--surface-2)}
+  tbody tr.lead.open{background:var(--green-soft)}
+  .addr{font-weight:600;color:var(--ink)}
+  .meta{font-size:12px;color:var(--ink-3);margin-top:2px}
+  .muted{color:var(--ink-3)}
+
+  .cls{display:inline-block;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap}
+  .cls-demolition_only{background:var(--rust-soft);color:var(--rust)}
+  .cls-demolition_rebuild{background:var(--clay-soft);color:var(--clay)}
+  .cls-transformation{background:var(--amber-soft);color:var(--amber)}
+  .cls-construction{background:var(--green-soft);color:var(--green-2)}
+  .cls-application{background:var(--violet-soft);color:var(--violet)}
+  .cls-agreement{background:var(--teal-soft);color:var(--teal)}
+
+  .pager{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:12px 18px;border-top:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
+  .pager .info{font-size:12.5px;color:var(--ink-3)}
+  .pager .ctl{display:flex;align-items:center;gap:8px}
+  .pager select{font-family:var(--sans);font-size:12.5px;padding:6px 10px;border-radius:7px;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--ink);cursor:pointer}
+  .pager button:disabled{opacity:.4;cursor:default}
+
+  .detail td{background:var(--surface-2);padding:0;border-bottom:1px solid var(--line)}
+  .detail-in{padding:22px 26px 26px;display:grid;grid-template-columns:1.05fr .95fr;gap:32px}
+  @media (max-width:1100px){.detail-in{grid-template-columns:1fr}}
+  .dh{font-size:11.5px;font-weight:700;color:var(--ink-3);letter-spacing:.6px;
+    text-transform:uppercase;margin:0 0 12px}
+  .verdict{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--green);
+    border-radius:0 8px 8px 0;padding:13px 16px;margin:0 0 6px;font-size:13px;color:var(--ink-2)}
+
+  .tl{list-style:none;margin:0;padding:0 0 0 22px;border-left:2px solid var(--line-2)}
+  .tl li{position:relative;padding:0 0 18px 20px}
+  .tl li:last-child{padding-bottom:0}
+  .tl li::before{content:'';position:absolute;left:-29px;top:4px;width:12px;height:12px;
+    border-radius:50%;border:2px solid var(--surface-2);background:var(--ink-3)}
+  .tl li.demolition::before{background:var(--rust)}
+  .tl li.construction::before{background:var(--green)}
+  .tl li.transformation::before{background:var(--amber)}
+  .tl li.application::before{background:var(--violet)}
+  .tl li.agreement::before{background:var(--teal)}
+  .tl li.future::before{background:var(--surface-2);border:2px dashed var(--teal);width:14px;height:14px;left:-30px}
+  .tl .d{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;font-weight:500}
+  .tl .t{font-size:13px;font-weight:600;margin-top:1px}
+  .tl .x{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+  .tl .m{font-size:12px;color:var(--ink-3);margin-top:3px}
+  .future-chip{display:inline-block;font-size:10.5px;font-weight:600;color:var(--teal);
+    background:var(--teal-soft);padding:1px 7px;border-radius:20px;margin-left:7px;vertical-align:1px}
+
+  .btn{font-family:var(--sans);font-size:12.5px;font-weight:500;padding:7px 14px;border-radius:8px;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--ink-2);cursor:pointer;
+    transition:all .15s;white-space:nowrap}
+  .btn:hover{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+  .seg{display:inline-flex;border:1px solid var(--line-2);border-radius:8px;overflow:hidden}
+  .seg button{font-family:var(--sans);font-size:12.5px;padding:7px 14px;border:none;
+    background:var(--surface);color:var(--ink-3);cursor:pointer;transition:all .15s}
+  .seg button+button{border-left:1px solid var(--line-2)}
+  .seg button.active{background:var(--green);color:#fff}
+
+  #map{height:520px}
+  .maprow{position:relative}
+  .legend{position:absolute;top:14px;right:14px;z-index:800;background:rgba(255,255,255,.97);
+    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;max-height:320px;
+    overflow-y:auto;max-width:250px;box-shadow:var(--shadow-lg)}
+  .legend .li{display:flex;align-items:center;gap:9px;padding:4px 2px;font-size:12.5px;
+    color:var(--ink-2);cursor:pointer}
+  .legend .li.off{opacity:.35}
+  .legend .sw{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+  .marker-cluster{background:rgba(15,122,67,.2);border-radius:50%}
+  .marker-cluster div{background:var(--green);border-radius:50%;color:#fff;width:30px;height:30px;
+    margin:3px;display:flex;align-items:center;justify-content:center}
+  .marker-cluster span{font-family:var(--sans);font-size:12px;font-weight:600}
+  .leaflet-popup-content-wrapper{border-radius:10px;box-shadow:var(--shadow-lg);border:1px solid var(--line)}
+  .leaflet-popup-content{font-family:var(--sans);font-size:12.5px}
+
+  .rowbtns{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+  .btn.claim{border-color:var(--green);color:var(--green);background:var(--green-soft);font-weight:600}
+  .btn.claim:hover{background:var(--green);color:#fff;border-color:var(--green)}
+  .btn.claim:disabled{opacity:.55;cursor:default;background:var(--green-soft);color:var(--green)}
+  .claimed{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;
+    color:var(--green-2);background:var(--green-soft);border:1px solid rgba(15,122,67,.25);
+    padding:5px 10px;border-radius:20px;white-space:nowrap;max-width:210px;
+    overflow:hidden;text-overflow:ellipsis}
+  .claimed::before{content:'';width:6px;height:6px;border-radius:50%;
+    background:var(--green);flex-shrink:0}
+  /* someone else's claim reads as unavailable rather than as a success */
+  .claimed.other{color:var(--ink-2);background:var(--surface-2);border-color:var(--line-2)}
+  .claimed.other::before{background:var(--ink-3)}
+  .btn.unclaim{border-color:var(--line-2);color:var(--ink-3);padding:5px 10px;font-size:11.5px}
+  tr.lead.taken td{background:var(--surface-2)}
+  .btn.unclaim:hover{border-color:var(--rust);color:var(--rust);background:var(--rust-soft)}
+
+  #toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);z-index:2000;
+    max-width:min(520px,calc(100vw - 32px));background:var(--ink);color:#fff;font-size:13px;
+    line-height:1.45;padding:12px 18px;border-radius:10px;box-shadow:var(--shadow-lg);
+    opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+  #toast.show{opacity:1;transform:translate(-50%,0)}
+  #toast.bad{background:var(--rust)}
+
+  .empty{padding:40px 20px;text-align:center;color:var(--ink-3);font-size:13.5px}
+  .foot{font-size:12px;color:var(--ink-3);margin-top:30px;line-height:1.75;max-width:900px}
+
+  @media (max-width:960px){.grid2{grid-template-columns:1fr}}
+
+  /* Market Intelligence additions */
+  .fg input[type=search]{font-family:var(--sans);font-size:13px;padding:8px 11px;border-radius:8px;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--ink);outline:none;min-width:240px}
+  .fg input[type=search]:focus-visible{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
+  .viewbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:6px 0 14px}
+  .act{display:inline-block;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap}
+  .act-hyp{background:var(--teal-soft);color:var(--teal)}
+  .act-vente{background:var(--violet-soft);color:var(--violet)}
+  .win{font-size:12px;font-weight:600;white-space:nowrap}
+  .win-now{color:var(--rust)} .win-soon{color:var(--clay)} .win-recent,.win-past,.win-na{color:var(--ink-3);font-weight:500}
+  .party{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0 0 10px}
+  .party .pt{font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-3)}
+  .party .pn{font-weight:600;margin-top:2px}
+  .party .pm{font-size:12.5px;color:var(--ink-2);margin-top:3px}
+  .kv{display:grid;grid-template-columns:170px 1fr;gap:6px 14px;font-size:13px;margin:0}
+  .kv dt{color:var(--ink-3)} .kv dd{margin:0}
+  .lots{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}
+  #mapPanel .leaflet-popup-content{min-width:240px}
+  .pop .pa{font-weight:600}.pop .pm{color:#41504A;margin-top:2px}.pop .pb{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+  .lock{max-width:440px;margin:12vh auto;background:var(--surface);border:1px solid var(--line);
+    border-radius:14px;padding:28px;box-shadow:var(--shadow-lg)}
+  .lock h2{font-size:18px;margin-bottom:8px}
+  .lock p{color:var(--ink-2);font-size:13.5px;margin:0 0 16px}
+  .lock form{display:flex;gap:8px}
+  .lock input{flex:1;font-family:var(--sans);font-size:13px;padding:9px 12px;border-radius:8px;border:1px solid var(--line-2)}
+  .lock .err{display:block;margin-top:10px}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="topbar-in">
+  <div class="brand">
+    <img id="logo" src="logo.png" alt="VA Capital" onerror="this.remove()">
+    <div>
+      <h1>Market Intelligence</h1>
+      <p>Registered mortgages and sales from Nominis, by property</p>
+    </div>
+  </div>
+  <div class="status" id="status"><span>Loading…</span></div>
+</div></div>
+
+<div class="lock" id="lock" hidden>
+  <h2>Open this from the Hub</h2>
+  <p>This data is encrypted. The Hub's Market Intelligence tile opens it for you. If you have the access key, you can enter it here instead.</p>
+  <form id="lockForm"><input id="lockKey" type="password" placeholder="Access key" autocomplete="off">
+    <button class="btn" type="submit">Open</button></form>
+  <span class="err" id="lockErr" hidden>That key didn't open the data.</span>
+</div>
+
+<div class="wrap" id="app" hidden>
+
+<div class="stats" id="stats"></div>
+
+<div class="filters">
+  <div class="fg"><label for="fSearch">Search</label>
+    <input id="fSearch" type="search" placeholder="Company, person, lender, address, NEQ…"></div>
+  <div class="fg"><label for="fAct">Nature d'acte</label><select id="fAct">
+    <option value="__all__">All</option><option value="Hypothèque">Hypothèque</option><option value="Vente">Vente</option></select></div>
+  <div class="fg"><label for="fSource">Dataset</label><select id="fSource"><option value="__all__">All datasets</option></select></div>
+  <div class="fg"><label for="fCity">City</label><select id="fCity"><option value="__all__">All cities</option></select></div>
+  <div class="fg"><label for="fAmount">Min. Montant ($)</label><select id="fAmount">
+    <option value="0">Any</option><option value="1000000">$1M+</option><option value="3000000">$3M+</option>
+    <option value="5000000">$5M+</option><option value="10000000">$10M+</option></select></div>
+  <div class="fg"><label for="fWindow">Mortgage renewal (estimate)</label><select id="fWindow">
+    <option value="__all__">Any</option>
+    <option value="now">In window now (3 to 5 years old)</option>
+    <option value="soon">Window opens within a year</option>
+    <option value="recent">Under 2 years old</option>
+    <option value="past">Over 5 years old</option></select></div>
+  <div class="fg"><label for="fClaim">Claimed</label><select id="fClaim">
+    <option value="all">All</option><option value="open">Unclaimed only</option>
+    <option value="mine">Claimed by me</option><option value="taken">Claimed by anyone</option></select></div>
+  <div class="fg"><label for="fSort">Sort by</label><select id="fSort">
+    <option value="date">Most recent</option><option value="amount">Highest Montant</option>
+    <option value="window">Closest to renewal</option></select></div>
+  <button class="reset" id="fReset">Reset filters</button>
+</div>
+
+<div class="viewbar">
+  <div class="seg" id="viewSeg">
+    <button data-view="map" class="active">Map</button>
+    <button data-view="list">List</button>
+  </div>
+  <span class="note muted" id="count">—</span>
+</div>
+
+<div class="panel" id="mapPanel">
+  <div id="map"></div>
+  <div class="panel-head"><span class="note muted" id="mapNote"></span></div>
+</div>
+
+<div class="panel" id="listPanel" hidden>
+  <div class="tablewrap">
+    <table id="tbl">
+      <thead><tr>
+        <th>Date</th><th>Nature d'acte</th><th>Client potentiel</th><th>Adresse</th>
+        <th style="text-align:right">Montant ($)</th><th>Créancier / Vendeur</th>
+        <th>Renewal (estimate)</th><th style="width:230px"></th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="empty" id="empty" hidden>Nothing matches these filters.</div>
+  <div class="pager" id="pager">
+    <span class="info" id="pageInfo">—</span>
+    <div class="ctl">
+      <select id="pageSize"><option value="25">25</option><option value="50" selected>50</option>
+        <option value="100">100</option><option value="99999">All</option></select>
+      <button class="btn" id="prevPage">Previous</button>
+      <button class="btn" id="nextPage">Next</button>
+    </div>
+  </div>
+</div>
+
+<p class="foot">Source: Nominis exports. The renewal window is an estimate only: it assumes a 3 to 5 year commercial term
+from the registration date, and the real term isn't in the registry. Pins are placed by address, postal code or city
+depending on what the record has, so some are approximate. Map data © OpenStreetMap contributors.</p>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
+<script>
+const Q=new URLSearchParams(location.search);
+const HUB_TOKEN=Q.get('hub_token');
+const HUB_API='https://va-capital-hub.vercel.app/api/permits';
+const CLAIM_URL=HUB_API+'/claim', CLAIMS_URL=HUB_API+'/claims', UNCLAIM_URL=HUB_API+'/unclaim';
+const CLAIM_STORE='vacap.mi.claims.v1', KEY_STORE='vacap.mi.key';
+const ID_PREFIX='NOM-';
+
+let DATA=null, claimed=new Map(), claiming=new Set(), claimsLive=false;
+let view='map', page=0, pageSize=50, lastRows=[], open=new Set(), map=null, layer=null;
+
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>n?'$'+(n>=1e6?(n/1e6).toFixed(n%1e6?2:0).replace(/\.?0+$/,'')+'M':Math.round(n).toLocaleString()):'—';
+const full=n=>n?Math.round(n).toLocaleString('en-CA'):'—';
+function safely(label,fn){try{fn()}catch(e){console.error(label,e)}}
+
+let toastTimer=null;
+function toast(msg,bad){const el=document.getElementById('toast');el.textContent=msg;
+  el.className=(bad?'bad ':'')+'show';clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>{el.className=bad?'bad':''},bad?6000:4000)}
+
+/* ---------- unlocking ---------- */
+function b64(s){return Uint8Array.from(atob(s),c=>c.charCodeAt(0))}
+async function decrypt(blob,pass){
+  const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(blob.salt),iterations:blob.iter,hash:'SHA-256'},
+    base,{name:'AES-GCM',length:256},false,['decrypt']);
+  const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(blob.iv)},key,b64(blob.ct));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+function readKey(){
+  const h=new URLSearchParams(location.hash.slice(1)).get('k');
+  if(h){try{sessionStorage.setItem(KEY_STORE,h)}catch(e){}
+    history.replaceState(null,'',location.pathname+location.search);return h}
+  try{return sessionStorage.getItem(KEY_STORE)}catch(e){return null}
+}
+async function unlock(pass){
+  const blob=await (await fetch('data.enc?v='+Date.now())).json();
+  return decrypt(blob,pass);
+}
+async function boot(){
+  const pass=readKey();
+  if(pass){
+    try{start(await unlock(pass));return}
+    catch(e){console.warn('Stored key did not work',e);try{sessionStorage.removeItem(KEY_STORE)}catch(_){}}
+  }
+  document.getElementById('lock').hidden=false;
+  document.getElementById('status').innerHTML='<span>Locked</span>';
+}
+document.getElementById('lockForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const pass=document.getElementById('lockKey').value.trim();
+  try{const d=await unlock(pass);try{sessionStorage.setItem(KEY_STORE,pass)}catch(_){}
+    document.getElementById('lock').hidden=true;start(d)}
+  catch(err){document.getElementById('lockErr').hidden=false}
+});
+
+/* ---------- derived fields ---------- */
+const TODAY=new Date();
+function ageYears(d){return (TODAY-new Date(d+'T12:00:00'))/(365.25*864e5)}
+function windowOf(r){
+  if(r.act!=='Hypothèque')return 'na';
+  const a=ageYears(r.date);
+  return a>5?'past':a>=3?'now':a>=2?'soon':'recent';
+}
+const WIN_TXT={now:'In window now',soon:'Opens within a year',recent:'Under 2 years',past:'Over 5 years',na:'—'};
+function winDetail(r){
+  if(r.act!=='Hypothèque')return '';
+  const d=new Date(r.date+'T12:00:00'),f=y=>{const x=new Date(d);x.setFullYear(x.getFullYear()+y);return x.toISOString().slice(0,7)};
+  return `Likely term ends between ${f(3)} and ${f(5)}`;
+}
+const PROSPECT_ROLES=new Set(['borrower','buyer']), OTHER_ROLES=new Set(['lender','seller']);
+
+/* ---------- claims (same Hub endpoints as the permit tool) ---------- */
+function loadClaims(){try{const raw=JSON.parse(localStorage.getItem(CLAIM_STORE)||'{}');
+  return new Map(Object.entries(raw).map(([id,by])=>[id,{by,mine:true}]))}catch(e){return new Map()}}
+function saveClaims(){try{const mine={};claimed.forEach((v,k)=>{if(v.mine)mine[k]=v.by});
+  localStorage.setItem(CLAIM_STORE,JSON.stringify(mine))}catch(e){}}
+async function fetchClaims(){
+  if(!HUB_TOKEN)return;
+  try{
+    const res=await fetch(CLAIMS_URL,{headers:{'X-Hub-Token':HUB_TOKEN}});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(!Array.isArray(data.claims))throw new Error('unexpected response shape');
+    claimed=new Map(data.claims.filter(c=>String(c.permitId||'').startsWith(ID_PREFIX))
+      .map(c=>[c.permitId,{by:c.claimedBy||'another broker',mine:!!c.mine}]));
+    claimsLive=true;saveClaims();apply();
+  }catch(err){console.warn('Claim list unavailable, showing only your own claims.',err)}
+}
+function claimPayload(r){
+  const other=r.parties.find(p=>OTHER_ROLES.has(p.role));
+  const pros=r.parties.find(p=>PROSPECT_ROLES.has(p.role));
+  const bits=[`${r.act} ${money(r.amount)} registered ${r.date}`];
+  if(other)bits.push(`${other.type}: ${other.name}`);
+  if(pros&&(pros.rep||pros.president))bits.push(`Représentant: ${pros.rep||pros.president}`);
+  if(pros&&pros.neq)bits.push(`NEQ ${pros.neq}`);
+  bits.push(`Numéro d'inscription ${r.registration}`);
+  if(r.contact)bits.push(`Information contact: ${r.contact}`);
+  if(r.act==='Hypothèque')bits.push(winDetail(r));
+  return {name:r.prospect,company:r.prospect,phone:'',email:'',address:r.address,type:r.act,
+    permitId:r.id,url:location.origin+location.pathname+'?record='+encodeURIComponent(r.id),notes:bits.join(' · ')};
+}
+async function claim(r,btn){
+  if(!HUB_TOKEN||claimed.has(r.id)||claiming.has(r.id))return;
+  claiming.add(r.id);if(btn){btn.disabled=true;btn.textContent='Claiming…'}
+  let res,data;
+  try{res=await fetch(CLAIM_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({token:HUB_TOKEN,lead:claimPayload(r)})});
+    data=await res.json().catch(()=>({}));}
+  catch(err){claiming.delete(r.id);if(btn){btn.disabled=false;btn.textContent='Claim'}
+    toast('Could not reach the Hub. Check your connection and try again.',true);return}
+  claiming.delete(r.id);
+  if(res.status===401){if(btn){btn.disabled=false;btn.textContent='Claim'}
+    toast('Your session expired. Reload this tool from the Hub and try again.',true);return}
+  if(res.status===409){claimed.set(r.id,{by:data.claimedBy||'another broker',mine:false});saveClaims();
+    toast(`Already claimed by ${data.claimedBy||'another broker'}.`,true);apply();return}
+  if(!res.ok){if(btn){btn.disabled=false;btn.textContent='Claim'}toast(data.message||'Claim failed.',true);return}
+  claimed.set(r.id,{by:data.claimedBy||'you',mine:true});saveClaims();toast(data.message||'Claimed.');apply();
+}
+async function unclaim(r,btn){
+  if(!HUB_TOKEN||claiming.has(r.id))return;
+  claiming.add(r.id);if(btn){btn.disabled=true;btn.textContent='Releasing…'}
+  let res,data;
+  try{res=await fetch(UNCLAIM_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({token:HUB_TOKEN,permitId:r.id})});data=await res.json().catch(()=>({}));}
+  catch(err){claiming.delete(r.id);if(btn){btn.disabled=false;btn.textContent='Unclaim'}
+    toast('Could not reach the Hub. Check your connection and try again.',true);return}
+  claiming.delete(r.id);
+  if(res.status===401){if(btn){btn.disabled=false;btn.textContent='Unclaim'}
+    toast('Your session expired. Reload this tool from the Hub and try again.',true);return}
+  if(res.status===403){claimed.set(r.id,{by:data.claimedBy||'another broker',mine:false});saveClaims();
+    toast(`That one belongs to ${data.claimedBy||'another broker'}.`,true);apply();return}
+  if(!res.ok&&res.status!==404){if(btn){btn.disabled=false;btn.textContent='Unclaim'}
+    toast(data.message||'Could not release it.',true);return}
+  claimed.delete(r.id);saveClaims();toast(data.message||'Released.');apply();
+}
+function claimHtml(r){
+  const h=claimed.get(r.id);
+  if(h&&h.mine)return `<span class="claimed" title="Claimed by you${claimsLive?'':' (on this device)'}">Claimed by you</span>`+
+    `<button class="btn unclaim" data-unclaim="${esc(r.id)}">Unclaim</button>`;
+  if(h)return `<span class="claimed other" title="Claimed by ${esc(h.by)}">Claimed by ${esc(h.by)}</span>`;
+  return HUB_TOKEN?`<button class="btn claim" data-claim="${esc(r.id)}">Claim</button>`:'';
+}
+
+/* ---------- start ---------- */
+let byId=new Map();
+function start(d){
+  DATA=d; byId=new Map(DATA.records.map(r=>[r.id,r]));
+  DATA.records.forEach(r=>{r._win=windowOf(r);
+    r._hay=[r.prospect,r.counterparty,r.address,r.registration,r.contact,
+      ...r.parties.flatMap(p=>[p.name,p.rep,p.president,p.neq,p.address]),
+      ...r.lots.map(l=>l.street+' '+l.city)].join(' ').toLowerCase()});
+  document.getElementById('app').hidden=false;
+  claimed=loadClaims();
+  const fill=(id,vals)=>{const s=document.getElementById(id);
+    vals.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o)})};
+  fill('fSource',[...new Set(DATA.records.flatMap(r=>r.sources))].sort());
+  fill('fCity',[...new Set(DATA.records.map(r=>r.city).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr')));
+  const placed=DATA.records.filter(r=>r.lat!=null).length;
+  document.getElementById('status').innerHTML=
+    `<span><span class="dot"></span><b>${DATA.records.length}</b> transactions</span><span>Built ${esc(DATA.built||'')}</span>`;
+  document.getElementById('mapNote').textContent=
+    `${placed} of ${DATA.records.length} transactions have a map pin. The rest are in the list.`;
+
+  ['fAct','fSource','fCity','fAmount','fWindow','fClaim','fSort'].forEach(id=>
+    document.getElementById(id).addEventListener('change',()=>{page=0;apply()}));
+  let t=null;document.getElementById('fSearch').addEventListener('input',()=>{clearTimeout(t);t=setTimeout(()=>{page=0;apply()},150)});
+  document.getElementById('fReset').addEventListener('click',()=>{
+    ['fAct','fSource','fCity','fWindow'].forEach(id=>document.getElementById(id).value='__all__');
+    document.getElementById('fAmount').value='0';document.getElementById('fClaim').value='all';
+    document.getElementById('fSort').value='date';document.getElementById('fSearch').value='';page=0;apply()});
+  document.querySelectorAll('#viewSeg button').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
+  document.getElementById('pageSize').addEventListener('change',e=>{pageSize=+e.target.value;page=0;apply()});
+  document.getElementById('prevPage').addEventListener('click',()=>{if(page>0){page--;apply()}});
+  document.getElementById('nextPage').addEventListener('click',()=>{if((page+1)*pageSize<lastRows.length){page++;apply()}});
+  document.addEventListener('click',onAction);
+
+  safely('map',initMap);
+  placePins();
+  apply();
+  const want=Q.get('record');
+  if(want&&byId.has(want)){setView('list');focus(want)}
+  fetchClaims();
+}
+function setView(v){view=v;
+  document.querySelectorAll('#viewSeg button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
+  document.getElementById('mapPanel').hidden=v!=='map';document.getElementById('listPanel').hidden=v!=='list';
+  if(v==='map'&&map)setTimeout(()=>map.invalidateSize(),0)}
+function focus(id){
+  const i=lastRows.findIndex(r=>r.id===id);if(i<0)return;
+  open.add(id);page=Math.floor(i/pageSize);apply();
+  const row=document.querySelector(`tr.lead[data-id="${CSS.escape(id)}"]`);if(row)row.scrollIntoView({block:'center'})}
+
+function onAction(e){
+  const c=e.target.closest('[data-claim]'),u=e.target.closest('[data-unclaim]'),o=e.target.closest('[data-open]');
+  if(c){e.stopPropagation();const r=byId.get(c.dataset.claim);if(r)claim(r,c);return}
+  if(u){e.stopPropagation();const r=byId.get(u.dataset.unclaim);if(r)unclaim(r,u);return}
+  if(o){e.stopPropagation();setView('list');focus(o.dataset.open);return}
+}
+
+/* ---------- filtering ---------- */
+function apply(){
+  const g=id=>document.getElementById(id).value;
+  const act=g('fAct'),src=g('fSource'),city=g('fCity'),minA=+g('fAmount'),win=g('fWindow'),cv=g('fClaim'),sort=g('fSort');
+  const q=document.getElementById('fSearch').value.trim().toLowerCase();
+  const claimOk=r=>{const h=claimed.get(r.id);
+    return cv==='open'?!h:cv==='mine'?!!(h&&h.mine):cv==='taken'?!!h:true};
+  let rows=DATA.records.filter(r=>(act==='__all__'||r.act===act)&&(src==='__all__'||r.sources.includes(src))&&
+    (city==='__all__'||r.city===city)&&(r.amount||0)>=minA&&(win==='__all__'||r._win===win)&&
+    (!q||q.split(/\s+/).every(w=>r._hay.includes(w)))&&claimOk(r));
+  const W={now:0,soon:1,recent:2,past:3,na:4};
+  const cmp={date:(a,b)=>b.date.localeCompare(a.date),amount:(a,b)=>(b.amount||0)-(a.amount||0),
+    window:(a,b)=>(W[a._win]-W[b._win])||a.date.localeCompare(b.date)};
+  rows.sort(cmp[sort]||cmp.date);
+  lastRows=rows;
+  safely('stats',()=>renderStats(rows));
+  safely('list',()=>renderList(rows));
+  safely('markers',()=>drawMarkers(rows));
+}
+function renderStats(rows){
+  const total=rows.reduce((s,r)=>s+(r.amount||0),0);
+  const now=rows.filter(r=>r._win==='now').length;
+  const taken=rows.filter(r=>claimed.has(r.id)).length;
+  document.getElementById('stats').innerHTML=`
+    <div class="stat"><p class="k">Transactions in view</p><p class="v">${rows.length}</p><p class="sub">of ${DATA.records.length}</p></div>
+    <div class="stat"><p class="k">Total Montant ($)</p><p class="v green">${money(total)}</p><p class="sub">across transactions in view</p></div>
+    <div class="stat"><p class="k">Mortgages in renewal window</p><p class="v rust">${now}</p><p class="sub">registered 3 to 5 years ago</p></div>
+    <div class="stat"><p class="k">Unclaimed</p><p class="v">${rows.length-taken}</p><p class="sub">${taken} claimed</p></div>`;
+  document.getElementById('count').textContent=`${rows.length} transactions · ${rows.length-taken} unclaimed · ${taken} claimed`;
+}
+function actPill(a){return `<span class="act ${a==='Vente'?'act-vente':'act-hyp'}">${esc(a)}</span>`}
+function renderList(rows){
+  const tb=document.querySelector('#tbl tbody');tb.innerHTML='';
+  document.getElementById('empty').hidden=rows.length>0;document.getElementById('pager').hidden=!rows.length;
+  const max=Math.max(0,Math.ceil(rows.length/pageSize)-1);if(page>max)page=max;
+  const start=page*pageSize,slice=rows.slice(start,start+pageSize);
+  slice.forEach(r=>{
+    const pros=r.parties.find(p=>PROSPECT_ROLES.has(p.role)),other=r.parties.find(p=>OTHER_ROLES.has(p.role));
+    const isOpen=open.has(r.id),h=claimed.get(r.id);
+    tb.insertAdjacentHTML('beforeend',`<tr class="lead ${isOpen?'open':''} ${h&&!h.mine?'taken':''}" data-id="${esc(r.id)}">
+      <td class="num muted" style="white-space:nowrap">${esc(r.date)}</td><td>${actPill(r.act)}</td>
+      <td><div class="addr">${esc(r.prospect)}</div>${pros&&(pros.rep||pros.president)?`<div class="meta">${esc(pros.rep||pros.president)}</div>`:''}</td>
+      <td>${esc(r.address)||'<span class="muted">—</span>'}${r.lots.length>1?`<div class="meta">${r.lots.length} lots</div>`:''}</td>
+      <td class="num" style="text-align:right">${full(r.amount)}</td>
+      <td>${other?esc(other.name)+`<div class="meta">${esc(other.type)}</div>`:'<span class="muted">—</span>'}</td>
+      <td><span class="win win-${r._win}">${WIN_TXT[r._win]}</span></td>
+      <td><div class="rowbtns">${claimHtml(r)}</div></td></tr>`);
+    if(isOpen)tb.insertAdjacentHTML('beforeend',detail(r));
+  });
+  tb.querySelectorAll('tr.lead').forEach(tr=>tr.addEventListener('click',e=>{
+    if(e.target.closest('.rowbtns'))return;const id=tr.dataset.id;open.has(id)?open.delete(id):open.add(id);apply()}));
+  document.getElementById('pageInfo').textContent=rows.length?`Showing ${start+1}–${Math.min(start+pageSize,rows.length)} of ${rows.length}`:'';
+  document.getElementById('prevPage').disabled=page===0;document.getElementById('nextPage').disabled=(page+1)*pageSize>=rows.length;
+}
+function detail(r){
+  const parties=r.parties.map(p=>`<div class="party"><div class="pt">${esc(p.type||'Partie')}</div>
+    <div class="pn">${esc(p.name)}</div>
+    ${p.rep?`<div class="pm">${esc(p.rep)}</div>`:''}
+    ${p.president&&p.president!==p.rep?`<div class="pm">Président: ${esc(p.president)}</div>`:''}
+    ${p.neq?`<div class="pm">NEQ ${esc(p.neq)}</div>`:''}
+    ${p.address?`<div class="pm">${esc(p.address)}${p.postal?' '+esc(p.postal):''}</div>`:''}
+    ${p.activity?`<div class="pm muted">${esc(p.activity)}</div>`:''}</div>`).join('');
+  const lots=r.lots.map(l=>`<li>${esc([l.street,l.postal,l.city].filter(Boolean).join(' / '))}${l.lot?` <span class="muted">(lot ${esc(l.lot)})</span>`:''}${l.type?` · ${esc(l.type)}`:''}</li>`).join('');
+  return `<tr class="detail"><td colspan="8"><div class="detail-in">
+    <div><p class="dh">Parties</p>${parties||'<p class="muted">No parties listed.</p>'}</div>
+    <div><p class="dh">Transaction</p><dl class="kv">
+      <dt>Numéro d'inscription</dt><dd>${esc(r.registration)}</dd>
+      <dt>Date</dt><dd>${esc(r.date)}</dd>
+      <dt>Nature d'acte</dt><dd>${esc(r.act)}${r.kind?' · '+esc(r.kind):''}</dd>
+      <dt>Circonscription</dt><dd>${esc(r.division)||'—'}</dd>
+      <dt>Montant ($)</dt><dd class="num">${full(r.amount)}</dd>
+      ${r.act==='Hypothèque'?`<dt>Renewal (estimate)</dt><dd>${esc(winDetail(r))}</dd>`:''}
+      ${r.contact?`<dt>Information contact</dt><dd>${esc(r.contact)}</dd>`:''}
+      <dt>Dataset</dt><dd>${esc(r.sources.join(', '))}</dd></dl>
+      ${lots?`<p class="dh" style="margin-top:18px">Lots</p><ul class="lots">${lots}</ul>`:''}</div>
+  </div></td></tr>`;
+}
+
+
+/* ---------- placing pins (done in the browser, cached per computer) ---------- */
+const GEO_STORE='vacap.mi.geo.v1', REGIONS=new Set(['montérégie','laurentides','lanaudière','']);
+function geoCache(){try{return JSON.parse(localStorage.getItem(GEO_STORE)||'{}')}catch(e){return {}}}
+function saveGeo(c){try{localStorage.setItem(GEO_STORE,JSON.stringify(c))}catch(e){}}
+function firstCivic(st){const m=/(\d+[A-Za-z]?)(?:\s*[,\-]\s*\d+[A-Za-z]?)*\s+([^,\d][^,]*)/.exec(st||'');return m?(m[1]+' '+m[2]).trim():(st||'').trim()}
+function geoQueries(r){
+  const out=[];
+  for(const l of r.lots){
+    const st=firstCivic(l.street),city=REGIONS.has((l.city||'').toLowerCase())?'':l.city;
+    let pc=(l.postal||'').replace(/\s/g,'');pc=pc.length===6?pc.slice(0,3)+' '+pc.slice(3):'';
+    if(st&&city)out.push(['address',`${st}, ${city}, Québec, Canada`]);
+    if(st&&pc)out.push(['address',`${st}, ${pc}, Canada`]);
+    if(pc)out.push(['postal',`${pc}, Canada`]);
+    if(city)out.push(['city',`${city}, Québec, Canada`]);
+    if(out.length)break;
+  }
+  if(!out.length&&r.division)out.push(['area',`${r.division}, Québec, Canada`]);
+  return out;
+}
+function applyCached(r,cache){
+  for(const [prec,q] of geoQueries(r)){const hit=cache[q];
+    if(hit){r.lat=hit[0];r.lng=hit[1];r.geo=prec;return 'done'}
+    if(hit===undefined)return 'todo'}
+  return 'none';
+}
+async function placePins(){
+  const cache=geoCache(),note=document.getElementById('mapNote');
+  const todo=DATA.records.filter(r=>r.lat==null&&applyCached(r,cache)==='todo');
+  const report=()=>{const n=DATA.records.filter(r=>r.lat!=null).length;
+    note.textContent=todo.length?`Placing pins: ${n} of ${DATA.records.length} so far. The first visit takes a few minutes, after that it's instant.`
+      :`${n} of ${DATA.records.length} transactions have a map pin. The rest are in the list.`};
+  report();apply();
+  while(todo.length){
+    const r=todo[0];let state=applyCached(r,cache);
+    if(state==='todo'){
+      const q=geoQueries(r).find(([,q])=>cache[q]===undefined)[1];
+      try{const res=await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=ca&q='+encodeURIComponent(q));
+        const js=await res.json();cache[q]=js.length?[+js[0].lat,+js[0].lon]:null;saveGeo(cache);}
+      catch(e){console.warn('pin lookup failed',q,e);cache[q]=null}
+      await new Promise(ok=>setTimeout(ok,1100));
+      state=applyCached(r,cache);
+    }
+    if(state!=='todo'){todo.shift();if(todo.length%8===0){report();drawMarkers(lastRows)}}
+  }
+  report();drawMarkers(lastRows);
+}
+
+/* ---------- map ---------- */
+function initMap(){
+  map=L.map('map',{scrollWheelZoom:true}).setView([45.55,-73.55],9);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors',maxZoom:19}).addTo(map);
+  layer=(typeof L.markerClusterGroup==='function')
+    ?L.markerClusterGroup({showCoverageOnHover:false,disableClusteringAtZoom:15,maxClusterRadius:40}):L.layerGroup();
+  map.addLayer(layer);
+  map.on('popupopen',e=>{const id=e.popup.options.rid;if(id)e.popup.setContent(popup(byId.get(id)))});
+}
+function popup(r){
+  return `<div class="pop"><div class="pa">${esc(r.prospect)}</div>
+    <div class="pm">${esc(r.address)}</div>
+    <div class="pm">${esc(r.act)} · ${money(r.amount)} · ${esc(r.date)}</div>
+    ${r.counterparty?`<div class="pm">${esc(r.counterparty)}</div>`:''}
+    ${r.act==='Hypothèque'?`<div class="pm"><span class="win win-${r._win}">${WIN_TXT[r._win]}</span></div>`:''}
+    <div class="pb"><button class="btn" data-open="${esc(r.id)}">Details</button>${claimHtml(r)}</div></div>`;
+}
+function drawMarkers(rows){
+  if(!layer)return;layer.clearLayers();
+  const pts=rows.filter(r=>r.lat!=null).map(r=>{
+    const h=claimed.get(r.id),col=h?(h.mine?'#0B5E33':'#9AA6A0'):(r._win==='now'?'#9B3B2E':r.act==='Vente'?'#6D28D9':'#0E7490');
+    return L.circleMarker([r.lat,r.lng],{radius:r.geo==='address'?7:5,color:col,fillColor:col,fillOpacity:r.geo==='address'?.85:.45,weight:2})
+      .bindPopup('',{rid:r.id});
+  });
+  layer.addLayers?layer.addLayers(pts):pts.forEach(p=>layer.addLayer(p));
+}
+
+window.addEventListener('hashchange',()=>{if(/(^|[#&])k=/.test(location.hash))location.reload()});
+boot().catch(e=>{console.error(e);document.getElementById('status').innerHTML='<span class="err">Could not load data</span>'});
+</script>
+</body>
+</html>
