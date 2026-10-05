@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="referrer" content="no-referrer">
+<meta name="referrer" content="strict-origin">
 <meta name="robots" content="noindex,nofollow">
 <title>VA Capital · Market Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -652,7 +652,10 @@ async function placePins(){
 /* ---------- map ---------- */
 function initMap(){
   map=L.map('map',{scrollWheelZoom:true}).setView([45.55,-73.55],9);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors',maxZoom:19}).addTo(map);
+  /* Esri's light grey basemap: free, no key, and no referrer rules (OpenStreetMap's own servers block sites like this one). */
+  const ESRI='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
+  L.tileLayer(ESRI+'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri, HERE, Garmin, &copy; OpenStreetMap contributors',maxZoom:16}).addTo(map);
+  L.tileLayer(ESRI+'World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxZoom:16}).addTo(map);
   layer=(typeof L.markerClusterGroup==='function')
     ?L.markerClusterGroup({showCoverageOnHover:false,disableClusteringAtZoom:15,maxClusterRadius:40}):L.layerGroup();
   map.addLayer(layer);
