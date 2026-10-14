@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-10-13 19:46",
-  "data_through": "2026-10-09",
+  "last_updated": "2026-10-14 17:48",
+  "data_through": "2026-10-12",
   "window_days": 90,
   "leads_window_days": 45,
   "demo_window_days": 300,
@@ -11,68 +11,67 @@
   ],
   "city_freshness": {
     "Laval": "2026-03-31",
-    "Longueuil": "2026-10-09",
+    "Longueuil": "2026-10-12",
     "Montréal": "2026-10-05",
     "Québec": "2026-10-09"
   },
-  "total_permits": 6250,
-  "total_housing_units": 2581,
+  "total_permits": 6056,
+  "total_housing_units": 2412,
   "by_city": {
-    "Montréal": 4206,
-    "Québec": 1421,
-    "Longueuil": 623
+    "Montréal": 4062,
+    "Québec": 1376,
+    "Longueuil": 618
   },
   "by_type": {
-    "Transformation": 3815,
-    "Permis de construction": 1120,
-    "Construction": 354,
-    "Certificat d'autorisation": 223,
+    "Transformation": 3689,
+    "Permis de construction": 1083,
+    "Construction": 340,
+    "Certificat d'autorisation": 221,
     "Abattage d'un arbre mort, malade ou dangereux": 186,
-    "Rénovation, réparation ou transformation d'un bâtiment principal - Résidentiel": 106,
-    "Permis de lotissement": 76,
+    "Rénovation, réparation ou transformation d'un bâtiment principal - Résidentiel": 105,
+    "Permis de lotissement": 70,
     "Excavation, de remblai ou de déblai, pour l'aménagement, le réaménagement ou l'agrandissement d'une aire de stationnement, d'une aire de manutention - Résidentiel": 53
   },
   "by_borough": {
-    "Rosemont - La Petite-Patrie": 571,
-    "Mercier - Hochelaga-Maisonneuve": 431,
-    "Villeray - Saint-Michel - Parc-Extension": 402,
-    "La Cité-Limoilou": 362,
-    "Ahuntsic - Cartierville": 335,
-    "Longueuil": 333,
-    "Ville-Marie": 301,
-    "Le Plateau-Mont-Royal": 292,
-    "Côte-des-Neiges - Notre-Dame-de-Grâce": 262,
-    "Verdun": 260,
-    "Sainte-Foy–Sillery–Cap-Rouge": 259,
-    "La Haute-Saint-Charles": 240,
-    "Le Sud-Ouest": 239,
-    "Beauport": 239,
-    "Saint-Hubert": 227,
-    "Charlesbourg": 202,
-    "Rivière-des-Prairies - Pointe-aux-Trembles": 199,
-    "LaSalle": 141,
-    "Outremont": 131,
-    "Saint-Laurent": 129
+    "Rosemont - La Petite-Patrie": 556,
+    "Mercier - Hochelaga-Maisonneuve": 414,
+    "Villeray - Saint-Michel - Parc-Extension": 395,
+    "La Cité-Limoilou": 354,
+    "Longueuil": 329,
+    "Ahuntsic - Cartierville": 325,
+    "Ville-Marie": 293,
+    "Le Plateau-Mont-Royal": 286,
+    "Côte-des-Neiges - Notre-Dame-de-Grâce": 255,
+    "Sainte-Foy–Sillery–Cap-Rouge": 251,
+    "Verdun": 249,
+    "Le Sud-Ouest": 232,
+    "Beauport": 232,
+    "La Haute-Saint-Charles": 231,
+    "Saint-Hubert": 225,
+    "Charlesbourg": 191,
+    "Rivière-des-Prairies - Pointe-aux-Trembles": 187,
+    "LaSalle": 135,
+    "Outremont": 129,
+    "Saint-Laurent": 121
   },
   "by_category": {
-    "Rénovation/Agrandissement": 987,
-    "1 Logement": 706,
-    "2 Logements": 685,
-    "Permis construction": 623,
-    "3 Logements": 551,
-    "5 à 11 Logements ": 297,
-    "Commercial": 200,
-    "Mixte": 162,
-    "4 Logements": 154,
-    "Constructions et aménagements accessoires": 151,
-    "12 Logements +": 129,
-    "Familiale": 121,
-    "Construction d'un bâtiment principal": 105,
-    "Multiplex": 100,
-    "Démolition/Déplacement": 100
+    "Rénovation/Agrandissement": 968,
+    "1 Logement": 685,
+    "2 Logements": 666,
+    "Permis construction": 618,
+    "3 Logements": 532,
+    "5 à 11 Logements ": 287,
+    "Commercial": 192,
+    "Mixte": 158,
+    "4 Logements": 151,
+    "Constructions et aménagements accessoires": 139,
+    "12 Logements +": 126,
+    "Familiale": 115,
+    "Démolition/Déplacement": 99,
+    "Construction d'un bâtiment principal": 98,
+    "Multiplex": 93
   },
   "trend_weeks": [
-    "2026-07-20",
     "2026-07-27",
     "2026-08-03",
     "2026-08-10",
@@ -83,11 +82,11 @@
     "2026-09-14",
     "2026-09-21",
     "2026-09-28",
-    "2026-10-05"
+    "2026-10-05",
+    "2026-10-12"
   ],
   "trend_series": {
     "construction": [
-      52,
       37,
       53,
       55,
@@ -98,10 +97,10 @@
       67,
       54,
       46,
-      15
+      15,
+      0
     ],
     "demolition": [
-      15,
       11,
       13,
       10,
@@ -112,10 +111,10 @@
       16,
       11,
       16,
-      14
+      14,
+      0
     ],
     "other": [
-      10,
       0,
       4,
       5,
@@ -126,10 +125,10 @@
       4,
       5,
       8,
-      13
+      13,
+      0
     ],
     "transformation": [
-      446,
       336,
       406,
       384,
@@ -140,7 +139,8 @@
       476,
       511,
       405,
-      186
+      186,
+      4
     ]
   },
   "geo_points": [
@@ -765,16 +765,6 @@
       "work_class": "demolition"
     },
     {
-      "lat": 45.56828214611622,
-      "lng": -73.48634470556874,
-      "borough": "Longueuil",
-      "category": "Permis construction",
-      "address": "1734 boulevard Marie-Victorin",
-      "nb_logements": 0.0,
-      "city": "Longueuil",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.535528784571135,
       "lng": -73.5061731049491,
       "borough": "Longueuil",
@@ -1020,16 +1010,6 @@
       "borough": "Longueuil",
       "category": "Permis construction",
       "address": "1588 rue Labonté",
-      "nb_logements": 0.0,
-      "city": "Longueuil",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.50647825551845,
-      "lng": -73.41605109679276,
-      "borough": "Saint-Hubert",
-      "category": "Permis construction",
-      "address": "805 rue Martin",
       "nb_logements": 0.0,
       "city": "Longueuil",
       "work_class": "transformation"
@@ -1475,16 +1455,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.49170246840364,
-      "lng": -73.4155740847184,
-      "borough": "Saint-Hubert",
-      "category": "Permis construction",
-      "address": "3375 rue Simard",
-      "nb_logements": 0.0,
-      "city": "Longueuil",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.49318099381376,
       "lng": -73.48197441058603,
       "borough": "Greenfield Park",
@@ -1540,16 +1510,6 @@
       "borough": "Saint-Hubert",
       "category": "Permis construction",
       "address": "1305 rue Monette",
-      "nb_logements": 0.0,
-      "city": "Longueuil",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.54535511183371,
-      "lng": -73.50377943027112,
-      "borough": "Longueuil",
-      "category": "Permis construction",
-      "address": "430 rue Saint-Charles Est",
       "nb_logements": 0.0,
       "city": "Longueuil",
       "work_class": "transformation"
@@ -1975,16 +1935,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.53698486414434,
-      "lng": -73.47957883160365,
-      "borough": "Longueuil",
-      "category": "Permis construction",
-      "address": "1675 rue Kent",
-      "nb_logements": 0.0,
-      "city": "Longueuil",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.50901057241691,
       "lng": -73.49545835490652,
       "borough": "Le Moyne",
@@ -2023,16 +1973,6 @@
       "nb_logements": 0.0,
       "city": "Longueuil",
       "work_class": "transformation"
-    },
-    {
-      "lat": 45.5305805172961,
-      "lng": -73.4224550577798,
-      "borough": "Saint-Hubert",
-      "category": "Permis construction",
-      "address": "5640 rue Bachand",
-      "nb_logements": 0.0,
-      "city": "Longueuil",
-      "work_class": "demolition"
     },
     {
       "lat": 45.49365807999178,
@@ -2365,26 +2305,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.53398273317336,
-      "lng": -73.50403657149963,
-      "borough": "Longueuil",
-      "category": "Permis construction",
-      "address": "570 rue Saint-Jean",
-      "nb_logements": 0.0,
-      "city": "Longueuil",
-      "work_class": "demolition"
-    },
-    {
-      "lat": 45.4756873070131,
-      "lng": -73.43223826458714,
-      "borough": "Saint-Hubert",
-      "category": "Permis construction",
-      "address": "5170 rue Boivin",
-      "nb_logements": 0.0,
-      "city": "Longueuil",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.53831835175729,
       "lng": -73.49528953832501,
       "borough": "Longueuil",
@@ -2393,16 +2313,6 @@
       "nb_logements": 0.0,
       "city": "Longueuil",
       "work_class": "transformation"
-    },
-    {
-      "lat": 45.53394274576866,
-      "lng": -73.50373066720753,
-      "borough": "Longueuil",
-      "category": "Permis construction",
-      "address": "590 rue Saint-Jean",
-      "nb_logements": 0.0,
-      "city": "Longueuil",
-      "work_class": "demolition"
     },
     {
       "lat": 45.481691774425016,
@@ -4855,6 +4765,16 @@
       "work_class": "transformation"
     },
     {
+      "lat": 45.48981937483359,
+      "lng": -73.42500575294778,
+      "borough": "Saint-Hubert",
+      "category": "Permis construction",
+      "address": "5610 avenue Trudeau",
+      "nb_logements": 0.0,
+      "city": "Longueuil",
+      "work_class": "transformation"
+    },
+    {
       "lat": 45.490466936477354,
       "lng": -73.38872845244363,
       "borough": "Saint-Hubert",
@@ -6285,6 +6205,16 @@
       "work_class": "transformation"
     },
     {
+      "lat": 45.50755213364968,
+      "lng": -73.40833256094992,
+      "borough": "Saint-Hubert",
+      "category": "Permis construction",
+      "address": "624 rue Milot",
+      "nb_logements": 0.0,
+      "city": "Longueuil",
+      "work_class": "transformation"
+    },
+    {
       "lat": 45.476837289663784,
       "lng": -73.44566704114438,
       "borough": "Saint-Hubert",
@@ -6325,11 +6255,31 @@
       "work_class": "transformation"
     },
     {
+      "lat": 45.51916987238204,
+      "lng": -73.4999888129746,
+      "borough": "Longueuil",
+      "category": "Permis construction",
+      "address": "1179 rue Préfontaine",
+      "nb_logements": 0.0,
+      "city": "Longueuil",
+      "work_class": "transformation"
+    },
+    {
       "lat": 45.541670261512955,
       "lng": -73.44429848956594,
       "borough": "Longueuil",
       "category": "Permis construction",
       "address": "1780 rue Braille",
+      "nb_logements": 0.0,
+      "city": "Longueuil",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.487997584951316,
+      "lng": -73.48015943650451,
+      "borough": "Greenfield Park",
+      "category": "Permis construction",
+      "address": "483 rue de Springfield",
       "nb_logements": 0.0,
       "city": "Longueuil",
       "work_class": "transformation"
@@ -6535,16 +6485,6 @@
       "work_class": "demolition"
     },
     {
-      "lat": 45.52109183716486,
-      "lng": -73.59546432835954,
-      "borough": "Le Plateau-Mont-Royal",
-      "category": "5 à 11 Logements ",
-      "address": " 5130  avenue de l' Esplanade",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.54233761588427,
       "lng": -73.59020791309474,
       "borough": "Rosemont - La Petite-Patrie",
@@ -6680,16 +6620,6 @@
       "borough": "Le Plateau-Mont-Royal",
       "category": "3 Logements",
       "address": "  520  rue Cherrier",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.48858371316459,
-      "lng": -73.64527272891652,
-      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
-      "category": "2 Logements",
-      "address": " 6351  avenue McLynn",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -6905,16 +6835,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.519773928685176,
-      "lng": -73.56165620482045,
-      "borough": "Ville-Marie",
-      "category": "12 Logements +",
-      "address": " 1821  rue Atateken",
-      "nb_logements": -12.0,
-      "city": "Montréal",
-      "work_class": "demolition"
-    },
-    {
       "lat": 45.54083967544374,
       "lng": -73.58970277439298,
       "borough": "Rosemont - La Petite-Patrie",
@@ -7090,16 +7010,6 @@
       "borough": "LaSalle",
       "category": "multifamiliale (h4)",
       "address": " 9261  boulevard LaSalle",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.54249281744995,
-      "lng": -73.61762830528998,
-      "borough": "Villeray - Saint-Michel - Parc-Extension",
-      "category": "Mixte",
-      "address": " 7476  rue Saint-Hubert",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -7285,16 +7195,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.52614052619276,
-      "lng": -73.55833506167836,
-      "borough": "Ville-Marie",
-      "category": "3 Logements",
-      "address": " 1956  rue Cartier",
-      "nb_logements": 3.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.51886603940554,
       "lng": -73.59753778733298,
       "borough": "Outremont",
@@ -7445,31 +7345,11 @@
       "work_class": "construction"
     },
     {
-      "lat": 45.530826092644645,
-      "lng": -73.67875813150705,
-      "borough": "Saint-Laurent",
-      "category": "H4 Multifamiliale (12et+logs)",
-      "address": "  301  boulevard Deguire",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.51976642597431,
       "lng": -73.56753978822451,
       "borough": "Le Plateau-Mont-Royal",
       "category": "2 Logements",
       "address": " 3451  rue Saint-Hubert",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.43226727209933,
-      "lng": -73.64758882117918,
-      "borough": "LaSalle",
-      "category": "artériel léger (c3)",
-      "address": "  370  avenue Lafleur",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -7525,16 +7405,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.55773690155703,
-      "lng": -73.56849596739585,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "2 Logements",
-      "address": " 5359  avenue Charlemagne",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.53353782319239,
       "lng": -73.58331199655986,
       "borough": "Le Plateau-Mont-Royal",
@@ -7585,16 +7455,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.47114610866554,
-      "lng": -73.60335123708381,
-      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
-      "category": "2 Logements",
-      "address": "  985  avenue Prud'homme",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.54252840197324,
       "lng": -73.61288997217653,
       "borough": "Villeray - Saint-Michel - Parc-Extension",
@@ -7620,16 +7480,6 @@
       "borough": "L'Île-Bizard - Sainte-Geneviève",
       "category": "1 Logement",
       "address": "  253  rue Joly",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.46134336280335,
-      "lng": -73.5690381244138,
-      "borough": "Verdun",
-      "category": "Multiplex",
-      "address": "  343  rue Gordon",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -7705,16 +7555,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.587837734976574,
-      "lng": -73.56686864851751,
-      "borough": "Saint-Léonard",
-      "category": "Multiplex",
-      "address": " 6950  rue Rainier",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.69219320261949,
       "lng": -73.49848017961924,
       "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
@@ -7740,16 +7580,6 @@
       "borough": "Le Sud-Ouest",
       "category": "1 Logement",
       "address": "  466  rue Sainte-Madeleine",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.65687726518527,
-      "lng": -73.5074924963744,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "5 à 11 Logements ",
-      "address": "13111  rue Forsyth",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -8205,16 +8035,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.44602179340491,
-      "lng": -73.71219736044506,
-      "borough": "Lachine",
-      "category": "Cottage",
-      "address": "  860  50e Avenue",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.54237626978989,
       "lng": -73.5865258947189,
       "borough": "Rosemont - La Petite-Patrie",
@@ -8425,31 +8245,11 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.44696909830959,
-      "lng": -73.70391078150806,
-      "borough": "Lachine",
-      "category": "Cottage",
-      "address": " 4230  rue D'Urfé",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.537835013848365,
       "lng": -73.59776903119621,
       "borough": "Rosemont - La Petite-Patrie",
       "category": "3 Logements",
       "address": " 6224  rue De Normanville",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.53664114393771,
-      "lng": -73.7143042831928,
-      "borough": "Ahuntsic - Cartierville",
-      "category": "1 Logement",
-      "address": "12330  place de la Capricieuse",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -8765,26 +8565,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.43460100476524,
-      "lng": -73.68004463360366,
-      "borough": "Lachine",
-      "category": "Multi - > 8 log. / max. 4 ét.",
-      "address": "  150  18e Avenue",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.57723270865814,
-      "lng": -73.6559966279978,
-      "borough": "Ahuntsic - Cartierville",
-      "category": "1 Logement",
-      "address": " 2354  boulevard Gouin Est",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.46093195534315,
       "lng": -73.58997914960038,
       "borough": "Le Sud-Ouest",
@@ -8935,16 +8715,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.55308419513915,
-      "lng": -73.60935271817065,
-      "borough": "Villeray - Saint-Michel - Parc-Extension",
-      "category": "3 Logements",
-      "address": " 2203  rue L.-O.-David",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.53725594146196,
       "lng": -73.58075028181845,
       "borough": "Le Plateau-Mont-Royal",
@@ -9000,16 +8770,6 @@
       "borough": "Saint-Léonard",
       "category": "Multiplex",
       "address": " 7930  rue de Vérone",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.59139796316327,
-      "lng": -73.631713315338,
-      "borough": "Montréal-Nord",
-      "category": "Résid. & Comm.",
-      "address": " 4433  rue d' Amiens",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -9100,16 +8860,6 @@
       "borough": "Montréal-Nord",
       "category": "Trifamiliale",
       "address": " 5576  rue des Perce-Neige",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.493980161653205,
-      "lng": -73.59581011871708,
-      "borough": "Ville-Marie",
-      "category": "1 Logement",
-      "address": " 3095  avenue Cedar",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -9210,16 +8960,6 @@
       "borough": "Le Plateau-Mont-Royal",
       "category": "3 Logements",
       "address": " 1133  rue Rachel Est",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.53009626894846,
-      "lng": -73.58527337868378,
-      "borough": "Le Plateau-Mont-Royal",
-      "category": "5 à 11 Logements ",
-      "address": " 5025  rue Boyer",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -9515,16 +9255,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.46666667012526,
-      "lng": -73.55296052180337,
-      "borough": "Verdun",
-      "category": "Multifamiliale",
-      "address": "  700  chemin du Golf",
-      "nb_logements": 173.0,
-      "city": "Montréal",
-      "work_class": "construction"
-    },
-    {
       "lat": 45.55676704086723,
       "lng": -73.53187235162403,
       "borough": "Mercier - Hochelaga-Maisonneuve",
@@ -9610,16 +9340,6 @@
       "borough": "Rosemont - La Petite-Patrie",
       "category": "3 Logements",
       "address": " 6963  rue Garnier",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.54497195326931,
-      "lng": -73.56666671656922,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "3 Logements",
-      "address": " 3032  avenue du Mont-Royal Est",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -9805,16 +9525,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.53135256282397,
-      "lng": -73.65476925635633,
-      "borough": "Ahuntsic - Cartierville",
-      "category": "Mixte",
-      "address": " 1401  rue Legendre Ouest",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.550033911100655,
       "lng": -73.60754550794836,
       "borough": "Villeray - Saint-Michel - Parc-Extension",
@@ -9910,16 +9620,6 @@
       "borough": "Le Plateau-Mont-Royal",
       "category": "Commercial",
       "address": " 3451  boulevard Saint-Laurent",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.52512058067069,
-      "lng": -73.60160687384372,
-      "borough": "Le Plateau-Mont-Royal",
-      "category": "1 Logement",
-      "address": " 5628  rue Saint-Urbain",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -10245,16 +9945,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.60635213844041,
-      "lng": -73.59041418755386,
-      "borough": "Anjou",
-      "category": "Unifamilial",
-      "address": "10113  promenade des Riverains",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.53396299971718,
       "lng": -73.69516124290914,
       "borough": "Ahuntsic - Cartierville",
@@ -10390,16 +10080,6 @@
       "borough": "Le Sud-Ouest",
       "category": "2 Logements",
       "address": " 1920  rue Dubois",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.496994224523846,
-      "lng": -73.5546053690668,
-      "borough": "Ville-Marie",
-      "category": "Commercial",
-      "address": "   87  rue Prince",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -10653,16 +10333,6 @@
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
-    },
-    {
-      "lat": 45.6457487211292,
-      "lng": -73.5727006603307,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "1 Logement",
-      "address": " 8996  place Marcel-Gélinas",
-      "nb_logements": 1.0,
-      "city": "Montréal",
-      "work_class": "construction"
     },
     {
       "lat": 45.529051221492765,
@@ -11155,26 +10825,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.50312458218393,
-      "lng": -73.86648686478823,
-      "borough": "L'Île-Bizard - Sainte-Geneviève",
-      "category": "1 Logement",
-      "address": " 3193  boulevard Chevremont",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.6457487211292,
-      "lng": -73.5727006603307,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "1 Logement",
-      "address": " 8996  place Marcel-Gélinas",
-      "nb_logements": -1.0,
-      "city": "Montréal",
-      "work_class": "demolition"
-    },
-    {
       "lat": 45.48971337936728,
       "lng": -73.61806865713173,
       "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
@@ -11365,16 +11015,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.55806089236312,
-      "lng": -73.57388933778161,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "2 Logements",
-      "address": " 5671  avenue Bourbonnière",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.50126927536259,
       "lng": -73.57239521061967,
       "borough": "Ville-Marie",
@@ -11480,16 +11120,6 @@
       "borough": "Ahuntsic - Cartierville",
       "category": "1 Logement",
       "address": "12460  rue Jasmin",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.60238200517343,
-      "lng": -73.54878935769837,
-      "borough": "Anjou",
-      "category": "Unifamilial",
-      "address": " 8021  avenue des Vendéens",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -11631,16 +11261,6 @@
       "category": "Maison d'enseignement",
       "address": " 1616  rue Sainte-Catherine Ouest",
       "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.59599425648874,
-      "lng": -73.62576728735402,
-      "borough": "Montréal-Nord",
-      "category": "Bif. avec log. au sous-sol",
-      "address": "10790  boulevard Sainte-Gertrude",
-      "nb_logements": 1.0,
       "city": "Montréal",
       "work_class": "transformation"
     },
@@ -11843,16 +11463,6 @@
       "nb_logements": 1.0,
       "city": "Montréal",
       "work_class": "construction"
-    },
-    {
-      "lat": 45.50120498673724,
-      "lng": -73.5540945958696,
-      "borough": "Ville-Marie",
-      "category": "12 Logements +",
-      "address": "  305  rue de la Commune Ouest",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
     },
     {
       "lat": 45.544715475470085,
@@ -12205,16 +11815,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.51398419680965,
-      "lng": -73.57569697641172,
-      "borough": "Le Plateau-Mont-Royal",
-      "category": "Mixte",
-      "address": "   80  avenue des Pins Ouest",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.535330203176194,
       "lng": -73.6061914433407,
       "borough": "Rosemont - La Petite-Patrie",
@@ -12243,16 +11843,6 @@
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
-    },
-    {
-      "lat": 45.49968529560745,
-      "lng": -73.90680618459723,
-      "borough": "L'Île-Bizard - Sainte-Geneviève",
-      "category": "Garage",
-      "address": "   45  chemin North Ridge",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "construction"
     },
     {
       "lat": 45.51869283739037,
@@ -12385,16 +11975,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.5164446369428,
-      "lng": -73.68212920392804,
-      "borough": "Saint-Laurent",
-      "category": "H1 Unifamiliale",
-      "address": " 1080  avenue O'Brien",
-      "nb_logements": 1.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.51585477026842,
       "lng": -73.55460623618019,
       "borough": "Ville-Marie",
@@ -12471,16 +12051,6 @@
       "category": "2 Logements",
       "address": " 6879  rue Molson",
       "nb_logements": -1.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.64788193944608,
-      "lng": -73.49768056324955,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "1 Logement",
-      "address": "12572  rue René-Lévesque",
-      "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
     },
@@ -12620,16 +12190,6 @@
       "borough": "Outremont",
       "category": "unifamilial",
       "address": "  249  chemin de la Côte-Sainte-Catherine",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.56407041560683,
-      "lng": -73.5812073814326,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "2 Logements",
-      "address": " 6627  23e Avenue",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -13285,16 +12845,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.53173783716411,
-      "lng": -73.59829007254332,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "Dépendance",
-      "address": " 5810  rue De Saint-Vallier",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "demolition"
-    },
-    {
       "lat": 45.48168108101253,
       "lng": -73.89650082462074,
       "borough": "L'Île-Bizard - Sainte-Geneviève",
@@ -13545,16 +13095,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.639607107017454,
-      "lng": -73.4897982436522,
-      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
-      "category": "Commercial",
-      "address": "   76  boulevard Saint-Jean-Baptiste",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.42223953043945,
       "lng": -73.63638318127556,
       "borough": "LaSalle",
@@ -13680,16 +13220,6 @@
       "borough": "Rosemont - La Petite-Patrie",
       "category": "Mixte",
       "address": " 1559  rue Bélanger",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.54855226020121,
-      "lng": -73.62970214790943,
-      "borough": "Villeray - Saint-Michel - Parc-Extension",
-      "category": "2 Logements",
-      "address": " 8382  rue Boyer",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -14565,16 +14095,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.57944350471819,
-      "lng": -73.58313989829817,
-      "borough": "Saint-Léonard",
-      "category": "Multiplex",
-      "address": " 7395  rue Verdier",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.54032732354133,
       "lng": -73.55779354676933,
       "borough": "Mercier - Hochelaga-Maisonneuve",
@@ -14890,16 +14410,6 @@
       "borough": "Mercier - Hochelaga-Maisonneuve",
       "category": "1 Logement",
       "address": " 2921  avenue Gonthier",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.53644795961488,
-      "lng": -73.70442558411222,
-      "borough": "Ahuntsic - Cartierville",
-      "category": "2 Logements",
-      "address": "12079  rue Daigle",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -16235,16 +15745,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.53751417522118,
-      "lng": -73.64886458727385,
-      "borough": "Ahuntsic - Cartierville",
-      "category": "2 Logements",
-      "address": " 8945  rue Verville",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.55442878063154,
       "lng": -73.55831513282804,
       "borough": "Rosemont - La Petite-Patrie",
@@ -16545,16 +16045,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.55758756879453,
-      "lng": -73.56803351083721,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "3 Logements",
-      "address": " 5315  avenue Charlemagne",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.53755444742618,
       "lng": -73.59918085556713,
       "borough": "Rosemont - La Petite-Patrie",
@@ -16740,16 +16230,6 @@
       "borough": "Rosemont - La Petite-Patrie",
       "category": "3 Logements",
       "address": " 6349  avenue Christophe-Colomb",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.55969859950361,
-      "lng": -73.66267925850677,
-      "borough": "Ahuntsic - Cartierville",
-      "category": "4 Logements",
-      "address": "10541  avenue Georges-Baril",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -17055,16 +16535,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.52052643604529,
-      "lng": -73.69370431255973,
-      "borough": "Saint-Laurent",
-      "category": "H2 Bifamiliale",
-      "address": " 1771  rue Millar",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.4709187290712,
       "lng": -73.62791722791916,
       "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
@@ -17150,16 +16620,6 @@
       "borough": "Le Plateau-Mont-Royal",
       "category": "5 à 11 Logements ",
       "address": " 4025  avenue Coloniale",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.46091571535538,
-      "lng": -73.59096667477642,
-      "borough": "Le Sud-Ouest",
-      "category": "2 Logements",
-      "address": " 1959  rue Denonville",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -17485,31 +16945,11 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.54718030859281,
-      "lng": -73.57344143024827,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "3 Logements",
-      "address": " 5227  5e Avenue",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.46831022177373,
       "lng": -73.63134155966347,
       "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
       "category": "1 Logement",
       "address": " 4386  avenue Madison",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.538318874167686,
-      "lng": -73.61277074809497,
-      "borough": "Rosemont - La Petite-Patrie",
-      "category": "3 Logements",
-      "address": " 7030  rue De Saint-Vallier",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -17805,16 +17245,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.52398291763679,
-      "lng": -73.71685403050354,
-      "borough": "Saint-Laurent",
-      "category": "H1 Unifamiliale",
-      "address": " 3010  rue Cousineau",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "construction"
-    },
-    {
       "lat": 45.54573260525576,
       "lng": -73.62769273630138,
       "borough": "Villeray - Saint-Michel - Parc-Extension",
@@ -17870,16 +17300,6 @@
       "borough": "Le Plateau-Mont-Royal",
       "category": "Mixte",
       "address": "  900  avenue Laurier Est",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 45.428926951213846,
-      "lng": -73.65821638261039,
-      "borough": "LaSalle",
-      "category": "bi et trifamiliale (h2)",
-      "address": "   89  avenue Stirling",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -18355,21 +17775,551 @@
       "work_class": "transformation"
     },
     {
-      "lat": 45.51469785497167,
-      "lng": -73.61485924967937,
-      "borough": "Outremont",
-      "category": "Parc et chalet de parc",
-      "address": "  650  avenue Rockland",
-      "nb_logements": 0.0,
-      "city": "Montréal",
-      "work_class": "transformation"
-    },
-    {
       "lat": 45.57895266081151,
       "lng": -73.61004076712075,
       "borough": "Saint-Léonard",
       "category": "Multiplex",
       "address": " 8700  rue Choquette",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.47893471452442,
+      "lng": -73.56734708357796,
+      "borough": "Le Sud-Ouest",
+      "category": "2 Logements",
+      "address": " 2447  rue de Châteauguay",
+      "nb_logements": -1.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.51847995296028,
+      "lng": -73.55697246254762,
+      "borough": "Ville-Marie",
+      "category": "5 à 11 Logements ",
+      "address": " 1424  rue Montcalm",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.51431187339933,
+      "lng": -73.71545290267531,
+      "borough": "Saint-Laurent",
+      "category": "H1 Unifamiliale",
+      "address": " 2256  rue de l' Envol",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.5023407907293,
+      "lng": -73.56026980273747,
+      "borough": "Ville-Marie",
+      "category": "Commercial",
+      "address": "  747  rue du Square-Victoria",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.548641615026135,
+      "lng": -73.65771235089682,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "1 Logement",
+      "address": " 9875  rue Laverdure",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "construction"
+    },
+    {
+      "lat": 45.54667311705901,
+      "lng": -73.55666909241131,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "2 Logements",
+      "address": " 3444  rue Cuvillier",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.53216741973467,
+      "lng": -73.63914026679979,
+      "borough": "Villeray - Saint-Michel - Parc-Extension",
+      "category": "2 Logements",
+      "address": "  635  avenue d' Anvers",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.59511871858425,
+      "lng": -73.62977689629349,
+      "borough": "Montréal-Nord",
+      "category": "Bifamiliale",
+      "address": " 4743  rue de Castille",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.50198195856678,
+      "lng": -73.57426369181307,
+      "borough": "Ville-Marie",
+      "category": "Commercial",
+      "address": "  999  boulevard De Maisonneuve Ouest",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.52855630753978,
+      "lng": -73.55056259007158,
+      "borough": "Ville-Marie",
+      "category": "3 Logements",
+      "address": " 1629  rue Fullum",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.49795938919398,
+      "lng": -73.57786273679302,
+      "borough": "Ville-Marie",
+      "category": "Commercial",
+      "address": " 2000  rue Crescent",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.49810951169336,
+      "lng": -73.57437726622788,
+      "borough": "Ville-Marie",
+      "category": "Commercial",
+      "address": " 1226  rue Sainte-Catherine Ouest",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.55381196214165,
+      "lng": -73.53281431952573,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "3 Logements",
+      "address": " 1420  avenue Aird",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.518807975410674,
+      "lng": -73.6172261542721,
+      "borough": "Outremont",
+      "category": "Triplex",
+      "address": "  831  avenue McEachran",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.51983402472202,
+      "lng": -73.68464797256681,
+      "borough": "Saint-Laurent",
+      "category": "H1 Unifamiliale",
+      "address": " 1390  rue Dépatie",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.551753494605386,
+      "lng": -73.53816897985928,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "5 à 11 Logements ",
+      "address": " 1800  avenue Letourneux",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.46988911855863,
+      "lng": -73.64204895788207,
+      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
+      "category": "2 Logements",
+      "address": " 5120  avenue Bessborough",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.48385120903727,
+      "lng": -73.63081814768758,
+      "borough": "Côte-des-Neiges - Notre-Dame-de-Grâce",
+      "category": "Édifice à bureau",
+      "address": " 5160  boulevard Décarie",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.60962561816804,
+      "lng": -73.63609904600536,
+      "borough": "Montréal-Nord",
+      "category": "Publique",
+      "address": "12190  avenue Brunet",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.53069359285927,
+      "lng": -73.57900967944157,
+      "borough": "Le Plateau-Mont-Royal",
+      "category": "1 Logement",
+      "address": " 4605  rue Chambord",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.54284645235614,
+      "lng": -73.6236701056689,
+      "borough": "Villeray - Saint-Michel - Parc-Extension",
+      "category": "1 Logement",
+      "address": " 7764  rue Saint-Gérard",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.55668308657903,
+      "lng": -73.60458866433308,
+      "borough": "Villeray - Saint-Michel - Parc-Extension",
+      "category": "2 Logements",
+      "address": " 7393  1re Avenue",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.446991362862455,
+      "lng": -73.59697469115903,
+      "borough": "Le Sud-Ouest",
+      "category": "2 Logements",
+      "address": " 7120  rue Hurteau",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.55256643239223,
+      "lng": -73.55049944311037,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "3 Logements",
+      "address": " 2635  avenue Jeanne-d'Arc",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.558839352719176,
+      "lng": -73.54561615200568,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "5 à 11 Logements ",
+      "address": " 2560  rue Sicard",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.65341019739339,
+      "lng": -73.49937620532357,
+      "borough": "Rivière-des-Prairies - Pointe-aux-Trembles",
+      "category": "1 Logement",
+      "address": "12895  rue Edmond-Brandt",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.55909862546562,
+      "lng": -73.60330520537462,
+      "borough": "Villeray - Saint-Michel - Parc-Extension",
+      "category": "2 Logements",
+      "address": " 7421  9e Avenue",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.53186808719401,
+      "lng": -73.60954731987185,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "5 à 11 Logements ",
+      "address": " 6597  rue Saint-Dominique",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.5486229982889,
+      "lng": -73.6003298885788,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "2 Logements",
+      "address": " 2135  rue Augier",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.53553064119264,
+      "lng": -73.57086869404372,
+      "borough": "Le Plateau-Mont-Royal",
+      "category": "3 Logements",
+      "address": " 4429  avenue des Érables",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.51871141921641,
+      "lng": -73.57359069812745,
+      "borough": "Le Plateau-Mont-Royal",
+      "category": "1 Logement",
+      "address": " 3814  rue Drolet",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.61042445870795,
+      "lng": -73.55230482052077,
+      "borough": "Anjou",
+      "category": "Unifamilial",
+      "address": " 7261  avenue de Fougeray",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "construction"
+    },
+    {
+      "lat": 45.590730717675086,
+      "lng": -73.55955671040357,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "Mixte",
+      "address": " 6731  rue Beaubien Est",
+      "nb_logements": 2.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.542670405389536,
+      "lng": -73.54326385329303,
+      "borough": "Mercier - Hochelaga-Maisonneuve",
+      "category": "3 Logements",
+      "address": " 1694  rue Cuvillier",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.44923137735923,
+      "lng": -73.57522037128996,
+      "borough": "Verdun",
+      "category": "Familiale",
+      "address": "  726  rue Manning",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "construction"
+    },
+    {
+      "lat": 45.4582498233565,
+      "lng": -73.58441282666634,
+      "borough": "Le Sud-Ouest",
+      "category": "2 Logements",
+      "address": " 1586  rue De Biencourt",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.56901816016048,
+      "lng": -73.66008788824233,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "1 Logement",
+      "address": " 1790  boulevard Gouin Est",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.53737761245863,
+      "lng": -73.64607442965323,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "3 Logements",
+      "address": " 8795  rue Jeanne-Mance",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.53449282311367,
+      "lng": -73.69509015879338,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "2 Logements",
+      "address": "11779  avenue De Poutrincourt",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.54931994695156,
+      "lng": -73.6742710286776,
+      "borough": "Ahuntsic - Cartierville",
+      "category": "2 Logements",
+      "address": "10830  rue Saint-Urbain",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.53435228030388,
+      "lng": -73.55830734525446,
+      "borough": "Ville-Marie",
+      "category": "2 Logements",
+      "address": " 2352  rue D'Iberville",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.42998250528626,
+      "lng": -73.64813547260833,
+      "borough": "LaSalle",
+      "category": "institu. et administratif (p1)",
+      "address": "  300  avenue Lafleur",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.51907014495355,
+      "lng": -73.57437829422746,
+      "borough": "Le Plateau-Mont-Royal",
+      "category": "1 Logement",
+      "address": " 3872  rue Drolet",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.51406598824168,
+      "lng": -73.68812818596228,
+      "borough": "Saint-Laurent",
+      "category": "H1 Unifamiliale",
+      "address": " 1205  rue Crevier",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.54631454612258,
+      "lng": -73.61353930105518,
+      "borough": "Villeray - Saint-Michel - Parc-Extension",
+      "category": "Commercial",
+      "address": " 7403  rue Chambord",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.48128208808277,
+      "lng": -73.56750052219125,
+      "borough": "Le Sud-Ouest",
+      "category": "8 à 12 Logements",
+      "address": " 2344  rue Augustin-Cantin",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.4810754407638,
+      "lng": -73.56783969349365,
+      "borough": "Le Sud-Ouest",
+      "category": "8 à 12 Logements",
+      "address": " 2348  rue Augustin-Cantin",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.45732279846709,
+      "lng": -73.5780891540155,
+      "borough": "Verdun",
+      "category": "Familiale",
+      "address": " 1063  4e Avenue",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "construction"
+    },
+    {
+      "lat": 45.56653487636535,
+      "lng": -73.57988573900927,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "1 Logement",
+      "address": " 6665  27e Avenue",
+      "nb_logements": -1.0,
+      "city": "Montréal",
+      "work_class": "demolition"
+    },
+    {
+      "lat": 45.5333118042466,
+      "lng": -73.61661971899218,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "2 Logements",
+      "address": " 7049  rue Clark",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.54366324617497,
+      "lng": -73.6072176499678,
+      "borough": "Rosemont - La Petite-Patrie",
+      "category": "2 Logements",
+      "address": " 6983  rue Chambord",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.51275241193595,
+      "lng": -73.67981898009661,
+      "borough": "Saint-Laurent",
+      "category": "S1 Commer léger",
+      "address": "  865  boulevard Décarie",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.4467189608787,
+      "lng": -73.59837107323584,
+      "borough": "Le Sud-Ouest",
+      "category": "4 à 8 logements",
+      "address": " 7035  rue Mazarin",
+      "nb_logements": 0.0,
+      "city": "Montréal",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 45.60783808134544,
+      "lng": -73.63563694683833,
+      "borough": "Montréal-Nord",
+      "category": "Bifamiliale",
+      "address": "12056  avenue Desaulniers",
       "nb_logements": 0.0,
       "city": "Montréal",
       "work_class": "transformation"
@@ -19933,16 +19883,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "construction"
-    },
-    {
-      "lat": 46.76436844941591,
-      "lng": -71.3512617391921,
-      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
-      "category": "Rénovation/Agrandissement",
-      "address": "4015 Rue Ernest-Fortier Québec Québec G1Y1G6",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
     },
     {
       "lat": 46.849619642168165,
@@ -23205,16 +23145,6 @@
       "work_class": "construction"
     },
     {
-      "lat": 46.81404802017914,
-      "lng": -71.20995652020144,
-      "borough": "La Cité-Limoilou",
-      "category": "Rénovation/Agrandissement",
-      "address": "1149 Rue Saint-Jean Québec Québec G1R1S3",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
       "lat": 46.93949694510243,
       "lng": -71.3493312945889,
       "borough": "Charlesbourg",
@@ -23595,16 +23525,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 46.8146208924322,
-      "lng": -71.24023506475217,
-      "borough": "La Cité-Limoilou",
-      "category": "Rénovation/Agrandissement",
-      "address": "72 Rue de Carillon Québec Québec ",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
       "lat": 46.84174952584184,
       "lng": -71.23953250959764,
       "borough": "La Cité-Limoilou",
@@ -23725,26 +23645,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 46.88274212163386,
-      "lng": -71.27144151858924,
-      "borough": "Charlesbourg",
-      "category": "Rénovation/Agrandissement",
-      "address": "3866 Rue des Thuyas Québec Québec G1G1V3",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 46.88274212163386,
-      "lng": -71.27144151858924,
-      "borough": "Charlesbourg",
-      "category": "Rénovation/Agrandissement",
-      "address": "3848 Rue des Thuyas Québec Québec G1G1V3",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
       "lat": 46.91168822649768,
       "lng": -71.33236369812177,
       "borough": "Charlesbourg",
@@ -23763,16 +23663,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
-    },
-    {
-      "lat": 46.916428716978,
-      "lng": -71.21099253873552,
-      "borough": "Beauport",
-      "category": "Lotissement",
-      "address": " Rue de la Mer-de-Glace Québec Québec ",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "other"
     },
     {
       "lat": 46.86409833069701,
@@ -23880,16 +23770,6 @@
       "borough": "Sainte-Foy–Sillery–Cap-Rouge",
       "category": "Rénovation/Agrandissement",
       "address": "1424 Rue Provancher Québec Québec G1Y1R8",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 46.82364548013001,
-      "lng": -71.28330903589737,
-      "borough": "Les Rivières",
-      "category": "Rénovation/Agrandissement",
-      "address": " Rue Fernand-Dufour Québec Québec G1M3B2",
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
@@ -24015,16 +23895,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 46.85218869184711,
-      "lng": -71.37901968130015,
-      "borough": "La Haute-Saint-Charles",
-      "category": "Constructions et aménagements accessoires",
-      "address": "12410 Rue John-F.-Kennedy Québec Québec G2A3C2",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
-    },
-    {
       "lat": 46.813020317614274,
       "lng": -71.23592811205769,
       "borough": "La Cité-Limoilou",
@@ -24143,16 +24013,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "construction"
-    },
-    {
-      "lat": 46.8225723106393,
-      "lng": -71.22782771753178,
-      "borough": "La Cité-Limoilou",
-      "category": "Rénovation/Agrandissement",
-      "address": " 5e Rue Québec Québec G1L2R6",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
     },
     {
       "lat": 46.82219931484094,
@@ -24435,36 +24295,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 46.77981896726572,
-      "lng": -71.36041045144248,
-      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
-      "category": "Rénovation/Agrandissement",
-      "address": "1629 Rue De La Peltrie Québec Québec G2G2M2",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 46.87473605979018,
-      "lng": -71.45074204950753,
-      "borough": "La Haute-Saint-Charles",
-      "category": "Lotissement",
-      "address": " Rue Helena Québec Québec G3J1P1",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "other"
-    },
-    {
-      "lat": 46.77981896726572,
-      "lng": -71.36041045144248,
-      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
-      "category": "Constructions et aménagements accessoires",
-      "address": "1629 Rue De La Peltrie Québec Québec G2G2M2",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
-    },
-    {
       "lat": 46.81473193331401,
       "lng": -71.22994966595456,
       "borough": "La Cité-Limoilou",
@@ -24600,16 +24430,6 @@
       "borough": "Beauport",
       "category": "Rénovation/Agrandissement",
       "address": "3337 Boulevard Sainte-Anne Québec Québec G1E3K8",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 46.884443789375815,
-      "lng": -71.30392810520753,
-      "borough": "Charlesbourg",
-      "category": "Rénovation/Agrandissement",
-      "address": "7755 Rue du Daim Québec Québec G1G0B1",
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
@@ -24775,16 +24595,6 @@
       "work_class": "other"
     },
     {
-      "lat": 46.83725336770149,
-      "lng": -71.23222108002474,
-      "borough": "La Cité-Limoilou",
-      "category": "Construction d'un bâtiment principal",
-      "address": " Avenue Bergemont Québec Québec G1J3T6",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
-    },
-    {
       "lat": 46.812132615092864,
       "lng": -71.23547047572521,
       "borough": "La Cité-Limoilou",
@@ -24843,16 +24653,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "demolition"
-    },
-    {
-      "lat": 46.84831046360597,
-      "lng": -71.41808428249102,
-      "borough": "La Haute-Saint-Charles",
-      "category": "Constructions et aménagements accessoires",
-      "address": "1436 Rue de Calgary Québec Québec G3K2E8",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
     },
     {
       "lat": 46.78254485396072,
@@ -25035,41 +24835,11 @@
       "work_class": "transformation"
     },
     {
-      "lat": 46.90475512539063,
-      "lng": -71.19131940033867,
-      "borough": "Beauport",
-      "category": "Constructions et aménagements accessoires",
-      "address": "104 Rue Geneviève-Harnois Québec Québec G1B1G7",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
-    },
-    {
       "lat": 46.791084302779545,
       "lng": -71.2488324501199,
       "borough": "Sainte-Foy–Sillery–Cap-Rouge",
       "category": "Rénovation/Agrandissement",
       "address": "1025 Avenue Holland Québec Québec G1S3T4",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 46.88274212163386,
-      "lng": -71.27144151858924,
-      "borough": "Charlesbourg",
-      "category": "Rénovation/Agrandissement",
-      "address": "3860 Rue des Thuyas Québec Québec G1G1V3",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 46.88274212163386,
-      "lng": -71.27144151858924,
-      "borough": "Charlesbourg",
-      "category": "Rénovation/Agrandissement",
-      "address": "3864 Rue des Thuyas Québec Québec G1G1V3",
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
@@ -25140,16 +24910,6 @@
       "borough": "La Cité-Limoilou",
       "category": "Rénovation/Agrandissement",
       "address": "1025 Chemin Sainte-Foy Québec Québec G1S2L9",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 46.88274212163386,
-      "lng": -71.27144151858924,
-      "borough": "Charlesbourg",
-      "category": "Rénovation/Agrandissement",
-      "address": "3858 Rue des Thuyas Québec Québec G1G1V3",
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
@@ -25233,16 +24993,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "other"
-    },
-    {
-      "lat": 46.76187654319302,
-      "lng": -71.31035065271291,
-      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
-      "category": "Constructions et aménagements accessoires",
-      "address": "1033 Rue Jeanne-Le Ber Québec Québec G1W4G7",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
     },
     {
       "lat": 46.79250961334679,
@@ -25603,16 +25353,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
-    },
-    {
-      "lat": 46.90304103049246,
-      "lng": -71.20683838183223,
-      "borough": "Beauport",
-      "category": "Construction d'un bâtiment principal",
-      "address": "161 Rue de l'Alaska Québec Québec G1B2B9",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
     },
     {
       "lat": 46.87044619611347,
@@ -26125,26 +25865,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 46.831222296239005,
-      "lng": -71.23276836516077,
-      "borough": "La Cité-Limoilou",
-      "category": "Rénovation/Agrandissement",
-      "address": " 17e Rue Québec Québec G1L2E4",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 46.77046696429435,
-      "lng": -71.37761058021579,
-      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
-      "category": "Démolition/Déplacement",
-      "address": "573 Route Jean-Gauvin Québec Québec G2G1P7",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "demolition"
-    },
-    {
       "lat": 46.84926366386213,
       "lng": -71.31726321510212,
       "borough": "Les Rivières",
@@ -26353,16 +26073,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
-    },
-    {
-      "lat": 46.90503099567868,
-      "lng": -71.36274008359143,
-      "borough": "La Haute-Saint-Charles",
-      "category": "Lotissement",
-      "address": " Rue Jacques-Bédard Québec Québec G3G1P6",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "other"
     },
     {
       "lat": 46.80215629905579,
@@ -27245,16 +26955,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 46.74145445157049,
-      "lng": -71.36563652321001,
-      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
-      "category": "Rénovation/Agrandissement",
-      "address": "1422 Rue James-Bowen Québec Québec G1Y2T8",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
       "lat": 46.79247797053728,
       "lng": -71.25579423009168,
       "borough": "La Cité-Limoilou",
@@ -27393,16 +27093,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
-    },
-    {
-      "lat": 46.917141399486354,
-      "lng": -71.21067373326463,
-      "borough": "Beauport",
-      "category": "Lotissement",
-      "address": " Rue de la Mer-de-Glace Québec Québec G1B0T6",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "other"
     },
     {
       "lat": 46.86224997850962,
@@ -27695,16 +27385,6 @@
       "work_class": "construction"
     },
     {
-      "lat": 46.9146512836945,
-      "lng": -71.21000114211512,
-      "borough": "Beauport",
-      "category": "Construction d'un bâtiment principal",
-      "address": " Avenue du Rang-Saint-Ignace Québec Québec ",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
-    },
-    {
       "lat": 46.83845786864079,
       "lng": -71.33116653580407,
       "borough": "Les Rivières",
@@ -27813,16 +27493,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
-    },
-    {
-      "lat": 46.89068033462444,
-      "lng": -71.20535055997534,
-      "borough": "Beauport",
-      "category": "Constructions et aménagements accessoires",
-      "address": "448 Rue Maurice-Ravel Québec Québec G1C4Y1",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
     },
     {
       "lat": 46.84986358640976,
@@ -27935,16 +27605,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 46.89198811489741,
-      "lng": -71.27576038785628,
-      "borough": "Charlesbourg",
-      "category": "Constructions et aménagements accessoires",
-      "address": "1051 Rue de la Souveraine Québec Québec G2L3M2",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
-    },
-    {
       "lat": 46.8073353380699,
       "lng": -71.23581126290627,
       "borough": "La Cité-Limoilou",
@@ -28023,16 +27683,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "construction"
-    },
-    {
-      "lat": 46.84331291294398,
-      "lng": -71.35718873971426,
-      "borough": "La Haute-Saint-Charles",
-      "category": "Rénovation/Agrandissement",
-      "address": " Boulevard Johnny-Parent Québec Québec G2B1V1",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
     },
     {
       "lat": 46.82761770136751,
@@ -28445,16 +28095,6 @@
       "work_class": "construction"
     },
     {
-      "lat": 46.91964372794428,
-      "lng": -71.3418222891172,
-      "borough": "Charlesbourg",
-      "category": "Construction d'un bâtiment principal",
-      "address": " Côte du Frimas Québec Québec ",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
-    },
-    {
       "lat": 46.80731043502749,
       "lng": -71.23688533301713,
       "borough": "La Cité-Limoilou",
@@ -28500,26 +28140,6 @@
       "borough": "Charlesbourg",
       "category": "Rénovation/Agrandissement",
       "address": "1430 Rue du Maine Québec Québec G1G2J5",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "transformation"
-    },
-    {
-      "lat": 46.85641551547359,
-      "lng": -71.41367167857456,
-      "borough": "La Haute-Saint-Charles",
-      "category": "Construction d'un bâtiment principal",
-      "address": "1755 Avenue Industrielle Québec Québec G3K1L8",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
-    },
-    {
-      "lat": 46.84123273066938,
-      "lng": -71.22183894592345,
-      "borough": "La Cité-Limoilou",
-      "category": "Rénovation/Agrandissement",
-      "address": "2129 Rue De Fondville Québec Québec G1J1X5",
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
@@ -29845,16 +29465,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 46.89027978251335,
-      "lng": -71.2939895157867,
-      "borough": "Charlesbourg",
-      "category": "Construction d'un bâtiment principal",
-      "address": " Rue des Grizzlis Québec Québec G1G1A5",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
-    },
-    {
       "lat": 46.849128885472055,
       "lng": -71.4038388747976,
       "borough": "La Haute-Saint-Charles",
@@ -29913,16 +29523,6 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
-    },
-    {
-      "lat": 46.82228995378133,
-      "lng": -71.24376104199241,
-      "borough": "La Cité-Limoilou",
-      "category": "Construction d'un bâtiment principal",
-      "address": "444 Rue Daniel Québec Québec G1L4E8",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "construction"
     },
     {
       "lat": 46.89382292408765,
@@ -30185,16 +29785,6 @@
       "work_class": "transformation"
     },
     {
-      "lat": 46.91813334888512,
-      "lng": -71.21029296260063,
-      "borough": "Beauport",
-      "category": "Lotissement",
-      "address": " Rue de la Mer-de-Glace Québec Québec G1B0T6",
-      "nb_logements": 0.0,
-      "city": "Québec",
-      "work_class": "other"
-    },
-    {
       "lat": 46.84023091737733,
       "lng": -71.2448083378875,
       "borough": "La Cité-Limoilou",
@@ -30373,6 +29963,366 @@
       "nb_logements": 0.0,
       "city": "Québec",
       "work_class": "transformation"
+    },
+    {
+      "lat": 46.90416446079393,
+      "lng": -71.3188850895355,
+      "borough": "Charlesbourg",
+      "category": "Construction d'un bâtiment principal",
+      "address": "69 Rue de la Hampe Québec Québec ",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
+    },
+    {
+      "lat": 46.7605688128522,
+      "lng": -71.29153203526829,
+      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
+      "category": "Rénovation/Agrandissement",
+      "address": "3038 Rue de la Seine Québec Québec G1W1H9",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.74701781853489,
+      "lng": -71.34956195259703,
+      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
+      "category": "Rénovation/Agrandissement",
+      "address": "4328 Rue Saint-Félix Québec Québec G1Y1X7",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.78151869504293,
+      "lng": -71.30612710628355,
+      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
+      "category": "Rénovation/Agrandissement",
+      "address": " Avenue du Chanoine-Scott Québec Québec G1V3N1",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.82049917181433,
+      "lng": -71.25209782285641,
+      "borough": "Les Rivières",
+      "category": "Démolition/Déplacement",
+      "address": "522 Boulevard Wilfrid-Hamel Québec Québec G1M3E5",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "demolition"
+    },
+    {
+      "lat": 46.776627259626025,
+      "lng": -71.3108469187296,
+      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
+      "category": "Rénovation/Agrandissement",
+      "address": "790 Rue De La Fresnière Québec Québec G1X2N7",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.76872828440192,
+      "lng": -71.34444339514819,
+      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
+      "category": "Rénovation/Agrandissement",
+      "address": "2967 Rue William-Wood Québec Québec G1X0G5",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.860188439795735,
+      "lng": -71.18967166683352,
+      "borough": "Beauport",
+      "category": "Rénovation/Agrandissement",
+      "address": "18 Rue du Temple Québec Québec G1E5A1",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.9318398158609,
+      "lng": -71.3897778473473,
+      "borough": "La Haute-Saint-Charles",
+      "category": "Démolition/Déplacement",
+      "address": "2081 Rue du Beau-Site Québec Québec G3G2P8",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "demolition"
+    },
+    {
+      "lat": 46.810867998056416,
+      "lng": -71.32215862905625,
+      "borough": "Les Rivières",
+      "category": "Rénovation/Agrandissement",
+      "address": "2825 Avenue Tassé Québec Québec G1P1T1",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.8649526392248,
+      "lng": -71.42381138786021,
+      "borough": "La Haute-Saint-Charles",
+      "category": "Construction d'un bâtiment principal",
+      "address": "1360 Rue de L'industrie Québec Québec G3J1Y7",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
+    },
+    {
+      "lat": 46.865902487733,
+      "lng": -71.33161631028406,
+      "borough": "La Haute-Saint-Charles",
+      "category": "Constructions et aménagements accessoires",
+      "address": "1303 Rue Louis-Gauthier Québec Québec G3E1C4",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
+    },
+    {
+      "lat": 46.915748588394486,
+      "lng": -71.21186318315428,
+      "borough": "Beauport",
+      "category": "Lotissement",
+      "address": " Rue de Chasseforêt Québec Québec G1B0T4",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "other"
+    },
+    {
+      "lat": 46.80671326155985,
+      "lng": -71.27949933841288,
+      "borough": "Les Rivières",
+      "category": "Constructions et aménagements accessoires",
+      "address": "2250 Rue du Haut-Bord Québec Québec G1N3Y6",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
+    },
+    {
+      "lat": 46.79898313112195,
+      "lng": -71.23074538796443,
+      "borough": "La Cité-Limoilou",
+      "category": "Rénovation/Agrandissement",
+      "address": "1179 Avenue Moncton Québec Québec G1S2Z2",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.78766586642072,
+      "lng": -71.2808412757215,
+      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
+      "category": "Construction d'un bâtiment principal",
+      "address": " Avenue Chapdelaine Québec Québec ",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
+    },
+    {
+      "lat": 46.76286478076372,
+      "lng": -71.34779490987046,
+      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
+      "category": "Constructions et aménagements accessoires",
+      "address": "1185 Rue de la Sapinière Québec Québec G1Y1A1",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
+    },
+    {
+      "lat": 46.78550434581688,
+      "lng": -71.25872208671744,
+      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
+      "category": "Rénovation/Agrandissement",
+      "address": "2025 Boulevard René-Lévesque Ouest Québec Québec G1T1A2",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.76217403581916,
+      "lng": -71.28049312850479,
+      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
+      "category": "Démolition/Déplacement",
+      "address": "2833 Rue de Montarville Québec Québec G1W1V2",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "demolition"
+    },
+    {
+      "lat": 46.8463530661447,
+      "lng": -71.31540960287123,
+      "borough": "Les Rivières",
+      "category": "Rénovation/Agrandissement",
+      "address": "8802 Rue Colette-Samson Québec Québec G2K0E3",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.83079219824653,
+      "lng": -71.27085514215625,
+      "borough": "Les Rivières",
+      "category": "Rénovation/Agrandissement",
+      "address": "999 Avenue Galibois Québec Québec G1M3S4",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.86322506504582,
+      "lng": -71.18586752386913,
+      "borough": "Beauport",
+      "category": "Rénovation/Agrandissement",
+      "address": "14 Rue du Manège Québec Québec G1E5G6",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.90189223130402,
+      "lng": -71.32349948586844,
+      "borough": "Charlesbourg",
+      "category": "Construction d'un bâtiment principal",
+      "address": "481 Rue de la Hampe Québec Québec ",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
+    },
+    {
+      "lat": 46.82702862848734,
+      "lng": -71.45717509259985,
+      "borough": "La Haute-Saint-Charles",
+      "category": "Rénovation/Agrandissement",
+      "address": "1634 Avenue de la Montagne Ouest Québec Québec G3K1W7",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.88505703467768,
+      "lng": -71.19069889194922,
+      "borough": "Beauport",
+      "category": "Rénovation/Agrandissement",
+      "address": "423 Rue Tronquet Québec Québec G1C6G4",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.79372800485992,
+      "lng": -71.25722645163033,
+      "borough": "La Cité-Limoilou",
+      "category": "Rénovation/Agrandissement",
+      "address": "1430 Chemin Sainte-Foy Québec Québec G1S2N8",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.88042510169338,
+      "lng": -71.34721776411409,
+      "borough": "La Haute-Saint-Charles",
+      "category": "Rénovation/Agrandissement",
+      "address": "2470 Rue du Cuir Québec Québec G3E0H3",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.83000731044218,
+      "lng": -71.36554986172652,
+      "borough": "La Haute-Saint-Charles",
+      "category": "Rénovation/Agrandissement",
+      "address": "9450 Rue John-Simons Québec Québec G2B0S9",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.853466443748985,
+      "lng": -71.20764327074653,
+      "borough": "Beauport",
+      "category": "Rénovation/Agrandissement",
+      "address": "3399 Rue Loyola Québec Québec G1E2S2",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.76217403581916,
+      "lng": -71.28049312850479,
+      "borough": "Sainte-Foy–Sillery–Cap-Rouge",
+      "category": "Construction d'un bâtiment principal",
+      "address": "2833 Rue de Montarville Québec Québec G1W1V2",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
+    },
+    {
+      "lat": 46.807362565279625,
+      "lng": -71.25647439009023,
+      "borough": "La Cité-Limoilou",
+      "category": "Rénovation/Agrandissement",
+      "address": "1095 Rue Saint-Vallier Ouest Québec Québec G1N1G7",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.86312526815416,
+      "lng": -71.19495572704872,
+      "borough": "Beauport",
+      "category": "Rénovation/Agrandissement",
+      "address": "69 Rue Saint-Jules Québec Québec G1E4W5",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.90629259413927,
+      "lng": -71.21201364598787,
+      "borough": "Beauport",
+      "category": "Rénovation/Agrandissement",
+      "address": "274 Rue Certon Québec Québec G1B3R3",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "transformation"
+    },
+    {
+      "lat": 46.91790735005547,
+      "lng": -71.21031540782242,
+      "borough": "Beauport",
+      "category": "Construction d'un bâtiment principal",
+      "address": " rue de la Mer-De-Glace Québec Québec ",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
+    },
+    {
+      "lat": 46.91486583171788,
+      "lng": -71.2094604194762,
+      "borough": "Beauport",
+      "category": "Construction d'un bâtiment principal",
+      "address": " Avenue du Rang-Saint-Ignace Québec Québec ",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
+    },
+    {
+      "lat": 46.88687443736251,
+      "lng": -71.27896714030527,
+      "borough": "Charlesbourg",
+      "category": "Constructions et aménagements accessoires",
+      "address": "5682 Rue des Pâquerettes Québec Québec G1G5X8",
+      "nb_logements": 0.0,
+      "city": "Québec",
+      "work_class": "construction"
     }
   ],
   "leads": [
@@ -36666,25 +36616,6 @@
           "date": "2023-08-24",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "certificate",
-          "title": "Certificat d'autorisation",
-          "detail": "AMÉNAGEMENT DU STATIONNEMENT EXTÉRIEUR (TEL QUE PLAN APPROUVÉ)",
-          "units": 0,
-          "cost": null
-        },
-        {
-          "date": "2023-08-24",
-          "kind": "milestone",
-          "work_class": "certificate",
-          "title": "Work scheduled to begin",
-          "detail": "Declared start date for certificat d'autorisation",
-          "units": 0,
-          "cost": null
-        },
-        {
-          "date": "2023-08-24",
-          "kind": "permit",
-          "record_kind": "permit",
           "work_class": "construction",
           "title": "Construction",
           "detail": "TRANSFORMATION DU BÂTIMENT, CHANGEMENT D'USAGE DU GROUPE ''C AU GROUPE ''D''. AJOUT D'UNE ISSUE DE SECOURS AU SOUS-SOL DONNANT SUR LA COUR ARRIÈRE ET CONSTRUCTION D'UNE SÉPARATION ",
@@ -36697,6 +36628,25 @@
           "work_class": "construction",
           "title": "Work scheduled to begin",
           "detail": "Declared start date for construction",
+          "units": 0,
+          "cost": null
+        },
+        {
+          "date": "2023-08-24",
+          "kind": "permit",
+          "record_kind": "permit",
+          "work_class": "certificate",
+          "title": "Certificat d'autorisation",
+          "detail": "AMÉNAGEMENT DU STATIONNEMENT EXTÉRIEUR (TEL QUE PLAN APPROUVÉ)",
+          "units": 0,
+          "cost": null
+        },
+        {
+          "date": "2023-08-24",
+          "kind": "milestone",
+          "work_class": "certificate",
+          "title": "Work scheduled to begin",
+          "detail": "Declared start date for certificat d'autorisation",
           "units": 0,
           "cost": null
         },
@@ -36988,9 +36938,9 @@
           "date": "2026-09-14",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Certificat d'autorisation",
-          "detail": "Démolition d'un bâtiment principal",
+          "work_class": "construction",
+          "title": "Permis de construction",
+          "detail": "Construction d'un nouveau bâtiment d'habitation multifamilial de 9 logements et plus",
           "units": 0,
           "cost": null
         },
@@ -36998,9 +36948,9 @@
           "date": "2026-09-14",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Permis de construction",
-          "detail": "Construction d'un nouveau bâtiment d'habitation multifamilial de 9 logements et plus",
+          "work_class": "demolition",
+          "title": "Certificat d'autorisation",
+          "detail": "Démolition d'un bâtiment principal",
           "units": 0,
           "cost": null
         }
@@ -37162,20 +37112,20 @@
           "date": "2025-10-06",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "certificate",
-          "title": "Certificat d'autorisation",
-          "detail": "Abattage de 4 arbres pour la construction d'un nouveau bâtiment résidentiel. Voir demande 3003504591. Suite à l'abattage des arbres et de la construction du bâtiment, le demandeur ",
-          "units": 0,
+          "work_class": "construction",
+          "title": "Construction",
+          "detail": "Construction d'un bâtiment résidentiel de 2 étage avec un sous-sol et 3 logements. Nouveau numéros civiques 2793-2795-2797",
+          "units": 3,
           "cost": null
         },
         {
           "date": "2025-10-06",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Construction",
-          "detail": "Construction d'un bâtiment résidentiel de 2 étage avec un sous-sol et 3 logements. Nouveau numéros civiques 2793-2795-2797",
-          "units": 3,
+          "work_class": "certificate",
+          "title": "Certificat d'autorisation",
+          "detail": "Abattage de 4 arbres pour la construction d'un nouveau bâtiment résidentiel. Voir demande 3003504591. Suite à l'abattage des arbres et de la construction du bâtiment, le demandeur ",
+          "units": 0,
           "cost": null
         },
         {
@@ -37467,9 +37417,9 @@
           "date": "2026-09-11",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Permis de construction",
-          "detail": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
+          "work_class": "transformation",
+          "title": "Certificat d'autorisation",
+          "detail": "Installation septique",
           "units": 0,
           "cost": null
         },
@@ -37477,9 +37427,9 @@
           "date": "2026-09-11",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "transformation",
-          "title": "Certificat d'autorisation",
-          "detail": "Installation septique",
+          "work_class": "construction",
+          "title": "Permis de construction",
+          "detail": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
           "units": 0,
           "cost": null
         }
@@ -38068,16 +38018,6 @@
       "longitude": -73.49394531389508,
       "timeline": [
         {
-          "date": "2018-10-12",
-          "kind": "permit",
-          "record_kind": "permit",
-          "work_class": "transformation",
-          "title": "Rénovation, réparation ou transformation d'un bâtiment principal - Non résidentiel",
-          "detail": "Transformation (rénovation)",
-          "units": 0,
-          "cost": 243717.0
-        },
-        {
           "date": "2019-06-13",
           "kind": "permit",
           "record_kind": "permit",
@@ -38512,15 +38452,6 @@
         {
           "date": "2026-07-08",
           "kind": "milestone",
-          "work_class": "transformation",
-          "title": "Work scheduled to begin",
-          "detail": "Declared start date for transformation",
-          "units": 0,
-          "cost": null
-        },
-        {
-          "date": "2026-07-08",
-          "kind": "milestone",
           "work_class": "construction",
           "title": "Work scheduled to begin",
           "detail": "Declared start date for construction",
@@ -38528,12 +38459,11 @@
           "cost": null
         },
         {
-          "date": "2026-09-09",
-          "kind": "permit",
-          "record_kind": "permit",
+          "date": "2026-07-08",
+          "kind": "milestone",
           "work_class": "transformation",
-          "title": "Transformation",
-          "detail": "En avant, au rez-de-chaussée : Installer de nouveaux garde-corps et de nouvelles mains courantes pour le balcon et l'escalier, et sur le mur de soutènement adjacent au trottoir pri",
+          "title": "Work scheduled to begin",
+          "detail": "Declared start date for transformation",
           "units": 0,
           "cost": null
         },
@@ -38544,6 +38474,16 @@
           "work_class": "construction",
           "title": "Construction",
           "detail": "Cour avant : Abattre un arbre dangereux (Cèdre). Un arbre abattu en cour avant doit être planté dans la même cour si les normes de l'article 186 du RCA 40 sont respectées. Dans l'é",
+          "units": 0,
+          "cost": null
+        },
+        {
+          "date": "2026-09-09",
+          "kind": "permit",
+          "record_kind": "permit",
+          "work_class": "transformation",
+          "title": "Transformation",
+          "detail": "En avant, au rez-de-chaussée : Installer de nouveaux garde-corps et de nouvelles mains courantes pour le balcon et l'escalier, et sur le mur de soutènement adjacent au trottoir pri",
           "units": 0,
           "cost": null
         }
@@ -40842,15 +40782,6 @@
         {
           "date": "2026-06-22",
           "kind": "milestone",
-          "work_class": "construction",
-          "title": "Work scheduled to begin",
-          "detail": "Declared start date for construction",
-          "units": 0,
-          "cost": null
-        },
-        {
-          "date": "2026-06-22",
-          "kind": "milestone",
           "work_class": "transformation",
           "title": "Work scheduled to begin",
           "detail": "Declared start date for transformation",
@@ -40858,12 +40789,11 @@
           "cost": null
         },
         {
-          "date": "2026-09-01",
-          "kind": "permit",
-          "record_kind": "permit",
+          "date": "2026-06-22",
+          "kind": "milestone",
           "work_class": "construction",
-          "title": "Construction",
-          "detail": "Cour avant : Abattre un arbre situé dans la zone prévue pour l'implantation d'une future voie d'accès au batiment. Voir la demande de permis #3003681219. Un arbre abattu dans la co",
+          "title": "Work scheduled to begin",
+          "detail": "Declared start date for construction",
           "units": 0,
           "cost": null
         },
@@ -40874,6 +40804,16 @@
           "work_class": "transformation",
           "title": "Transformation",
           "detail": "En avant : Rénover la galerie et l'escalier en béton du RDC en démolissant l'escalier rond et en le remplaçant par un nouvel escalier droit en béton, avec l'installation de nouveau",
+          "units": 0,
+          "cost": null
+        },
+        {
+          "date": "2026-09-01",
+          "kind": "permit",
+          "record_kind": "permit",
+          "work_class": "construction",
+          "title": "Construction",
+          "detail": "Cour avant : Abattre un arbre situé dans la zone prévue pour l'implantation d'une future voie d'accès au batiment. Voir la demande de permis #3003681219. Un arbre abattu dans la co",
           "units": 0,
           "cost": null
         }
@@ -42791,9 +42731,9 @@
           "date": "2026-08-24",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
+          "work_class": "transformation",
           "title": "Certificat d'autorisation",
-          "detail": "Démolition d'un bâtiment accessoire détaché du bâtiment principal",
+          "detail": "Installation septique",
           "units": 0,
           "cost": null
         },
@@ -42801,9 +42741,9 @@
           "date": "2026-08-24",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "transformation",
+          "work_class": "demolition",
           "title": "Certificat d'autorisation",
-          "detail": "Installation septique",
+          "detail": "Démolition d'un bâtiment accessoire détaché du bâtiment principal",
           "units": 0,
           "cost": null
         }
@@ -43095,20 +43035,20 @@
           "date": "2025-03-28",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Démolition",
-          "detail": "Bâtiment résidentiel contigu de 2 étages, 2 logements, tel que document approuvé.",
-          "units": -2,
+          "work_class": "construction",
+          "title": "Construction",
+          "detail": "Bâtiment contigu de 3 étages avec construction hors toit, 6 logements, tels qu'aux plans approuvés.",
+          "units": 6,
           "cost": null
         },
         {
           "date": "2025-03-28",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Construction",
-          "detail": "Bâtiment contigu de 3 étages avec construction hors toit, 6 logements, tels qu'aux plans approuvés.",
-          "units": 6,
+          "work_class": "demolition",
+          "title": "Démolition",
+          "detail": "Bâtiment résidentiel contigu de 2 étages, 2 logements, tel que document approuvé.",
+          "units": -2,
           "cost": null
         },
         {
@@ -44116,21 +44056,21 @@
           "date": "2026-08-13",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Démolir tout ou partie d'un bâtiment - bâtiment principal visé au règlement régissant la démolition",
-          "detail": "Démolition bâtiment principal",
-          "units": 0,
-          "cost": 30000.0
-        },
-        {
-          "date": "2026-08-13",
-          "kind": "permit",
-          "record_kind": "permit",
           "work_class": "construction",
           "title": "Construction ou implantation d'un nouveau bâtiment principal - Résidentiel",
           "detail": "Construction neuve",
           "units": 0,
           "cost": 616645.08
+        },
+        {
+          "date": "2026-08-13",
+          "kind": "permit",
+          "record_kind": "permit",
+          "work_class": "demolition",
+          "title": "Démolir tout ou partie d'un bâtiment - bâtiment principal visé au règlement régissant la démolition",
+          "detail": "Démolition bâtiment principal",
+          "units": 0,
+          "cost": 30000.0
         },
         {
           "date": "2026-08-13",
@@ -44778,21 +44718,21 @@
           "date": "2026-08-07",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "transformation",
-          "title": "Abattage d'arbre d'un DHP de 10 cm et moins de 20 cm",
-          "detail": "Transformation (rénovation)",
-          "units": 0,
-          "cost": 1000.0
-        },
-        {
-          "date": "2026-08-07",
-          "kind": "permit",
-          "record_kind": "permit",
           "work_class": "demolition",
           "title": "Démolir tout ou partie d'un bâtiment - bâtiment principal visé au règlement régissant la démolition",
           "detail": "Démolition bâtiment principal",
           "units": 0,
           "cost": 15000.0
+        },
+        {
+          "date": "2026-08-07",
+          "kind": "permit",
+          "record_kind": "permit",
+          "work_class": "transformation",
+          "title": "Abattage d'arbre d'un DHP de 10 cm et moins de 20 cm",
+          "detail": "Transformation (rénovation)",
+          "units": 0,
+          "cost": 1000.0
         },
         {
           "date": "2026-08-07",
@@ -45018,9 +44958,9 @@
           "date": "2026-01-23",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
+          "work_class": "transformation",
           "title": "Permis de construction",
-          "detail": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
+          "detail": "Installation d'un branchement d'aqueduc ou d'égout",
           "units": 0,
           "cost": null
         },
@@ -45028,9 +44968,9 @@
           "date": "2026-01-23",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "transformation",
+          "work_class": "construction",
           "title": "Permis de construction",
-          "detail": "Installation d'un branchement d'aqueduc ou d'égout",
+          "detail": "Construction d'un nouveau bâtiment d'habitation de 1 à 3 logements",
           "units": 0,
           "cost": null
         },
@@ -45362,20 +45302,20 @@
           "date": "2026-08-05",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Construction",
-          "detail": "Construire un batiment de 3 étages et 3 logements. Tel que documents approuvés.",
-          "units": 3,
+          "work_class": "demolition",
+          "title": "Démolition",
+          "detail": "Démolir une maison shoebox de catégorie 1, situé en fond de lot. Tel que documents approuvés.",
+          "units": -1,
           "cost": null
         },
         {
           "date": "2026-08-05",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Démolition",
-          "detail": "Démolir une maison shoebox de catégorie 1, situé en fond de lot. Tel que documents approuvés.",
-          "units": -1,
+          "work_class": "construction",
+          "title": "Construction",
+          "detail": "Construire un batiment de 3 étages et 3 logements. Tel que documents approuvés.",
+          "units": 3,
           "cost": null
         },
         {
@@ -46477,20 +46417,20 @@
           "date": "2026-07-17",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Démolition",
-          "detail": "SUR LE LOT 2 249 140, DÉMOLIR LE BÂTIMENT COMMERCIAL EXISTANT D'UN ÉTAGE.",
-          "units": 0,
+          "work_class": "construction",
+          "title": "Construction",
+          "detail": "SUR LE LOT 2 249 140, AGRANDIR EN HAUTEUR LE BÂTIMENT EXISTANT POUR UN USAGE PROJETÉ MIXTE (COMMERCIAL + 1 LOGEMENT) DANS UN BÂTIMENT DE 3 ÉTAGES AVEC MEZZANINE, TEL QUE DOCUMENTS ",
+          "units": 1,
           "cost": null
         },
         {
           "date": "2026-07-17",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Construction",
-          "detail": "SUR LE LOT 2 249 140, AGRANDIR EN HAUTEUR LE BÂTIMENT EXISTANT POUR UN USAGE PROJETÉ MIXTE (COMMERCIAL + 1 LOGEMENT) DANS UN BÂTIMENT DE 3 ÉTAGES AVEC MEZZANINE, TEL QUE DOCUMENTS ",
-          "units": 1,
+          "work_class": "demolition",
+          "title": "Démolition",
+          "detail": "SUR LE LOT 2 249 140, DÉMOLIR LE BÂTIMENT COMMERCIAL EXISTANT D'UN ÉTAGE.",
+          "units": 0,
           "cost": null
         }
       ],
@@ -46697,10 +46637,10 @@
           "kind": "permit",
           "record_kind": "permit",
           "work_class": "transformation",
-          "title": "Abattage d'arbre d'un DHP de 10 cm et moins de 20 cm",
+          "title": "Abattage d'arbre d'un DHP de 20 cm ou plus",
           "detail": "Transformation (rénovation)",
           "units": 0,
-          "cost": 200.0
+          "cost": 500.0
         },
         {
           "date": "2026-07-15",
@@ -46716,21 +46656,21 @@
           "date": "2026-07-15",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "transformation",
-          "title": "Abattage d'arbre d'un DHP de 20 cm ou plus",
-          "detail": "Transformation (rénovation)",
-          "units": 0,
-          "cost": 500.0
-        },
-        {
-          "date": "2026-07-15",
-          "kind": "permit",
-          "record_kind": "permit",
           "work_class": "construction",
           "title": "D.T.R. Nouvelle construction d'immeuble résidentiel",
           "detail": "Construction neuve",
           "units": 0,
           "cost": 422382.0
+        },
+        {
+          "date": "2026-07-15",
+          "kind": "permit",
+          "record_kind": "permit",
+          "work_class": "transformation",
+          "title": "Abattage d'arbre d'un DHP de 10 cm et moins de 20 cm",
+          "detail": "Transformation (rénovation)",
+          "units": 0,
+          "cost": 200.0
         }
       ],
       "classification": {
@@ -47370,9 +47310,9 @@
           "date": "2026-07-10",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "certificate",
+          "work_class": "demolition",
           "title": "Certificat d'autorisation",
-          "detail": "Installation d'une piscine hors terre",
+          "detail": "Démolition d'une piscine creusée et de ses accessoires",
           "units": 0,
           "cost": null
         },
@@ -47380,9 +47320,9 @@
           "date": "2026-07-10",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
+          "work_class": "certificate",
           "title": "Certificat d'autorisation",
-          "detail": "Démolition d'une piscine creusée et de ses accessoires",
+          "detail": "Installation d'une piscine hors terre",
           "units": 0,
           "cost": null
         }
@@ -48153,9 +48093,9 @@
           "date": "2026-07-02",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Certificat d'autorisation",
-          "detail": "Démolition d'un bâtiment principal",
+          "work_class": "construction",
+          "title": "Permis de construction",
+          "detail": "Construction d'un nouveau bâtiment d'habitation multifamilial de 4 à 8 logements",
           "units": 0,
           "cost": null
         },
@@ -48163,9 +48103,9 @@
           "date": "2026-07-02",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Permis de construction",
-          "detail": "Construction d'un nouveau bâtiment d'habitation multifamilial de 4 à 8 logements",
+          "work_class": "demolition",
+          "title": "Certificat d'autorisation",
+          "detail": "Démolition d'un bâtiment principal",
           "units": 0,
           "cost": null
         }
@@ -48295,15 +48235,6 @@
         {
           "date": "2026-06-11",
           "kind": "milestone",
-          "work_class": "transformation",
-          "title": "Work scheduled to begin",
-          "detail": "Declared start date for transformation",
-          "units": 0,
-          "cost": null
-        },
-        {
-          "date": "2026-06-11",
-          "kind": "milestone",
           "work_class": "demolition",
           "title": "Work scheduled to begin",
           "detail": "Declared start date for démolition",
@@ -48311,12 +48242,11 @@
           "cost": null
         },
         {
-          "date": "2026-06-29",
-          "kind": "permit",
-          "record_kind": "permit",
+          "date": "2026-06-11",
+          "kind": "milestone",
           "work_class": "transformation",
-          "title": "Transformation",
-          "detail": "MODIFICATION DE L'OUVERTURE AND REMPLACEMENT DE LA PORTE D'ENTRÉE",
+          "title": "Work scheduled to begin",
+          "detail": "Declared start date for transformation",
           "units": 0,
           "cost": null
         },
@@ -48327,6 +48257,16 @@
           "work_class": "demolition",
           "title": "Démolition",
           "detail": "DÉMOLITION DE LA TERRASSE EN COURS ARRIÈRE",
+          "units": 0,
+          "cost": null
+        },
+        {
+          "date": "2026-06-29",
+          "kind": "permit",
+          "record_kind": "permit",
+          "work_class": "transformation",
+          "title": "Transformation",
+          "detail": "MODIFICATION DE L'OUVERTURE AND REMPLACEMENT DE LA PORTE D'ENTRÉE",
           "units": 0,
           "cost": null
         }
@@ -48399,20 +48339,20 @@
           "date": "2025-06-09",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "transformation",
-          "title": "Transformation",
-          "detail": "Agrandir le Bâtiment existant  en aire de planchers et en hauteur. Aménager 27 nouveaux logements sur 3 étages et des unités de stationnements au sous-sol.Tel que plans approuvés.",
-          "units": 27,
+          "work_class": "certificate",
+          "title": "Certificat d'autorisation",
+          "detail": "En lien avec la demande de permis #3003249794, abattre 3 arbres :  # A2 ( Marronier D'Inde) et A3( Marronnier D'Inde) situés dans l'aire d'implantation de l'agrandissement du bâtim",
+          "units": 0,
           "cost": null
         },
         {
           "date": "2025-06-09",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "certificate",
-          "title": "Certificat d'autorisation",
-          "detail": "En lien avec la demande de permis #3003249794, abattre 3 arbres :  # A2 ( Marronier D'Inde) et A3( Marronnier D'Inde) situés dans l'aire d'implantation de l'agrandissement du bâtim",
-          "units": 0,
+          "work_class": "transformation",
+          "title": "Transformation",
+          "detail": "Agrandir le Bâtiment existant  en aire de planchers et en hauteur. Aménager 27 nouveaux logements sur 3 étages et des unités de stationnements au sous-sol.Tel que plans approuvés.",
+          "units": 27,
           "cost": null
         },
         {
@@ -48466,9 +48406,9 @@
           "date": "2026-06-26",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Certificat d'autorisation",
-          "detail": "Démolition d'un bâtiment principal",
+          "work_class": "construction",
+          "title": "Permis de construction",
+          "detail": "Construction d'un nouveau bâtiment d'habitation multifamilial de 9 logements et plus",
           "units": 0,
           "cost": null
         },
@@ -48476,9 +48416,9 @@
           "date": "2026-06-26",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Permis de construction",
-          "detail": "Construction d'un nouveau bâtiment d'habitation multifamilial de 9 logements et plus",
+          "work_class": "demolition",
+          "title": "Certificat d'autorisation",
+          "detail": "Démolition d'un bâtiment principal",
           "units": 0,
           "cost": null
         },
@@ -49140,20 +49080,20 @@
           "date": "2026-06-19",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Démolition",
-          "detail": "Démolir un bâtiment résidentiel bifamilial détaché de 2 étages.",
-          "units": -2,
+          "work_class": "construction",
+          "title": "Construction",
+          "detail": "Construire une résidence unifamiliale détachée de 2 étages avec garage intégré pour 2 unités de stationnement, tel que plan.",
+          "units": 1,
           "cost": null
         },
         {
           "date": "2026-06-19",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Construction",
-          "detail": "Construire une résidence unifamiliale détachée de 2 étages avec garage intégré pour 2 unités de stationnement, tel que plan.",
-          "units": 1,
+          "work_class": "demolition",
+          "title": "Démolition",
+          "detail": "Démolir un bâtiment résidentiel bifamilial détaché de 2 étages.",
+          "units": -2,
           "cost": null
         }
       ],
@@ -49234,9 +49174,9 @@
           "date": "2026-06-19",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "certificate",
-          "title": "Certificat d'autorisation",
-          "detail": "REMPLACEMENT DES BRANCHEMENTS SUITE À UNE DÉMOLITION/RECONSTRUCTION D'UN BÂTIMENT UNIFIAMILIALE 2 ÉTAGES (RMUN).",
+          "work_class": "demolition",
+          "title": "Démolition",
+          "detail": "DÉMOLITION D'UN BÂTIMENT UNIFAMILIAL ISOLÉ DE 1 ÉTAGE",
           "units": 0,
           "cost": null
         },
@@ -49244,9 +49184,9 @@
           "date": "2026-06-19",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Démolition",
-          "detail": "DÉMOLITION D'UN BÂTIMENT UNIFAMILIAL ISOLÉ DE 1 ÉTAGE",
+          "work_class": "certificate",
+          "title": "Certificat d'autorisation",
+          "detail": "REMPLACEMENT DES BRANCHEMENTS SUITE À UNE DÉMOLITION/RECONSTRUCTION D'UN BÂTIMENT UNIFIAMILIALE 2 ÉTAGES (RMUN).",
           "units": 0,
           "cost": null
         },
@@ -49473,16 +49413,6 @@
           "date": "2026-06-18",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "transformation",
-          "title": "Transformation",
-          "detail": "Construction d'un cabanon de plus 15m² en cours arrière.",
-          "units": 0,
-          "cost": null
-        },
-        {
-          "date": "2026-06-18",
-          "kind": "permit",
-          "record_kind": "permit",
           "work_class": "demolition",
           "title": "Démolition",
           "detail": "Démolition d'une dépendance de 15 m² et de moins de 25 m².",
@@ -49495,6 +49425,16 @@
           "work_class": "demolition",
           "title": "Work scheduled to begin",
           "detail": "Declared start date for démolition",
+          "units": 0,
+          "cost": null
+        },
+        {
+          "date": "2026-06-18",
+          "kind": "permit",
+          "record_kind": "permit",
+          "work_class": "transformation",
+          "title": "Transformation",
+          "detail": "Construction d'un cabanon de plus 15m² en cours arrière.",
           "units": 0,
           "cost": null
         }
@@ -49760,21 +49700,21 @@
           "date": "2026-06-16",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "transformation",
-          "title": "Abattage d'un arbre mort, malade ou dangereux",
-          "detail": "Transformation (rénovation)",
-          "units": 0,
-          "cost": 500.0
-        },
-        {
-          "date": "2026-06-16",
-          "kind": "permit",
-          "record_kind": "permit",
           "work_class": "demolition",
           "title": "Démolir tout ou partie d'un bâtiment - bâtiment principal visé au règlement régissant la démolition",
           "detail": "Démolition bâtiment principal",
           "units": 0,
           "cost": 20000.0
+        },
+        {
+          "date": "2026-06-16",
+          "kind": "permit",
+          "record_kind": "permit",
+          "work_class": "transformation",
+          "title": "Abattage d'un arbre mort, malade ou dangereux",
+          "detail": "Transformation (rénovation)",
+          "units": 0,
+          "cost": 500.0
         }
       ],
       "classification": {
@@ -49818,9 +49758,9 @@
           "date": "2026-06-16",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "other",
-          "title": "Permis de lotissement",
-          "detail": "Création, modification ou correction d'un ou plusieurs lots",
+          "work_class": "demolition",
+          "title": "Certificat d'autorisation",
+          "detail": "Démolition d'un bâtiment principal",
           "units": 0,
           "cost": null
         },
@@ -49828,9 +49768,9 @@
           "date": "2026-06-16",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Certificat d'autorisation",
-          "detail": "Démolition d'un bâtiment principal",
+          "work_class": "other",
+          "title": "Permis de lotissement",
+          "detail": "Création, modification ou correction d'un ou plusieurs lots",
           "units": 0,
           "cost": null
         },
@@ -50001,18 +49941,18 @@
         {
           "date": "2026-02-09",
           "kind": "milestone",
-          "work_class": "demolition",
+          "work_class": "construction",
           "title": "Work scheduled to begin",
-          "detail": "Declared start date for démolition",
+          "detail": "Declared start date for construction",
           "units": 0,
           "cost": null
         },
         {
           "date": "2026-02-09",
           "kind": "milestone",
-          "work_class": "construction",
+          "work_class": "demolition",
           "title": "Work scheduled to begin",
-          "detail": "Declared start date for construction",
+          "detail": "Declared start date for démolition",
           "units": 0,
           "cost": null
         },
@@ -50039,20 +49979,20 @@
           "date": "2026-06-15",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Démolition",
-          "detail": "DÉMOLIR LES BÂTIMENTS COMPLÉMENTAIRES.",
-          "units": 0,
+          "work_class": "construction",
+          "title": "Construction",
+          "detail": "CONTRUIRE UN BÂTIMENT ISOLÉ DE 3 ÉTAGES, 3 LOGEMENTS ET 2 UNITÉS DE STATIONNEMENT EXTÉRIEURES. EXEMPTION POUR LA 3E UNITÉ: CA06 30 06 0160.",
+          "units": 3,
           "cost": null
         },
         {
           "date": "2026-06-15",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Construction",
-          "detail": "CONTRUIRE UN BÂTIMENT ISOLÉ DE 3 ÉTAGES, 3 LOGEMENTS ET 2 UNITÉS DE STATIONNEMENT EXTÉRIEURES. EXEMPTION POUR LA 3E UNITÉ: CA06 30 06 0160.",
-          "units": 3,
+          "work_class": "demolition",
+          "title": "Démolition",
+          "detail": "DÉMOLIR LES BÂTIMENTS COMPLÉMENTAIRES.",
+          "units": 0,
           "cost": null
         }
       ],
@@ -50382,6 +50322,15 @@
         {
           "date": "2026-06-09",
           "kind": "milestone",
+          "work_class": "construction",
+          "title": "Work scheduled to begin",
+          "detail": "Declared start date for construction",
+          "units": 0,
+          "cost": null
+        },
+        {
+          "date": "2026-06-09",
+          "kind": "milestone",
           "work_class": "certificate",
           "title": "Work scheduled to begin",
           "detail": "Declared start date for certificat d'autorisation",
@@ -50398,11 +50347,12 @@
           "cost": null
         },
         {
-          "date": "2026-06-09",
-          "kind": "milestone",
+          "date": "2026-06-15",
+          "kind": "permit",
+          "record_kind": "permit",
           "work_class": "construction",
-          "title": "Work scheduled to begin",
-          "detail": "Declared start date for construction",
+          "title": "Construction",
+          "detail": "CONSTRUCTION D'UN BÂTIMENT UNIFAMILIAL ISOLÉ DE 2 ÉTAGES.",
           "units": 0,
           "cost": null
         },
@@ -50423,16 +50373,6 @@
           "work_class": "demolition",
           "title": "Démolition",
           "detail": "DÉMOLITION DU BÂTIMENT RÉSIDENTIEL UNIFAMILIAL DE 1 ÉTAGE.(1957)",
-          "units": 0,
-          "cost": null
-        },
-        {
-          "date": "2026-06-15",
-          "kind": "permit",
-          "record_kind": "permit",
-          "work_class": "construction",
-          "title": "Construction",
-          "detail": "CONSTRUCTION D'UN BÂTIMENT UNIFAMILIAL ISOLÉ DE 2 ÉTAGES.",
           "units": 0,
           "cost": null
         }
@@ -50547,20 +50487,20 @@
           "kind": "permit",
           "record_kind": "permit",
           "work_class": "transformation",
-          "title": "Abattage d'arbre d'un DHP de 20 cm ou plus",
+          "title": "Abattage d'arbre d'un DHP de 10 cm et moins de 20 cm",
           "detail": "Transformation (rénovation)",
           "units": 0,
-          "cost": 1000.0
+          "cost": 100.0
         },
         {
           "date": "2026-06-11",
           "kind": "permit",
           "record_kind": "permit",
           "work_class": "transformation",
-          "title": "Abattage d'arbre d'un DHP de 10 cm et moins de 20 cm",
+          "title": "Abattage d'arbre d'un DHP de 20 cm ou plus",
           "detail": "Transformation (rénovation)",
           "units": 0,
-          "cost": 100.0
+          "cost": 1000.0
         },
         {
           "date": "2026-07-06",
@@ -52436,9 +52376,9 @@
           "date": "2026-05-27",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "demolition",
-          "title": "Démolition",
-          "detail": "Bâtiment commercial de deux étages, tel que document approuvé.",
+          "work_class": "certificate",
+          "title": "Certificat d'autorisation",
+          "detail": "En cours arrière, abattre un orme de Sibérie d'un DHP de 65 cm dans l'aire d'implantation d'une démolition, tels que documents approuvés.",
           "units": 0,
           "cost": null
         },
@@ -52446,9 +52386,9 @@
           "date": "2026-05-27",
           "kind": "permit",
           "record_kind": "permit",
-          "work_class": "certificate",
-          "title": "Certificat d'autorisation",
-          "detail": "En cours arrière, abattre un orme de Sibérie d'un DHP de 65 cm dans l'aire d'implantation d'une démolition, tels que documents approuvés.",
+          "work_class": "demolition",
+          "title": "Démolition",
+          "detail": "Bâtiment commercial de deux étages, tel que document approuvé.",
           "units": 0,
           "cost": null
         }
@@ -52683,6 +52623,16 @@
           "date": "2026-05-25",
           "kind": "permit",
           "record_kind": "permit",
+          "work_class": "transformation",
+          "title": "Abattage d'un arbre mort, malade ou dangereux",
+          "detail": "Transformation (rénovation)",
+          "units": 0,
+          "cost": 1.0
+        },
+        {
+          "date": "2026-05-25",
+          "kind": "permit",
+          "record_kind": "permit",
           "work_class": "construction",
           "title": "Construction ou implantation d'un nouveau bâtiment principal - Résidentiel",
           "detail": "Construction neuve",
@@ -52698,16 +52648,6 @@
           "detail": "Démolition bâtiment principal",
           "units": 0,
           "cost": 30000.0
-        },
-        {
-          "date": "2026-05-25",
-          "kind": "permit",
-          "record_kind": "permit",
-          "work_class": "transformation",
-          "title": "Abattage d'un arbre mort, malade ou dangereux",
-          "detail": "Transformation (rénovation)",
-          "units": 0,
-          "cost": 1.0
         }
       ],
       "classification": {
